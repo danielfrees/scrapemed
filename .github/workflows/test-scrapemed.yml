@@ -28,7 +28,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest pytest-cov
-        if [ -f scrapemed/requirements.txt ]; then python -m pip install -r scrapemed/requirements.txt; fi
+        if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -37,7 +37,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test scrapemed with pytest and Calculate Coverage
       run: |
-        pytest scrapemed/ --cov-report "xml:coverage.xml" --cov=.
+        pytest  --cov-report "xml:coverage.xml" --cov=.
     - name: Create Coverage
       if: ${{ github.event_name == 'pull_request' }}
       uses: orgoro/coverage@v3
