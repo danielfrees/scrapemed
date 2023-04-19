@@ -1,0 +1,1032 @@
+<?xml version="1.0" ?>
+<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN" "https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd">
+<Pmc-articleset><artICle xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+  <?properties open_access?>
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Drugs R D</journal-id>
+      <journal-id journal-id-type="iso-abbrev">Drugs R D</journal-id>
+      <journal-title-group>
+        <journal-title>Drugs in R&amp;D</journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1174-5886</issn>
+      <issn pub-type="epub">1179-6901</issn>
+      <publisher>
+        <publisher-name>Springer International Publishing</publisher-name>
+        <pubLIsher-Loc>Cham</pubLIsher-Loc>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">32130679</article-id>
+      <article-id pub-id-type="pmc">7067710</article-id>
+      <article-id pub-id-type="puBLIsher-iD">293</article-id>
+      <article-id pub-id-type="doi">10.1007/s40268-020-00293-5</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Original Research Article</subject>
+        </subj-group>
+      </article-categories>
+      <tiTle-group>
+        <article-title>Phase I Pharmacokinetic Study of Fixed-Dose Combinations of Ibuprofen and Acetaminophen in Healthy Adult and Adolescent Populations</article-title>
+      </tiTle-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <name>
+            <surname>Tarabar</surname>
+            <given-names>SanelA</given-names>
+          </name>
+          <address>
+            <email>Sanela.Tarabar@pfizer.com</email>
+          </address>
+          <xref ref-type="aff" rid="Aff1">1</xref>
+          <xref ref-type="aff" rid="Aff6">6</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Kelsh</surname>
+            <given-names>Debra</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff2">2</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Vince</surname>
+            <given-names>Bradley</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff2">2</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Leyva</surname>
+            <given-names>Rina</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff3">3</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Song</surname>
+            <given-names>Dongweon</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff4">4</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Matschke</surname>
+            <given-names>Kyle</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff4">4</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Kellstein</surname>
+            <given-names>David E.</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff5">5</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Meeves</surname>
+            <given-names>Suzanne</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff5">5</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Cruz-Rivera</surname>
+            <given-names>Mario</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff5">5</xref>
+        </contrib>
+        <aff id="Aff1"><label>1</label>Pfizer New Haven Clinical Research Unit, New Haven, CT USA </aff>
+        <aff id="Aff2"><label>2</label>Altasciences/Vince and Associates Clinical Research, Overland Park, KS USA </aff>
+        <aff id="Aff3"><label>3</label>Pfizer Consumer Healthcare, Madison, NJ USA </aff>
+        <aff id="Aff4"><label>4</label><institution-wrap><institution-id institution-id-type="GRID">grid.410513.2</institution-id><institution-id institution-id-type="ISNI">0000 0000 8800 7493</institution-id><institution>Pfizer Inc., </institution></institution-wrap>Collegeville, PA USA </aff>
+        <aff id="Aff5"><label>5</label>Pfizer Consumer Healthcare, Madison, NJ USA </aff>
+        <aff id="Aff6"><label>6</label>Clinical Research and Development, KS1, 1 Portland Street, Cambridge, MA 02139 USA </aff>
+      </contrib-group>
+      <pub-date pub-type="epub">
+        <day>4</day>
+        <month>3</month>
+        <year>2020</year>
+      </pub-date>
+      <pub-date pub-type="pmc-release">
+        <day>4</day>
+        <month>3</month>
+        <year>2020</year>
+      </pub-date>
+      <pub-date pub-type="ppub">
+        <month>3</month>
+        <year>2020</year>
+      </pub-date>
+      <volume>20</volume>
+      <issue>1</issue>
+      <fpage>23</fpage>
+      <lpage>37</lpage>
+      <permissions>
+        <copyright-statement>&#xA9; The Author(s) 2020</copyright-statement>
+        <license license-type="OpenAccess">
+          <license-p><bold>Open Access</bold>This article is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License, which permits any non-commercial use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if changes were made. The images or other third party material in this article are included in the article's Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article's Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder.To view a copy of this licence, visit <ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by-nc/4.0/">http://creativecommons.org/licenses/by-nc/4.0/</ext-link>.</license-p>
+        </license>
+      </permissions>
+      <abstract id="Abs1">
+        <sec>
+          <title>Introduction</title>
+          <p id="Par1">A fixed-dose combination (FDC) of ibuprofen and acetaminophen has been developed that provides greater analgesic efficacy than either agent alone at the same doses without increasing the risk for adverse events.</p>
+        </sec>
+        <sec>
+          <title>Methods</title>
+          <p id="Par2">We report three clinical phase I studies designed to assess the pharmacokinetics (PK) of the FDC of ibuprofen/acetaminophen 250/500&#xA0;mg (administered as two tablets of ibuprofen 125&#xA0;mg/acetaminophen 250&#xA0;mg) in comparison with its individual components administered alone or together, and to determine the effect of food on the PK of the FDC. Two studies in healthy adults aged 18&#x2013;55&#xA0;years used a crossover design in which subjects received a single dose of each treatment with a 2-day washout period between each. In the third study, the bioavailability of ibuprofen and acetaminophen from a single oral dose of the FDC was assessed in healthy adolescents aged 12&#x2013;17&#xA0;years, inclusive.</p>
+        </sec>
+        <sec>
+          <title>Results</title>
+          <p id="Par3">A total of 35 and 46 subjects were enrolled in the two adult studies, respectively, and 21 were enrolled in the adolescent study. Ibuprofen and acetaminophen in the FDC were bioequivalent to the monocomponents administered alone or together. With food, the maximum concentration (<italic>C</italic><sub>max</sub>) for ibuprofen and acetaminophen from the FDC was reduced by 36% and 37%, respectively, and time to <italic>C</italic><sub>max</sub> (i.e. <italic>t</italic><sub>max</sub>) was delayed. Overall drug exposure to ibuprofen or acetaminophen in the fed versus fasted states was similar. In adolescents, overall exposure to acetaminophen and ibuprofen was comparable with that in adults, with a slightly higher overall exposure to ibuprofen. Exposure to acetaminophen and ibuprofen in adolescents aged 12&#x2013;14&#xA0;years was slightly higher versus those aged 15&#x2013;17&#xA0;years. Adverse events were similar across all treatment groups.</p>
+        </sec>
+        <sec>
+          <title>Conclusions</title>
+          <p id="Par4">The FDC of ibuprofen/acetaminophen 250/500&#xA0;mg has a PK profile similar to its monocomponent constituents when administered separately or coadministered, indicating no drug&#x2013;drug interactions and no formulation effects. Similar to previous findings for the individual components, the rates of absorption of ibuprofen and acetaminophen from the FDC were slightly delayed in the presence of food. Overall, adolescents had similar exposures to acetaminophen and ibuprofen as adults, while younger adolescents had slightly greater exposure than older adolescents, probably due to their smaller body size. The FDC was generally well tolerated.</p>
+        </sec>
+      </abstract>
+      <funding-group>
+        <award-group>
+          <funding-source>
+            <institution>Pfizer Consumer Healthcare</institution>
+          </funding-source>
+        </award-group>
+      </funding-group>
+      <custom-meta-group>
+        <custom-meta>
+          <meta-name>issue-copyright-statement</meta-name>
+          <meta-value>&#xA9; The Author(s) 2020</meta-value>
+        </custom-meta>
+      </custom-meta-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="FPar1">
+      <title>Key Points</title>
+      <p id="Par5">
+<table-wrap id="Taba"><table frame="hsides" rules="groups"><tbody><tr><td align="left">The pharmacokinetic profile of a fixed-dose combination (FDC) of ibuprofen 250&#xA0;mg and acetaminophen 500&#xA0;mg was found to be similar to its individual components administered separately or coadministered; bioequivalence was demonstrated for both overall and maximal exposure.</td></tr><tr><td align="left">Similar to what has been previously reported for the individual ingredients, food delayed the absorption of both components but had no effect on overall exposure; exposure to both components in adolescents was similar to that in adults, with younger adolescents having slightly greater exposure.</td></tr><tr><td align="left">Since the efficacy of this FDC has been shown to be superior to the same doses of individual components and it is generally well tolerated, this new FDC may provide another analgesic treatment option to relieve pain.</td></tr></tbody></table></table-wrap>
+</p>
+    </sec>
+    <sec id="Sec1">
+      <title>Introduction</title>
+      <p id="Par6">Ibuprofen and acetaminophen are among the most widely used non-prescription over-the-counter (OTC) analgesic/antipyretic drugs, both in the US and globally [<xref ref-type="bibr" rid="CR1">1</xref>, <xref ref-type="bibr" rid="CR2">2</xref>]. The efficacy of these agents for the treatment of mild-to-moderate acute pain and fever in the OTC setting is well established [<xref ref-type="bibr" rid="CR2">2</xref>&#x2013;<xref ref-type="bibr" rid="CR5">5</xref>]. Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) that inhibits the cyclooxygenase (COX)-1 and -2 isoenzymes and hence the synthesis of pro-inflammatory prostaglandins, whereas acetaminophen is believed to act through inhibition of a subclass of COX enzyme isoforms in the central nervous system [<xref ref-type="bibr" rid="CR6">6</xref>]. Additionally, acetaminophen has been reported to have effects on descending inhibitory serotonergic pain pathways to inhibit the <sc>l</sc>-arginine nitric oxide pathway; effects on cannabinoid receptors may also be operant [<xref ref-type="bibr" rid="CR7">7</xref>]. Both ibuprofen and acetaminophen are associated with a ceiling effect for pain relief, i.e. a point at which higher single doses of either agent provide comparable changes in pain scores versus lower doses; respective dose ceilings are 400&#xA0;mg for ibuprofen [<xref ref-type="bibr" rid="CR8">8</xref>, <xref ref-type="bibr" rid="CR9">9</xref>] and 1000&#xA0;mg for acetaminophen [<xref ref-type="bibr" rid="CR10">10</xref>]. Conversely, the risk of adverse events (AEs) with ibuprofen and acetaminophen, such as gastrointestinal toxicity and acute liver failure, respectively, increases with greater doses of each agent [<xref ref-type="bibr" rid="CR11">11</xref>, <xref ref-type="bibr" rid="CR12">12</xref>].</p>
+      <p id="Par7">Previous phase III clinical studies have demonstrated better efficacy of a fixed-dose combination (FDC) of ibuprofen and acetaminophen relative to monoactives in the same doses [<xref ref-type="bibr" rid="CR13">13</xref>, <xref ref-type="bibr" rid="CR14">14</xref>]. Combining ibuprofen and acetaminophen may also allow for the effective use of lower doses of both agents, potentially reducing safety concerns associated with these drugs when administered alone at higher doses [<xref ref-type="bibr" rid="CR11">11</xref>]. Indeed, combinations of ibuprofen and acetaminophen have been previously studied and have been shown to be effective in the management of acute pain and reduction of fever [<xref ref-type="bibr" rid="CR3">3</xref>, <xref ref-type="bibr" rid="CR13">13</xref>&#x2013;<xref ref-type="bibr" rid="CR16">16</xref>]. Furthermore, these studies also demonstrated a safety profile of the ibuprofen/acetaminophen combination comparable or superior to the individual components [<xref ref-type="bibr" rid="CR3">3</xref>, <xref ref-type="bibr" rid="CR13">13</xref>&#x2013;<xref ref-type="bibr" rid="CR15">15</xref>].</p>
+      <p id="Par8">Pharmacokinetic (PK) studies have demonstrated no alterations in plasma drug concentrations, indicating no drug&#x2013;drug interactions, when ibuprofen and acetaminophen are administered concomitantly [<xref ref-type="bibr" rid="CR6">6</xref>, <xref ref-type="bibr" rid="CR17">17</xref>]; therefore, no additional safety concerns are expected when ibuprofen and acetaminophen are used in combination compared with either agent alone. In this study, we report on three separate clinical PK studies of a new FDC of ibuprofen and acetaminophen containing lower doses of the two ingredients (250&#xA0;mg ibuprofen/500&#xA0;mg acetaminophen, administered as two tablets of 125&#xA0;mg ibuprofen/250&#xA0;mg acetaminophen) than the maximum recommended doses of the single-ingredient products. Analgesic studies of this FDC have demonstrated efficacy superior to the individual components and comparable to the maximal analgesic dose of ibuprofen (400&#xA0;mg; Kellstein and Leyva, unpublished data). The objectives of the three studies detailed herein were (1) to determine the relative bioavailability of ibuprofen and acetaminophen from this new FDC compared with its individual monocomponents administered together or separately in adults; (2) to evaluate the effects of food on PK in adults; and (3) to determine exposure to ibuprofen and acetaminophen from the FDC in adolescents.</p>
+    </sec>
+    <sec id="Sec2">
+      <title>Methods</title>
+      <sec id="Sec3">
+        <title>Study Design</title>
+        <p id="Par9">Three clinical phase I PK studies were conducted. Study 1 (conducted from January to March 2016) and Study 2 (conducted from December 2015 to March 2016) were performed at the Pfizer Clinical Research Unit (New Haven, CT, USA) and were open-label, four-way crossover studies that enrolled healthy adults. The third study (Study 3) was carried out from August to November 2016 at three clinical research centers across the US (WCCT Global, Costa Mesa, CA; Pharmaceutical Research Associates, Salt Lake City, UT; and Altasciences/Vince and Associates Clinical Research, Overland Park, KS) and was an open-label, single-dose study in healthy adolescents. The studies were conducted in compliance with the ethical principles originating in or derived from the Declaration of Helsinki and in compliance with all International Council for Harmonization Good Clinical Practice guidelines, as well as local regulatory requirements. All subjects (or parents or guardians in the adolescent study) provided written informed consent, and informed assent was obtained from each minor subject. The studies were managed by Pfizer Inc. and conducted by investigators employed or contracted by, and under the direction of, Pfizer Inc. Data management and analyses were conducted by Pfizer Inc., and investigators had full access and control over data interpretation for this study.</p>
+        <p id="Par10">Subjects included in the two adult studies (i.e. Studies 1 and 2) were healthy male and female volunteers aged 18&#x2013;55&#xA0;years, inclusive. Included subjects had a body mass index (BMI) of 17.5&#x2013;30.5&#xA0;kg/m<sup>2</sup>, inclusive, and a total body weight of&#x2009;&gt;&#x2009;50&#xA0;kg. For inclusion in Study 3, subjects were healthy males and females 12&#x2013;17&#xA0;years of age, inclusive, with at least one painful condition (e.g. headache, dysmenorrhea, or musculoskeletal pain) that required the use of an oral OTC analgesic five or more times in the previous 4&#xA0;weeks. Total body weight, stature, and BMI must have been within the 10th and 90th percentile for age and sex. Female subjects of childbearing potential and males able to father children must have been willing to use a highly effective method of contraception for the duration of the study and for 28&#xA0;days after the last dose of study medication.</p>
+        <p id="Par11">Exclusion criteria were similar in each of the three studies. Pregnant or breastfeeding subjects were not allowed to participate in any of the studies. The presence or history of significant disease, bleeding disorder, signs of dehydration (adolescents), or any other condition in which study medication may have increased risk; any condition that could have affected drug absorption (e.g. gastrectomy); a positive urine drug screen; history of regular alcohol consumption (adults); alcohol use within 24&#xA0;h (adults) or 48&#xA0;h (adolescents) of dosing; or use of tobacco within 6&#xA0;months of screening (adults) or within 24&#xA0;h prior to dosing (adolescents) was exclusionary. Treatment with an investigational drug within 30&#xA0;days, use of prescription and non-prescription drugs or dietary supplements within 7&#xA0;days, or use of nutritional supplements within 14&#xA0;days prior to the first dose of study drug was prohibited. Subjects with hypertension (i.e. blood pressure&#x2009;&#x2265;&#x2009;140/90&#xA0;mmHg in adults or&#x2009;&#x2265;&#x2009;95th percentile for age and height in adolescents); QT or QRS prolongation of&#x2009;&gt;&#x2009;450&#xA0;ms or&#x2009;&gt;&#x2009;120&#xA0;ms, respectively; aspartate or alanine aminotransferase&#x2009;&#x2265;&#x2009;3&#x2009;&#xD7;&#x2009;or total bilirubin&#x2009;&#x2265;&#x2009;1.5&#x2009;&#xD7;&#x2009;the upper limit of normal; blood donation of approximately 1 pint (adults) or exceeding 130&#xA0;mL or 3&#xA0;mL/kg (adolescents) within 56&#xA0;days; hypersensitivity to aspirin, acetaminophen, ibuprofen, or any other NSAID; consumption of grapefruit or related citrus fruits within 7&#xA0;days prior to dosing; use of acetaminophen, ibuprofen, or any other NSAID within 48&#xA0;h prior to the first dose of study medication; or use of caffeine or alcohol within 24&#xA0;h of admission prompted study exclusion. Subjects with a positive test for hepatitis B, hepatitis C, or human immunodeficiency virus were excluded.</p>
+      </sec>
+      <sec id="Sec4">
+        <title>Determination of Sample Size</title>
+        <p id="Par12">In a previous publication [<xref ref-type="bibr" rid="CR6">6</xref>] studying the PK profile of a novel FDC tablet formulation of ibuprofen and paracetamol (ibuprofen 400&#xA0;mg/acetaminophen 1000&#xA0;mg) under fasted and fed conditions, it was observed that the fed versus fasted ratio of <italic>C</italic><sub>max</sub> was lower than 80% for both ibuprofen and acetaminophen, suggesting that it was unlikely to achieve bioequivalence regardless of the sample size used for this parameter. Therefore, the sample size calculation in Study 1 was focused on having adequate power for declaring bioequivalence in terms of area under the concentration-time curve from time zero to infinity (AUC<sub>&#x221E;</sub>). The sample size calculation was based on the results of the log-transformed AUC<sub>&#x221E;</sub> in acetaminophen, the analyte with the higher variability in this study.</p>
+        <p id="Par13">In order to provide at least 85% power for declaring bioequivalence for AUC<sub>&#x221E;</sub> in Study 1, 32 subjects were required to complete the study. This sample size estimate assumed a root mean square of error (RMSE) of 0.120 and that the true bioavailability of the test formulation was within 15% of that for the reference formulation [<xref ref-type="bibr" rid="CR6">6</xref>]. To ensure at least 32 subjects completed all four periods of the study, approximately 36 subjects were to be enrolled.</p>
+        <p id="Par14">For Study 2, acetaminophen and log-transformed <italic>C</italic><sub>max</sub>, the analyte and the parameter with the highest variabilities observed in previous Pfizer Consumer Healthcare (PCH) studies,&#xA0;were used in the sample size calculation. Additionally, it was assumed that the true bioavailability of the test formulation (FDC ibuprofen/acetaminophen 250/500&#xA0;mg) was within 5.0% of that for the reference formulation and that it was similar between the two analytes, ibuprofen and acetaminophen. This was observed in a previous publication studying the PK profiles of a novel FDC tablet of ibuprofen and acetaminophen (ibuprofen 400&#xA0;mg/acetaminophen 1000&#xA0;mg) [<xref ref-type="bibr" rid="CR6">6</xref>].</p>
+        <p id="Par15">Using these assumptions and an RMSE of 0.2742 (observed in a previous PCH study [#PA-96-01], which studied the PK profiles of different acetaminophen formulations of 1000 mg; unpublished data), it was estimated that a sample size of approximately 40 subjects would provide at least 85% power to establish bioequivalence in Study 2. To ensure approximately 40 subjects completed all four periods of the study, at least 44 subjects were to be enrolled.</p>
+        <p id="Par16">For Study 3, review of previous PK data for ibuprofen and acetaminophen revealed that acetaminophen and the apparent oral clearance (CL), as calculated by the dose administered/AUC<sub>&#x221E;</sub> (CL/F), were the analyte and PK parameter, respectively, with the higher variability. Taking into consideration regulatory guidance from the US FDA as well as historical PK data, and using the method proposed by Wang et al. [<xref ref-type="bibr" rid="CR18">18</xref>], it was estimated that a sample size of nine subjects within each of the age groups (12&#x2013;14&#xA0;years and 15&#x2013;17&#xA0;years) would provide at least 90% power to target the 95% confidence interval (CI) to be within 60% and 140% of the geometric mean estimate of CL/F for FDC ibuprofen/acetaminophen in each age subgroup, assuming an approximate between-subject coefficient of variability of 30% for the untransformed CL for acetaminophen based on a previous adult PK study conducted by PCH. To allow for dropouts in this multicenter study, approximately 22 subjects were to be enrolled to ensure that a minimum of 18 subjects completed the study (at least 9 within each age subgroup).</p>
+      </sec>
+      <sec id="Sec5">
+        <title>Study Treatments</title>
+        <p id="Par17">Subjects were administered a single dose of study drug at baseline as described below. In Study 1, subjects were randomized to receive a single dose of 2&#x2009;&#xD7;&#x2009;FDC ibuprofen/acetaminophen 125&#xA0;mg/250&#xA0;mg (i.e. FDC ibuprofen/acetaminophen 250/500&#xA0;mg; <sup>&#xA9;</sup>2019 GSK group of companies or its licensor, Madison, NJ, USA) either after a 10-h fast or following a high-fat breakfast, or ibuprofen 200&#xA0;mg (Advil<sup>&#xAE;</sup>; <sup>&#xA9;</sup>2019 GSK group of companies or its licensor), or acetaminophen extended release (ER) 650&#xA0;mg (Tylenol<sup>&#xAE;</sup> 8 HR; Johnson &amp; Johnson Consumer Inc, New Brunswick, NJ, USA), both fasted. Acetaminophen 650&#xA0;mg ER and ibuprofen 200&#xA0;mg were used for comparison based on regulatory requirements. In Study 2, subjects were randomized to 2&#x2009;&#xD7;&#x2009;FDC ibuprofen/acetaminophen 125/250&#xA0;mg, coadministered monocomponents ibuprofen 250&#xA0;mg (<sup>&#xA9;</sup>2019 GSK group of companies or its licensor) and acetaminophen 500&#xA0;mg (Tylenol<sup>&#xAE;</sup> Extra Strength; McNeil Consumer Healthcare, Ft. Washington, PA, USA), ibuprofen 250&#xA0;mg alone, or acetaminophen 500&#xA0;mg alone following an overnight fast of at least 10&#xA0;h. Studies 1 and 2 had a crossover design; subjects received all four treatments, with a 2-day washout between each treatment period. Subjects remained in the clinic for the duration of the study. In Study 3, all subjects received a single dose of 2&#x2009;&#xD7;&#x2009;FDC ibuprofen/acetaminophen 125/250&#xA0;mg (i.e. FDC ibuprofen/acetaminophen 250/500&#xA0;mg) after an overnight fast.</p>
+      </sec>
+      <sec id="Sec6">
+        <title>Phamacokinetic (PK) Sampling, Analysis, and Calculations</title>
+        <p id="Par18">In each study, a predose PK sample was obtained approximately 60&#xA0;min before each treatment period. PK sampling was conducted at 10, 20, 30, 40, 50, 60, 75, and 90&#xA0;min and 2, 3, 4, 6, 8, 10, 12, 18, and 24&#xA0;h after dosing in Study 1, and at the same time points through 12&#xA0;h in Study 2. Samples were obtained at 10, 20, 30, 45, 60, 75, and 90&#xA0;min and at 2, 3, 6, 9, and 12&#xA0;h in Study 3.</p>
+        <p id="Par19">For all three studies, plasma samples were analyzed for total ibuprofen and acetaminophen using a validated analytical assay employing a high-performance liquid chromatography tandem mass spectrometric method by PPD (Middleton, WI, USA). The lower limit of quantitation (LLOQ) of the assay for ibuprofen and acetaminophen was 0.2 and 0.1&#xA0;&#x3BC;g/mL, respectively. Clinical specimens with plasma ibuprofen or acetaminophen concentrations below the LLOQ were reported as below the LLOQ. In Studies 1 and 2, PK metrics were calculated for each subject using non-compartmental analysis of plasma concentration-time data using the internally validated software system electronic non-compartmental analysis (eNCA) version 2.2.4. In Study 3, PK metrics were calculated using Phoenix WinNonlin version 6.4 (Pharsight Corporation, Mountain View, CA, USA).</p>
+        <p id="Par20">PK metrics calculated included <italic>C</italic><sub>max</sub>, time to maximum concentration (<italic>t</italic><sub>max</sub>), area under the concentration-time curve from time zero to the last quantifiable concentration (AUC<sub>last</sub>), AUC<sub>&#x221E;</sub>, and terminal half-life (<italic>t</italic><sub>&#xBD;</sub>). The comparability of PK metrics in Studies 1 and 2 was determined by constructing 90% CIs around the estimated difference between test and reference treatments using a mixed-effects model based on natural log-transformed data. The mixed-effects model was implemented using SAS PROC MIXED (SAS Institute, Inc., Cary, NC, USA) with the restricted maximum likelihood estimation method and the Kenward&#x2013;Roger degrees of freedom algorithm. Because the monocomponent doses in Study 1 were different from those of the FDC, PK metrics were dose normalized to ibuprofen 250&#xA0;mg and acetaminophen 500&#xA0;mg for the purposes of comparison.</p>
+        <p id="Par21">Safety, including AEs, was monitored throughout the in-patient portion of the studies and during a follow-up phone call 14&#xA0;days after the last investigational drug dose in each study.</p>
+      </sec>
+    </sec>
+    <sec id="Sec7">
+      <title>Results</title>
+      <sec id="Sec8">
+        <title>Baseline Characteristics</title>
+        <p id="Par22">Baseline characteristics for the three studies are shown in Table&#xA0;<xref rid="Tab1" ref-type="table">1</xref>. A total of 35 subjects were randomized in Study 1 and 46 in Study 2. In Study 3, 21 subjects were assigned to treatment. In all three studies, the proportion of males and females was approximately 50%. In Study 3, the majority (62%) of subjects were White, whereas in Studies 1 and 2, the largest proportion of subjects were Black (54% and 41%, respectively). One subject in Study 1 discontinued study drug during the first treatment period due to an inability to swallow study medication, and two subjects in Study 2 discontinued study drug during the first treatment period due to difficulties in collecting PK samples; no PK profiling was possible for these two subjects. All 21 subjects in Study 3 completed treatment and were analyzed for PK metrics and safety.<table-wrap id="Tab1"><label>Table&#xA0;1</label><caption><p>Baseline characteristics</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left"/><th align="left">Study 1 [<italic>N&#x2009;</italic>=&#x2009;35]</th><th align="left">Study 2 [<italic>N&#x2009;</italic>=&#x2009;46]</th><th align="left">Study 3 [<italic>N&#x2009;</italic>=&#x2009;21]</th></tr></thead><tbody><tr><td align="left">Sex, male</td><td align="left">18 (51.4)</td><td align="left">25 (54.3)</td><td align="left">10 (47.6)</td></tr><tr><td align="left">Mean age, (years) (SD)</td><td align="left">35.6 (9.4)</td><td align="left">39.3 (9.2)</td><td align="left">14.7 (1.8)</td></tr><tr><td align="left">&#xA0;Age 12&#x2013;14&#xA0;years</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">10 (47.6)</td></tr><tr><td align="left">&#xA0;Age 15&#x2013;17&#xA0;years</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">11 (52.4)</td></tr><tr><td align="left" colspan="4">Race</td></tr><tr><td align="left">&#xA0;White</td><td align="left">4 (11.4)</td><td align="left">9 (19.6)</td><td align="left">13 (61.9)</td></tr><tr><td align="left">&#xA0;Black</td><td align="left">19 (54.3)</td><td align="left">19 (41.3)</td><td align="left">3 (14.3)</td></tr><tr><td align="left">&#xA0;Other</td><td align="left">12 (34.3)</td><td align="left">18 (39.1)</td><td align="left">5 (23.8)</td></tr><tr><td align="left" colspan="4">Ethnicity</td></tr><tr><td align="left">&#xA0;Hispanic/Latino</td><td align="left">14 (40.0)</td><td align="left">18 (39.1)</td><td align="left">4 (19.0)</td></tr><tr><td align="left">&#xA0;Non-Hispanic/Latino</td><td align="left">21 (60.0)</td><td align="left">28 (60.9)</td><td align="left">17 (81.0)</td></tr><tr><td align="left">Mean weight, (kg) (SD)</td><td align="left">78.5 (14.1)</td><td align="left">75.4 (12.5)</td><td align="left">56.2 (9.2)</td></tr><tr><td align="left">Mean height, (cm) (SD)</td><td align="left">171.2 (11.4)</td><td align="left">169.9 (8.6)</td><td align="left">164.3 (7.4)</td></tr><tr><td align="left">Mean BMI, (kg/m<sup>2</sup>) (SD)</td><td align="left">26.6 (3.0)</td><td align="left">26.0 (3.0)</td><td align="left">&#x2013;</td></tr></tbody></table><table-wrap-foot><p>Data are expressed as <italic>n</italic> (%) unless otherwise specified</p><p><italic>BMI</italic> body mass index, <italic>SD</italic> standard deviation</p></table-wrap-foot></table-wrap></p>
+      </sec>
+      <sec id="Sec9">
+        <title>PK Profiles</title>
+        <p id="Par23">PK concentration-time profiles for ibuprofen and acetaminophen in the three studies are shown in Figs.&#xA0;<xref rid="Fig1" ref-type="fig">1</xref> and <xref rid="Fig2" ref-type="fig">2</xref>, respectively.<fig id="Fig1"><label>Fig.&#xA0;1</label><caption><p>Median plasma ibuprofen concentration over time following a single oral dose: <bold>a</bold> Study 1; <bold>b</bold> Study 2; <bold>c</bold> Study 3. Note that plasma concentrations for IBU 200&#xA0;mg in Study 1 are dose-normalized. <italic>APAP</italic> acetaminophen, <italic>FDC</italic> fixed-dose combination, <italic>IBU</italic> ibuprofen</p></caption><graphic xlink:href="40268_2020_293_Fig1_HTML" id="MO1"/></fig><fig id="Fig2"><label>Fig.&#xA0;2</label><caption><p>Median plasma acetaminophen concentration over time following a single oral dose: <bold>a</bold> Study 1; <bold>b</bold> Study 2; <bold>c</bold> Study 3. Note that plasma concentrations for APAP ER 650&#xA0;mg in Study 1 are dose-normalized. <italic>APAP</italic> acetaminophen, <italic>ER</italic> extended-release, <italic>FDC</italic> fixed-dose combination, <italic>IBU</italic> ibuprofen</p></caption><graphic xlink:href="40268_2020_293_Fig2_HTML" id="MO2"/></fig></p>
+        <sec id="Sec10">
+          <title>Study 1: Comparison of Fixed-Dose Combination (FDC) to Single-Ingredient Products and Food Effects</title>
+          <p id="Par24">PK metrics for ibuprofen and acetaminophen in Study 1 are summarized in Table&#xA0;<xref rid="Tab2" ref-type="table">2</xref>. Under fasted conditions, the median plasma ibuprofen dose-normalized concentration-time profiles were similar for FDC ibuprofen/acetaminophen 250/500&#xA0;mg and ibuprofen 200&#xA0;mg alone (Fig.&#xA0;<xref rid="Fig1" ref-type="fig">1</xref>a) except for a shorter ibuprofen <italic>t</italic><sub>max</sub> for the FDC (1.38&#xA0;h vs. 2.00&#xA0;h, respectively) (Table&#xA0;<xref rid="Tab2" ref-type="table">2</xref>). As seen in Table&#xA0;<xref rid="Tab3" ref-type="table">3</xref>, the ratios of AUC<sub>&#x221E;</sub> (99.93%), AUC<sub>last</sub> (100.63%), and <italic>C</italic><sub>max</sub> (102.44%) of FDC ibuprofen/acetaminophen 250/500&#xA0;mg versus ibuprofen 200&#xA0;mg under fasted conditions, and their 90% CIs, were completely contained within the limits of 80&#x2013;125%, indicating bioequivalence under fasted conditions.<table-wrap id="Tab2"><label>Table&#xA0;2</label><caption><p>Summary of plasma pharmacokinetic metrics for ibuprofen and acetaminophen following single oral doses: Study 1</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">PK metric (units)</th><th align="left">FDC IBU/APAP 250/500&#xA0;mg (fasted)<break/>[<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;34, 34]</th><th align="left">IBU 200&#xA0;mg (fasted)<break/>[<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;34, 34]</th><th align="left">FDC IBU/APAP 250/500&#xA0;mg (fed)<break/>[<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;35, 34]</th></tr></thead><tbody><tr><td align="left" colspan="4">Ibuprofen</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">77.51 (19)</td><td align="left">62.00 (20)</td><td align="left">67.08 (19)</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">75.95 (19)</td><td align="left">60.34 (20)</td><td align="left">65.24 (20)</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">21.50 (26)</td><td align="left">16.77 (27)</td><td align="left">13.74 (33)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>max</sub>, (h)</td><td align="left">1.38 (0.50&#x2013;4.00)</td><td align="left">2.00 (0.50&#x2013;6.00)</td><td align="left">3.00 (0.33&#x2013;10.00)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>&#xBD;</sub>, (h)</td><td align="left">2.19 (0.456)</td><td align="left">2.25 (0.375)</td><td align="left">2.43 (0.634)</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)<sup>a</sup></td><td align="left">77.51 (19)</td><td align="left">77.51 (20)</td><td align="left">67.08 (19)</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)<sup>a</sup></td><td align="left">75.95 (19)</td><td align="left">75.41 (20)</td><td align="left">65.24 (20)</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)<sup>a</sup></td><td align="left">21.50 (26)</td><td align="left">20.98 (27)</td><td align="left">13.74 (33)</td></tr></tbody></table><table frame="hsides" rules="groups"><thead><tr><th align="left">PK metric (units)</th><th align="left">FDC IBU/APAP<break/>250/500&#xA0;mg (fasted)<break/>[<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;34, 34]</th><th align="left">APAP ER 650&#xA0;mg (fasted)<break/>[<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;34, 34]</th><th align="left">FDC IBU/APAP 250/500&#xA0;mg (fed)<break/>[<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;35, 33]</th></tr></thead><tbody><tr><td align="left" colspan="4">Acetaminophen</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">26.36 (29)</td><td align="left">31.53 (30)</td><td align="left">24.97 (28)</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">25.33 (29)</td><td align="left">30.40 (30)</td><td align="left">23.88 (28)<sup>b</sup></td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">7.26 (39)</td><td align="left">5.28 (32)</td><td align="left">4.58 (34)<sup>b</sup></td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>max</sub>, (h)</td><td align="left">0.58 (0.17&#x2013;2.00)</td><td align="left">1.50 (0.33&#x2013;4.00)</td><td align="left">2.49 (0.33&#x2013;6.00)<sup>b</sup></td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>&#xBD;</sub>, (h)</td><td align="left">4.56 (1.563)</td><td align="left">4.52 (1.310)</td><td align="left">4.69 (1.195)</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)<sup>c</sup></td><td align="left">26.36 (29)</td><td align="left">24.26 (30)</td><td align="left">24.97 (28)</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, &#xB5;g&#x2219;h/mL)<sup>c</sup></td><td align="left">25.33 (29)</td><td align="left">23.37 (30)</td><td align="left">23.88 (28)<sup>b</sup></td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)<sup>c</sup></td><td align="left">7.26 (39)</td><td align="left">4.06 (32)</td><td align="left">4.58 (34)<sup>b</sup></td></tr></tbody></table><table-wrap-foot><p>All values are geometric mean (geometric %CV [percentage coefficient of variation]) except for <italic>t</italic><sub>max</sub>, where median (range) is reported, and <italic>t</italic><sub>&#xBD;</sub>, where arithmetic mean&#x2009;&#xB1;&#x2009;SD is reported</p><p><italic>APAP</italic> acetaminophen, <italic>AUC</italic><sub><italic>&#x221E;</italic></sub> area under the concentration-time curve from time zero to infinity, <italic>AUC</italic><sub><italic>last</italic></sub> area under the concentration-time curve from time zero to the last quantifiable concentration, <italic>C</italic><sub><italic>max</italic></sub> maximum concentration, <italic>ER</italic> extended release, <italic>FDC</italic> fixed-dose combination, <italic>IBU</italic> ibuprofen, <italic>PK</italic> pharmacokinetic, <italic>SD</italic> standard deviation, <italic>t</italic><sub><italic>&#xBD;</italic></sub>, terminal half-life, <italic>t</italic><sub><italic>max</italic></sub> time to maximum concentration</p><p><sup>a</sup>Normalized to IBU 250&#xA0;mg</p><p><sup>b</sup><italic>n</italic>&#x2009;=&#x2009;34</p><p><sup>c</sup>Normalized to APAP 500&#xA0;mg</p></table-wrap-foot></table-wrap><table-wrap id="Tab3"><label>Table&#xA0;3</label><caption><p>Summary of treatment and food effect comparisons for ibuprofen: Study 1</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left" rowspan="2">PK metric (units)</th><th align="left" colspan="2">Adjusted geometric means</th><th align="left" rowspan="2">Ratio [test/reference] of adjusted means<sup>a</sup></th><th align="left" rowspan="2">90% CI for ratio<sup>a</sup></th></tr><tr><th align="left">FDC IBU/APAP 250/500&#xA0;mg (fasted) [test]</th><th align="left">IBU 200&#xA0;mg (fasted)<break/>[reference]</th></tr></thead><tbody><tr><td align="left" colspan="5">Summary of treatment comparisons</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)</td><td char="." align="char">77.46</td><td char="." align="char">77.51</td><td char="." align="char">99.93</td><td char="&#x2013;" align="char">94.83&#x2013;105.30</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td char="." align="char">75.88</td><td char="." align="char">75.40</td><td char="." align="char">100.63</td><td char="&#x2013;" align="char">95.45&#x2013;106.10</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td char="." align="char">21.50</td><td char="." align="char">20.99</td><td char="." align="char">102.44</td><td char="&#x2013;" align="char">91.89&#x2013;114.20</td></tr><tr><td align="left" colspan="5">Summary of food effect comparisons</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)</td><td char="." align="char">67.09</td><td char="." align="char">77.46</td><td char="." align="char">86.61</td><td char="&#x2013;" align="char">82.19&#x2013;91.27</td></tr><tr><td align="left">&#xA0;AUC<sub>last,</sub> (&#xB5;g&#x2219;h/mL)</td><td char="." align="char">65.23</td><td char="." align="char">75.88</td><td char="." align="char">85.96</td><td char="&#x2013;" align="char">81.53&#x2013;90.63</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td char="." align="char">13.73</td><td char="." align="char">21.50</td><td char="." align="char">63.86</td><td char="&#x2013;" align="char">57.28&#x2013;71.19</td></tr></tbody></table><table-wrap-foot><p><italic>APAP</italic> acetaminophen, <italic>AUC</italic><sub><italic>&#x221E;</italic></sub> area under the concentration-time curve from time zero to infinity, <italic>AUC</italic><sub><italic>last</italic></sub> area under the concentration-time curve from time zero to the last quantifiable concentration, <italic>CI</italic> confidence interval, <italic>C</italic><sub><italic>max</italic></sub> maximum concentration, <italic>FDC</italic> fixed-dose combination, <italic>IBU</italic> ibuprofen, <italic>PK</italic> pharmacokinetic</p><p><sup>a</sup>Ratios and 90% CIs are expressed as percentages</p></table-wrap-foot></table-wrap></p>
+          <p id="Par25">There was no meaningful food effect on the overall extent of absorption of ibuprofen from the FDC. The ratios for FDC fed/FDC fasted of the adjusted dose-normalized geometric means for AUC<sub>&#x221E;</sub> and AUC<sub>last</sub> were 86.61% and 85.96%, respectively. The 90% CIs for these AUC values (Table&#xA0;<xref rid="Tab3" ref-type="table">3</xref>) were within the acceptance range for bioequivalence of 80&#x2013;125%. However, the rate of absorption was delayed with food compared with fasting; the ratio for dose-normalized <italic>C</italic><sub>max</sub> for ibuprofen was 63.86% (Table&#xA0;<xref rid="Tab3" ref-type="table">3</xref>), indicative of an approximately 36% lower peak concentration of ibuprofen when the FDC was administered in the fed state. Similarly, the <italic>t</italic><sub>max</sub> was delayed for ibuprofen when the FDC was administered with food: 3.00&#xA0;h with food and 1.38&#xA0;h fasted. The <italic>t</italic><sub>&#xBD;</sub> was similar with or without food (2.4&#xA0;h vs. 2.2&#xA0;h, respectively) (Table&#xA0;<xref rid="Tab2" ref-type="table">2</xref>).</p>
+          <p id="Par26">Under fasted conditions, the median plasma acetaminophen dose-normalized concentration-time profiles were similar for FDC ibuprofen/acetaminophen 250/500&#xA0;mg and acetaminophen ER 650&#xA0;mg alone (Fig.&#xA0;<xref rid="Fig2" ref-type="fig">2</xref>a), with the exception of a shorter <italic>t</italic><sub>max</sub> for the FDC (0.58&#xA0;h vs. 1.50&#xA0;h, respectively) (Table&#xA0;<xref rid="Tab2" ref-type="table">2</xref>). The overall relative bioavailability of the two treatments was equivalent based on dose-normalized test/reference ratios for AUC<sub>&#x221E;</sub> (108.60) and AUC<sub>last</sub> (108.27) and their associated 90% CIs (Table&#xA0;<xref rid="Tab4" ref-type="table">4</xref>). The ratio for dose-normalized <italic>C</italic><sub>max</sub> was 177.48%, indicating an approximately 77% higher peak concentration of acetaminophen derived from the FDC ibuprofen/acetaminophen 250/500&#xA0;mg fasted treatment compared with that of acetaminophen ER 650&#xA0;mg fasted treatment (Table&#xA0;<xref rid="Tab4" ref-type="table">4</xref>), a finding that was not unexpected given use of the ER acetaminophen formulation in this comparison.<table-wrap id="Tab4"><label>Table&#xA0;4</label><caption><p>Summary of treatment and food effect comparisons for acetaminophen: Study 1</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left" rowspan="2">PK metric (units)</th><th align="left" colspan="2">Adjusted geometric means</th><th align="left" rowspan="2">Ratio [test/reference] of adjusted means<sup>a</sup></th><th align="left" rowspan="2">90% CI for ratio<sup>a</sup></th></tr><tr><th align="left">FDC IBU/APAP 250/500&#xA0;mg (fasted) [test]</th><th align="left">APAP ER 650&#xA0;mg (fasted) [reference]</th></tr></thead><tbody><tr><td char="&#x2013;" align="char" colspan="5">Summary of treatment comparisons</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">26.44</td><td align="left">24.34</td><td align="left">108.60</td><td align="left">103.93&#x2013;113.49</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">25.40</td><td align="left">23.46</td><td align="left">108.27</td><td align="left">103.48&#x2013;113.28</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">7.260</td><td align="left">4.090</td><td align="left">177.48</td><td align="left">158.75&#x2013;198.42</td></tr><tr><td align="left" colspan="5">Summary of food effect comparisons</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;,</sub> (&#xB5;g&#x2219;h/mL)</td><td align="left">25.12</td><td align="left">26.44</td><td align="left">95.01</td><td align="left">90.88&#x2013;99.34</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">23.95</td><td align="left">25.40</td><td align="left">94.29</td><td align="left">90.12&#x2013;98.65</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">4.590</td><td align="left">7.260</td><td align="left">63.22</td><td align="left">56.55&#x2013;70.68</td></tr></tbody></table><table-wrap-foot><p><italic>APAP</italic> acetaminophen, <italic>AUC</italic><sub><italic>&#x221E;</italic></sub> area under the concentration-time curve from time zero to infinity, <italic>AUC</italic><sub><italic>last</italic></sub> area under the concentration-time curve from time zero to the last quantifiable concentration, <italic>CI</italic> confidence interval, <italic>C</italic><sub><italic>max</italic></sub> maximum concentration, <italic>ER</italic> extended release, <italic>FDC</italic> fixed-dose combination, <italic>IBU</italic> ibuprofen, <italic>PK</italic> pharmacokinetic</p><p><sup>a</sup>Ratios and 90% CIs are expressed as percentages</p></table-wrap-foot></table-wrap></p>
+          <p id="Par27">There was no effect of food on the extent of absorption of the acetaminophen from the FDC. The ratios of acetaminophen fed/acetaminophen fasted (Table&#xA0;<xref rid="Tab4" ref-type="table">4</xref>) of dose-normalized geometric means for AUC<sub>&#x221E;</sub> and AUC<sub>last</sub> were 95.01% and 94.29%, respectively; the 90% CIs for each were within the acceptance range for bioequivalence of 80&#x2013;125%, indicating no relevant effect of food on these metrics. As with ibuprofen, the absorption rate of acetaminophen was delayed when the FDC was taken with food compared with fasting. The ratio for dose-normalized <italic>C</italic><sub>max</sub> was 63.22%, indicating an approximately 37% lower peak concentration for acetaminophen after administration of the FDC in the fed state compared with the fasted state (Table&#xA0;<xref rid="Tab4" ref-type="table">4</xref>). Similarly, <italic>t</italic><sub>max</sub> was 2.49&#xA0;h with food and 0.58&#xA0;h when fasted. The <italic>t</italic><sub>&#xBD;</sub> for acetaminophen was similar with and without food (4.7&#xA0;h vs. 4.6&#xA0;h, respectively) (Table&#xA0;<xref rid="Tab2" ref-type="table">2</xref>).</p>
+        </sec>
+        <sec id="Sec11">
+          <title>Study 2: Comparison of FDC with Individual Components and Formulation Effects</title>
+          <p id="Par28">PK metrics for ibuprofen and acetaminophen in Study 2 are summarized in Table&#xA0;<xref rid="Tab5" ref-type="table">5</xref>. As shown in Fig.&#xA0;<xref rid="Fig1" ref-type="fig">1</xref>b, the median plasma ibuprofen concentration-time profiles were similar for FDC ibuprofen/acetaminophen 250/500&#xA0;mg, monocomponent ibuprofen 250&#xA0;mg&#x2009;+&#x2009;acetaminophen 500&#xA0;mg administered together, and ibuprofen 250&#xA0;mg alone. The <italic>C</italic><sub>max</sub> was 12% higher following the FDC ibuprofen/acetaminophen 250/500&#xA0;mg treatment than following treatment with either the coadministered monocomponents or ibuprofen 250&#xA0;mg (Table&#xA0;<xref rid="Tab5" ref-type="table">5</xref>). The relative bioavailability of treatments was similar based on AUC<sub>&#x221E;</sub>, AUC<sub>last</sub>, and <italic>C</italic><sub>max</sub> (Table&#xA0;<xref rid="Tab6" ref-type="table">6</xref>), where the respective ratios of adjusted geometric means of ibuprofen were 102.53%, 103.00%, and 112.42% after administration of the FDC relative to the coadministered monocomponents. Similar results were obtained for the FDC relative to ibuprofen 250&#xA0;mg alone. The ratios of adjusted geometric means of AUC<sub>&#x221E;</sub>, AUC<sub>last</sub>, and <italic>C</italic><sub>max</sub> were 102.60%, 103.08%, and 112.02%, respectively, following administration of FDC relative to ibuprofen 250&#xA0;mg alone. The 90% CIs for each of these test/reference ratios reported were contained within the bioequivalence acceptance range of 80&#x2013;125%, indicating bioequivalence.<table-wrap id="Tab5"><label>Table&#xA0;5</label><caption><p>Summary of plasma pharmacokinetic metrics for ibuprofen and acetaminophen following single oral doses: Study 2</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">PK metric (units)</th><th align="left">FDC IBU/APAP 250/500&#xA0;mg<break/>[<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;45, 44]</th><th align="left">IBU 250&#xA0;mg&#x2009;+&#x2009;APAP 500&#xA0;mg<break/>(coadministered monocomponents)<break/>[<italic>N</italic>, <italic>n&#x2009;</italic>=&#x2009;45, 44]</th><th align="left">IBU 250&#xA0;mg<break/>(<italic>N</italic>, <italic>n&#x2009;</italic>=&#x2009;44, 44)</th></tr></thead><tbody><tr><td align="left" colspan="4">IBU</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">79.12 (21)</td><td align="left">77.17 (25)</td><td align="left">77.01 (23)<sup>a</sup></td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">77.11 (20)</td><td align="left">74.87 (24)</td><td align="left">74.81 (22)</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">22.11 (22)</td><td align="left">19.67 (28)</td><td align="left">19.74 (30)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>max</sub>, (h)</td><td align="left">1.25 (0.50&#x2013;4.00)</td><td align="left">1.50 (0.33&#x2013;4.00)</td><td align="left">1.38 (0.50&#x2013;8.00)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>&#xBD;</sub>, (h)</td><td align="left">2.07 (0.33)</td><td align="left">2.10 (0.38)</td><td align="left">2.09 (0.33)<sup>a</sup></td></tr><tr><td align="left" colspan="4">APAP</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">23.92 (25)</td><td align="left">23.97 (23)</td><td align="left">23.00 (27)</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">22.69 (25)</td><td align="left">22.69 (23)</td><td align="left">21.80 (27)</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">7.20 (39)</td><td align="left">7.63 (42)</td><td align="left">7.08 (46)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>max</sub>, (h)</td><td align="left">0.67 (0.33&#x2013;3.00)</td><td align="left">0.50 (0.33&#x2013;2.05)</td><td align="left">0.50 (0.33&#x2013;3.03)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>&#xBD;</sub></td><td align="left">2.71 (0.40)</td><td align="left">2.74 (0.40)</td><td align="left">2.71 (0.39)</td></tr></tbody></table><table-wrap-foot><p>All values are geometric mean (geometric %CV [percentage coefficient of variation]) except for <italic>t</italic><sub>max</sub>, where median (range) is reported, and <italic>t</italic><sub>&#xBD;</sub>, where arithmetic mean&#x2009;&#xB1;&#x2009;SD is reported</p><p><italic>APAP</italic> acetaminophen, <italic>AUC</italic><sub><italic>&#x221E;</italic></sub> area under the concentration-time curve from time zero to infinity, <italic>AUC</italic><sub><italic>last</italic></sub> area under the concentration-time curve from time zero to the last quantifiable concentration, <italic>C</italic><sub><italic>max</italic></sub> maximum concentration, <italic>FDC</italic> fixed-dose combination, <italic>IBU</italic> ibuprofen, <italic>PK</italic> pharmacokinetic, <italic>SD</italic> standard deviation, <italic>t</italic><sub><italic>&#xBD;</italic></sub> terminal half-life, <italic>t</italic><sub><italic>max</italic></sub> time to maximum concentration</p><p><sup>a</sup><italic>n&#x2009;</italic>=&#x2009;43</p></table-wrap-foot></table-wrap><table-wrap id="Tab6"><label>Table&#xA0;6</label><caption><p>Summary of treatment comparisons for ibuprofen and acetaminophen: Study 2</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left" rowspan="2">PK metric (units)</th><th align="left" colspan="2">Adjusted geometric means</th><th align="left" rowspan="2">Ratio (test/reference) of adjusted geometric means<sup>a</sup></th><th align="left" rowspan="2">90% CI for ratio<sup>a</sup></th></tr><tr><th align="left">Test</th><th align="left">Reference</th></tr></thead><tbody><tr><td align="left" colspan="5">IBU</td></tr><tr><td align="left" colspan="5">&#xA0;FDC IBU/APAP 250/500&#xA0;mg (test) vs. IBU 250&#xA0;mg&#x2009;+&#x2009;APAP 500&#xA0;mg monocomponents coadministered (reference)</td></tr><tr><td align="left">&#xA0;&#xA0;AUC<sub>&#x221E;,</sub> (&#xB5;g&#x2219;h/mL)</td><td align="left">79.12</td><td align="left">77.17</td><td align="left">102.53</td><td align="left">99.41&#x2013;105.75</td></tr><tr><td align="left">&#xA0;&#xA0;AUC<sub>last,</sub> (&#xB5;g&#x2219;h/mL)</td><td align="left">77.11</td><td align="left">74.87</td><td align="left">103.00</td><td align="left">99.81&#x2013;106.29</td></tr><tr><td align="left">&#xA0;&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">22.11</td><td align="left">19.67</td><td align="left">112.42</td><td align="left">105.13&#x2013;120.23</td></tr><tr><td align="left" colspan="5">&#xA0;FDC IBU/APAP 250/500&#xA0;mg (test) vs. IBU 250 mg (reference)</td></tr><tr><td align="left">&#xA0;&#xA0;AUC<sub>&#x221E;,</sub> (&#xB5;g&#x2219;h/mL)</td><td align="left">79.12</td><td align="left">77.01</td><td align="left">102.60</td><td align="left">99.45&#x2013;105.85</td></tr><tr><td align="left">&#xA0;&#xA0;AUC<sub>last,</sub> (&#xB5;g&#x2219;h/mL)</td><td align="left">77.11</td><td align="left">74.81</td><td align="left">103.08</td><td align="left">99.89&#x2013;106.38</td></tr><tr><td align="left">&#xA0;&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">22.11</td><td align="left">19.74</td><td align="left">112.02</td><td align="left">104.75&#x2013;119.80</td></tr><tr><td align="left" colspan="5">APAP</td></tr><tr><td align="left" colspan="5">&#xA0;FDC IBU/APAP 250/500 mg (test) vs. IBU 250 mg&#x2009;+&#x2009;APAP 500 mg monocomponents coadministered (reference)</td></tr><tr><td align="left">&#xA0;&#xA0;AUC<sub>&#x221E;,</sub> (&#xB5;g&#x2219;h/mL)</td><td align="left">23.92</td><td align="left">23.97</td><td align="left">99.79</td><td align="left">97.53&#x2013;102.10</td></tr><tr><td align="left">&#xA0;&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">22.69</td><td align="left">22.69</td><td align="left">100.00</td><td align="left">97.73&#x2013;102.33</td></tr><tr><td align="left">&#xA0;&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">7.199</td><td align="left">7.633</td><td align="left">94.32</td><td align="left">85.18&#x2013;104.44</td></tr><tr><td align="left" colspan="5">&#xA0;FDC IBU/APAP 250/500 mg (test) vs. APAP 500 mg (reference)</td></tr><tr><td align="left">&#xA0;&#xA0;AUC<sub>&#x221E;,</sub> (&#xB5;g&#x2219;h/mL)</td><td align="left">23.92</td><td align="left">23.00</td><td align="left">104.00</td><td align="left">101.65&#x2013;106.41</td></tr><tr><td align="left">&#xA0;&#xA0;AUC<sub>last,</sub> (&#xB5;g&#x2219;h/mL)</td><td align="left">22.69</td><td align="left">21.80</td><td align="left">104.12</td><td align="left">101.75&#x2013;106.54</td></tr><tr><td align="left">&#xA0;&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">7.199</td><td align="left">7.083</td><td align="left">101.64</td><td align="left">91.79&#x2013;112.55</td></tr></tbody></table><table-wrap-foot><p><italic>APAP</italic> acetaminophen, <italic>AUC</italic><sub><italic>&#x221E;</italic></sub> area under the concentration-time curve from time zero to infinity, <italic>AUC</italic><sub><italic>last</italic></sub> area under the concentration-time curve from time zero to the last quantifiable concentration, <italic>CI</italic> confidence interval, <italic>C</italic><sub><italic>max</italic></sub> maximum concentration, <italic>FDC</italic> fixed-dose combination, <italic>IBU</italic> ibuprofen, <italic>PK</italic> pharmacokinetic</p><p><sup>a</sup>Ratios and 90% CIs are expressed as percentages</p></table-wrap-foot></table-wrap></p>
+          <p id="Par29">As shown in Fig.&#xA0;<xref rid="Fig2" ref-type="fig">2</xref>b, the median plasma acetaminophen concentration-time curves for FDC ibuprofen/acetaminophen 250/500&#xA0;mg, monocomponent ibuprofen 250&#xA0;mg&#x2009;+&#x2009;acetaminophen 500&#xA0;mg, and acetaminophen 500&#xA0;mg alone were similar for all treatments, and the bioavailability of treatments was also similar based on AUC<sub>&#x221E;</sub>, AUC<sub>last</sub>, and <italic>C</italic><sub>max</sub> and their associated 90% CIs (Table&#xA0;<xref rid="Tab6" ref-type="table">6</xref>). The ratios of adjusted geometric means of acetaminophen AUC<sub>&#x221E;</sub>, AUC<sub>last</sub>, and <italic>C</italic><sub>max</sub> were 99.79%, 100.00%, and 94.32 after administration of FDC relative to the coadministered monocomponents; each respective 90% CI fell within the limits indicative of bioequivalence. For the comparison of FDC with acetaminophen 500&#xA0;mg alone, the ratios of adjusted geometric means of acetaminophen AUC<sub>&#x221E;</sub>, AUC<sub>last</sub>, and <italic>C</italic><sub>max</sub> were 104.00%, 104.12%, and 101.64%, respectively; all CIs were contained within the bioequivalence acceptance range of 80&#x2013;125% (Table&#xA0;<xref rid="Tab6" ref-type="table">6</xref>), also indicating bioequivalence.</p>
+        </sec>
+        <sec id="Sec12">
+          <title>Study 3: Evaluation of PK in Adolescents</title>
+          <p id="Par30">PK metrics for ibuprofen and acetaminophen following administration of the FDC to adolescents in Study 3 are summarized in Table&#xA0;<xref rid="Tab7" ref-type="table">7</xref>. Results are presented for all subjects and for the age groups 12&#x2013;14&#xA0;years and 15&#x2013;17&#xA0;years separately. The overall ibuprofen exposure (AUC values) following administration of the FDC was similar for both the younger and older age groups. However, the younger group had a <italic>C</italic><sub>max</sub> that was approximately 23% higher and occurred 1&#xA0;h earlier relative to the older subjects (<italic>t</italic><sub>max</sub>: 1 vs. 2&#xA0;h, respectively). Overall acetaminophen exposure was approximately 30% higher in the younger age group compared with the older age group. As with ibuprofen, <italic>C</italic><sub>max</sub> for acetaminophen was higher in the younger group (approximately 42%) and <italic>t</italic><sub>max</sub> was 0.5&#xA0;h faster relative to the older group (0.5 vs. 1&#xA0;h, respectively). The mean <italic>t</italic><sub>&#xBD;</sub> values were similar across all age groups.<table-wrap id="Tab7"><label>Table&#xA0;7</label><caption><p>Summary of plasma ibuprofen and acetaminophen pharmacokinetic metrics: Study 3</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left" rowspan="2">PK metric (units)</th><th align="left" colspan="3">FDC IBU/APAP 250/500 mg</th></tr><tr><th align="left">All (<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;21, 18)<sup>a</sup></th><th align="left">Age group 12&#x2013;14&#xA0;years (<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;10, 9)<sup>b</sup></th><th align="left">Age group 15&#x2013;17&#xA0;years (<italic>N</italic>, <italic>n</italic>&#x2009;=&#x2009;11, 9)<sup>c</sup></th></tr></thead><tbody><tr><td align="left" colspan="4">IBU</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">97.84 (15)</td><td align="left">99.07 (10)</td><td align="left">96.62 (20)</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">92.07 (19)</td><td align="left">96.45 (10)</td><td align="left">88.27 (24)</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">23.07 (36)</td><td align="left">25.67 (34)</td><td align="left">20.93 (36)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>max,</sub> (h)</td><td align="left">1.50 (0.50&#x2013;6.12)</td><td align="left">1.00 (0.50&#x2013;5.83)</td><td align="left">2.00 (0.80&#x2013;6.12)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>&#xBD;</sub>, (h)</td><td align="left">1.87 (0.27)</td><td align="left">1.79 (0.24)</td><td align="left">1.96 (0.29)</td></tr><tr><td align="left" colspan="4">APAP</td></tr><tr><td align="left">&#xA0;AUC<sub>&#x221E;</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">30.58 (27)</td><td align="left">35.05 (28)</td><td align="left">27.01 (19)</td></tr><tr><td align="left">&#xA0;AUC<sub>last</sub>, (&#xB5;g&#x2219;h/mL)</td><td align="left">28.84 (26)</td><td align="left">33.04 (27)</td><td align="left">25.49 (19)</td></tr><tr><td align="left">&#xA0;<italic>C</italic><sub>max</sub>, (&#xB5;g/mL)</td><td align="left">7.09 (34)</td><td align="left">8.51 (30)</td><td align="left">6.01 (29)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>max</sub>, (h)</td><td align="left">0.75 (0.33&#x2013;1.57)</td><td align="left">0.50 (0.33&#x2013;1.57)</td><td align="left">1.00 (0.50&#x2013;1.50)</td></tr><tr><td align="left">&#xA0;<italic>t</italic><sub>&#xBD;</sub>, (h)</td><td align="left">2.71 (0.32)</td><td align="left">2.74 (0.39)</td><td align="left">2.68 (0.25)</td></tr></tbody></table><table-wrap-foot><p>All values are geometric mean (geometric %CV [percentage coefficient of variation]) except for <italic>t</italic><sub>max</sub>, where median (range) is reported, and <italic>t</italic><sub>&#xBD;</sub>, where arithmetic mean&#x2009;&#xB1;&#x2009;SD is reported</p><p><italic>APAP</italic> acetaminophen, <italic>AUC</italic><sub><italic>&#x221E;</italic></sub> area under the concentration-time curve from time zero to infinity, <italic>AUC</italic><sub><italic>last</italic></sub> area under the concentration-time curve from time zero to the last quantifiable concentration, <italic>C</italic><sub><italic>max</italic></sub> maximum concentration, <italic>FDC</italic> fixed-dose combination, <italic>IBU</italic> ibuprofen, <italic>PK</italic> pharmacokinetic, <italic>SD</italic> standard deviation, <italic>t</italic><sub><italic>&#xBD;</italic></sub>, terminal half-life, <italic>t</italic><sub><italic>max</italic></sub> time to maximum concentration</p><p><sup>a</sup><italic>n</italic>&#x2009;=&#x2009;21 for AUC<sub>last</sub>, <italic>C</italic><sub>max</sub>, and <italic>t</italic><sub>max</sub>; <italic>n</italic>&#x2009;=&#x2009;18 for AUC<sub>&#x221E;</sub> and <italic>t</italic><sub>&#xBD;</sub></p><p><sup>b</sup><italic>n</italic>&#x2009;=&#x2009;10 for AUC<sub>last</sub>, <italic>C</italic><sub>max</sub>, and <italic>t</italic><sub>max</sub>; <italic>n</italic>&#x2009;=&#x2009;9 for AUC<sub>&#x221E;</sub> and <italic>t</italic><sub>&#xBD;</sub></p><p><sup>c</sup><italic>n</italic>&#x2009;=&#x2009;11 for AUC<sub>last</sub>, <italic>C</italic><sub>max</sub>, and <italic>t</italic><sub>max</sub>; <italic>n</italic>&#x2009;=&#x2009;9 for AUC<sub>&#x221E;</sub> and <italic>t</italic><sub>&#xBD;</sub></p></table-wrap-foot></table-wrap></p>
+          <p id="Par31">Although not designed for a direct comparison, a numerical comparison of the results for the FDC in the fasted state in adolescents (Table&#xA0;<xref rid="Tab7" ref-type="table">7</xref>) with those in adults (Table&#xA0;<xref rid="Tab2" ref-type="table">2</xref>) indicated that the overall (AUC) and maximal (<italic>C</italic><sub>max</sub>) exposures to ibuprofen and acetaminophen in the adolescent group were similar to those in adults; overall exposure (AUC) to ibuprofen was slightly higher (95&#xA0;&#xB5;g&#x2219;h/mL vs. 77&#x2013;78&#xA0;&#xB5;g&#x2219;h/mL) in adolescents.</p>
+        </sec>
+      </sec>
+      <sec id="Sec13">
+        <title>Safety</title>
+        <p id="Par32">AEs across the three trials were all mild or moderate in intensity; treatment-emergent AEs are summarized in Table&#xA0;<xref rid="Tab8" ref-type="table">8</xref>. In Study 1, seven subjects (20%) reported 10 AEs; three AEs in two subjects were determined to be treatment-related: one subject experienced nausea (after ibuprofen 200&#xA0;mg) and somnolence (after FDC fasted), and another reported headache (after FDC fed). All of these treatment-related AEs were mild and resolved. In Study 2, 10 subjects (21.7%) experienced 15 AEs. Six of these AEs in three subjects were determined to be treatment-related: two subjects experienced treatment-related constipation, and a third experienced abdominal distention, upper abdominal pain, dyspepsia, and nausea. Two of these AEs occurred during treatment with the monocomponents administered together, one during treatment with ibuprofen 250&#xA0;mg, and three during treatment with acetaminophen 500&#xA0;mg. All of these treatment-related AEs were mild and resolved. In Study 3, two subjects (9.5%) experienced five mild treatment-emergent AEs. One AE of dizziness was considered to be related to treatment with the FDC. No dose reductions or discontinuations due to AEs, no serious AEs, and no deaths occurred in any of the three studies. Likewise, no clinically significant changes in vital signs were apparent in any study. The safety profile of the FDC observed during each study was consistent with the known safety profile of the individual components.<table-wrap id="Tab8"><label>Table&#xA0;8</label><caption><p>Treatment-emergent adverse events</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left" rowspan="2">Treatment-emergent adverse event [<italic>n</italic> (%)]</th><th align="left" colspan="4">Study 1</th><th align="left" colspan="4">Study 2</th><th align="left">Study 3</th></tr><tr><th align="left">FDC IBU/APAP 250/500&#xA0;mg fasted [<italic>n</italic>&#x2009;=&#x2009;34]</th><th align="left">IBU 200&#xA0;mg [<italic>n</italic>&#x2009;=&#x2009;34]</th><th align="left">APAP ER 650&#xA0;mg [<italic>n</italic>&#x2009;=&#x2009;34]</th><th align="left">FDC IBU/APAP 250/500&#xA0;mg fed [<italic>n</italic>&#x2009;=&#x2009;35]</th><th align="left">FDC IBU/APAP 250/500&#xA0;mg [<italic>n</italic>&#x2009;=&#x2009;45]</th><th align="left">IBU 250&#xA0;mg&#x2009;+&#x2009;APAP 500&#xA0;mg [<italic>n</italic>&#x2009;=&#x2009;45]</th><th align="left">IBU 250&#xA0;mg [<italic>n</italic>&#x2009;=&#x2009;44]</th><th align="left">APAP 500&#xA0;mg [<italic>n</italic>&#x2009;=&#x2009;44]</th><th align="left">FDC IBU/APAP 250/500&#xA0;mg [<italic>n</italic>&#x2009;=&#x2009;21]</th></tr></thead><tbody><tr><td align="left">Dysphagia</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.9)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Nausea</td><td align="left">&#x2013;</td><td align="left">1 (2.9)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.2)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (4.8)</td></tr><tr><td align="left">Vomiting</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (4.8)</td></tr><tr><td align="left">Abdominal distention</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.3)</td><td align="left">&#x2013;</td></tr><tr><td align="left">Abdominal pain, upper</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.3)</td><td align="left">&#x2013;</td></tr><tr><td align="left">Constipation</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.2)</td><td align="left">1 (2.3)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Dyspepsia</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.3)</td><td align="left">&#x2013;</td></tr><tr><td align="left">Toothache</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.3)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Dizziness</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.9)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (4.8)</td></tr><tr><td align="left">Headache</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.9)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (4.8)</td></tr><tr><td align="left">Somnolence</td><td align="left">1 (2.9)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Vessel puncture site bruise</td><td align="left">2 (5.9)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">3 (6.7)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.3)</td><td align="left">&#x2013;</td></tr><tr><td align="left">Vessel puncture site pain</td><td align="left">1 (2.9)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.2)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Petechiae</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.2)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Upper respiratory tract infection</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.3)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Cough</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.3)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Head injury</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.9)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Laceration</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (2.9)</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td></tr><tr><td align="left">Musculoskeletal stiffness</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">&#x2013;</td><td align="left">1 (4.8)</td></tr></tbody></table><table-wrap-foot><p><italic>APAP</italic> acetaminophen, <italic>ER</italic> extended release, <italic>FDC</italic> fixed-dose combination, <italic>IBU</italic> ibuprofen</p></table-wrap-foot></table-wrap></p>
+      </sec>
+    </sec>
+    <sec id="Sec14">
+      <title>Discussion</title>
+      <p id="Par33">This series of PK studies demonstrates that the FDC ibuprofen/acetaminophen 250/500&#xA0;mg (administered as 2&#x2009;&#xD7;&#x2009;ibuprofen/acetaminophen 125/250&#xA0;mg) is bioequivalent to its individual monocomponents when administered separately or together. These data substantiate the lack of drug&#x2013;drug PK interactions or formulation effects, respectively, with the combination. Acetaminophen in the FDC is bioequivalent to dose-normalized acetaminophen ER 650&#xA0;mg for AUC. However, an increase in acetaminophen <italic>C</italic><sub>max</sub> was seen with the FDC compared with the acetaminophen ER 650&#xA0;mg comparator. This result was expected as the FDC is an immediate-release formulation, whereas the acetaminophen 650&#xA0;mg used was an ER formulation with delayed absorption. Ibuprofen in the FDC was also bioequivalent to dose-normalized ibuprofen 200&#xA0;mg for AUC and <italic>C</italic><sub>max</sub>. These results therefore demonstrate that the exposure to ibuprofen and acetaminophen in the FDC is similar to those of commercially available formulations of the individual components, indicating there should be no increased safety concerns.</p>
+      <p id="Par34">A food effect on the rate of absorption was observed with the FDC, with <italic>C</italic><sub>max</sub> for ibuprofen and acetaminophen decreased 36% and 37%, respectively, in the presence of food. <italic>T</italic><sub>max</sub> was also delayed by approximately 1.6&#xA0;h for ibuprofen and 1.9&#xA0;h for acetaminophen in fed, compared with fasting, conditions. This is consistent with a previous study in which an FDC of ibuprofen/acetaminophen at a total dose of 400/1000&#xA0;mg, respectively, exhibited decreased <italic>C</italic><sub>max</sub> values in the fed versus fasted state (ratios of 76% and 61% for ibuprofen and acetaminophen, respectively) and delayed median <italic>t</italic><sub>max</sub> by 0.75&#xA0;h and 1&#xA0;h, respectively [<xref ref-type="bibr" rid="CR6">6</xref>]. Studies of ibuprofen alone and acetaminophen alone have also demonstrated decreased <italic>C</italic><sub>max</sub> and delayed <italic>t</italic><sub>max</sub> when either is administered with food [<xref ref-type="bibr" rid="CR19">19</xref>, <xref ref-type="bibr" rid="CR20">20</xref>]. Although the overall extent of absorption (AUC) of ibuprofen from the FDC was slightly reduced (14%) in the presence of food compared with ibuprofen alone, both AUC<sub>&#x221E;</sub> and AUC<sub>last</sub> met the bioequivalence standard of 80&#x2013;125%. The overall exposure to acetaminophen was not affected by food, therefore it is unlikely that the slightly reduced AUC of ibuprofen observed in the fed state would be clinically meaningful in terms of analgesic efficacy. However, the effect of food on efficacy has not been evaluated as the dental pain studies of the FDC were conducted with food restrictions, as is the standard methodology.</p>
+      <p id="Par35">The majority of PK studies of ibuprofen and acetaminophen have focused on adults and younger subjects, with limited data available in adolescents aged 12&#x2013;17&#xA0;years [<xref ref-type="bibr" rid="CR6">6</xref>, <xref ref-type="bibr" rid="CR21">21</xref>&#x2013;<xref ref-type="bibr" rid="CR28">28</xref>]. As a result, population PK estimates and allometric adjustments or scaling have typically provided the rationale for dosing in this younger age group [<xref ref-type="bibr" rid="CR27">27</xref>, <xref ref-type="bibr" rid="CR28">28</xref>]. The present study of FDC ibuprofen/acetaminophen 250/500&#xA0;mg therefore adds new and relevant information by reporting ibuprofen and acetaminophen PK in this age group. Importantly, no clinically important differences in PK exposure were observed for adolescents in comparison with adult subjects 18&#xA0;years of age and older. Indeed, while these studies were not designed to be compared, the overall plasma concentration-time curves for both components of the FDC (in the fasted state) were similar across all three studies, and comparison of AUC and <italic>C</italic><sub>max</sub> values between the adolescent and adult studies also indicates similar exposures to both components, with a slightly higher overall exposure to ibuprofen in adolescents. This provides support for similar dosing recommendations for adolescents as in adults.</p>
+      <p id="Par36">In the younger age subgroup of subjects aged 12&#x2013;14&#xA0;years, ibuprofen and acetaminophen exposures were slightly increased following a single dose of the FDC compared with the older age group aged 15&#x2013;17&#xA0;years. This difference was as expected given the smaller body surface area and lower body weight of the younger subjects, and the differences were not clinically meaningful.</p>
+      <p id="Par37">These studies confirm the results of previous studies indicating no drug&#x2013;drug PK interaction between ibuprofen and acetaminophen [<xref ref-type="bibr" rid="CR6">6</xref>, <xref ref-type="bibr" rid="CR17">17</xref>]; therefore, no additional safety concerns are expected compared with the administration of either agent alone. The data also indicate no formulation effect when combining the two ingredients into one tablet. Consistent with these findings, the FDC ibuprofen/acetaminophen 250/500&#xA0;mg was safe and generally well tolerated in these studies. All AEs were mild or moderate in severity, with no discontinuations due to AEs. AEs were equally distributed between treatment arms, with no new safety concerns compared with the individual components. Importantly, exposure in adolescents was similar to that in adults, and the FDC was generally well tolerated, indicating that this formulation can be safely used in this population. However, it should be noted that these were small, short-duration studies, and rare and serious AEs such as gastrointestinal bleeding and liver failure would not be expected. However, a large, longer-duration study (13&#xA0;weeks) evaluating a similar FDC of ibuprofen/acetaminophen (200/500&#xA0;mg) found a safety profile that was at least as favorable as maximum single OTC doses of the individual components (ibuprofen 400&#xA0;mg, acetaminophen 1000&#xA0;mg) [<xref ref-type="bibr" rid="CR15">15</xref>].</p>
+    </sec>
+    <sec id="Sec15">
+      <title>Conclusions</title>
+      <p id="Par38">The FDC ibuprofen/acetaminophen 250/500&#xA0;mg has a PK profile similar to its monocomponent constituents when administered alone or coadministered. Overall exposure to ibuprofen and acetaminophen was bioequivalent under fed versus fasted conditions, although, as expected, food delayed absorption, similar to what has previously been observed for each individual monocomponent. In adolescents, overall exposure to ibuprofen from the FDC, as measured by AUC, was similar in individuals 12&#x2013;14&#xA0;years of age and 15&#x2013;17&#xA0;years of age, but <italic>C</italic><sub>max</sub> was 23% higher and <italic>t</italic><sub>max</sub> was achieved earlier in the younger age group of patients. In contrast, acetaminophen exposure (i.e. AUC) was 30% higher in the younger group after administration of the FDC; <italic>C</italic><sub>max</sub> was 42% higher and <italic>t</italic><sub>max</sub> occurred earlier in the younger age group of patients than in older adolescents. Exposure to ibuprofen and acetaminophen in the overall group of adolescents was similar to that in adults, supporting the same dosing in that population.</p>
+    </sec>
+  </body>
+  <back>
+    <fn-group>
+      <fn>
+        <p>The authors David E. Kellstein, Suzanne Meeves and Mario Cruz-Rivera were Employees of Pfizer Consumer Healthcare, Madison, NJ, USA at the time this research was conducted.</p>
+      </fn>
+    </fn-group>
+    <ack>
+      <title>Acknowledgements</title>
+      <p>Medical writing support was provided by John H. Simmons, MD, of Peloton Advantage, LLC, an OPEN Health company, and was funded by Pfizer. On 1 August 2019, PCH became part of GSK Consumer Healthcare. The authors would like to thank Zhongwei Zhou, lead programmer, and all the programmers who supported these studies, as well as the study participants.</p>
+    </ack>
+    <notes notes-type="author-contribution">
+      <title>Author Contributions</title>
+      <p>Study design: All authors; Study investigator: Sanela Tarabar, Debra Kelsh; Enrolled subjects: Sanela Tarabar, Debra Kelsh; Collection and assembly of data: All authors; Data analysis: Rina Leyva (Lead Statistician); Data interpretation: All authors; Manuscript preparation: All authors; Manuscript review and revisions: All authors; Final approval of manuscript: All authors.</p>
+    </notes>
+    <notes notes-type="data-availability">
+      <title>Data Sharing Statement</title>
+      <p>Upon request, and subject to certain criteria, conditions and exceptions (see <ext-link ext-link-type="uri" xlink:href="https://www.pfizer.com/science/clinical-trials/trial-data-and-results">https://www.pfizer.com/science/clinical-trials/trial-data-and-results</ext-link> for more information), Pfizer will provide access to individual de-identified&#xA0;participant data from Pfizer-sponsored global interventional clinical studies conducted for medicines, vaccines and medical devices (1) for indications that have been approved in the US and/or EU, or (2) in programs that have been terminated (i.e. development for all indications has been discontinued).&#xA0;Pfizer will also consider requests for the protocol, data dictionary, and statistical analysis plan.&#xA0;Data may be requested from Pfizer trials 24&#xA0;months after study completion.&#xA0;The de-identified&#xA0;participant data will be made available to researchers whose proposals meet the research criteria and other conditions, and for which an exception does not apply, via a secure portal. To gain access, data requestors must enter into a data access agreement with Pfizer. On 1 August 2019, PCH became part of GSK Consumer Healthcare.</p>
+    </notes>
+    <notes>
+      <title>Compliance with Ethical Standards</title>
+      <notes notes-type="funding">
+        <title>Funding</title>
+        <p id="Par39">These studies were funded by PCH. On 1 August 2019, PCH became part of GSK Consumer Healthcare.</p>
+      </notes>
+      <notes notes-type="COI-statement">
+        <title>Conflict of interest</title>
+        <p id="Par40">Sanela Tarabar, Rina Leyva, Dongweon Song, and Kyle Matschke are employees of and may own stock/stock options in Pfizer Inc. David E. Kellstein and Mario Cruz-Rivera were employees of Pfizer Inc. at the time this research was conducted and may own stock/stock options in Pfizer Inc. Suzanne Meeves was an employee of Pfizer Inc. at the time this research was conducted. Debra Kelsh and Bradley Vince declare they have no conflicts of interest.</p>
+      </notes>
+      <notes>
+        <title>Ethical Approval</title>
+        <p id="Par41">All procedures performed in studies involving human participants were in accordance with the ethical standards of the Pfizer Clinical Research Unit, New Haven, CT, USA (Studies 1 and 2); WCCT Global, Costa Mesa, CA, USA, Pharmaceutical Research Associates, Salt Lake City, UT, USA, and Altasciences/Vince and Associates Clinical Research, Overland Park, KS, USA (Study 3) and with the 1964 Helsinki declaration and its later amendments or comparable ethical standards.</p>
+      </notes>
+      <notes>
+        <title>Informed Consent</title>
+        <p id="Par42">Informed consent was obtained from all individual participants (or parents or guardians in the adolescent study) included in the studies; informed assent was obtained from each minor subject.</p>
+      </notes>
+    </notes>
+    <ref-list id="Bib1">
+      <title>References</title>
+      <ref id="CR1">
+        <label>1.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Dickman</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Choosing over-the-counter analgesics</article-title>
+          <source>Pharm J.</source>
+          <year>2008</year>
+          <volume>281</volume>
+          <fpage>631</fpage>
+        </element-citation>
+      </ref>
+      <ref id="CR2">
+        <label>2.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Perrott</surname>
+              <given-names>DA</given-names>
+            </name>
+            <name>
+              <surname>Piira</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Goodenough</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Champion</surname>
+              <given-names>GD</given-names>
+            </name>
+          </person-group>
+          <article-title>Efficacy and safety of acetaminophen vs ibuprofen for treating children&#x2019;s pain or fever: a meta-analysis</article-title>
+          <source>Arch Pediatr Adolesc Med.</source>
+          <year>2004</year>
+          <volume>158</volume>
+          <fpage>521</fpage>
+          <lpage>526</lpage>
+          <pub-id pub-id-type="doi">10.1001/archpedi.158.6.521</pub-id>
+          <pub-id pub-id-type="pmid">15184213</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR3">
+        <label>3.</label>
+        <mixed-citation publication-type="other">Moore RA, Wiffen PJ, Derry S, Maguire T, Roy YM, Tyrrell L. Non-prescription (OTC) oral analgesics for acute pain&#x2014;an overview of Cochrane reviews. Cochrane Database Syst Rev. 2015;(11):CD010794.</mixed-citation>
+      </ref>
+      <ref id="CR4">
+        <label>4.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Goldman</surname>
+              <given-names>RD</given-names>
+            </name>
+            <name>
+              <surname>Ko</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Linett</surname>
+              <given-names>LJ</given-names>
+            </name>
+            <name>
+              <surname>Scolnik</surname>
+              <given-names>D</given-names>
+            </name>
+          </person-group>
+          <article-title>Antipyretic efficacy and safety of ibuprofen and acetaminophen in children</article-title>
+          <source>Ann Pharmacother.</source>
+          <year>2004</year>
+          <volume>38</volume>
+          <fpage>146</fpage>
+          <lpage>150</lpage>
+          <pub-id pub-id-type="doi">10.1345/aph.1C391</pub-id>
+          <pub-id pub-id-type="pmid">14742809</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR5">
+        <label>5.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pierce</surname>
+              <given-names>CA</given-names>
+            </name>
+            <name>
+              <surname>Voss</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+          <article-title>Efficacy and safety of ibuprofen and acetaminophen in children and adults: a meta-analysis and qualitative review</article-title>
+          <source>Ann Pharmacother.</source>
+          <year>2010</year>
+          <volume>44</volume>
+          <fpage>489</fpage>
+          <lpage>506</lpage>
+          <pub-id pub-id-type="doi">10.1345/aph.1M332</pub-id>
+          <pub-id pub-id-type="pmid">20150507</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR6">
+        <label>6.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Tanner</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Aspley</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Munn</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Thomas</surname>
+              <given-names>T</given-names>
+            </name>
+          </person-group>
+          <article-title>The pharmacokinetic profile of a novel fixed-dose combination tablet of ibuprofen and paracetamol</article-title>
+          <source>BMC Clin Pharmacol.</source>
+          <year>2010</year>
+          <volume>10</volume>
+          <fpage>10</fpage>
+          <pub-id pub-id-type="doi">10.1186/1472-6904-10-10</pub-id>
+          <pub-id pub-id-type="pmid">20602760</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR7">
+        <label>7.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Anderson</surname>
+              <given-names>BJ</given-names>
+            </name>
+          </person-group>
+          <article-title>Paracetamol (acetaminophen): mechanisms of action</article-title>
+          <source>Paediatr Anaesth.</source>
+          <year>2008</year>
+          <volume>18</volume>
+          <fpage>915</fpage>
+          <lpage>921</lpage>
+          <pub-id pub-id-type="doi">10.1111/j.1460-9592.2008.02764.x</pub-id>
+          <pub-id pub-id-type="pmid">18811827</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR8">
+        <label>8.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Laska</surname>
+              <given-names>EM</given-names>
+            </name>
+            <name>
+              <surname>Sunshine</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Marrero</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Olson</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Siegel</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>McCormick</surname>
+              <given-names>N</given-names>
+            </name>
+          </person-group>
+          <article-title>The correlation between blood levels of ibuprofen and clinical analgesic response</article-title>
+          <source>Clin Pharmacol Ther.</source>
+          <year>1986</year>
+          <volume>40</volume>
+          <fpage>1</fpage>
+          <lpage>7</lpage>
+          <pub-id pub-id-type="doi">10.1038/clpt.1986.129</pub-id>
+          <pub-id pub-id-type="pmid">3522030</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR9">
+        <label>9.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Seymour</surname>
+              <given-names>RA</given-names>
+            </name>
+            <name>
+              <surname>Ward-Booth</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Kelly</surname>
+              <given-names>PJ</given-names>
+            </name>
+          </person-group>
+          <article-title>Evaluation of different doses of soluble ibuprofen and ibuprofen tablets in postoperative dental pain</article-title>
+          <source>Br J Oral Maxillofac Surg.</source>
+          <year>1996</year>
+          <volume>34</volume>
+          <fpage>110</fpage>
+          <lpage>114</lpage>
+          <pub-id pub-id-type="doi">10.1016/S0266-4356(96)90147-3</pub-id>
+          <pub-id pub-id-type="pmid">8645662</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR10">
+        <label>10.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Skoglund</surname>
+              <given-names>LA</given-names>
+            </name>
+            <name>
+              <surname>Skjelbred</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Fyllingen</surname>
+              <given-names>G</given-names>
+            </name>
+          </person-group>
+          <article-title>Analgesic efficacy of acetaminophen 1000&#xA0;mg, acetaminophen 2000&#xA0;mg, and the combination of acetaminophen 1000&#xA0;mg and codeine phosphate 60&#xA0;mg versus placebo in acute postoperative pain</article-title>
+          <source>Pharmacotherapy.</source>
+          <year>1991</year>
+          <volume>11</volume>
+          <fpage>364</fpage>
+          <lpage>369</lpage>
+          <pub-id pub-id-type="pmid">1745622</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR11">
+        <label>11.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Moore</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Scheiman</surname>
+              <given-names>JM</given-names>
+            </name>
+          </person-group>
+          <article-title>Gastrointestinal safety and tolerability of oral non-aspirin over-the-counter analgesics</article-title>
+          <source>Postgrad Med.</source>
+          <year>2018</year>
+          <volume>130</volume>
+          <fpage>188</fpage>
+          <lpage>199</lpage>
+          <pub-id pub-id-type="doi">10.1080/00325481.2018.1429793</pub-id>
+          <pub-id pub-id-type="pmid">29417856</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR12">
+        <label>12.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Becker</surname>
+              <given-names>DE</given-names>
+            </name>
+          </person-group>
+          <article-title>Pain management: Part 1: managing acute and postoperative dental pain</article-title>
+          <source>Anesth Prog</source>
+          <year>2010</year>
+          <volume>57</volume>
+          <fpage>67</fpage>
+          <lpage>78</lpage>
+          <pub-id pub-id-type="doi">10.2344/0003-3006-57.2.67</pub-id>
+          <pub-id pub-id-type="pmid">20553137</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR13">
+        <label>13.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mehlisch</surname>
+              <given-names>DR</given-names>
+            </name>
+            <name>
+              <surname>Aspley</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Daniels</surname>
+              <given-names>SE</given-names>
+            </name>
+            <name>
+              <surname>Bandy</surname>
+              <given-names>DP</given-names>
+            </name>
+          </person-group>
+          <article-title>Comparison of the analgesic efficacy of concurrent ibuprofen and paracetamol with ibuprofen or paracetamol alone in the management of moderate to severe acute postoperative dental pain in adolescents and adults: a randomized, double-blind, placebo-controlled, parallel-group, single-dose, two-center, modified factorial study</article-title>
+          <source>Clin Ther.</source>
+          <year>2010</year>
+          <volume>32</volume>
+          <fpage>882</fpage>
+          <lpage>895</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.clinthera.2010.04.022</pub-id>
+          <pub-id pub-id-type="pmid">20685496</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR14">
+        <label>14.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mehlisch</surname>
+              <given-names>DR</given-names>
+            </name>
+            <name>
+              <surname>Aspley</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Daniels</surname>
+              <given-names>SE</given-names>
+            </name>
+            <name>
+              <surname>Southerden</surname>
+              <given-names>KA</given-names>
+            </name>
+            <name>
+              <surname>Christensen</surname>
+              <given-names>KS</given-names>
+            </name>
+          </person-group>
+          <article-title>A single-tablet fixed-dose combination of racemic ibuprofen/paracetamol in the management of moderate to severe postoperative dental pain in adult and adolescent patients: a multicenter, two-stage, randomized, double-blind, parallel-group, placebo-controlled, factorial study</article-title>
+          <source>Clin Ther.</source>
+          <year>2010</year>
+          <volume>32</volume>
+          <fpage>1033</fpage>
+          <lpage>1049</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.clinthera.2010.06.002</pub-id>
+          <pub-id pub-id-type="pmid">20637958</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR15">
+        <label>15.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Doherty</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Hawkey</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Goulder</surname>
+              <given-names>M</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>A randomised controlled trial of ibuprofen, paracetamol or a combination tablet of ibuprofen/paracetamol in community-derived people with knee pain</article-title>
+          <source>Ann Rheum Dis.</source>
+          <year>2011</year>
+          <volume>70</volume>
+          <fpage>1534</fpage>
+          <lpage>1541</lpage>
+          <pub-id pub-id-type="doi">10.1136/ard.2011.154047</pub-id>
+          <pub-id pub-id-type="pmid">21804100</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR16">
+        <label>16.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Malya</surname>
+              <given-names>RR</given-names>
+            </name>
+          </person-group>
+          <article-title>Does combination treatment with ibuprofen and acetaminophen improve fever control?</article-title>
+          <source>Ann Emerg Med.</source>
+          <year>2013</year>
+          <volume>61</volume>
+          <fpage>569</fpage>
+          <lpage>570</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.annemergmed.2012.10.025</pub-id>
+          <pub-id pub-id-type="pmid">23522609</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR17">
+        <label>17.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Wright</surname>
+              <given-names>CE</given-names>
+              <suffix>3rd</suffix>
+            </name>
+            <name>
+              <surname>Antal</surname>
+              <given-names>EJ</given-names>
+            </name>
+            <name>
+              <surname>Gillespie</surname>
+              <given-names>WR</given-names>
+            </name>
+            <name>
+              <surname>Albert</surname>
+              <given-names>KS</given-names>
+            </name>
+          </person-group>
+          <article-title>Ibuprofen and acetaminophen kinetics when taken concurrently</article-title>
+          <source>Clin Pharmacol Ther.</source>
+          <year>1983</year>
+          <volume>34</volume>
+          <fpage>707</fpage>
+          <lpage>710</lpage>
+          <pub-id pub-id-type="doi">10.1038/clpt.1983.237</pub-id>
+          <pub-id pub-id-type="pmid">6627831</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR18">
+        <label>18.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Wang</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Jadhav</surname>
+              <given-names>PR</given-names>
+            </name>
+            <name>
+              <surname>Lala</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Gobburu</surname>
+              <given-names>JV</given-names>
+            </name>
+          </person-group>
+          <article-title>Clarification on precision criteria to derive sample size when designing pediatric pharmacokinetic studies</article-title>
+          <source>J Clin Pharmacol.</source>
+          <year>2012</year>
+          <volume>52</volume>
+          <fpage>1601</fpage>
+          <lpage>1606</lpage>
+          <pub-id pub-id-type="doi">10.1177/0091270011422812</pub-id>
+          <pub-id pub-id-type="pmid">22162537</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR19">
+        <label>19.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Koenigsknecht</surname>
+              <given-names>MJ</given-names>
+            </name>
+            <name>
+              <surname>Baker</surname>
+              <given-names>JR</given-names>
+            </name>
+            <name>
+              <surname>Wen</surname>
+              <given-names>B</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>In vivo dissolution and systemic absorption of immediate release ibuprofen in human gastrointestinal tract under fed and fasted conditions</article-title>
+          <source>Mol Pharm.</source>
+          <year>2017</year>
+          <volume>14</volume>
+          <fpage>4295</fpage>
+          <lpage>4304</lpage>
+          <pub-id pub-id-type="doi">10.1021/acs.molpharmaceut.7b00425</pub-id>
+          <pub-id pub-id-type="pmid">28937221</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR20">
+        <label>20.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Divoll</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Greenblatt</surname>
+              <given-names>DJ</given-names>
+            </name>
+            <name>
+              <surname>Ameer</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Abernethy</surname>
+              <given-names>DR</given-names>
+            </name>
+          </person-group>
+          <article-title>Effect of food on acetaminophen absorption in young and elderly subjects</article-title>
+          <source>J Clin Pharmacol.</source>
+          <year>1982</year>
+          <volume>22</volume>
+          <fpage>571</fpage>
+          <lpage>576</lpage>
+          <pub-id pub-id-type="doi">10.1002/j.1552-4604.1982.tb02651.x</pub-id>
+          <pub-id pub-id-type="pmid">7161411</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR21">
+        <label>21.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Davies</surname>
+              <given-names>NM</given-names>
+            </name>
+          </person-group>
+          <article-title>Clinical pharmacokinetics of ibuprofen. The first 30&#xA0;years</article-title>
+          <source>Clin Pharmacokinet</source>
+          <year>1998</year>
+          <volume>34</volume>
+          <fpage>101</fpage>
+          <lpage>154</lpage>
+          <pub-id pub-id-type="doi">10.2165/00003088-199834020-00002</pub-id>
+          <pub-id pub-id-type="pmid">9515184</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR22">
+        <label>22.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Walson</surname>
+              <given-names>PD</given-names>
+            </name>
+            <name>
+              <surname>Mortensen</surname>
+              <given-names>ME</given-names>
+            </name>
+          </person-group>
+          <article-title>Pharmacokinetics of common analgesics, anti-inflammatories and antipyretics in children</article-title>
+          <source>Clin Pharmacokinet.</source>
+          <year>1989</year>
+          <volume>17</volume>
+          <issue>Suppl 1</issue>
+          <fpage>116</fpage>
+          <lpage>137</lpage>
+          <pub-id pub-id-type="doi">10.2165/00003088-198900171-00009</pub-id>
+          <pub-id pub-id-type="pmid">2692935</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR23">
+        <label>23.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Wang</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Allegaert</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Tibboel</surname>
+              <given-names>D</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Population pharmacokinetics of paracetamol across the human age-range from (pre)term neonates, infants, children to adults</article-title>
+          <source>J Clin Pharmacol.</source>
+          <year>2014</year>
+          <volume>54</volume>
+          <fpage>619</fpage>
+          <lpage>629</lpage>
+          <pub-id pub-id-type="doi">10.1002/jcph.259</pub-id>
+          <pub-id pub-id-type="pmid">24375166</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR24">
+        <label>24.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zuppa</surname>
+              <given-names>AF</given-names>
+            </name>
+            <name>
+              <surname>Hammer</surname>
+              <given-names>GB</given-names>
+            </name>
+            <name>
+              <surname>Barrett</surname>
+              <given-names>JS</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Safety and population pharmacokinetic analysis of intravenous acetaminophen in neonates, infants, children, and adolescents with pain or fever</article-title>
+          <source>J Pediatr Pharmacol Ther.</source>
+          <year>2011</year>
+          <volume>16</volume>
+          <fpage>246</fpage>
+          <lpage>261</lpage>
+          <pub-id pub-id-type="pmid">22768009</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR25">
+        <label>25.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nahata</surname>
+              <given-names>MC</given-names>
+            </name>
+            <name>
+              <surname>Durrell</surname>
+              <given-names>DE</given-names>
+            </name>
+            <name>
+              <surname>Powell</surname>
+              <given-names>DA</given-names>
+            </name>
+            <name>
+              <surname>Gupta</surname>
+              <given-names>N</given-names>
+            </name>
+          </person-group>
+          <article-title>Pharmacokinetics of ibuprofen in febrile children</article-title>
+          <source>Eur J Clin Pharmacol.</source>
+          <year>1991</year>
+          <volume>40</volume>
+          <fpage>427</fpage>
+          <lpage>428</lpage>
+          <pub-id pub-id-type="doi">10.1007/BF00265858</pub-id>
+          <pub-id pub-id-type="pmid">2050181</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR26">
+        <label>26.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Peterson</surname>
+              <given-names>RG</given-names>
+            </name>
+            <name>
+              <surname>Rumack</surname>
+              <given-names>BH</given-names>
+            </name>
+          </person-group>
+          <article-title>Pharmacokinetics of acetaminophen in children</article-title>
+          <source>Pediatrics.</source>
+          <year>1978</year>
+          <volume>62</volume>
+          <fpage>877</fpage>
+          <lpage>879</lpage>
+          <pub-id pub-id-type="pmid">364399</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR27">
+        <label>27.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Troconiz</surname>
+              <given-names>IF</given-names>
+            </name>
+            <name>
+              <surname>Armenteros</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Planelles</surname>
+              <given-names>MV</given-names>
+            </name>
+            <name>
+              <surname>Benitez</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Calvo</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Dominguez</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+          <article-title>Pharmacokinetic&#x2013;pharmacodynamic modelling of the antipyretic effect of two oral formulations of ibuprofen</article-title>
+          <source>Clin Pharmacokinet.</source>
+          <year>2000</year>
+          <volume>38</volume>
+          <fpage>505</fpage>
+          <lpage>518</lpage>
+          <pub-id pub-id-type="doi">10.2165/00003088-200038060-00004</pub-id>
+          <pub-id pub-id-type="pmid">10885587</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR28">
+        <label>28.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Edginton</surname>
+              <given-names>AN</given-names>
+            </name>
+            <name>
+              <surname>Schmitt</surname>
+              <given-names>W</given-names>
+            </name>
+            <name>
+              <surname>Willmann</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <article-title>Development and evaluation of a generic physiologically based pharmacokinetic model for children</article-title>
+          <source>Clin Pharmacokinet.</source>
+          <year>2006</year>
+          <volume>45</volume>
+          <fpage>1013</fpage>
+          <lpage>1034</lpage>
+          <pub-id pub-id-type="doi">10.2165/00003088-200645100-00005</pub-id>
+          <pub-id pub-id-type="pmid">16984214</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</artICle>
+</Pmc-articleset>

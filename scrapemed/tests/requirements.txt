@@ -1,0 +1,5 @@
+lxml
+pytest
+re
+filecmp
+html
