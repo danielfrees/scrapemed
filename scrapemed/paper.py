@@ -24,14 +24,38 @@ class Paper(Base):
     def __init__(self, pmcid:int, email:str, download:bool=False, validate:bool=True, verbose:bool=False):
         paper_dict = parse.generate_paper_dict(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
         
-        #TODO: add more member assignments
         self.title = paper_dict['Title']
         self.authors = paper_dict['Authors']
+        self.non_author_contributors = paper_dict['Non-author Contributors']
         self.abstract = paper_dict['Abstract']
         self.body = paper_dict['Body']
-        self.xref_map = paper_dict['XRef_Map']
-        self.table_map = paper_dict['Table_Map']
-        self.fig_map = paper_dict['Fig_Map']
+        self.ref_map = paper_dict['Ref Map']
+        self.journal_id = paper_dict['Journal ID']
+        self.journal_title = paper_dict['Journal Title']
+        self.issn = paper_dict['ISSN']
+        self.publisher_name = paper_dict['Publisher Name']
+        self.publisher_location = paper_dict['Publisher Location']
+        self.article_meta = paper_dict['Article Meta']
+        self.article_id = paper_dict['Article ID']
+        self.article_type = paper_dict['Article Type']
+        self.article_categories = paper_dict['Article Categories']
+        self.subject = paper_dict['Subject']
+        self.institution = paper_dict['Institution']
+        self.institution_id = paper_dict['Institution ID']
+        self.published_date = paper_dict['Published Date']
+        self.volume = paper_dict['Volume']
+        self.issue = paper_dict['Issue']
+        self.permissions = paper_dict['Permissions']
+        self.copyright_statement = paper_dict['Copyright Statement']
+        self.license = paper_dict['License']
+        self.funding_group = paper_dict['Funding Group']
+        self.award_group = paper_dict['Award Group']
+        self.funding_source = paper_dict['Funding Source']
+        self.footnote = paper_dict['Footnote']
+        self.acknowledgements = paper_dict['Acknowledgements']
+        self.notes = paper_dict['Notes']
+        self.reference_list = paper_dict['Reference List']
+
         
     def __str__(self):
         s = ""
