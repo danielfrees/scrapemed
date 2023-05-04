@@ -7,6 +7,7 @@ import scrapemed._clean as _clean
 import scrapemed._validate as _validate
 import lxml.etree as ET
 from Bio import Entrez 
+import warnings
 
 class validationWarning(Warning):
     """
@@ -35,7 +36,7 @@ def get_xml(pmcid: int, email: str, download = False, validate = True, strip_tex
         #Validate tags, attrs, values are supported for parsing by the scrapemed package.
         _validate.validate_xml(tree)
     else:
-        raise validationWarning(f"Warning! Scraping XML for PMCID {pmcid} from PMC without validating.")
+        warnings.warn(f"Warning! Scraping XML for PMCID {pmcid} from PMC without validating.", validationWarning)
 
     return tree
 
@@ -60,6 +61,7 @@ def _get_xml_string(pmcid: int, email: str, download = False, verbose = False) -
     handle = Entrez.efetch(db = DB, id = pmcid, rettype = RETTYPE, retmode = RETMODE)
     xml_record = handle.read()
     xml_text = xml_record.decode(encoding = "utf-8")
+    handle.close()
     
     if verbose:
         print(f"\nGetting {RETMODE.upper()} string from {DB}...\n")
