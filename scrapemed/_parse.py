@@ -218,11 +218,21 @@ def gather_journal_id(root: ET.Element) -> dict:
 
     return id_dict
 
-def gather_journal_title(root: ET.Element) -> str:
+def gather_journal_title(root: ET.Element) -> Union[List[str], str]:
     """
     Gather Journal Title from PMC XML.
     """
-    return None
+    return_val = None
+    titles = []
+    title_groups = root.xpath("//journal-meta/journal-title-group")
+    for title_group in title_groups:
+        titles.extend(title_group.getchildren())
+    #might have multiple journals & journal titles
+    if len(titles) > 1:
+        return_val = [title.text for title in titles]
+    else:
+        return_val = titles[0].text
+    return return_val
 
 def gather_issn(root: ET.Element) -> dict:
     """
