@@ -108,7 +108,7 @@ def _remove_html_styling(text: str, removals:list[str], replaces:dict, verbose =
     #RETURN THE CLEANED TEXT
     return text
 
-def split_text_and_refs(tree_text:str, ref_map:basicBiMap, id=None, on_unknown='drop'):
+def split_text_and_refs(tree_text:str, ref_map:basicBiMap, id=None, on_unknown='keep'):
     """
     Split HTML tags out of text. 
     • HTML text styling tags will be removed if they aren't already.
@@ -129,7 +129,7 @@ def split_text_and_refs(tree_text:str, ref_map:basicBiMap, id=None, on_unknown='
             The provided BiMap will be modified to reflect any new tag values found, and
             keys will be appended as necessary.
     [id]: Optionally provide an id for traceback of any issues.
-    [on_unknown]: Behavior when encountering an unknown tag. Default = 'drop'. 
+    [on_unknown]: Behavior when encountering an unknown tag. Determines what happens to the tag contents. Default = 'keep'. 
             Options: ['drop', 'keep']
 
     Output: The cleaned text, and updated BiMap.

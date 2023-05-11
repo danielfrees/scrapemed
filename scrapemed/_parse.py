@@ -7,8 +7,8 @@ Middleman between the "scrape" module and the "paper" module for scrapemed.
 
 """
 
-from tkinter import N
-from typing import Text, List, Dict
+from typing import Text, List, Dict, Tuple
+from typing import Union
 import scrapemed.scrape as scrape
 import lxml.etree as ET
 from scrapemed.utils import basicBiMap
@@ -64,7 +64,7 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
     paper_dict = {
         'Title': gather_title(root),
         'Authors': gather_authors(root),
-        'Non-author Contributors': gather_non_author_contributors(root),
+        'Non-Author Contributors': gather_non_author_contributors(root),
         'Abstract': gather_abstract(root, ref_map),
         'Body': gather_body(root, ref_map),
         'Journal ID': gather_journal_id(root),
@@ -108,22 +108,25 @@ def gather_title(root: ET.Element)->str:
 
     return title
 
-def gather_authors(root: ET.Element)->list[str]:
+def get_contributor_tuples(root: ET.Element, contributors: List[ET.Element]) -> List[Tuple]:
     """
-    Gather authors and their emails and affiliations from a PMC XML.
-    """
-    authors = root.xpath(".//contrib[@contrib-type='author']")
-    if not authors:
-        raise unexpectedZeroMatchWarning("Warning! Authors could not be matched")
+    Helper function to grab tuples of contributor information.
 
-    # Extract the first and last names of the authors and store them in a list
-    author_tuples = []
-    for author in authors:
-        first_name = author.findtext(".//given-names")
-        last_name = author.findtext(".//surname")
-        address = author.findtext(".//address/email")
+    Input:
+    [root]: root of the XML tree to search
+    [contributors]: list of lxml Element objects to grab information from
+
+    Output:
+    A list of tuples of contributor info in the form (contrib_type, first_name, last_name, address, affiliations).
+    """
+    contributor_tuples = []
+    for contributor in contributors:
+        contrib_type = contributor.get("contrib-type").capitalize()
+        first_name = contributor.findtext(".//given-names")
+        last_name = contributor.findtext(".//surname")
+        address = contributor.findtext(".//address/email")
         affiliations = []
-        aff_paths = author.xpath(".//xref[@ref-type='aff']")
+        aff_paths = contributor.xpath(".//xref[@ref-type='aff']")
         for aff in aff_paths:
             aff_id = aff.get('rid')
             aff_text = root.xpath(f"//contrib-group/aff[@id='{aff_id}']/text()[not(parent::label)]")
@@ -131,18 +134,44 @@ def gather_authors(root: ET.Element)->list[str]:
                 raise Warning("Multiple affiliations with the same ID found. Check XML Formatting.")
             affiliation = f"{aff_id}: {aff_text[0]}"
             affiliations.append(affiliation)
-        author_tuples.append((first_name, last_name, address, affiliations))
+        contributor_tuples.append((contrib_type, first_name, last_name, address, affiliations))
+    return contributor_tuples
+
+def gather_authors(root: ET.Element)-> pd.DataFrame:
+    """
+    Gather authors and their emails and affiliations from a PMC XML.
+
+    Returns a DataFrame of author info.
+    """
+    authors = root.xpath(".//contrib[@contrib-type='author']")
+    if not authors:
+        raise unexpectedZeroMatchWarning("Warning! Authors could not be matched")
+
+    # Extract the first and last names of the authors and store them in a list
+    author_tuples = get_contributor_tuples(root=root, contributors=authors)
 
     authors_df = pd.DataFrame(author_tuples)
-    authors_df.columns = ['First_Name', 'Last_Name', 'Email_Address', 'Affiliations']
+    authors_df.columns = ['Contributor_Type', 'First_Name', 'Last_Name', 'Email_Address', 'Affiliations']
 
     return authors_df
 
-def gather_non_author_contributors(root: ET.Element) -> str:
+def gather_non_author_contributors(root: ET.Element) -> Union[str, pd.DataFrame]:
     """
     Gather non-author contributors from PMC XML.
+
+    Returns either a string indicating none found, or a DataFrame of contributor info.
     """
-    return None
+
+    return_val = "No non-author contributors were found after parsing this paper."
+
+    non_author_contributors = root.xpath(".//contrib[not(@contrib-type='author')]")
+    if non_author_contributors:
+        non_author_tuples = get_contributor_tuples(root=root, contributors=non_author_contributors)
+        non_authors_df = pd.DataFrame(non_author_tuples)
+        non_authors_df.columns = ['Contributor_Type', 'First_Name', 'Last_Name', 'Email_Address', 'Affiliations']
+        return_val = non_authors_df
+
+    return return_val
 
 def gather_abstract(root: ET.Element, ref_map:basicBiMap)->List[TextSection]:
     """
@@ -180,11 +209,14 @@ def gather_body(root: ET.Element, ref_map:basicBiMap)->List[TextSection]:
 
     return body
 
-def gather_journal_id(root: ET.Element) -> str:
+def gather_journal_id(root: ET.Element) -> dict:
     """
     Gather Journal ID from PMC XML.
     """
-    return None
+    journal_ids = root.xpath("//journal-meta/journal-id")
+    id_dict = {journal_id.get("journal-id-type"): journal_id.text for journal_id in journal_ids}
+
+    return id_dict
 
 def gather_journal_title(root: ET.Element) -> str:
     """
@@ -192,11 +224,14 @@ def gather_journal_title(root: ET.Element) -> str:
     """
     return None
 
-def gather_issn(root: ET.Element) -> str:
+def gather_issn(root: ET.Element) -> dict:
     """
     Gather ISSN from PMC XML.
     """
-    return None
+    issns = root.xpath("//journal-meta/issn")
+    issn_dict = {issn.get("pub-type"): issn.text for issn in issns}
+
+    return issn_dict
 
 def gather_publisher_name(root: ET.Element) -> str:
     """

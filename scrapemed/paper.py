@@ -26,7 +26,7 @@ class Paper(Base):
         
         self.title = paper_dict['Title']
         self.authors = paper_dict['Authors']
-        self.non_author_contributors = paper_dict['Non-author Contributors']
+        self.non_author_contributors = paper_dict['Non-Author Contributors']
         self.abstract = paper_dict['Abstract']
         self.body = paper_dict['Body']
         self.ref_map = paper_dict['Ref Map']
