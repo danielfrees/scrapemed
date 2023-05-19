@@ -3,6 +3,9 @@
 Parse module for grabbing metadata, text, tables, figures, etc. 
 from XML trees representing PMC articles.
 
+DTD for the XML should be NLM articleset 2.0. 
+Otherwise the behavior here may not be as expected.
+
 Middleman between the "scrape" module and the "paper" module for scrapemed.
 
 """

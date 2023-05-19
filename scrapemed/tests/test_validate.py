@@ -2,7 +2,6 @@ import scrapemed._validate as _validate
 import scrapemed._clean as _clean
 import scrapemed.scrape as scrape
 import scrapemed._morehtml as mhtml
-from scrapemed._validate import markupLanguageAttributeException, markupLanguageTagException, markupLanguageValueWarning
 import lxml.etree as ET
 import pytest
 import filecmp
@@ -37,34 +36,15 @@ def test_xml_validation():
     XML_TEST.write(os.path.join(path_to_testdata, "should_be_unmodified_test.xml"), xml_declaration = True, encoding = "utf-8")
     assert filecmp.cmp(os.path.join(path_to_testdata, "test_html_unescaped.xml"), os.path.join(path_to_testdata, "should_be_unmodified_test.xml"), shallow=True) == True
 
-    #Test that new vals, attrs, tags, throw warning, exception, exception respectively
-
-    #New value should raise a warning, and return False
-    XML_NEW_VALUE = _get_xml_from_file(os.path.join(path_to_testdata, "new_value.xml"))
-    with pytest.warns(markupLanguageValueWarning) as w:
-        assert _validate.validate_xml(XML_NEW_VALUE) == False, "Imperfect Validation due to New Value"
-
-    #New attribute should raise an exception
-    XML_NEW_ATTR = _get_xml_from_file(os.path.join(path_to_testdata, "new_attr.xml"))
-    with pytest.raises(Exception) as e:
-        _validate.validate_xml(XML_NEW_ATTR)
-        assert e.type == markupLanguageAttributeException
-
-    #New tag should raise an exception
-    XML_NEW_TAG = _get_xml_from_file(os.path.join(path_to_testdata, "new_tag.xml"))
-    with pytest.raises(Exception) as e:
-        _validate.validate_xml(XML_NEW_TAG)
-        assert e.type == markupLanguageTagException
-
-    #check that capitalization doesn't matter when validating otherwise valid xml
+    #check that capitalization breaks the DTD validations
     XML_WEIRD_CAPS = _get_xml_from_file(os.path.join(path_to_testdata, "weird_caps.xml"))
-    assert _validate.validate_xml(XML_WEIRD_CAPS) == True
+    assert not _validate.validate_xml(XML_WEIRD_CAPS)
 
     #check that accepted wildcard values don't matter when validating otherwise valid xml
     XML_WITH_WILDCARDS = _get_xml_from_file(os.path.join(path_to_testdata, "test_wildcarding_1.xml"))
     assert _validate.validate_xml(XML_WITH_WILDCARDS) == True
 
-    #TODO: Check that cleaning html styling does not mess with validation of xml
+    #Check that cleaning html styling does not mess with validation of xml
     xml_test_text = ET.tostring(XML_TEST, encoding = "unicode")
     styling_removed_tree = scrape.xml_tree_from_string(xml_test_text, strip_text_styling=True)
     assert _validate.validate_xml(styling_removed_tree) == True
