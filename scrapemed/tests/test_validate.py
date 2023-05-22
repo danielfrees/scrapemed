@@ -47,7 +47,15 @@ def test_xml_validation():
     #Check that cleaning html styling does not mess with validation of xml
     xml_test_text = ET.tostring(XML_TEST, encoding = "unicode")
     styling_removed_tree = scrape.xml_tree_from_string(xml_test_text, strip_text_styling=True)
-    assert _validate.validate_xml(styling_removed_tree) == True
+    assert _validate.validate_xml(styling_removed_tree)
+
+    #check that unrelated xml does not validate 
+    XML_BOOKS = _get_xml_from_file((os.path.join(path_to_testdata, "book_doc.xml")))
+    assert not _validate.validate_xml(XML_BOOKS)
+
+    #check that validation works on sample entrez download PMCID = 7067710 (straight from source)
+    XML_7067710 = scrape.get_xml(pmcid=7067710, email="danielfrees247@gmail.com")
+    assert _validate.validate_xml(XML_7067710)
 
     return None  #output for a passing test in pytest
     

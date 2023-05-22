@@ -1,0 +1,14 @@
+<?xml version="1.0"?> 
+<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN" "https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd">
+<mybooks> 
+    <book bookid="1"> 
+        <pubdate>03/01/2004</pubdate> 
+        <title>Displaying XML Data with Adobe Dreamweaver</title> 
+        <author>Charles Brown</author> 
+    </book> 
+    <book bookid="2"> 
+        <pubdate>04/08/2004</pubdate> 
+        <title>Understanding XML</title> 
+        <author>John Thompson</author> 
+    </book> 
+</mybooks>
