@@ -125,9 +125,17 @@ def get_contributor_tuples(root: ET.Element, contributors: List[ET.Element]) -> 
     contributor_tuples = []
     for contributor in contributors:
         contrib_type = contributor.get("contrib-type").capitalize()
+        if contrib_type:
+            contrib_type = contrib_type.strip()
         first_name = contributor.findtext(".//given-names")
+        if first_name:
+            first_name = first_name.strip()
         last_name = contributor.findtext(".//surname")
+        if last_name:
+            last_name = last_name.strip()
         address = contributor.findtext(".//address/email")
+        if address:
+            address = address.strip()
         affiliations = []
         aff_paths = contributor.xpath(".//xref[@ref-type='aff']")
         for aff in aff_paths:
@@ -135,7 +143,7 @@ def get_contributor_tuples(root: ET.Element, contributors: List[ET.Element]) -> 
             aff_text = root.xpath(f"//contrib-group/aff[@id='{aff_id}']/text()[not(parent::label)]")
             if len(aff_text) > 1:
                 raise Warning("Multiple affiliations with the same ID found. Check XML Formatting.")
-            affiliation = f"{aff_id}: {aff_text[0]}"
+            affiliation = f"{aff_id.strip()}: {aff_text[0].strip()}"
             affiliations.append(affiliation)
         contributor_tuples.append((contrib_type, first_name, last_name, address, affiliations))
     return contributor_tuples

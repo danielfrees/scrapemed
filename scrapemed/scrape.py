@@ -19,6 +19,14 @@ class validationWarning(Warning):
         return repr(self.message)
 
 #---------------------Download Funcs for PubMed Central-------------------------------
+def search_pmc():
+    """TODO: wrapper for entrez's search function, get a list of xmls as a result."""
+    return None
+
+def get_xmls():
+    """TODO: get a list of xmls given a list of PMCIDs"""
+    return None
+
 def get_xml(pmcid: int, email: str, download = False, validate = True, strip_text_styling = True, verbose = False) -> ET.ElementTree:
     """
     Retrieve XML of a research paper from PMC (TODO: Support to come for other NCBI repos later).
