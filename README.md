@@ -2,8 +2,8 @@
 ## Open-Source Scraper for PubMed Central
 
 ![GitHub CI](https://github.com/mediboard/scrapemed/actions/workflows/test-scrapemed.yml/badge.svg)
-
-Licensed under the MIT license.
+ [![HitCount](https://hits.dwyl.com/mediboard/scrapemed.svg?style=flat-square)](http://hits.dwyl.com/mediboard/scrapemed)
+License: MIT
 
 <TODO: Create package art in Illustrator>
 
