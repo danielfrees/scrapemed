@@ -75,7 +75,6 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
         'ISSN': gather_issn(root),
         'Publisher Name': gather_publisher_name(root),
         'Publisher Location': gather_publisher_location(root),
-        'Article Meta': gather_article_meta(root),
         'Article ID': gather_article_id(root),
         'Article Type': gather_article_type(root),
         'Article Categories': gather_article_categories(root),
@@ -111,7 +110,7 @@ def gather_title(root: ET.Element)->str:
 
     return title
 
-def get_contributor_tuples(root: ET.Element, contributors: List[ET.Element]) -> List[Tuple]:
+def _get_contributor_tuples(root: ET.Element, contributors: List[ET.Element]) -> List[Tuple]:
     """
     Helper function to grab tuples of contributor information.
 
@@ -159,7 +158,7 @@ def gather_authors(root: ET.Element)-> pd.DataFrame:
         raise unexpectedZeroMatchWarning("Warning! Authors could not be matched")
 
     # Extract the first and last names of the authors and store them in a list
-    author_tuples = get_contributor_tuples(root=root, contributors=authors)
+    author_tuples = _get_contributor_tuples(root=root, contributors=authors)
 
     authors_df = pd.DataFrame(author_tuples)
     authors_df.columns = ['Contributor_Type', 'First_Name', 'Last_Name', 'Email_Address', 'Affiliations']
@@ -177,7 +176,7 @@ def gather_non_author_contributors(root: ET.Element) -> Union[str, pd.DataFrame]
 
     non_author_contributors = root.xpath(".//contrib[not(@contrib-type='author')]")
     if non_author_contributors:
-        non_author_tuples = get_contributor_tuples(root=root, contributors=non_author_contributors)
+        non_author_tuples = _get_contributor_tuples(root=root, contributors=non_author_contributors)
         non_authors_df = pd.DataFrame(non_author_tuples)
         non_authors_df.columns = ['Contributor_Type', 'First_Name', 'Last_Name', 'Email_Address', 'Affiliations']
         return_val = non_authors_df
@@ -254,29 +253,38 @@ def gather_issn(root: ET.Element) -> dict:
 
     return issn_dict
 
-def gather_publisher_name(root: ET.Element) -> str:
+def gather_publisher_name(root: ET.Element) -> Union[str, List[str]]:
     """
-    Gather Publisher Name from PMC XML.
+    Gather Publisher Name/s from PMC XML.
     """
-    return None
+    publisher_name_or_names = None
+    publishers = root.xpath("//journal-meta/publisher/publisher-name")
+    if len(publishers) == 1:
+        publisher_name_or_names = publishers[0].text
+    else:
+        publisher_name_or_names = [publisher.text for publisher in publishers]
+    return publisher_name_or_names
 
-def gather_publisher_location(root: ET.Element) -> str:
+def gather_publisher_location(root: ET.Element) -> Union[str, List[str]]:
     """
-    Gather Publisher Location from PMC XML.
+    Gather Publisher Location/s from PMC XML.
     """
-    return None
+    publisher_loc_or_locs = None
+    publisher_locs = root.xpath("//journal-meta/publisher/publisher-loc")
+    if len(publisher_locs) == 1:
+        publisher_loc_or_locs = publisher_locs[0].text
+    else:
+        publisher_loc_or_locs = [publisher_loc.text for publisher_loc in publisher_locs]
+    return publisher_loc_or_locs
 
-def gather_article_meta(root: ET.Element) -> Dict[str, str]:
+def gather_article_id(root: ET.Element) -> Dict[str, str]:
     """
-    Gather Article Meta from PMC XML.
+    Gather Article IDs from PMC XML.
     """
-    return {}
-
-def gather_article_id(root: ET.Element) -> str:
-    """
-    Gather Article ID from PMC XML.
-    """
-    return None
+    article_ids = root.xpath("//article-meta/article-id")
+    id_dict = {article_id.get("pub-id-type"): article_id.text for article_id in article_ids}
+    
+    return id_dict
 
 def gather_article_type(root: ET.Element) -> str:
     """

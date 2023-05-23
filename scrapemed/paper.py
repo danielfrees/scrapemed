@@ -35,7 +35,6 @@ class Paper(Base):
         self.issn = paper_dict['ISSN']
         self.publisher_name = paper_dict['Publisher Name']
         self.publisher_location = paper_dict['Publisher Location']
-        self.article_meta = paper_dict['Article Meta']
         self.article_id = paper_dict['Article ID']
         self.article_type = paper_dict['Article Type']
         self.article_categories = paper_dict['Article Categories']

@@ -37,5 +37,11 @@ def test_paper():
     assert p.journal_id == {'nlm-ta': 'Drugs R D', 'iso-abbrev': 'Drugs R D'}
     assert p.issn == {'ppub': '1174-5886', 'epub': '1179-6901'}
     assert p.journal_title == 'Drugs in R&D'
-
+    assert p.publisher_name == 'Springer International Publishing'
+    assert p.publisher_location == 'Cham'
+    assert p.article_id == {'pmid': '32130679',
+                            'pmc': '7067710',
+                            'publisher-id': '293',
+                            'doi': '10.1007/s40268-020-00293-5'}
+                            
     return None
