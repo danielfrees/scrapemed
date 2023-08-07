@@ -1,0 +1,1220 @@
+<?xml version="1.0" ?>
+<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN" "https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd">
+<pmc-articleset><article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+  <?properties open_access?>
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Ambio</journal-id>
+      <journal-id journal-id-type="iso-abbrev">Ambio</journal-id>
+      <journal-title-group>
+        <journal-title>Ambio</journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0044-7447</issn>
+      <issn pub-type="epub">1654-7209</issn>
+      <publisher>
+        <publisher-name>Springer Netherlands</publisher-name>
+        <publisher-loc>Dordrecht</publisher-loc>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">31520361</article-id>
+      <article-id pub-id-type="pmc">7067711</article-id>
+      <article-id pub-id-type="publisher-id">1247</article-id>
+      <article-id pub-id-type="doi">10.1007/s13280-019-01247-1</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Perspective</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Decline and diversity in Swedish seas: Environmental narratives in marine history, science and policy</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <contrib-id contrib-id-type="orcid">http://orcid.org/0000-0003-3476-2567</contrib-id>
+          <name>
+            <surname>Lidstr&#xF6;m</surname>
+            <given-names>Susanna</given-names>
+          </name>
+          <address>
+            <email>susanna.lidstrom@abe.kth.se</email>
+          </address>
+          <xref ref-type="aff" rid="Aff1">1</xref>
+          <bio>
+            <sec id="FPar1">
+              <title>Susanna Lidstr&#xF6;m</title>
+              <p id="Par1">is a Researcher at the Division of History of Science, Technology and Environment at KTH Royal Institute of Technology. Since 2015, she is a Visiting Scholar at Scripps Institution of Oceanography, University of California San Diego. Her research interests include environmental literature, environmental history and regional as well as international marine policy.</p>
+            </sec>
+          </bio>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">http://orcid.org/0000-0003-2864-2315</contrib-id>
+          <name>
+            <surname>S&#xF6;rlin</surname>
+            <given-names>Sverker</given-names>
+          </name>
+          <address>
+            <email>sorlin@kth.se</email>
+          </address>
+          <xref ref-type="aff" rid="Aff1">1</xref>
+          <bio>
+            <sec id="FPar2">
+              <title>Sverker S&#xF6;rlin</title>
+              <p id="Par2">is a Professor at the Division of History of Science, Technology and Environment at KTH Royal Institute of Technology. His research interests include the history of environmental sciences, the modern science politics of climate change and the historical transformation of resource-based industries.</p>
+            </sec>
+          </bio>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Sved&#xE4;ng</surname>
+            <given-names>Henrik</given-names>
+          </name>
+          <address>
+            <email>henrik.svedang@gu.se</email>
+          </address>
+          <xref ref-type="aff" rid="Aff2">2</xref>
+          <xref ref-type="aff" rid="Aff3">3</xref>
+          <bio>
+            <sec id="FPar3">
+              <title>Henrik Sved&#xE4;ng</title>
+              <p id="Par3">is an Associate Professor at Baltic Sea Centre, Stockholm University, and a Scientific Coordinator at Swedish Institute for the Marine Environment (SIME), Gothenburg University. His research interests include marine fish ecology and population dynamics, history of fish populations, fisheries and their management.</p>
+            </sec>
+          </bio>
+        </contrib>
+        <aff id="Aff1"><label>1</label><institution-wrap><institution-id institution-id-type="GRID">grid.5037.1</institution-id><institution-id institution-id-type="ISNI">0000000121581746</institution-id><institution>Division of History of Science, Technology and Environment, </institution><institution>KTH Royal Institute of Technology, </institution></institution-wrap>100 44 Stockholm, Sweden </aff>
+        <aff id="Aff2"><label>2</label><institution-wrap><institution-id institution-id-type="GRID">grid.8761.8</institution-id><institution-id institution-id-type="ISNI">0000 0000 9919 9582</institution-id><institution>Swedish Institute for the Marine Environment (SIME), </institution><institution>Gothenburg University, </institution></institution-wrap>Box 260, 405 30 G&#xF6;teborg, Sweden </aff>
+        <aff id="Aff3"><label>3</label><institution-wrap><institution-id institution-id-type="GRID">grid.10548.38</institution-id><institution-id institution-id-type="ISNI">0000 0004 1936 9377</institution-id><institution>Baltic Sea Centre, </institution><institution>Stockholm University, </institution></institution-wrap>106 91 Stockholm, Sweden </aff>
+      </contrib-group>
+      <pub-date pub-type="epub">
+        <day>13</day>
+        <month>9</month>
+        <year>2019</year>
+      </pub-date>
+      <pub-date pub-type="pmc-release">
+        <day>13</day>
+        <month>9</month>
+        <year>2019</year>
+      </pub-date>
+      <pub-date pub-type="ppub">
+        <month>5</month>
+        <year>2020</year>
+      </pub-date>
+      <volume>49</volume>
+      <issue>5</issue>
+      <fpage>1114</fpage>
+      <lpage>1121</lpage>
+      <history>
+        <date date-type="received">
+          <day>26</day>
+          <month>4</month>
+          <year>2019</year>
+        </date>
+        <date date-type="rev-recd">
+          <day>10</day>
+          <month>7</month>
+          <year>2019</year>
+        </date>
+        <date date-type="accepted">
+          <day>21</day>
+          <month>8</month>
+          <year>2019</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>&#xA9; The Author(s) 2019</copyright-statement>
+        <license license-type="OpenAccess">
+          <license-p><bold>Open Access</bold>This article is distributed under the terms of the Creative Commons Attribution 4.0 International License (<ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by/4.0/">http://creativecommons.org/licenses/by/4.0/</ext-link>), which permits unrestricted use, distribution, and reproduction in any medium, provided you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons license, and indicate if changes were made.</license-p>
+        </license>
+      </permissions>
+      <abstract id="Abs1">
+        <p id="Par4">Before the mid-twentieth century, there was no comprehensive narrative about empirical conditions in Swedish seas. Around 1970, this view changed profoundly. In line with growing research and the emergence of &#x2018;the environment&#x2019; as a defining concept, conditions in Swedish seas were framed as a &#x2018;narrative of decline&#x2019;. Marine scientists have since recorded more diverse developments than are described by an overall declensionist narrative. Data show trends of interrupted decline, variability and even recovery, taking place at least partly in response to effective policy and legislation. We suggest that beyond the specialised fields of marine sciences and marine environmental history, the overarching narrative of decline has persisted, paying little attention to local and regional particularities as well as cultural and political dimensions of the marine environment. This overly uniform narrative risks obscuring historical reality and, hence, fails to adequately inform policy and the public about developments and outcomes of interventions in Swedish seas.</p>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <title>Keywords</title>
+        <kwd>Baltic Sea</kwd>
+        <kwd>Declensionist narrative</kwd>
+        <kwd>Environmental framing</kwd>
+        <kwd>Environmental narratives</kwd>
+        <kwd>Marine environmental history</kwd>
+        <kwd>Swedish seas</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>
+            <institution>The Swedish Research Council</institution>
+          </funding-source>
+          <award-id>942-2015-1643</award-id>
+          <principal-award-recipient>
+            <name>
+              <surname>Lidstr&#xF6;m</surname>
+              <given-names>Susanna</given-names>
+            </name>
+          </principal-award-recipient>
+        </award-group>
+      </funding-group>
+      <funding-group>
+        <award-group>
+          <funding-source>
+            <institution>European Research Council</institution>
+          </funding-source>
+          <award-id>787516</award-id>
+          <principal-award-recipient>
+            <name>
+              <surname>S&#xF6;rlin</surname>
+              <given-names>Sverker</given-names>
+            </name>
+          </principal-award-recipient>
+        </award-group>
+      </funding-group>
+      <custom-meta-group>
+        <custom-meta>
+          <meta-name>issue-copyright-statement</meta-name>
+          <meta-value>&#xA9; Royal Swedish Academy of Sciences 2020</meta-value>
+        </custom-meta>
+      </custom-meta-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="Sec1">
+      <title>Introduction: A narrative of decline</title>
+      <p id="Par9">Knowledge of the status of fish stocks, other sea resources, vegetation and environmental conditions in the Swedish coastal seas was once fragmented and fragile. While local knowledge among fishermen and coastal communities have always been important, the perceived need to increase knowledge on a national scale is more recent. An early effort was made in the mid-eighteenth century, when the Royal Swedish Academy of Sciences showed interest in and promoted marine science, for instance by initiating a study on herring fishing in the Stockholm Archipelago (Humble <xref ref-type="bibr" rid="CR23">1745</xref>). The reason was an overwhelming negative deficit in trade of fish products, which concerned the Swedish government at the time and spurred several actions to improve the standards of the fishing industry (Awebro <xref ref-type="bibr" rid="CR2">2008</xref>). By the late 1800s, collection of data started to stabilise and become more systematic, and has improved continuously since then. Before the mid-twentieth century, there was no comprehensive narrative about the conditions recorded; variability was the overarching understanding and some long-term climatic trends on the centennial and millennial scales were observed (Hagen and Feistel <xref ref-type="bibr" rid="CR16">2005</xref>).</p>
+      <p id="Par10">Between ca. 1950 and 1970, this view changed profoundly in line with growing marine and oceanographic research and more generally with the rise of a new understanding of &#x2018;the environment&#x2019; as a certain entity that is measurable and with directional and definable &#x2018;rates of change&#x2019;. Based on this new understanding of the environment as a common name for a growing &#x2018;catalogue&#x2019; of &#x2018;problems&#x2019;, including e.g. overpopulation, erosion, pollution, resource depletion and overfishing (Warde et al. <xref ref-type="bibr" rid="CR52">2018</xref>), the growing body of data on marine conditions was reframed as a &#x2018;narrative of decline&#x2019;. This was a global phenomenon, but it was also applied specifically to Swedish coastal seas. The narrative was particularly pronounced for the Baltic Sea but also comprised the North Sea and Skagerrak. The re-interpretation from variability to decline can be regarded as fully established by the early 1970s with main components including pollutants, especially hazardous substances, eutrophication and sea traffic issues, including oil spills (e.g. Dybern <xref ref-type="bibr" rid="CR8">1970</xref>; Jansson <xref ref-type="bibr" rid="CR28">1980</xref>).</p>
+      <p id="Par11">With regard to marine biota, it has been known since ancient times that fishing and catch size affected fish stocks locally (Muscolino <xref ref-type="bibr" rid="CR36">2012</xref>). Real concern for the risk of undermining marine resources or even losing species is a much later phenomenon, though it was perceived as early as the eighteenth century, which saw the disappearance of the sea cow. Rudyard Kipling famously wrote about it in the story of Kotick, the white seal in <italic>The Jungle Book</italic> (1894), which was a critique of American stewardship (or lack of it) in Alaska, bought from Russia in 1867. Depletion of fish stocks became a matter of more widespread political and scientific concern with the arrival of trawl fishing in the North Sea in the late nineteenth century. &#x2018;Overfishing&#x2019; as a scientific concept was introduced around that time, albeit first vaguely defined and much debated (Petersen <xref ref-type="bibr" rid="CR41">1900</xref>). In 1902, as a result of the concern for overfishing, the International Council for the Exploration of the Seas (ICES) was formed. In 1911, international cooperation to avoid extinction of the fur seal resulted in the North Pacific Fur Seal Convention, signed by the US, Russia, Japan and Great Britain. Minimal fishing in European seas during World War I demonstrated a recovery of fish stocks that reinforced the importance of previous human impact and as a result, demands on constraint and planning of harvesting were raised. Concepts such as total acceptable catch or &#x2018;optimum catch&#x2019; were proposed to indicate that, just as in forestry where <italic>Nachhaltigkeit</italic> (sustainable yield) had been a norm since the eighteenth century, restraint and precaution were economically beneficial in fisheries as well (Sahrhage and Lundbeck <xref ref-type="bibr" rid="CR44">1974</xref>/1992, p. 288).</p>
+      <p id="Par12">Ocean fishing went on unabated, however, and global annual harvests grew from less than 20 million tonnes after WWI to a peak of 90 million tonnes in 1988 (Muscolino <xref ref-type="bibr" rid="CR36">2012</xref>, p. 286). <italic>The sea around us</italic>, to quote the title of Rachel Carson&#x2019;s 1953 widely read book, was still conceived of as too vast and too deep to be understood as anything but a dark, unknown and inhospitable wilderness where humans had barely started exploration, let alone wrought any significant havoc. In only a couple of decades, the master narrative of the ocean shifted completely, and evidence such as ever more frequent collapses of fish populations (sardines in Japan and California, cod in the Northwest Atlantic, herring in the Atlantic and the North Sea, anchovies in Peru, etc.) was mounting to suggest that the oceans were if not in immediate danger at least an integrated part of &#x2018;the environment&#x2019;, which was now understood as threatened and vulnerable.</p>
+      <p id="Par13">The oceans were part of the concerns brought to the table at the United Nations Conference on the Human&#x2013;Environment (UNCHE) in Stockholm in 1972, a safe sign of the new and concerned outlook (e.g. Patin <xref ref-type="bibr" rid="CR40">1982</xref>). November the same year, another UN conference in London adopted principles to regulate dumping of waste and pollution in the oceans (Schenker <xref ref-type="bibr" rid="CR45">1973</xref>). By then whaling and overfishing of, for instance, the Norwegian herring stock or the Peruvian anchovy had already added strength to a sense of decline in the seas. More recently, climate change, plastic pollution and fishing in general have been added to the narrative as drivers of global marine environmental degradation. This narrative of decline has been more or less hegemonic since the 1970s and has served as the essential understanding of legislation and regulation of the state of the seas. The understanding of conditions in Swedish coastal seas is to a considerable extent a reflection of this emerging and eventually pervasive global narrative, with the 1974 Helsinki Convention for the Protection of the Marine Environment of the Baltic Sea Area an important landmark. However, the Swedish narrative also has its particular features and certainly its own empirical foundations, with the Baltic Sea as an especially grave case in point, with an all but &#x2018;dead&#x2019; sea floor (Elmgren <xref ref-type="bibr" rid="CR9">2001</xref>).</p>
+      <p id="Par14">In recent years, marine scientists have recorded more diverse developments in Swedish seas than are described by an overall declensionist narrative. Data show trends of interrupted decline, variability and even recovery, taking place at least partly in response to effective policy and legislation, such as bans on several toxins (Nyberg et al. <xref ref-type="bibr" rid="CR38">2015</xref>). Nevertheless, beyond the scientific realm, an overarching declensionist narrative tends to persist. Elmgren et al. (<xref ref-type="bibr" rid="CR10">2015</xref>) note that &#x201C;The Baltic Sea is often portrayed as an environmental disaster area, by the media, by non-governmental environmental organisations, and by some scientists&#x201D; (p. 339). Such a uniform declensionist narrative for Swedish seas is part of a much broader idea of global environmental degradation, which while important in some respects has also been criticised for downplaying historically and geographically specific environmental developments (e.g. Nixon <xref ref-type="bibr" rid="CR37">2011</xref>; Malm and Hornborg <xref ref-type="bibr" rid="CR34">2014</xref>), including outcomes of legislation and other forms of interventions&#x2014;or lack thereof.</p>
+      <p id="Par15">While many of the overarching traits of a declensionist framework remain indisputable, empirical data and historical analysis suggest that Swedish seas are better represented by a narrative of complexity with reform, relative stability and even recovery as strong elements. While acknowledging serious environmental impacts, past and present, a framework that recognises complex and divergent developments can showcase that many governmental interventions are and have been successful when and where they have been practised. Marine historian Bolster (<xref ref-type="bibr" rid="CR3">2006</xref>) has emphasised the importance of situated and specific environmental narratives for the oceans, stating that &#x201C;Central to such stories will be the recognition, common to some historians, that complex variables create historically specific situations &#x2013; not universal ones, or replicable ones, or natural ones, but historically specific situations&#x201D; (p. 582). In this paper, we suggest that such narratives are largely missing from public perceptions and policy frameworks for Swedish seas. Diverse trajectories seem overshadowed by a simplified narrative of overall degradation, pointing to a lack of societal reflection on specific developments in marine conditions. This may in turn counteract possibilities and prerequisites for an open dialogue on Swedish marine environments regarding what is attainable, at what costs and on what time scales. We illustrate this viewpoint with a few examples from influential policy frameworks, but our aim is also to highlight a need for further interdisciplinary research into how scientific findings and measurements of environmental conditions in Swedish seas are recorded and registered in broader society and non-scientific discourses&#x2014;such research could provide a more substantial review and examination of Swedish marine environmental narratives than we are able to pursue within the scope of this article.</p>
+    </sec>
+    <sec id="Sec2">
+      <title>Mixed messages: The empirical evidence</title>
+      <p id="Par16">Some developments in Swedish coastal seas sustain a narrative of rapid and problematic change, even decline. Perhaps the area of most concern is climate change. Increased water temperature has been a major ecological driver in Swedish seas since the late 1800s. With inspiration from the famous British <italic>Challenger</italic> expedition between 1872 and 1876, the first hydrographic expedition in Swedish waters was conducted by R/V <italic>Gustaf af Klint</italic> in 1877. Soon these measurements became regular (Fonselius and Valderrama <xref ref-type="bibr" rid="CR14">2003</xref>). The time series show very clearly that bottom water temperatures have increased significantly over the twentieth century. Warmer climate conditions in the Baltic Sea have become especially pronounced since the 1980s, with a shift from a continental to maritime type of climate associated with large-scale changes in atmospheric circulation (Lehmann et al. <xref ref-type="bibr" rid="CR32">2011</xref>). Effects of higher temperatures are appreciable from records on ice cover in the Baltic Sea, Skagerrak and Kattegat, showing an apparent tendency of a reduction in ice cover over the last decades. While predictions of future climate changes and their consequences are uncertain, it is fair to say that climate and temperature records show a clear negative trend, and that the overall effects are cause for concern, in Swedish seas just like elsewhere.</p>
+      <p id="Par17">Recent losses of eelgrass (<italic>Zostera marina</italic>) manifest another negative trend. However, the most disastrous effects occurred already in the 1930s, when almost all eelgrass in the North Atlantic died off due to a wasting disease (Rasmussen <xref ref-type="bibr" rid="CR42">1977</xref>). Before this episode, about half of the shallow Kattegat was covered in eelgrass meadows. Less than a fifth of this distribution area has been recovered, inevitably also due to decreased water transparency, restricting the distribution vertically.</p>
+      <p id="Par18">In the Baltic Sea, eutrophication is a major ecological driver. Due to increased cultivation in the entire drainage area basin since the Middle Ages, the Baltic Sea, once oligotrophic with a rather low standing crop of fish and low productivity, has gradually become more enriched and hence more productive (e.g. Zill&#xE9;n and Conley <xref ref-type="bibr" rid="CR53">2010</xref>). During the nineteenth century, increased demand for agricultural products led to ever more intense cultivation (Hoffmann et al. <xref ref-type="bibr" rid="CR21">2000</xref>). Increased resource utilisation typically led to higher discharges of nutrients from farmed lands. However, elaborated techniques in handling manure and fertilisers have constrained discharges of nutrients in spite of a tremendous increase in productivity. Thus, quite counter-intuitively, nutrient discharges from farmed land in Sweden are still at about the same level as they were 150&#xA0;years ago. Despite such counter-measurements, increased discharges from the Baltic Sea drainage area as a whole have caused increased eutrophication of the Baltic Sea since WWII; since about the 1990s, the trend has reversed in the southern Baltic Sea and Kattegat, as nutrient loading has eventually culminated and is presently decreasing (e.g. Andersen et al. <xref ref-type="bibr" rid="CR1">2017</xref>).</p>
+      <p id="Par19">The combined effects of eutrophication and increasing bottom water temperatures have led to successively more severe hypoxia in the deeper parts of the Baltic proper due to higher respiration rates. Since 1900, the area of hypoxia in the Baltic Sea has increased from 5000&#xA0;km<sup>2</sup> to over 60&#xA0;000&#xA0;km<sup>2</sup> (Carstensen et al. <xref ref-type="bibr" rid="CR5">2014</xref>). However, the distribution of hypoxic and anoxic bottoms has been rather stable over the last 40&#x2013;50&#xA0;years. A major inflow in the mid-1990s oxygenated bottoms in the Gotland deep temporarily but the deeper parts became hypoxic rather soon again. For now, hypoxia trends in Baltic coastal environments are mixed; improvements in oxygen content are clearly visible in the hypoxia-prone Stockholm Archipelago, whereas the situation is steadily getting worse in the Gulf of Finland. Hypoxia also leads to leakage of phosphorous from the sediments, and thus nitrogen becomes limiting for algae, promoting cyanobacteria growth (Zill&#xE9;n and Conley <xref ref-type="bibr" rid="CR53">2010</xref>).</p>
+      <p id="Par20">Eutrophication is a complicated process and not entirely dependent on the availability of nutrients. Resilient ecosystems, including many trophic layers, are less likely to be disrupted by nutrient loading than simplified ecosystems. Trophic relationships within the Baltic, as well as in the Kattegat and Skagerrak Inshore, are indeed altered due to loss of predator fish biomass. Apex predators such as marine mammals and birds were initially also very common, but in the 1960s, high levels of toxic substances, mainly persistent organic pollutants, were found in Swedish waters and almost exterminated seal stocks in the 1970s. Other top predators such as sea eagles and peregrine falcons all but disappeared for similar reasons. As the contaminants have declined and hunting of seals became very restricted, marked recoveries have taken place (e.g. Olsson et al. <xref ref-type="bibr" rid="CR39">1994</xref>). The trend exemplified by the seal stocks is representative for overall conditions for hazardous substances in Swedish seas. A comprehensive study of toxins (PCBs, DDTs, HCHs and HCB) in marine biota in Swedish seas found that between 1969 and 2012 the levels decreased significantly, showing that measures taken in the form of bans and restrictions on different substances in the 1970s and 1980s have had the desired effect (Nyberg et al. <xref ref-type="bibr" rid="CR38">2015</xref>). While levels in the Baltic Sea remain elevated, with considerable variation between different substances and areas, the overall trend is one of recovery.</p>
+      <p id="Par21">Another central dimension of Swedish seas are fisheries. Swedish fishermen who fished in offshore waters with longlines for large sized cod, ling (<italic>Molva molva</italic>) and other species in the Skagerrak and Kattegat were confronted at an early stage with falling catches. Lowering of the biomass level, especially the disappearance of big fish, forced artisanal Swedish fishers to explore new fishing grounds as their low-productive fishery became economically unsustainable already in the 1860s, unless the landings per unit effort was exceptionally high (Cardinale et al. <xref ref-type="bibr" rid="CR4">2014</xref>). As the longliners left the Kattegat and Skagerrak for outlying areas, demersal trawling and other active forms of fishing were introduced on the Swedish west coast at the beginning of the twentieth century. With the exceptions of the two world wars and a conspicuous rebound in the fish stocks during the so-called gadoid outburst in the 1970s, demersal stocks have tended to decline since then (Engelhard et al. <xref ref-type="bibr" rid="CR11">2016</xref>). The former, highly productive Swedish Skagerrak coast, as well as the Kattegat on the whole, has become some of the most degraded areas in the world in terms of predatory fish.</p>
+      <p id="Par22">This continuous deterioration of the marine fish fauna along the Swedish coasts has, paradoxically, protected the fishing industry from being scrutinised (cf. Hultkrantz et al. <xref ref-type="bibr" rid="CR22">1997</xref>). Events during the 1980s, especially algal blooms, fish kills in connection to hypoxia in southern Kattegat and seal epizootic, which in the end turned out to be a natural phenomenon (e.g. H&#xE4;rk&#xF6;nen et al. <xref ref-type="bibr" rid="CR17">2006</xref>), contributed to a widespread beneficial view of fishermen as being part of a drama of ecological deterioration and dilapidation that they could not avert; they were victims rather than agents. This victimisation of a whole industry that after all had miniscule economic importance had consequences for sound fisheries management. As the enforcement of economic zones took place in the early 1980s, Swedish fishers traditionally fishing in the North Sea lost most of their former fishing opportunities. The simultaneous cod boom in the Baltic Sea partly solved the problem of excessive fishing capacity, as parts of the fishing fleet relocated there. The trawling limit, originally enforced in the early twentieth century to protect the coastal zone from over-exploitation, was also moved closer to the coast to present excess fishing capacity with new fishing opportunities (cf. Cardinale et al. <xref ref-type="bibr" rid="CR4">2014</xref>).</p>
+      <p id="Par23">In the North Sea, biological conditions for fish stocks, especially gadoids, are similarly far from optimal, in spite of a strong recovery (ICES <xref ref-type="bibr" rid="CR25">2015</xref>). Recruitment has been depressed since around 2000, so the recovery is entirely due to reductions in fishing pressure. The biomasses of many fish species are nonetheless at record levels. In agreement with the Johannesburg Declaration on Sustainable Development, fishing has been downsized as to get higher yields, i.e. adjustments towards the biometric goal of maximum sustainable yield (MSY). Although MSY has been criticised for a long time (Larkin <xref ref-type="bibr" rid="CR31">1977</xref>; Finley <xref ref-type="bibr" rid="CR13">2011</xref>), this recovery still indicates that keeping to a restricted harvest strategy may turn stocks productive once again in spite of unfavourable conditions.</p>
+      <p id="Par24">On the EU level, erratic decision-making marked fisheries governance during the first period of the common fishery policy (CFP) since its introduction in the mid-1980s, i.e. neglect of ICES catch advice, inadequate enforcement of rules, excessive subsidies to the fishing fleet and so forth (Sissenwine and Symes <xref ref-type="bibr" rid="CR46">2007</xref>). However, fishery management has improved considerably over the last decade. The most important measure has been to implement effort regulations since the turn of the century, whether in number of operating fishing vessels or number of days at sea (Fernandes and Cook <xref ref-type="bibr" rid="CR12">2013</xref>). Another important change is the introduction of the notion of ecosystem-based management, representing a more holistic approach to governance. However, while the idea has helped to shift perspectives, Elmgren et al. (<xref ref-type="bibr" rid="CR10">2015</xref>) suggest that ecosystem-based management, while explicitly stated as a strategy for the Baltic Sea already in 1992, remains an idea more than a practice.</p>
+      <p id="Par25">In light of these empirical examples, we suggest that there is a discord between the historical data of ecological trends in Swedish seas and a unified narrative of environmental decline: the eutrophication process in the Baltic Sea has been halted and is showing signs of an early phase of reversal, the contamination of several hazardous substances including oil spills are decreasing, and apex species such as eagle, cormorant, falcon and seal populations are recovering (e.g. Herrmann et al. <xref ref-type="bibr" rid="CR20">2014</xref>). This is not to diminish that, on the other hand, fisheries are not recovering according to expectations, sediments will continue to leak unhealthy compounds for many years, and plastic particles are accumulating. Above all, a warmer climate will put ecosystems under increasing stress, accelerating problems such as the oxygen deficit in the Baltic Sea.</p>
+    </sec>
+    <sec id="Sec3">
+      <title>Diversity versus decline in policy frameworks</title>
+      <p id="Par26">The empirical image of heterogeneous data lacking a uni-linear direction is in our view poorly represented in frameworks for Swedish marine policy. In an overview of successes and failures in the Baltic Sea, Elmgren et al. (<xref ref-type="bibr" rid="CR10">2015</xref>) note that a narrative of declining or poor conditions tend to dominate in public and policy communications about conditions in Swedish seas; for example, a map produced by HELCOM in 2010 indicates bad environmental status in almost the entire Baltic Sea, failing &#x201C;crucially, to present the real progress that has been made, proving that investing in the environment pays off&#x201D; (p. 339). HELCOM&#x2019;s earlier Baltic Sea Action Plan (<xref ref-type="bibr" rid="CR18">2007</xref>, pp. 6&#x2013;11) likewise fails to recognise past or partial improvements, such as decreased relative input of nutrients, focusing instead entirely on requirements needed to achieve the future ideal goal of &#x201C;a Baltic Sea unaffected by eutrophication&#x201D; by 2021; the vision of a final state of sustainability is emphasised at the expense of recognising situated and historical developments of continuously evolving human&#x2013;environment relations. In HELCOM&#x2019;s most recent &#x201C;holistic assessment&#x201D;, an introductory set of comprehensive parameters gives a similarly discouraging impression of overall environmental status as &#x201C;not good&#x201D;; a sub-basin specific overview suggests that in ten out of 17 basins there are no positive environmental trends at all, while in the remaining seven areas they are only minor improvements. The illustrations for both eutrophication and hazardous substances are also predominantly negative, in contrast to the detailed accompanying description which states that while hazardous substances continue to be a cause for concern &#x201C;the number of improving trends outweighs the number of deteriorating trends&#x201D; (HELCOM <xref ref-type="bibr" rid="CR19">2018</xref>).</p>
+      <p id="Par27">A series of reports from the Swedish Agency for Marine and Water Management likewise communicates current conditions as overwhelmingly unfavourable. Part one in the series (<xref ref-type="bibr" rid="CR50">2012</xref>) summarises that overall conditions in Swedish seas are not consistent with good environmental status, without recognising any positive developments. The detailed description of the status of seal populations neglects to mention successful reduction of toxins, stating only briefly that an increase in numbers has taken place since the 1970s when seals were threatened both by hunting and pollutants but that overall status remains poor. Rather than highlighting reduction of several toxins as an example of successful policy making and environmental improvement, recognition of positive trends for hazardous substances is not made until halfway through the report. The foreword to part four in the same series states that despite long-term and comprehensive attempts to improve the marine environment signs still abound that conditions are not good and negative pressures are increasing (2015), concluding that the goal of good environmental status in Swedish seas by 2020 will not be attained. Nowhere in the foreword or in the following summary are any improvements or cases of recovery mentioned. Overall, these reports give an overly negative impression of developments in Swedish seas and fail to communicate the positive impacts management and legislation demonstrably can have when such efforts are enabled and followed through.</p>
+      <p id="Par28">These brief examples illustrate our impression that while academic disciplines such as marine sciences and marine historical ecology have made attempts to showcase and understand cases of recovery and improvement in Swedish seas, such efforts are much less noted and appreciated outside scientific contexts. Lack of coordination between itemised scientific trends and guiding frameworks for responsive policy are likely to have a negative impact on societal support for science-based marine policy. Overrepresentation of declensionist narratives may lead to poor public understanding and hence counteract informed debate regarding under which circumstances policies and other measures taken to improve environmental conditions may be successful, and what the reasons are for continued support and investment in such interventions.</p>
+      <p>Fisheries management is a case in point for how non-alignment between scientific recordings and public and policy frameworks can lead to misdirected management strategies. Translation of the complex developments of fish stocks and their causes into what may be considered thoughtful policy is often poor. Most decisions for Swedish fish stocks are made through the EU&#x2019;s common fisheries policy, where negotiations showcase diverse priorities between different concerned member states. Recently decided 2019 fishing quotas for the Baltic Sea indicate limited responses to scientifically recorded trends; while numbers for cod in the eastern Baltic are strongly negative, quotas were only reduced 16% (however the fishery became closed in the second half of the year 2019), while tentative indicators of positive developments for western Baltic cod lead to a sudden jump in quotas with an increase of over 70%, despite estimates that overall current cod fisheries in the Baltic Sea are only 10% of what they were 30&#xA0;years ago (ICES <xref ref-type="bibr" rid="CR26">2017</xref>). The press release from the European Council for the recent quotas indicates that the decisions are influenced by the persistent framing of EU fisheries as a predominantly socio-economic concern as much as an ecological and environmental one, stating that the new quotas represent a step towards achieving sustainability in Baltic Sea fisheries &#x201C;whilst at the same time respecting the socioeconomic viability of our coastal communities&#x201D;. This understanding is different from contemporary scientific frameworks for fisheries in for example the US, where the ecological sustainability of fisheries has been established as the primary concern and a basic legal requirement before any fishing can occur. The importance of the socioeconomic perspective persists in the EU notwithstanding the fact that fisheries in the Baltic Sea are of an insignificant value in an economic sense. Moreover, capital-intensive, highly industrial fisheries are systematically favoured by strong economic subsidies and higher quotas than the Baltic coastal fisheries which may soon have disappeared in large parts of the Baltic. The &#x2018;costs&#x2019; of downsizing the fishing effort of industrial fisheries thus represent nothing less than gains, also for the local fishing villages (cf. Sved&#xE4;ng and Hornborg <xref ref-type="bibr" rid="CR49">2015</xref>).</p>
+    </sec>
+    <sec id="Sec4">
+      <title>Appropriate narratives</title>
+      <p id="Par29">Narratives are essentially sense-making devices&#x2014;they frame scientific information and shape policy and public imaginations (e.g. Lakoff <xref ref-type="bibr" rid="CR30">2010</xref>). Often rooted in very old religious and philosophical tropes or patterns of societal temporalization, narratives of environmental decline have developed in recent decades into a dominant framework for understanding the relationship between people, societies and the natural world (e.g. Garrard <xref ref-type="bibr" rid="CR15">2012</xref>). The predominance of an overall narrative of decline is thus not unique to Swedish seas; in approval of coherence, broad-brush environmental narratives tend to favour simplicity over complexity and regularly fail to reflect the details of sometimes diverging directions of social and ecological change, as well as of scientific data and methods. Mixed messages, regional varieties, and far-reaching and drawn out environmental processes that are difficult to make sense of&#x2014;to narrate&#x2014;are often underrepresented in policy as well as public imaginations (Nixon <xref ref-type="bibr" rid="CR37">2011</xref>).</p>
+      <p id="Par30">Moreover, similarly to climate change, ocean environments are particularly challenging to perceive because they are invisible and inaccessible to most people&#x2014;we see the shore and patches of the surface, the rest is hidden. In order to know and care about what happens in the sea we depend on information and narratives provided, directly or indirectly, by scientists (e.g. Chiarappa and McKenzie <xref ref-type="bibr" rid="CR6">2013</xref>). Recognition of the problem of &#x201C;shifting baselines&#x201D; (Jackson et al. <xref ref-type="bibr" rid="CR27">2011</xref>) originated in marine sciences and is especially relevant for the oceans, where many things are &#x201C;invisible to the human eye yet absolutely essential for understanding the marine past&#x201D; (Taylor <xref ref-type="bibr" rid="CR51">2013</xref>, p. 68). Recent efforts have been made to remedy the lack of knowledge about historical marine conditions, including in the Baltic Sea, for example, through the History of Marine Animal Populations (HMAP) Project (e.g. Lajus et al. <xref ref-type="bibr" rid="CR29">2013</xref>; MacDiarmid et al. <xref ref-type="bibr" rid="CR33">2016</xref>).</p>
+      <p id="Par31">The preference for simplicity and generalisation is apparent in some of the most compelling environmental narrative concepts, such as the &#x201C;death of nature/end of nature&#x201D; (e.g. McKibben <xref ref-type="bibr" rid="CR35">1989</xref>), or more recently those of &#x201C;planetary boundaries&#x201D; (Rockstr&#xF6;m et al. <xref ref-type="bibr" rid="CR43">2009</xref>) or the &#x201C;Anthropocene&#x201D; (Crutzen and Stoermer <xref ref-type="bibr" rid="CR7">2000</xref>). The most overarching and influential of all these narrative concepts has probably been that of &#x201C;the environment&#x201D; itself, which has remained a defining idea for about 70&#xA0;years (Warde et al. <xref ref-type="bibr" rid="CR52">2018</xref>). There are also numerous examples of collapse stories from the modern history of the oceans that apply broad scale tropes and concepts of environmental decline and harmful human impact on marine ecosystems (e.g. Speer <xref ref-type="bibr" rid="CR47">1997</xref>).</p>
+      <p id="Par32">These concepts are obviously meaningful. They serve as convenient shorthand for certain overarching tendencies and phenomena within an infinitely complex earth system and an almost endless set of social&#x2013;ecological relationships and their changes over time. They also function as providers of instrumental functions&#x2014;heuristic, explanatory, warning and mobilising. But they also have shortcomings which need to be recognised and discussed. Criticised for downplaying local and regional particularities as well as cultural, political and other human dimensions (e.g. Malm and Hornborg <xref ref-type="bibr" rid="CR34">2014</xref>), such concepts risk enforcing an overly uniform narrative of environmental degradation, including regarding the state of Swedish seas. In fact, we argue that the overarching decline story has obscured historical reality of Swedish marine conditions and also that it has, hence, not adequately informed policy and the public. Overarching perspectives may overshadow successful and constructive efforts to manage and improve conditions on local and regional scales. The creation of marine protected areas is a case in point. The ban on trawling in &#xD6;resund, for example, has shown how local initiatives on limited geographical scales can have very positive effects, despite perceptions of marine life as highly mobile and interconnected (e.g. H&#xF8;jg&#xE5;rd Petersen et al. <xref ref-type="bibr" rid="CR24">2018</xref>). Persuasive narratives can also be counterproductive by leading to premature conclusions. For example, concerns about toxins and eutrophication in Swedish seas formed a strong public narrative in the 1980s and 1990s. This narrative also became the dominant framework for understanding declines and changes in fish stocks, and as a result, the role of fishing practices was downplayed. Not until the 2000s was overfishing rather than toxins appreciated as the main reason for the decline of ground-fish on the Swedish west coast in particular, and relevant regulations called for (Sved&#xE4;ng <xref ref-type="bibr" rid="CR48">2003</xref>). A challenge is therefore to carefully differentiate between times when overarching uni-directional narratives are appropriate, and other times when local or otherwise specific conditions show results that are not in line with dominant trends, and thus better understood through other frameworks.</p>
+    </sec>
+  </body>
+  <back>
+    <fn-group>
+      <fn>
+        <p>
+          <bold>Publisher's Note</bold>
+        </p>
+        <p>Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.</p>
+      </fn>
+    </fn-group>
+    <ack>
+      <title>Acknowledgements</title>
+      <p>Open access funding provided by KTH Royal Institute of Technology. Susanna Lidstr&#xF6;m is supported by a Mobility Grant from the Swedish Research Council for Sustainable Development (Grant Number 942-2015-1643). Sverker S&#xF6;rlin is supported by the European Research Council (ERC) under the European Union&#x2019;s Horizon 2020 research and innovation programme, Grant Agreement No. 787516 for the project: &#x201C;Study of the Planetary Human-Earth Relationship (SPHERE): The Rise of Global Environmental Governance&#x201D; (the text reflects only the author&#x2019;s views and the ERC is not responsible for any use that may be made of the information it contains).</p>
+    </ack>
+    <ref-list id="Bib1">
+      <title>References</title>
+      <ref id="CR1">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Andersen</surname>
+              <given-names>JH</given-names>
+            </name>
+            <name>
+              <surname>Carstensen</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Conley</surname>
+              <given-names>DJ</given-names>
+            </name>
+            <name>
+              <surname>Dromph</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Fleming-Lehtinen</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Gustafsson</surname>
+              <given-names>BG</given-names>
+            </name>
+            <name>
+              <surname>Josefson</surname>
+              <given-names>AB</given-names>
+            </name>
+            <name>
+              <surname>Norrko</surname>
+              <given-names>A</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Long-term temporal and spatial trends in eutrophication status of the Baltic Sea</article-title>
+          <source>Biological Reviews</source>
+          <year>2017</year>
+          <volume>92</volume>
+          <fpage>135</fpage>
+          <lpage>149</lpage>
+          <pub-id pub-id-type="pmid">26467655</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR2">
+        <mixed-citation publication-type="other">Awebro, K. 2008. Ett bottennapp f&#xF6;r Sverige &#x2013; fisket vid mitten av 1700-talet. In <italic>Leva vid &#xD6;stersj&#xF6;ns kust</italic>, ed. S. Lilja 227&#x2013;264. Huddinge: S&#xF6;dert&#xF6;rns h&#xF6;gskola.</mixed-citation>
+      </ref>
+      <ref id="CR3">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bolster</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <article-title>Opportunities in marine environmental history</article-title>
+          <source>Environmental History</source>
+          <year>2006</year>
+          <volume>11</volume>
+          <fpage>567</fpage>
+          <lpage>597</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR4">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Cardinale</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Bartolino</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Sved&#xE4;ng</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Sundel&#xF6;f</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Poulsen</surname>
+              <given-names>RT</given-names>
+            </name>
+            <name>
+              <surname>Casini</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <article-title>A centurial development of the North Sea fish megafauna as reflected by the historical Swedish longlining fisheries</article-title>
+          <source>Fish and Fisheries</source>
+          <year>2014</year>
+          <volume>16</volume>
+          <fpage>522</fpage>
+          <lpage>533</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR5">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Carstensen</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Andersen</surname>
+              <given-names>JH</given-names>
+            </name>
+            <name>
+              <surname>Gustafsson</surname>
+              <given-names>BG</given-names>
+            </name>
+            <name>
+              <surname>Conley</surname>
+              <given-names>DJ</given-names>
+            </name>
+          </person-group>
+          <article-title>Deoxygenation of the Baltic Sea during the last century</article-title>
+          <source>Proceedings of National Academy of Sciences of USA</source>
+          <year>2014</year>
+          <volume>111</volume>
+          <fpage>5628</fpage>
+          <lpage>5633</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR6">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Chiarappa</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>McKenzie</surname>
+              <given-names>M</given-names>
+            </name>
+          </person-group>
+          <article-title>New directions in marine environmental history: An introduction</article-title>
+          <source>Environmental History</source>
+          <year>2013</year>
+          <volume>18</volume>
+          <fpage>3</fpage>
+          <lpage>11</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR7">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Crutzen</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Stoermer</surname>
+              <given-names>E</given-names>
+            </name>
+          </person-group>
+          <article-title>The Anthropocene</article-title>
+          <source>Global Change Newsletter</source>
+          <year>2000</year>
+          <volume>41</volume>
+          <fpage>17</fpage>
+          <lpage>18</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR8">
+        <mixed-citation publication-type="other">Dybern, B. 1970. &#xD6;stersj&#xF6;n och f&#xF6;roreningarna. Meddelande fr&#xE5;n Havsfiskelaboratoriet, nr 81. Lysekil.</mixed-citation>
+      </ref>
+      <ref id="CR9">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Elmgren</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+          <article-title>Understanding human impact on the Baltic ecosystem: Changing views in recent decades</article-title>
+          <source>Ambio</source>
+          <year>2001</year>
+          <volume>30</volume>
+          <fpage>222</fpage>
+          <lpage>231</lpage>
+          <pub-id pub-id-type="pmid">11697254</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR10">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Elmgren</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Blenckner</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Andersson</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Baltic Sea management: Successes and failures</article-title>
+          <source>Ambio</source>
+          <year>2015</year>
+          <volume>44</volume>
+          <fpage>S335</fpage>
+          <lpage>S344</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR11">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Engelhard</surname>
+              <given-names>GH</given-names>
+            </name>
+            <name>
+              <surname>Thurstan</surname>
+              <given-names>RH</given-names>
+            </name>
+            <name>
+              <surname>MacKenzie</surname>
+              <given-names>BR</given-names>
+            </name>
+            <name>
+              <surname>Alleway</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Bannister</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Cardinale</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Clarke</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Currie</surname>
+              <given-names>J</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>ICES meets marine historical ecology: Placing the history of fish and fisheries in current policy context</article-title>
+          <source>ICES Journal of Marine Science</source>
+          <year>2016</year>
+          <volume>73</volume>
+          <fpage>1386</fpage>
+          <lpage>1403</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR12">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fernandes</surname>
+              <given-names>PG</given-names>
+            </name>
+            <name>
+              <surname>Cook</surname>
+              <given-names>RM</given-names>
+            </name>
+          </person-group>
+          <article-title>Reversal of fish stock decline in the northeast Atlantic</article-title>
+          <source>Current Biology</source>
+          <year>2013</year>
+          <volume>23</volume>
+          <fpage>1432</fpage>
+          <lpage>1437</lpage>
+          <pub-id pub-id-type="pmid">23871238</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR13">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Finley</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <source>All the fish in the sea: Maximum sustainable yield and the failure of fisheries management</source>
+          <year>2011</year>
+          <publisher-loc>Chicago</publisher-loc>
+          <publisher-name>University of Chicago Press</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR14">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Fonselius</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Valderrama</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <article-title>One hundred years of hydrographic measurements in the Baltic Sea</article-title>
+          <source>Journal of Sea Research</source>
+          <year>2003</year>
+          <volume>49</volume>
+          <fpage>229</fpage>
+          <lpage>241</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR15">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Garrard</surname>
+              <given-names>G</given-names>
+            </name>
+          </person-group>
+          <source>Ecocriticism</source>
+          <year>2012</year>
+          <edition>2</edition>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Routledge</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR16">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hagen</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Feistel</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+          <article-title>Climatic turning points and regime shifts in the Baltic Sea region: The Baltic winter index (WIBIX) 1659&#x2013;2002</article-title>
+          <source>Boreal Environment Research</source>
+          <year>2005</year>
+          <volume>10</volume>
+          <fpage>211</fpage>
+          <lpage>224</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR17">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>H&#xE4;rk&#xF6;nen</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Dietz</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Reijnders</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Teilmann</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Harding</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Hall</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Brasseur</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Siebert</surname>
+              <given-names>U</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>A review of the 1988 and 2002 phocine distemper virus epidemics in European harbour seals</article-title>
+          <source>Diseases of Aquatic Animals</source>
+          <year>2006</year>
+          <volume>68</volume>
+          <fpage>115</fpage>
+          <lpage>130</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR18">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>HELCOM</collab>
+          </person-group>
+          <source>Baltic Sea Action Plan</source>
+          <year>2007</year>
+          <publisher-loc>Krakow</publisher-loc>
+          <publisher-name>HELCOM</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR19">
+        <mixed-citation publication-type="other">HELCOM. 2018. State of the Baltic Sea&#x2014;Second HELCOM holistic assessment 2011&#x2013;2016. Baltic Sea Environment Proceedings 155.</mixed-citation>
+      </ref>
+      <ref id="CR20">
+        <mixed-citation publication-type="other">Herrmann, C., T. Bregnballe, K. Larsson, and K. Rattiste. 2014. Population development of Baltic bird species: Great cormorant (<italic>Phalacrocorax carbo sinensis</italic>). <italic>HELCOM Baltic Sea Environment Fact Sheet</italic>.</mixed-citation>
+      </ref>
+      <ref id="CR21">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hoffmann</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Johnsson</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Gustafson</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Grimvall</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Leaching of nitrogen in Swedish agriculture&#x2014;A historical perspective</article-title>
+          <source>Agriculture, Ecosystems and Environment</source>
+          <year>2000</year>
+          <volume>80</volume>
+          <fpage>277</fpage>
+          <lpage>290</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR22">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hultkrantz</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Stigberg</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Hasselberg</surname>
+              <given-names>Y</given-names>
+            </name>
+          </person-group>
+          <source>Fisk och fusk &#x2013; m&#xE5;l, medel och makt i fiskeripolitiken</source>
+          <year>1997</year>
+          <publisher-loc>Stockholm</publisher-loc>
+          <publisher-name>Fritzes</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR23">
+        <mixed-citation publication-type="other">Humble, N.K. 1745. De piscatura harengorum in Roslagia. Dissertation, Royal University of Uppsala.</mixed-citation>
+      </ref>
+      <ref id="CR24">
+        <mixed-citation publication-type="other">H&#xF8;jg&#xE5;rd Petersen, A., P. Clausen, L. Gamfeldt, J.L.S. Hansen, P. Norling, E. Roth, H. Sved&#xE4;ng, and H. Tun&#xF3;n, 2018. The Sound: Biodiversity and ecosystem services in a densely populated and heavily exploited area. In <italic>Biodiversity and ecosystem services in Nordic coastal ecosystems</italic>, 135&#x2013;172. Nordic Council of Ministers.</mixed-citation>
+      </ref>
+      <ref id="CR25">
+        <mixed-citation publication-type="other">ICES. 2015. <italic>Report of the Working Group on the Assessment of Demersal Stocks in the North Sea and Skagerrak (WGNSSK)</italic>. ICES CM 2015/ACOM:13.</mixed-citation>
+      </ref>
+      <ref id="CR26">
+        <mixed-citation publication-type="other">ICES. 2017. <italic>Report of the Baltic Fisheries Assessment Working Group (WGBFAS)</italic>. ICES CM 2017/ACOM:11.</mixed-citation>
+      </ref>
+      <ref id="CR27">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Jackson</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Alexander</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Sala</surname>
+              <given-names>E</given-names>
+            </name>
+          </person-group>
+          <source>Shifting baselines: The past and the future of ocean fisheries</source>
+          <year>2011</year>
+          <publisher-loc>Washington, DC</publisher-loc>
+          <publisher-name>Island Press</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR28">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Jansson</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+          <article-title>The Baltic systems of man and nature: A perspective for this issue</article-title>
+          <source>Ambio</source>
+          <year>1980</year>
+          <volume>9</volume>
+          <fpage>112</fpage>
+          <lpage>113</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR29">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lajus</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Kraikovski</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Lajus</surname>
+              <given-names>D</given-names>
+            </name>
+          </person-group>
+          <article-title>Coastal fisheries in the Eastern Baltic Sea (Gulf of Finland) and its basin from the 15 to the early 20th centuries</article-title>
+          <source>PLoS ONE</source>
+          <year>2013</year>
+          <volume>8</volume>
+          <fpage>e77059</fpage>
+          <pub-id pub-id-type="pmid">24204735</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR30">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lakoff</surname>
+              <given-names>G</given-names>
+            </name>
+          </person-group>
+          <article-title>Why it matters how we frame the environment</article-title>
+          <source>Environmental Communication</source>
+          <year>2010</year>
+          <volume>4</volume>
+          <fpage>70</fpage>
+          <lpage>81</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR31">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Larkin</surname>
+              <given-names>PA</given-names>
+            </name>
+          </person-group>
+          <article-title>An epitaph for the concept of maximum sustained yield</article-title>
+          <source>Transactions of the American Fisheries Society</source>
+          <year>1977</year>
+          <volume>106</volume>
+          <fpage>1</fpage>
+          <lpage>11</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR32">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lehmann</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Getzlaff</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Harla&#xDF;</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <article-title>Detailed assessment of climate variability of the Baltic Sea area for the period 1958&#x2013;2009</article-title>
+          <source>Climate Research</source>
+          <year>2011</year>
+          <volume>46</volume>
+          <fpage>185</fpage>
+          <lpage>196</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR33">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MacDiarmid</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>MacKenzie</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Ojaveer</surname>
+              <given-names>H</given-names>
+            </name>
+          </person-group>
+          <article-title>Multidisciplinary perspectives on the history of human interactions with life in the ocean</article-title>
+          <source>ICES Journal of Marine Science</source>
+          <year>2016</year>
+          <volume>73</volume>
+          <fpage>1382</fpage>
+          <lpage>1385</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR34">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Malm</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Hornborg</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>The geology of mankind? A critique of the Anthropocene narrative</article-title>
+          <source>The Anthropocene Review</source>
+          <year>2014</year>
+          <volume>1</volume>
+          <fpage>62</fpage>
+          <lpage>69</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR35">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>McKibben</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+          <source>The end of nature</source>
+          <year>1989</year>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>Anchor</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR36">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Muscolino</surname>
+              <given-names>MJ</given-names>
+            </name>
+          </person-group>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>McNeill</surname>
+              <given-names>JR</given-names>
+            </name>
+            <name>
+              <surname>Mauldin</surname>
+              <given-names>ES</given-names>
+            </name>
+          </person-group>
+          <article-title>Fishing and whaling</article-title>
+          <source>A companion to global environmental history</source>
+          <year>2012</year>
+          <publisher-loc>Chishester</publisher-loc>
+          <publisher-name>Blackwell Wiley</publisher-name>
+          <fpage>279</fpage>
+          <lpage>296</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR37">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nixon</surname>
+              <given-names>R</given-names>
+            </name>
+          </person-group>
+          <source>Slow violence and the environmentalism of the poor</source>
+          <year>2011</year>
+          <publisher-loc>Cambridge</publisher-loc>
+          <publisher-name>Harvard University Press</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR38">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nyberg</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Faxneld</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Danielsson</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Eriksson</surname>
+              <given-names>U</given-names>
+            </name>
+            <name>
+              <surname>Miller</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Bignert</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Temporal and spatial trends of PCBs, DDTs, HCHs, and HCB in Swedish marine biota 1969&#x2013;2012</article-title>
+          <source>Ambio</source>
+          <year>2015</year>
+          <volume>44</volume>
+          <fpage>S484</fpage>
+          <lpage>S497</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR39">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Olsson</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Karlsson</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Ahnland</surname>
+              <given-names>E</given-names>
+            </name>
+          </person-group>
+          <article-title>Diseases and environmental contaminants in seals from the Baltic and the Swedish West Coast</article-title>
+          <source>Science of the Total Environment</source>
+          <year>1994</year>
+          <volume>154</volume>
+          <fpage>217</fpage>
+          <lpage>227</lpage>
+          <pub-id pub-id-type="pmid">7973608</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR40">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Patin</surname>
+              <given-names>AS</given-names>
+            </name>
+          </person-group>
+          <source>Pollution and the biological resources of the oceans</source>
+          <year>1982</year>
+          <publisher-loc>London</publisher-loc>
+          <publisher-name>Butterworth Scientific</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR41">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Petersen</surname>
+              <given-names>CGJ</given-names>
+            </name>
+          </person-group>
+          <article-title>What is overfishing?</article-title>
+          <source>Journal of the Marine Biological Association of the UK</source>
+          <year>1900</year>
+          <volume>6</volume>
+          <fpage>587</fpage>
+          <lpage>594</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR42">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rasmussen</surname>
+              <given-names>E</given-names>
+            </name>
+          </person-group>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>McRoy</surname>
+              <given-names>CP</given-names>
+            </name>
+            <name>
+              <surname>Helfferich</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <article-title>The wasting disease of eelgrass (<italic>Zostera marina</italic>) and its effects on environmental factors and fauna</article-title>
+          <source>Seagrass ecosystems</source>
+          <year>1977</year>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>Dekker</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR43">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rockstr&#xF6;m</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Steffen</surname>
+              <given-names>W</given-names>
+            </name>
+            <name>
+              <surname>Noone</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Persson</surname>
+              <given-names>&#xC5;</given-names>
+            </name>
+            <name>
+              <surname>Chapin</surname>
+              <given-names>FS</given-names>
+              <suffix>III</suffix>
+            </name>
+            <name>
+              <surname>Lambin</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Lenton</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Scheffer</surname>
+              <given-names>M</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Planetary boundaries: Exploring the safe operating space for humanity</article-title>
+          <source>Nature</source>
+          <year>2009</year>
+          <volume>461</volume>
+          <fpage>472</fpage>
+          <lpage>475</lpage>
+          <pub-id pub-id-type="pmid">19779433</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR44">
+        <mixed-citation publication-type="other">Sahrhage, D. and J. Lundbeck. 1974/1992. <italic>A history of fishing</italic>. Berlin: Springer.</mixed-citation>
+      </ref>
+      <ref id="CR45">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Schenker</surname>
+              <given-names>MS</given-names>
+            </name>
+          </person-group>
+          <article-title>Saving a dying sea? The London Convention on Dumping</article-title>
+          <source>Cornell International Law Journal</source>
+          <year>1973</year>
+          <volume>7</volume>
+          <fpage>32</fpage>
+          <lpage>47</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR46">
+        <mixed-citation publication-type="other">Sissenwine, M. and D. Symes. 2007. <italic>Reflections on the common fishery policy</italic>. Report to the General Directorate for Fisheries and Maritime Affairs of the European Commission, 75.</mixed-citation>
+      </ref>
+      <ref id="CR47">
+        <element-citation publication-type="book">
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Speer</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <source>Hook, line, and sinking: The crisis in marine fisheries</source>
+          <year>1997</year>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>Natural Resources Defense Council</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR48">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sved&#xE4;ng</surname>
+              <given-names>H</given-names>
+            </name>
+          </person-group>
+          <article-title>The inshore demersal fish community on the Swedish Skagerrak Coast: Regulation by recruitment from offshore sources</article-title>
+          <source>ICES Journal of Marine Science</source>
+          <year>2003</year>
+          <volume>60</volume>
+          <fpage>23</fpage>
+          <lpage>31</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR49">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sved&#xE4;ng</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Hornborg</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <article-title>In waiting for a flourishing Baltic cod (<italic>Gadus morhua</italic>) fishery that never comes: Old truths and new perspectives</article-title>
+          <source>ICES Journal of Marine Science</source>
+          <year>2015</year>
+          <volume>72</volume>
+          <fpage>2197</fpage>
+          <lpage>2208</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR50">
+        <mixed-citation publication-type="other">Swedish Agency for Marine and Water Management. 2012/2015. God havsmilj&#xF6; 2020: Marin strategi f&#xF6;r Nordsj&#xF6;n och &#xD6;stersj&#xF6;n. Reports 2012:19 and 2015:30.</mixed-citation>
+      </ref>
+      <ref id="CR51">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Taylor</surname>
+              <given-names>JE</given-names>
+              <suffix>III</suffix>
+            </name>
+          </person-group>
+          <article-title>Knowing the black box: Methodological challenges in marine environmental history</article-title>
+          <source>Environmental History</source>
+          <year>2013</year>
+          <volume>18</volume>
+          <fpage>60</fpage>
+          <lpage>75</lpage>
+        </element-citation>
+      </ref>
+      <ref id="CR52">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Warde</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>S&#xF6;rlin</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Robin</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <source>The environment&#x2014;A history of the idea</source>
+          <year>2018</year>
+          <publisher-loc>Baltimore</publisher-loc>
+          <publisher-name>Johns Hopkins University Press</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR53">
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zill&#xE9;n</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Conley</surname>
+              <given-names>DJ</given-names>
+            </name>
+          </person-group>
+          <article-title>Hypoxia and cyanobacteria blooms&#x2014;Are they really natural features of the late Holocene history of the Baltic Sea?</article-title>
+          <source>Biogeosciences</source>
+          <year>2010</year>
+          <volume>7</volume>
+          <fpage>2567</fpage>
+          <lpage>2580</lpage>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
+</pmc-articleset>
