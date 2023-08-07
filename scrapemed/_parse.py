@@ -35,7 +35,7 @@ class unexpectedMultipleMatchWarning(Warning):
 
 class unexpectedZeroMatchWarning(Warning):
     """
-    Warned when one or more matches expected, and none found.
+    Warned when one or more matches expected, and none are found.
     """
     def __init__(self, message):
         self.message = message
