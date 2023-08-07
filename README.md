@@ -1,5 +1,5 @@
 # ScrapeMed
-### Open-Source Scraper for PubMed Central
+### Beautiful Data Scraping for PubMed Central (PMC)
 
 <TODO: Create package art in Illustrator>
 
