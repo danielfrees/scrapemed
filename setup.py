@@ -15,7 +15,7 @@ _TEST_REQS = _read_reqs(os.path.join("scrapemed", "tests", "requirements.txt"))
 setup(
     name='scrapemed',
     version='0.0.9',
-    description='ScrapeMed is an NLP-powered scraper for PubMed Central.',
+    description='ScrapeMed: Beautiful Data Scraping for PubMed Central.',
     author='Daniel Frees',
     author_email='danielfrees@g.ucla.edu',
     url='https://github.com/mediboard/nlp/scrapemed',
