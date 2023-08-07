@@ -5,10 +5,16 @@ def test_clean():
     ##_remove_text_styling
     STYLED_TEST_TEXT = ("<paper>Hello my name is Daniel, my <italic attr='Whatever' color = 'Blue'>favorite</italic> chemical is <i>C</i><sub>4</sub>. "
     "<b hello = 'dan' haha = 'whatever'>I</b> also <italic attr ='something'>wanted</italic> to say that <underline>you</underline> should use this code as a<sup>1</sup> test to make sure "
-    "html tagging removal is going as expected.</paper>")
+    "html tagging removal is going as expected. "
+    "I also want to make sure that external links are parsed correctly, such as this link to "
+    "the URI found at <ext-link attr='attr'>www.test.com</ext-link>.</paper>"
+    )
     CORRECT_CLEAN_TEXT = ("<paper>Hello my name is Daniel, my favorite chemical is C_4."
     " I also wanted to say that you should use this code as a^1 test "
-    "to make sure html tagging removal is going as expected.</paper>")
+    "to make sure html tagging removal is going as expected. "
+    "I also want to make sure that external links are parsed correctly, such as this link to "
+    "the URI found at [External URI:]www.test.com.</paper>"
+    )
     assert _clean._remove_text_styling(STYLED_TEST_TEXT, verbose=True) == CORRECT_CLEAN_TEXT 
 
 

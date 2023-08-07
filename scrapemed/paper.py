@@ -11,8 +11,10 @@ from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR,
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 import scrapemed._parse as parse
+import scrapemed.scrape as scrape
 from scrapemed._parse import TextSection
 from scrapemed.utils import basicBiMap
+import lxml.etree as ET
 
 #--------------------PAPER OBJECT SCHEMA-------------------------------------------
 #Deriving from SQLalchemy base so this can be SQL Alchemy friendly when I scale to connection with the backend
@@ -36,24 +38,23 @@ class Paper(Base):
         self.publisher_name = paper_dict['Publisher Name']
         self.publisher_location = paper_dict['Publisher Location']
         self.article_id = paper_dict['Article ID']
-        self.article_type = paper_dict['Article Type']
+        self.article_types = paper_dict['Article Types']
         self.article_categories = paper_dict['Article Categories']
-        self.subject = paper_dict['Subject']
-        self.institution = paper_dict['Institution']
-        self.institution_id = paper_dict['Institution ID']
         self.published_date = paper_dict['Published Date']
         self.volume = paper_dict['Volume']
         self.issue = paper_dict['Issue']
+        self.fpage = paper_dict['First Page']
+        self.lpage = paper_dict['Last Page']
         self.permissions = paper_dict['Permissions']
         self.copyright_statement = paper_dict['Copyright Statement']
         self.license = paper_dict['License']
-        self.funding_group = paper_dict['Funding Group']
-        self.award_group = paper_dict['Award Group']
-        self.funding_source = paper_dict['Funding Source']
+        self.funding = paper_dict['Funding']
         self.footnote = paper_dict['Footnote']
         self.acknowledgements = paper_dict['Acknowledgements']
         self.notes = paper_dict['Notes']
         self.reference_list = paper_dict['Reference List']
+
+        self.data_dict = parse.generate_data_dict()
 
         
     def __str__(self):

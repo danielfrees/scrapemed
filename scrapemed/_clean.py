@@ -48,11 +48,12 @@ def _remove_text_styling(text: str, verbose=False) -> str:
         <italic>,<i>,<bold>,<b>,<underline>,<u> opening and closing tags.
     Replacements (Note: all corresponding closing tags removed unless otherwise specified): 
         <sub> replaced with "_"
-        <sup> replace with "^"
+        <sup> replaced with "^"
+        <ext-link> replaced with [External URI:]
     """
     #remove italic, bold, underline styling
     REMOVALS = ["<italic>", "<i>", "<bold>", "<b>", "<underline>", "<u>"]
-    REPLACES = {"<sub>": "_", "<sup>": "^" }
+    REPLACES = {"<sub>": "_", "<sup>": "^", "<ext-link>": "[External URI:]"}
 
     return _remove_html_styling(text, removals=REMOVALS, replaces=REPLACES, verbose=verbose)
 
@@ -79,8 +80,8 @@ def _remove_html_styling(text: str, removals:list[str], replaces:dict, verbose =
         more_to_remove.append(tag[0] + "/" + tag[1:]) 
     to_remove.extend(more_to_remove)
     #ADD IN CLOSING TAGS FOR REPLACEMENT TAGS
-    to_replace = replaces.copy()
-    for tag in to_replace.keys():
+    to_replace_basic = replaces.copy()
+    for tag in to_replace_basic.keys():
         to_remove.append(tag[0] + "/" + tag[1:]) 
 
     #MATCH REGARDLESS OF HTML ATTRIBUTES
@@ -88,7 +89,11 @@ def _remove_html_styling(text: str, removals:list[str], replaces:dict, verbose =
     #/<head\b[^>]*>/i
     for i in range(len(to_remove)):
         to_remove[i] = to_remove[i][0:-1] + "\\b[^>]*" + to_remove[i][-1]
-
+    to_replace = {}
+    for find, replace in to_replace_basic.items():
+        new_find = find[0:-1] + "\\b[^>]*" + find[-1]
+        to_replace[new_find] = replace
+        
     #REPORT REQUESTED BEHAVIOR AT RUNTIME
     if verbose:
         print(f"Removing the following tags:\n{to_remove}\n")

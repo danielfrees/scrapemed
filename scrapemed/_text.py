@@ -1,9 +1,9 @@
 """
 ScrapeMed's "_text" module is aimed at organizing text found in markup language.
 
-In the context of the scrapemed package, this supports the organization of text 
-found within paragraphs (<p>) and sections (<sec>) tags in downloaded XML from 
-PubMedCentral.
+In the context of the ScrapeMed package, this supports the organization of text 
+found within paragraph (<p>) and section (<sec>) tags in downloaded XML from 
+PubMedCentral (PMC).
 """
 
 
