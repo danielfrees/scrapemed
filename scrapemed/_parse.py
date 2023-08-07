@@ -10,6 +10,8 @@ Middleman between the "scrape" module and the "paper" module for scrapemed.
 
 """
 
+from ast import IsNot
+from copy import copy
 from typing import Text, List, Dict, Tuple
 from typing import Union
 import scrapemed.scrape as scrape
@@ -17,12 +19,14 @@ import lxml.etree as ET
 from scrapemed.utils import basicBiMap
 from scrapemed._text import TextParagraph
 from scrapemed._text import TextSection
+from datetime import datetime
 import pandas as pd
+import warnings
 
 #-----------Custom Warnings & Exceptions for Parsing------------
 class unexpectedMultipleMatchWarning(Warning):
     """
-    Raised when one match expected, but multiple found.
+    Warned when one match expected, but multiple found.
     """
     def __init__(self, message):
         self.message = message
@@ -31,7 +35,7 @@ class unexpectedMultipleMatchWarning(Warning):
 
 class unexpectedZeroMatchWarning(Warning):
     """
-    Raised when one or more matches expected, and none found.
+    Warned when one or more matches expected, and none found.
     """
     def __init__(self, message):
         self.message = message
@@ -55,6 +59,8 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
 
     Paper objects in paper.py handle actual dictionary -> object conversion.
     """
+    if verbose: 
+        print(f"Generating Paper object for PMCID = {pmcid}...")
     #DOWNLOAD XML TREE AND GET ROOT
     paper_tree = scrape.get_xml(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
     root = paper_tree.getroot()
@@ -76,20 +82,17 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
         'Publisher Name': gather_publisher_name(root),
         'Publisher Location': gather_publisher_location(root),
         'Article ID': gather_article_id(root),
-        'Article Type': gather_article_type(root),
+        'Article Types': gather_article_types(root),
         'Article Categories': gather_article_categories(root),
-        'Subject': gather_subject(root),
-        'Institution': gather_institution(root),
-        'Institution ID': gather_institution_id(root),
         'Published Date': gather_published_date(root),
         'Volume': gather_volume(root),
         'Issue': gather_issue(root),
+        'First Page': gather_fpage(root),
+        'Last Page': gather_lpage(root),
         'Permissions': gather_permissions(root),
         'Copyright Statement': gather_copyright_statement(root),
         'License': gather_license(root),
-        'Funding Group': gather_funding_group(root),
-        'Award Group': gather_award_group(root),
-        'Funding Source': gather_funding_source(root),
+        'Funding': gather_funding(root),
         'Footnote': gather_footnote(root),
         'Acknowledgements': gather_acknowledgements(root),
         'Notes': gather_notes(root),
@@ -97,7 +100,44 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
         'Ref Map': ref_map
         }
 
+    if verbose:
+        print("Finished generating Paper object for PMCID = {pmcid}...")
+
     return paper_dict
+
+def generate_data_dict()->dict:
+    """
+    Returns a static definition of each of the elements returned in a Paper dict.
+    """
+    data_dict = {
+        'Title': "",
+        'Authors': "",
+        'Non-Author Contributors': "",
+        'Abstract': "",
+        'Body': "",
+        'Journal ID': "",
+        'Journal Title': "",
+        'ISSN': "",
+        'Publisher Name': "",
+        'Publisher Location': "",
+        'Article ID': "",
+        'Article Types': "",
+        'Article Categories': "",
+        'Published Date': "",
+        'Volume': "",
+        'Issue': "",
+        'Permissions': "",
+        'Copyright Statement': "",
+        'License': "",
+        'Funding': "",
+        'Footnote': "",
+        'Acknowledgements': "",
+        'Notes': "",
+        'Reference List': "",
+        'Ref Map': ""
+        }
+    
+    return data_dict
 
 def gather_title(root: ET.Element)->str:
     """
@@ -105,7 +145,7 @@ def gather_title(root: ET.Element)->str:
     """
     matches = root.xpath('//article-meta/title-group/article-title/text()')
     if len(matches) > 1: 
-        raise unexpectedMultipleMatchWarning("Warning! Multiple titles matched. Setting Paper.title to the first match.")
+        warnings.warn("Warning! Multiple titles matched. Setting Paper.title to the first match.", unexpectedMultipleMatchWarning)
     title = matches[0]
 
     return title
@@ -139,13 +179,24 @@ def _get_contributor_tuples(root: ET.Element, contributors: List[ET.Element]) ->
         aff_paths = contributor.xpath(".//xref[@ref-type='aff']")
         for aff in aff_paths:
             aff_id = aff.get('rid')
-            aff_text = root.xpath(f"//contrib-group/aff[@id='{aff_id}']/text()[not(parent::label)]")
-            if len(aff_text) > 1:
-                raise Warning("Multiple affiliations with the same ID found. Check XML Formatting.")
-            affiliation = f"{aff_id.strip()}: {aff_text[0].strip()}"
+            aff_texts = root.xpath(f"//contrib-group/aff[@id='{aff_id}']/text()[not(parent::label)]")
+            if len(aff_texts) > 1:
+                warnings.warn("Multiple affiliations with the same ID found. Check XML Formatting.", unexpectedMultipleMatchWarning)
+            
+            institutions = root.xpath(f"//contrib-group/aff[@id='{aff_id}']/institution-wrap/institution/text()")
+            institutions = ' '.join([str(inst) for inst in institutions])
+
+            #Generate affiliation text
+            affiliation = ""
+            if institutions:
+                affiliation = f"{aff_id.strip()}: {institutions}{aff_texts[0].strip()}"
+            else:
+                affiliation = f"{aff_id.strip()}: {aff_texts[0].strip()}"
             affiliations.append(affiliation)
+
         contributor_tuples.append((contrib_type, first_name, last_name, address, affiliations))
     return contributor_tuples
+
 
 def gather_authors(root: ET.Element)-> pd.DataFrame:
     """
@@ -155,7 +206,7 @@ def gather_authors(root: ET.Element)-> pd.DataFrame:
     """
     authors = root.xpath(".//contrib[@contrib-type='author']")
     if not authors:
-        raise unexpectedZeroMatchWarning("Warning! Authors could not be matched")
+        warnings.warn("Warning! Authors could not be matched", unexpectedZeroMatchWarning)
 
     # Extract the first and last names of the authors and store them in a list
     author_tuples = _get_contributor_tuples(root=root, contributors=authors)
@@ -183,7 +234,7 @@ def gather_non_author_contributors(root: ET.Element) -> Union[str, pd.DataFrame]
 
     return return_val
 
-def gather_abstract(root: ET.Element, ref_map:basicBiMap)->List[TextSection]:
+def gather_abstract(root: ET.Element, ref_map:basicBiMap)->List[Union[TextSection, TextParagraph]]:
     """
     Extract all abstract text sections from an xml, output as a list of TextSections. 
     """
@@ -192,12 +243,17 @@ def gather_abstract(root: ET.Element, ref_map:basicBiMap)->List[TextSection]:
     #get abstract subtree from XML
     matches = root.xpath('//abstract')
     if len(matches) > 1: 
-        raise unexpectedMultipleMatchWarning("Warning! Multiple abstracts matched. Filling in Paper.abstract with the first match.")
+        warnings.warn("Warning! Multiple abstracts matched. Filling in Paper.abstract with the first match.", unexpectedMultipleMatchWarning)
     abstract_root = matches[0]
 
-    #iterate through abstract subtree and get dict of title, bodytext pairs
-    for sec in abstract_root.iterchildren('sec'):
-        abstract.append(TextSection(sec_root=sec, ref_map=ref_map))
+    #iterate through abstract subtree and add in text sections (recursive) and text paragraphs (flat)
+    for child in abstract_root.iterchildren():
+        if child.tag == 'sec':
+            abstract.append(TextSection(sec_root=child, ref_map=ref_map))
+        elif child.tag == 'p':
+            abstract.append(TextParagraph(child))
+        else:
+            warnings.warn(f"Warning! Unexpected child with of type {child.tag} found under an XML <abstract> tag.")
 
     return abstract
 
@@ -210,7 +266,7 @@ def gather_body(root: ET.Element, ref_map:basicBiMap)->List[TextSection]:
     #get abstract subtree from XML
     matches = root.xpath('//body')
     if len(matches) > 1: 
-        raise unexpectedMultipleMatchWarning("Warning! Multiple 'body's matched. Filling in Paper.body with the first match.")
+        warnings.warn("Warning! Multiple 'body's matched. Filling in Paper.body with the first match.", unexpectedMultipleMatchWarning)
     body_root = matches[0]
 
     #iterate through abstract subtree and get dict of title, bodytext pairs
@@ -286,59 +342,163 @@ def gather_article_id(root: ET.Element) -> Dict[str, str]:
     
     return id_dict
 
-def gather_article_type(root: ET.Element) -> str:
+def gather_article_types(root: ET.Element) -> List[str]:
     """
-    Gather Article Type from PMC XML.
+    Gather Article Types from PMC XML. 
+
+    Article Type(s) are article-categories marked by the subj-group-type 'heading'.
     """
-    return None
+    matches = root.xpath("//article-meta/article-categories")
+    if len(matches) > 1: 
+        warnings.warn("Warning! Multiple 'article-categories' lists matched. Filling in Paper.article_categories with the first match.", unexpectedMultipleMatchWarning)
+    article_categories = matches[0]
+    heading_categories = article_categories.xpath("subj-group[@subj-group-type='heading']/subject")
+    heading_cats = [heading_cat.text for heading_cat in heading_categories]
+
+    if not heading_cats:
+        heading_cats = "No article type found (No article category with subject type 'heading')."
+    return heading_cats
 
 def gather_article_categories(root: ET.Element) -> List[str]:
     """
-    Gather Article Categories from PMC XML.
+    Gather Other Article Categories from PMC XML.
     """
-    return []
+    matches = root.xpath("//article-meta/article-categories")
+    if len(matches) > 1: 
+        warnings.warn("Warning! Multiple 'article-categories' lists matched. Filling in Paper.article_categories with the first match.", unexpectedMultipleMatchWarning)
+    article_categories = matches[0]
+    other_categories = article_categories.xpath("subj-group[not(@subj-group-type='heading')]/subject")
+    other_cats = [{other_cat.get("subj-group-type"): other_cat.text} for other_cat in other_categories]
+    
+    if not other_cats:
+        other_cats = "No extra article categories found. Check .article_types for header categories."
+    return other_cats
 
-def gather_subject(root: ET.Element) -> str:
+def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
     """
-    Gather Subject from PMC XML.
-    """
-    return None
+    Gather Publishing Dates from PMC XML.
 
-def gather_institution(root: ET.Element) -> str:
+    Gathers electronic publishing, print publishing, etc. dates.
     """
-    Gather Institution from PMC XML.
-    """
-    return None
+    pdate_dict = {}
+    matches = root.xpath("//article-meta/pub-date")
+    for match in matches:
+        pub_type = match.get("pub-type")
 
-def gather_institution_id(root: ET.Element) -> str:
-    """
-    Gather Institution ID from PMC XML.
-    """
-    return None
+        year = 1 #default
+        year_matches = match.xpath("year/text()")
+        if year_matches:
+            year = int(year_matches[0])
+        else:
+            warnings.warn("No year found for one of the publishing dates. Defaulting to year = 1!", unexpectedZeroMatchWarning)
+        
+        #if not month found, assume the 1st (standard practice - )
+        month = 1
+        month_matches = match.xpath("month/text()")
+        if month_matches:
+            month = int(month_matches[0])
 
-def gather_published_date(root: ET.Element) -> str:
-    """
-    Gather Published Date from PMC XML.
-    """
-    return None
+        #if no day found, assume the 1st (standard practice)
+        day = 1
+        day_matches = match.xpath("day/text()")
+        if day_matches:
+            day = int(day_matches[0])
 
-def gather_volume(root: ET.Element) -> str:
-    """
-    Gather Volume from PMC XML.
-    """
-    return None
+        full_date = datetime(year=year, month=month, day=day)
+        pdate_dict[pub_type] = full_date
+    return pdate_dict
 
-def gather_issue(root: ET.Element) -> str:
+def gather_volume(root: ET.Element) -> int:
     """
-    Gather Issue from PMC XML.
+    Gather Volume # of Parent Publication from PMC XML.
     """
-    return None
+    matches = root.xpath("//article-meta/volume/text()")
+    volume = None
+    if not matches:
+        warnings.warn("No Volume # found for Publication.", unexpectedZeroMatchWarning)
+    else:
+        volume = int(matches[0])
 
-def gather_permissions(root: ET.Element) -> List[str]:
+    return volume
+
+def gather_issue(root: ET.Element) -> int:
+    """
+    Gather Issue # of Parent Publication from PMC XML.
+    """
+
+    matches = root.xpath("//article-meta/issue/text()")
+    issue = None
+    if not matches:
+        warnings.warn("No Issue # found for Publication.", unexpectedZeroMatchWarning)
+    else:
+        issue = int(matches[0])
+
+    return issue
+
+def gather_fpage(root: ET.Element) -> int:
+    """
+    Gather First Page Number of this article in its parent publication.
+    """
+    matches = root.xpath("//article-meta/fpage/text()")
+    fpage = None
+    if not matches:
+        warnings.warn("No First Page # found for Publication.", unexpectedZeroMatchWarning)
+    else:
+        fpage = int(matches[0])
+
+    return fpage
+
+def gather_lpage(root: ET.Element) -> int:
+    """
+    Gather Last Page Number of this article in its parent publication.
+    """
+
+    matches = root.xpath("//article-meta/lpage/text()")
+    lpage = None
+    if not matches:
+        warnings.warn("No Last Page # found for Publication.", unexpectedZeroMatchWarning)
+    else:
+        lpage = int(matches[0])
+
+    return lpage  
+
+def gather_permissions(root: ET.Element) -> Dict[str, str]:
     """
     Gather Permissions from PMC XML.
+
+    Copyright statement, license type, and license paragraph.
     """
-    return []
+    copyright_statement_matches = root.xpath("//article-meta/permissions/copyright-statement/text()")
+    copyright_statement = "No copyright statement found."
+    if not copyright_statement_matches:
+        warnings.warn("No copyright statement found.", unexpectedZeroMatchWarning)
+    elif len(copyright_statement_matches) > 1:
+        warnings.warn("Multiple copyright statements found. Retrieving the first statement.", unexpectedMultipleMatchWarning)
+    else:
+        copyright_statement = copyright_statement_matches[0]
+
+    license_matches = root.xpath("//article-meta/permissions/license")
+    if not license_matches:
+        warnings.warn("No license found.", unexpectedZeroMatchWarning)
+    elif len(license_matches) > 1:
+        warnings.warn("Multiple licenses found. Retrieving the first statement.", unexpectedMultipleMatchWarning)
+    license = license_matches[0]
+    license_type = license.get("license-type")
+    if not license_type:
+        license_type = "Not Specified"
+    license_text = []
+    for child in license.iterchildren():
+        if child.tag == 'license-p':
+            license_text.append(TextParagraph(p_root=child))
+        else:
+            warnings.warn(f"Warning! Unexpected child with of type {child.tag} found under an XML <license> tag.")
+    license_text = '\n'.join([str(par) for par in license_text])
+
+    permissions_dict = {"Copyright Statement" : copyright_statement,
+                        "License Type": license_type,
+                        "License Text": license_text
+                        }
+    return permissions_dict
 
 def gather_copyright_statement(root: ET.Element) -> str:
     """
@@ -352,22 +512,15 @@ def gather_license(root: ET.Element) -> str:
     """
     return None
 
-def gather_funding_group(root: ET.Element) -> str:
+def gather_funding(root: ET.Element) -> str:
     """
-    Gather Funding Group from PMC XML.
+    Gather Funding Data from PMC XML.
     """
-    return None
+    matches = root.xpath("//article-meta/funding-group")
+    funding_institutions = []
+    for match in matches:
+        institutions = match.xpath('award-group/funding-source')
 
-def gather_award_group(root: ET.Element) -> List[str]:
-    """
-    Gather Award Group from PMC XML.
-    """
-    return []
-
-def gather_funding_source(root: ET.Element) -> str:
-    """
-    Gather Funding Source from PMC XML.
-    """
     return None
 
 
