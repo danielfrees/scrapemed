@@ -1,0 +1,15 @@
+SECTION: Introduction:
+
+A fixed-dose combination (FDC) of ibuprofen and acetaminophen has been developed that provides greater analgesic efficacy than either agent alone at the same doses without increasing the risk for adverse events.
+
+SECTION: Methods:
+
+We report three clinical phase I studies designed to assess the pharmacokinetics (PK) of the FDC of ibuprofen/acetaminophen 250/500 mg (administered as two tablets of ibuprofen 125 mg/acetaminophen 250 mg) in comparison with its individual components administered alone or together, and to determine the effect of food on the PK of the FDC. Two studies in healthy adults aged 18–55 years used a crossover design in which subjects received a single dose of each treatment with a 2-day washout period between each. In the third study, the bioavailability of ibuprofen and acetaminophen from a single oral dose of the FDC was assessed in healthy adolescents aged 12–17 years, inclusive.
+
+SECTION: Results:
+
+A total of 35 and 46 subjects were enrolled in the two adult studies, respectively, and 21 were enrolled in the adolescent study. Ibuprofen and acetaminophen in the FDC were bioequivalent to the monocomponents administered alone or together. With food, the maximum concentration (C_max) for ibuprofen and acetaminophen from the FDC was reduced by 36% and 37%, respectively, and time to C_max (i.e. t_max) was delayed. Overall drug exposure to ibuprofen or acetaminophen in the fed versus fasted states was similar. In adolescents, overall exposure to acetaminophen and ibuprofen was comparable with that in adults, with a slightly higher overall exposure to ibuprofen. Exposure to acetaminophen and ibuprofen in adolescents aged 12–14 years was slightly higher versus those aged 15–17 years. Adverse events were similar across all treatment groups.
+
+SECTION: Conclusions:
+
+The FDC of ibuprofen/acetaminophen 250/500 mg has a PK profile similar to its monocomponent constituents when administered separately or coadministered, indicating no drug–drug interactions and no formulation effects. Similar to previous findings for the individual components, the rates of absorption of ibuprofen and acetaminophen from the FDC were slightly delayed in the presence of food. Overall, adolescents had similar exposures to acetaminophen and ibuprofen as adults, while younger adolescents had slightly greater exposure than older adolescents, probably due to their smaller body size. The FDC was generally well tolerated.
