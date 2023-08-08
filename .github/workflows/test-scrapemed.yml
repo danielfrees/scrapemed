@@ -38,9 +38,7 @@ jobs:
     - name: Test scrapemed with pytest and Calculate Coverage
       run: |
         pytest  --cov-report "xml:coverage.xml" --cov=.
-    - name: Create Coverage
-      if: ${{ github.event_name == 'pull_request' }}
-      uses: orgoro/coverage@v3
-      with:
-        coverageFile: coverage.xml
-        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
