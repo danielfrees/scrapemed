@@ -1,9 +1,7 @@
 # ScrapeMed
 ### Data Scraping & Engineering for PubMed Central
 
-<img src="img/scrapemed-art-3.png" width=80%>
-
-<br>
+<img src="img/scrapemed-art-3.png" width=40%>
 
 <br>
 
