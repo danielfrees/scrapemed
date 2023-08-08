@@ -1,10 +1,6 @@
 # ScrapeMed
 ### Data Scraping & Engineering for PubMed Central
 
-<img src="img/scrapemed-art-3.png" width=40%>
-
-<br>
-
 ![GitHub CI](https://github.com/mediboard/scrapemed/actions/workflows/test-scrapemed.yml/badge.svg)
 
 [![HitCount](https://img.shields.io/endpoint?url=https%3A%2F%2Fhits.dwyl.com%2Fmediboard%2Fscrapemed.json%3Fcolor%3Dpink)](http://hits.dwyl.com/mediboard/scrapemed)
