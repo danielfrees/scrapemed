@@ -1,5 +1,5 @@
 import pytest
-import scrapemed.dataset as smds
+import scrapemed.paperSet as paperSet
 
 def test_dataset():
         

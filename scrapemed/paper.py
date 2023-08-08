@@ -15,6 +15,7 @@ import scrapemed.scrape as scrape
 from scrapemed._parse import TextSection
 from scrapemed.utils import basicBiMap
 import lxml.etree as ET
+import pandas as pd
 
 #--------------------PAPER OBJECT SCHEMA-------------------------------------------
 #Deriving from SQLalchemy base so this can be SQL Alchemy friendly when I scale to connection with the backend
@@ -31,7 +32,6 @@ class Paper(Base):
         self.non_author_contributors = paper_dict['Non-Author Contributors']
         self.abstract = paper_dict['Abstract']
         self.body = paper_dict['Body']
-        self.ref_map = paper_dict['Ref Map']
         self.journal_id = paper_dict['Journal ID']
         self.journal_title = paper_dict['Journal Title']
         self.issn = paper_dict['ISSN']
@@ -46,13 +46,16 @@ class Paper(Base):
         self.fpage = paper_dict['First Page']
         self.lpage = paper_dict['Last Page']
         self.permissions = paper_dict['Permissions']
-        self.copyright_statement = paper_dict['Copyright Statement']
-        self.license = paper_dict['License']
+        self.copyright = self.permissions["Copyright Statement"]
+        self.license = self.permissions["License Type"]
         self.funding = paper_dict['Funding']
         self.footnote = paper_dict['Footnote']
         self.acknowledgements = paper_dict['Acknowledgements']
         self.notes = paper_dict['Notes']
         self.reference_list = paper_dict['Reference List']
+        self.custom_meta = paper_dict['Custom Meta']
+        self.tables = paper_dict['Tables']
+        self.ref_map = paper_dict['Ref Map']
 
         self.data_dict = parse.generate_data_dict()
 
@@ -75,6 +78,32 @@ class Paper(Base):
         """
         return self.doi == other.doi and self.last_updated == other.last_updated
 
+    def to_relational(self)->pd.Series:
+        """
+        Generates a pandas Series representation of the paper. Some data will be lost, 
+        but most useful text data and metadata will be retained in the relational shape.
+        """
+        #TODO
+        return None
+
+    def vectorize(self, embedding_model, chunk_size:int):
+        """
+        Generates a lightweight vector database representation of the paper,
+        stored in paper.embedded.
+        """
+        self.embedded = None
+
+        return None
+    
+    def query(self, query:str, n_results:int)->str:
+        """
+        Query the paper with natural language questions. 
+            Input:
+            [query] - string question
+            [n_results] - number of most semantically similar paper sections to retrieve
+            Output:
+            Paper chunks most semantically similar to the input quesiton.
+        """
     
     #paper identifiers, DOI should be a completely unique string and is PK
     doi = Column("doi", String, primary_key=True)

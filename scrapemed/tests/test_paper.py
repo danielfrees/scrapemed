@@ -48,7 +48,7 @@ def test_paper():
                             'publisher-id': '293',
                             'doi': '10.1007/s40268-020-00293-5'}
     assert p.article_types == ['Original Research Article']
-    assert p.article_categories == 'No extra article categories found. Check .article_types for header categories.'
+    assert p.article_categories == 'No extra article categories found. Check paper.article_types for header categories.'
     assert p.published_date == {'epub': datetime(2020, 3, 4, 0, 0),
                                 'pmc-release': datetime(2020, 3, 4, 0, 0),
                                 'ppub': datetime(2020, 3, 1, 0, 0)}

@@ -9,8 +9,6 @@ Otherwise the behavior here may not be as expected.
 Middleman between the "scrape" module and the "paper" module for scrapemed.
 
 """
-
-from ast import IsNot
 from copy import copy
 from typing import Text, List, Dict, Tuple
 from typing import Union
@@ -51,7 +49,7 @@ class badTextFormattingWarning(Warning):
 
 #--------------------GENERATE PAPER DICTIONARY GIVEN PMCID-------------------------------
 def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bool = True, verbose:bool = False)->dict:
-    """TODO
+    """
     Wrapper that scrapes a PMC article specified by PMCID from the web (through scrape module),
     then parses the XML retrieved into a dictionary of useful values. 
 
@@ -66,7 +64,7 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
     root = paper_tree.getroot()
 
     #KEEP TRACK OF XREFS, TABLES, FIGURES IN BIMAP
-    #(THIS WILL BE MODIFIED DURING TEXT RETRIEVAL WHEN HTML REF TAGS ARE SPLIT OUT)
+    #(THIS WILL BE UPDATED DURING TEXT RETRIEVAL WHEN HTML REF TAGS ARE SPLIT OUT)
     ref_map = basicBiMap()
 
     #STORE EXTRACTED INFO IN PAPER DICT
@@ -90,15 +88,16 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
         'First Page': gather_fpage(root),
         'Last Page': gather_lpage(root),
         'Permissions': gather_permissions(root),
-        'Copyright Statement': gather_copyright_statement(root),
-        'License': gather_license(root),
         'Funding': gather_funding(root),
         'Footnote': gather_footnote(root),
         'Acknowledgements': gather_acknowledgements(root),
         'Notes': gather_notes(root),
         'Reference List': gather_reference_list(root),
+        'Custom Meta': gather_custom_metadata(root),
+        'Tables': parse_tables(root, ref_map),
         'Ref Map': ref_map
         }
+        #'Figures': parse_figures(root, ref_map), #BACKLOG
 
     if verbose:
         print("Finished generating Paper object for PMCID = {pmcid}...")
@@ -123,13 +122,13 @@ def generate_data_dict()->dict:
         'Article ID': "",
         'Article Types': "",
         'Article Categories': "",
-        'Published Date': "",
-        'Volume': "",
-        'Issue': "",
-        'Permissions': "",
-        'Copyright Statement': "",
-        'License': "",
-        'Funding': "",
+        'Published Date': "Dict of arious publishing dates of the paper (ie: electronic pub, print pub).",
+        'Volume': "The Volume # in which this paper was published in its journal(s).",
+        'Issue': "The Issue # in which this paper was grouped within the volume of the journal(s) in which it is published.",
+        'Permissions': "Summary of copyright statement, license type, and full license text for the paper.",
+        'Copyright Statement': "Returns the Copyright statement. Usually a short phrase identifying the individuals who have copyrighted this research, under a copyright license type found via paper.license.",
+        'License': "Returns the License Type the research is licensed under (ie: Open Access).",
+        'Funding': "Returns a list of groups which funded the research. Important for bias detection.",
         'Footnote': "",
         'Acknowledgements': "",
         'Notes': "",
@@ -371,7 +370,7 @@ def gather_article_categories(root: ET.Element) -> List[str]:
     other_cats = [{other_cat.get("subj-group-type"): other_cat.text} for other_cat in other_categories]
     
     if not other_cats:
-        other_cats = "No extra article categories found. Check .article_types for header categories."
+        other_cats = "No extra article categories found. Check paper.article_types for header categories."
     return other_cats
 
 def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
@@ -380,6 +379,8 @@ def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
 
     Gathers electronic publishing, print publishing, etc. dates.
     """
+    #TODO: update for multi-publishing (need to find an example first)
+
     pdate_dict = {}
     matches = root.xpath("//article-meta/pub-date")
     for match in matches:
@@ -412,6 +413,8 @@ def gather_volume(root: ET.Element) -> int:
     """
     Gather Volume # of Parent Publication from PMC XML.
     """
+    #TODO: update for multi-publishing (need to find an example first)
+
     matches = root.xpath("//article-meta/volume/text()")
     volume = None
     if not matches:
@@ -425,6 +428,7 @@ def gather_issue(root: ET.Element) -> int:
     """
     Gather Issue # of Parent Publication from PMC XML.
     """
+    #TODO: update for multi-publishing (need to find an example first)
 
     matches = root.xpath("//article-meta/issue/text()")
     issue = None
@@ -439,6 +443,8 @@ def gather_fpage(root: ET.Element) -> int:
     """
     Gather First Page Number of this article in its parent publication.
     """
+    #TODO: update for multi-publishing (need to find an example first)
+
     matches = root.xpath("//article-meta/fpage/text()")
     fpage = None
     if not matches:
@@ -452,6 +458,7 @@ def gather_lpage(root: ET.Element) -> int:
     """
     Gather Last Page Number of this article in its parent publication.
     """
+    #TODO: update for multi-publishing (need to find an example first)
 
     matches = root.xpath("//article-meta/lpage/text()")
     lpage = None
@@ -500,17 +507,6 @@ def gather_permissions(root: ET.Element) -> Dict[str, str]:
                         }
     return permissions_dict
 
-def gather_copyright_statement(root: ET.Element) -> str:
-    """
-    Gather Copyright Statement from PMC XML.
-    """
-    return None
-
-def gather_license(root: ET.Element) -> str:
-    """
-    Gather License from PMC XML.
-    """
-    return None
 
 def gather_funding(root: ET.Element) -> str:
     """
@@ -519,22 +515,36 @@ def gather_funding(root: ET.Element) -> str:
     matches = root.xpath("//article-meta/funding-group")
     funding_institutions = []
     for match in matches:
-        institutions = match.xpath('award-group/funding-source')
+        institutions = match.xpath('award-group/funding-source/institution/text()')
+        funding_institutions.extend([inst for inst in institutions])
 
-    return None
+    return funding_institutions
 
 
 def gather_footnote(root: ET.Element) -> str:
     """
     Gather Footnote from PMC XML.
     """
-    return None
+    matches = root.xpath("//back/fn-group/fn")
+    footnote = ""
+    for fn in matches:
+        for child in fn:
+            if child.tag == "p":
+                if len(footnote) == 0:
+                    footnote += str(TextParagraph(p_root=child))
+                else:
+                    footnote += " - " + str(TextParagraph(p_root=child))
+            else:
+                warnings.warn(f"Unexpected child of type {child.tag} under a footnote (<fn>) tag. Ignoring.")
+
+    return footnote
 
 
 def gather_acknowledgements(root: ET.Element) -> str:
     """
     Gather Acknowledgements from PMC XML.
     """
+
     return None
 
 
@@ -542,13 +552,39 @@ def gather_notes(root: ET.Element) -> str:
     """
     Gather Notes from PMC XML.
     """
+
     return None
 
+def gather_custom_metadata(root: ET.Element)->str:
+    """
+    Gather any custom metadata key-value pairs from the PMC XML.
+    """
+
+    return None
 
 def gather_reference_list(root: ET.Element) -> str:
     """
     Gather Reference List from PMC XML.
     """
+
     return None
 
+def parse_tables(root: ET.Element, ref_map:basicBiMap)->List[pd.DataFrame]:
+    """
+    Parse tables found in the PMC XML into a list, accessible via ref_map keys.
+    """
+
+    return None
+
+def parse_figures(root: ET.Element, ref_map:basicBiMap):
+    """
+    Store figures found in the PMC XML into a list, accessible via ref_map keys. 
+
+    TODO: Use Pillow? At the moment there does not seem to be a replicable way of 
+    retrieving figure URIs. Figures are also the least important for programmatic data
+    analysis. This func is on backlog but please reach out on the ScrapeMed gthub
+    if you are particularly interested in this feature.
+    """
+
+    return None
 #--------------------END GENERATE PAPER DICTIONARY GIVEN PMCID---------------------------

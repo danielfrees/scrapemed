@@ -50,7 +50,6 @@ def _add_elements(dot: Digraph, element: ET.Element, parent=None):
 
 def _generate_data_dictionary(tree) -> dict:
     """
-    TODO: 
     Generate a dictionary of all tags, each with a subdictionary of attributes, and lists of values seen for each attribute. 
 
     Helps define the scope of tags for a given xml/html tree. 
