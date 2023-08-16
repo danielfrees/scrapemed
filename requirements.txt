@@ -5,3 +5,5 @@ lxml>=4.9.2
 pandas>=1.5.2
 requests-html>=0.10.0
 sqlalchemy>=1.4.39
+beautifulsoup4>=4.11
+html5lib>=1.1

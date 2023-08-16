@@ -51,4 +51,4 @@ Each of the scrapemed python modules has a docstring at the top describing its g
 
 ## References
 
-• Package Art was generated via [dalle-mini](https://huggingface.co/spaces/dalle-mini/dalle-mini) and edited with Adobe Illustrator.
+• Package art was edited with Adobe Illustrator.
