@@ -9,7 +9,7 @@ Otherwise the behavior here may not be as expected.
 Middleman between the "scrape" module and the "paper" module for scrapemed.
 
 """
-from copy import copy
+import copy
 from typing import Text, List, Dict, Tuple
 from typing import Union
 import scrapemed.scrape as scrape
@@ -45,6 +45,34 @@ class badTextFormattingWarning(Warning):
         self.message = message
     def __str__(self):
         return repr(self.message)
+
+class unmatchedCitationWarning(Warning):
+    """
+    Warned when a citation reference is made but not matched to an actual <ref> tag.
+    """
+    def __init__(self, message):
+        self.message = message
+    def __str__(self):
+        return repr(self.message)
+
+class unmatchedTableWarning(Warning):
+    """
+    Warned when a table reference is made but not matched to an actual <table-wrap> tag.
+    """
+    def __init__(self, message):
+        self.message = message
+    def __str__(self):
+        return repr(self.message)
+
+class unmatchedFigureWarning(Warning):
+    """
+    Warned when a figure reference is made but not matched to an actual <fig> tag.
+    """
+    def __init__(self, message):
+        self.message = message
+    def __str__(self):
+        return repr(self.message)
+        
 #-----------End Custom Warnings & Exceptions for Parsing------------
 
 #--------------------GENERATE PAPER DICTIONARY GIVEN PMCID-------------------------------
@@ -92,10 +120,12 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
         'Footnote': gather_footnote(root),
         'Acknowledgements': gather_acknowledgements(root),
         'Notes': gather_notes(root),
-        'Reference List': gather_reference_list(root),
         'Custom Meta': gather_custom_metadata(root),
-        'Tables': parse_tables(root, ref_map),
-        'Ref Map': ref_map
+        'Ref Map With Tags': copy.deepcopy(ref_map),
+        'Ref Map': _clean_ref_map(paper_root = root, ref_map = ref_map),
+        'Citation List': _just_the_citation_list(ref_map),
+        'Tables': _just_the_tables(ref_map),
+        'Figures': _just_the_figures(ref_map)
         }
         #'Figures': parse_figures(root, ref_map), #BACKLOG
 
@@ -132,7 +162,6 @@ def generate_data_dict()->dict:
         'Footnote': "",
         'Acknowledgements': "",
         'Notes': "",
-        'Reference List': "",
         'Ref Map': ""
         }
     
@@ -235,7 +264,7 @@ def gather_non_author_contributors(root: ET.Element) -> Union[str, pd.DataFrame]
 
 def gather_abstract(root: ET.Element, ref_map:basicBiMap)->List[Union[TextSection, TextParagraph]]:
     """
-    Extract all abstract text sections from an xml, output as a list of TextSections. 
+    Extract all abstract text sections from an xml, output as a list of TextSections and/ord TextParagraphs. 
     """
     abstract = []
 
@@ -250,13 +279,13 @@ def gather_abstract(root: ET.Element, ref_map:basicBiMap)->List[Union[TextSectio
         if child.tag == 'sec':
             abstract.append(TextSection(sec_root=child, ref_map=ref_map))
         elif child.tag == 'p':
-            abstract.append(TextParagraph(child))
+            abstract.append(TextParagraph(p_root = child, ref_map = ref_map))
         else:
             warnings.warn(f"Warning! Unexpected child with of type {child.tag} found under an XML <abstract> tag.")
 
     return abstract
 
-def gather_body(root: ET.Element, ref_map:basicBiMap)->List[TextSection]:
+def gather_body(root: ET.Element, ref_map:basicBiMap)->List[Union[TextSection, TextParagraph]]:
     """
     Extract all body text sections from an xml, output as a list of TextSections. 
     """
@@ -268,9 +297,14 @@ def gather_body(root: ET.Element, ref_map:basicBiMap)->List[TextSection]:
         warnings.warn("Warning! Multiple 'body's matched. Filling in Paper.body with the first match.", unexpectedMultipleMatchWarning)
     body_root = matches[0]
 
-    #iterate through abstract subtree and get dict of title, bodytext pairs
-    for sec in body_root.iterchildren('sec'):
-        body.append(TextSection(sec_root=sec, ref_map=ref_map))
+    #iterate through body subtree and add in text sections (recursive) and text paragraphs (flat)
+    for child in body_root.iterchildren():
+        if child.tag == 'sec':
+            body.append(TextSection(sec_root=child, ref_map = ref_map))
+        elif child.tag == 'p':
+            body.append(TextParagraph(p_root=child, ref_map = ref_map))
+        else:
+            warnings.warn(f"Warning! Unexpected child with of type {child.tag} found under an XML <body> tag.")
 
     return body
 
@@ -539,14 +573,12 @@ def gather_footnote(root: ET.Element) -> str:
 
     return footnote
 
-
 def gather_acknowledgements(root: ET.Element) -> str:
     """
     Gather Acknowledgements from PMC XML.
     """
 
     return None
-
 
 def gather_notes(root: ET.Element) -> str:
     """
@@ -562,23 +594,244 @@ def gather_custom_metadata(root: ET.Element)->str:
 
     return None
 
-def gather_reference_list(root: ET.Element) -> str:
+def _parse_citation(citation_root: ET.Element) -> Union[Dict[str, Union[List[str], str]], str]:
+    root = citation_root
+
+    # Find authors in common element-citation format
+    author_matches = root.xpath('.//person-group[@person-group-type="author"]/name')
+
+    # If failed, try to find full citation in mixed-citation format---------------
+    mixed_citation = None
+    if not author_matches:
+        mixed_citation = root.xpath('//mixed-citation/text()')
+        if mixed_citation:
+            return mixed_citation
+    #------------------------------------------------------------------------
+
+    # If still failed, raise a warning.
+    if not author_matches:
+        warnings.warn(f"No authors found in citation {root.get('id')}", unexpectedZeroMatchWarning)
+
+    #tries to retrieve all of the following info, fails silently if none found since many refs incomplete
+    citation_dict = {
+        'Authors': [f"{_try_get_xpath_text(name, 'given-names')} {_try_get_xpath_text(name, 'surname')}"
+                    for name in author_matches if author_matches],
+        'Title': _try_get_xpath_text(root, './/article-title'),
+        'Source': _try_get_xpath_text(root, './/source'),
+        'Year': _try_get_xpath_text(root, './/year'),
+        'Volume': _try_get_xpath_text(root, './/volume'),
+        'FirstPage': _try_get_xpath_text(root, './/fpage'),
+        'LastPage': _try_get_xpath_text(root, './/lpage'),
+        'DOI': _try_get_xpath_text(root, './/pub-id[@pub-id-type="doi"]'),
+        'PMID': _try_get_xpath_text(root, './/pub-id[@pub-id-type="pmid"]'),
+    }
+        
+    return citation_dict
+
+def _try_get_xpath_text(root: ET.Element, xpath:str, verbose = False)-> str:
     """
-    Gather Reference List from PMC XML.
+    Given an lxml Element and an xpath, attempts to retrieve the first matched path's text.
+    Failure warnings suppressed by default.
+
+    Returns None on failure. 
+    """
+    return_text = None
+    try:
+        return_text = root.find(xpath).text
+    except AttributeError:
+        if verbose:
+            warnings.warn(f"Failed xpath text retrieval while trying to find {xpath}.text(). Root ID: {root.get('id')}")
+
+    return return_text
+
+def _parse_table(table_root: ET.Element) -> pd.DataFrame:
+    """
+    Use panda's read_html function (which relies on lxml and falls back to html5lib)
+    to process the HTML tables into dataframes.
+
+    Adds labels and captions if notated in the xml under //table-wrap/label and //table-wrap/caption/p tags.
+    """
+    #find label if any
+    label_matches = table_root.xpath("label")
+    label = None
+    if label_matches:
+        label = label_matches[0].text
+    #find caption if any
+    caption_matches = table_root.xpath("caption/p")
+    caption = None
+    if caption_matches:
+        caption = caption_matches[0].text
+
+    table_xml_str = ET.tostring(table_root)
+    table_df = pd.read_html(table_xml_str)[0]
+
+    #build title for styled df, if relevant
+    title = None
+    if label and caption:
+        title = f"{label}: {caption}"
+    elif label:
+        title = label
+    elif caption:
+        title = caption
+
+    if title:
+        table_df = table_df.style.set_caption(title)
+
+    return table_df
+
+def _parse_figure(fig_root: ET.Element) -> Dict[str, str]:
+    """
+    Parses figures into a dictionary with their information (label, caption, and link).
+    Unforunately, the links are relative and cannot be reliably traced to a public URI.
+    This means I have not found a way to download the actual figures to store via Pillow etc.
+
+    TODO: Find a way to grab actual figures. May be impossible.
+    """
+    root = fig_root
+    label = root.find('.//label').text
+    caption = root.find('.//caption').text
+    graphic_href = root.find('.//graphic').get('{http://www.w3.org/1999/xlink}href')
+
+    fig_dict = {
+        'Label': label,
+        'Caption': caption,
+        'Link': graphic_href
+    }
+
+    return fig_dict
+
+def _find_key_of_xpath(ref_map:basicBiMap, xpath_query:str)->int:
+    """
+    Searches through the ref_map and returns the first key where the xpath matches the value.
+    """
+    ref_map = copy.deepcopy(ref_map)
+    # Iterate through the dictionary and find the key with matching value
+    matching_key = None
+    for key, value in ref_map.items():
+        if ET.fromstring(value).xpath(xpath_query):
+            matching_key = key
+            break
+
+    return matching_key
+
+def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
+    """
+    Takes in a reference map and replaces each reference tag with:
+        -bibr (bibliography) references replaced by actual bibliography citation
+        -table-wrap tags replaced by actual tables
+        -figure tags replaced by figure information
+        -references to tables linked to actual table df in the ref_map
+        -references to figs linked to actual figure info in the ref_map
+    """
+    cleaned_ref_map = {}
+
+    for key, item in ref_map.items():
+        root = ET.fromstring(item)
+
+        #-------XREFS LINK TO ACTUAL ITEMS OR FILL WITH BIBR--------------
+        if root.tag == "xref":
+            if root.get("ref-type") == "bibr":
+                ref_id = root.get("rid")
+                if not ref_id:
+                    warnings.warn(f"Citation without a reference id specified (Citation {root.text})!", unmatchedCitationWarning)
+                    continue
+                
+                # XPath expression to find the <ref> element based on the reference ID
+                matching_citation_expr = f"//ref[@id='{ref_id}']"
+                matches = paper_root.xpath(matching_citation_expr)
+                if not matches:
+                    warnings.warn(f"Citation without matching reference (Citation {root.text})!", unmatchedCitationWarning)
+                    continue
+                elif len(matches) > 1:
+                    warnings.warn("Multiple references found for a single citation. Filling in with the first match.")
+        
+                reference_xml = matches[0]
+                cleaned_reference = _parse_citation(reference_xml)
+                cleaned_ref_map[key] = cleaned_reference
+
+            elif root.get("ref-type") == "table":
+                table_id = root.get("rid")
+                if not table_id:
+                    warnings.warn(f"Table ref without reference ID, no table will be matched!", unmatchedTableWarning)
+                    continue
+                
+                table_xpath = f"//table-wrap[@id='{table_id}']"
+                matching_table_key = _find_key_of_xpath(ref_map, table_xpath)
+                if not matching_table_key:
+                    warnings.warn(f"Table ref unmatched. No table with id {table_id} found in the ref_map.", unmatchedTableWarning)
+                else:
+                    #will be replaced by the actual link at the end when the cleaned ref map is complete
+                    cleaned_ref_map[key] = matching_table_key
+
+            elif root.get("ref-type") == "fig":
+                fig_id = root.get("rid")
+                if not fig_id:
+                    warnings.warn(f"Figure ref unmatched. Figure ref without matching figure (Figure {root.text})!", unmatchedFigureWarning)
+                    continue
+                
+                fig_xpath = f"//fig[@id='{fig_id}']"
+                matching_fig_key = _find_key_of_xpath(ref_map, fig_xpath)
+                if not matching_fig_key:
+                    warnings.warn(f"No fig with id {fig_id} found in the ref_map.", unmatchedFigureWarning)
+                else:
+                    #will be replaced by the actual link at the end when the cleaned ref map is complete
+                    cleaned_ref_map[key] = matching_fig_key
+
+            elif root.get("ref-type"):
+                warnings.warn(f"Unknown reference type: {root.get('ref_type')} found in ref_map.")
+            else:
+                warnings.warn(f"<xref> in ref_map with no ref-type specified. Ignoring. ({root.text})")
+
+        elif root.tag == "table-wrap":
+            cleaned_ref_map[key] = _parse_table(table_root = root)
+        elif root.tag == "fig":
+            cleaned_ref_map[key] = _parse_figure(fig_root = root)
+        else:
+            warnings.warn(f"Unexpected tag of type {root.tag} found in ref map. Leaving as is instead of cleaning.")
+            cleaned_ref_map[key] = ET.tostring(root)
+        
+    #Final pass to set up links now that everything should be filled in 
+    for key,item in cleaned_ref_map.items():
+        if type(item) == int:
+            link_index = item
+            cleaned_ref_map[key] = cleaned_ref_map[link_index]
+
+    return cleaned_ref_map
+
+def _get_ref_type(value):
+    """
+    Determine the type of reference of a ref_map value. Either table, citation, or fig (figure). 
+    Returns None if no known type is found.
+    """
+    ref_type = None
+    if type(value) == dict:
+        if 'Caption' in value:
+            ref_type = 'fig'
+        elif 'Authors' in value:
+            ref_type = 'citation'
+    elif type(value) == pd.DataFrame:
+        ref_type = 'table'
+
+    return ref_type
+
+def _just_the_citation_list(ref_map:basicBiMap) -> List[Dict[str, Union[List[str], str]]]:
+    """
+    Gather Citations List from PMC XML. 
+    THIS IS THE LIST OF REFERENCES/CITATIONS. NOT THE SAME AS ref_map!
+    """
+    
+    return None
+
+def _just_the_tables(ref_map:basicBiMap)->List[pd.DataFrame]:
+    """
+    Parse tables found in the PMC XML into a list.
     """
 
     return None
 
-def parse_tables(root: ET.Element, ref_map:basicBiMap)->List[pd.DataFrame]:
+def _just_the_figures(ref_map:basicBiMap)->List[Dict[str, str]]:
     """
-    Parse tables found in the PMC XML into a list, accessible via ref_map keys.
-    """
-
-    return None
-
-def parse_figures(root: ET.Element, ref_map:basicBiMap):
-    """
-    Store figures found in the PMC XML into a list, accessible via ref_map keys. 
+    Store figure data found in the PMC XML into a list.
 
     TODO: Use Pillow? At the moment there does not seem to be a replicable way of 
     retrieving figure URIs. Figures are also the least important for programmatic data

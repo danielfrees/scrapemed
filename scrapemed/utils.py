@@ -32,6 +32,8 @@ class basicBiMap(dict):
         return super().__getitem__(key)
     def __iter__(self):
         return super().__iter__()
+    def __next__(self):
+        return super().__next__()
     def __len__(self):
         return super().__len__()
 

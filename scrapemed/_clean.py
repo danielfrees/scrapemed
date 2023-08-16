@@ -118,7 +118,7 @@ def split_text_and_refs(tree_text:str, ref_map:basicBiMap, id=None, on_unknown='
     Split HTML tags out of text. 
     • HTML text styling tags will be removed if they aren't already.
     • <xref>, <table-wrap>, and <fig> tags will be converted to MHTML tags containing the key
-    to use when searching for these references, tables, and figures.
+    to use when searching for these references, tables, and figures. 
 
     Returns the cleaned text. Modifies the passed BiMap for any new key-tag pairs found.
 
@@ -143,7 +143,8 @@ def split_text_and_refs(tree_text:str, ref_map:basicBiMap, id=None, on_unknown='
     FIGURE_TAG_NAME = 'fig'
     TABLE_TAG_NAME = 'table'
     TABLEWRAP_TAG_NAME = 'table-wrap'
-    ALLOWED_TAG_NAMES = [XREF_TAG_NAME, FIGURE_TAG_NAME, TABLE_TAG_NAME, TABLEWRAP_TAG_NAME]
+    ALLOWED_TAG_NAMES = [XREF_TAG_NAME, FIGURE_TAG_NAME, TABLEWRAP_TAG_NAME]
+    IGNORED_TAG_NAMES = []
     #regex pattern string to match tags through to closing tag or self closing
     #should match any HTML or XML tag
     XML_HTML_TAG_PATTERN = r'<([a-zA-Z][\w-]*)\b[^>]*>(.*?)</\1>|<([a-zA-Z][\w-]*)\b[^/>]*/?>'
@@ -161,6 +162,7 @@ def split_text_and_refs(tree_text:str, ref_map:basicBiMap, id=None, on_unknown='
             tag_name = match.group(1)
             tag_contents = match.group(2)
             full_tag = match.group()
+            
 
             #ADD CONTENTS PRIOR TO TAG 
             tag_start_index = match.start()

@@ -52,10 +52,12 @@ class Paper(Base):
         self.footnote = paper_dict['Footnote']
         self.acknowledgements = paper_dict['Acknowledgements']
         self.notes = paper_dict['Notes']
-        self.reference_list = paper_dict['Reference List']
         self.custom_meta = paper_dict['Custom Meta']
-        self.tables = paper_dict['Tables']
         self.ref_map = paper_dict['Ref Map']
+        self._ref_map_with_tags = paper_dict['Ref Map With Tags']
+        self.citation_list = paper_dict['Citation List']
+        self.tables = paper_dict['Tables']
+        self.figures = paper_dict['Figures']
 
         self.data_dict = parse.generate_data_dict()
 

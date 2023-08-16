@@ -14,6 +14,7 @@ from scrapemed.utils import basicBiMap
 import scrapemed._morehtml as mhtml
 from itertools import chain
 import warnings
+import re
 
 #-------------------------------Classes----------------------------
 class multipleTitleWarning(Warning):
@@ -70,10 +71,11 @@ class TextParagraph(TextElement):
         """
         
         """
-        super().__init__(root=p_root,parent=parent) #initialize TextElement
+        super().__init__(root=p_root,parent=parent,ref_map=ref_map) #initialize TextElement
 
         self.id = p_root.get('id')
         p_subtree = stringify_children(self.root)
+
         #split text and HTML tag references
         self.text_with_refs = _clean.split_text_and_refs(tree_text=p_subtree, 
                             ref_map=self.get_ref_map(), id=self.id, on_unknown='keep')
@@ -117,6 +119,10 @@ class TextSection(TextElement):
                 self.children.append(TextParagraph(child, parent=self, ref_map=self.get_ref_map()))
             else:
                 raise Warning(f"Warning! Unexpected child with of type {child.tag} found under an XML <sec> tag.")
+        
+        #after building the TextSection tree, get textual representations
+        self.text = self.get_section_text()
+        self.text_with_refs = self.get_section_text_with_refs()
 
     def __str__(self):
         """
@@ -140,7 +146,31 @@ class TextSection(TextElement):
                 s += "\n" + str(child)
                 s += "\n"
         return s
+
+    def get_section_text(self):
+        """
+        Gets a text representation of the entire text section, 
+        using paragraphs with refs removed.
+        """
+        return str(self)
     
+    def get_section_text_with_refs(self):
+        """
+        Gets a text representation of the entire text section, 
+        using paragraphs with references retained.
+        """
+        s = ""
+        if not self.title == None:
+            s += f"SECTION: {self.title}:\n"
+        for child in self.children:
+            if type(child) == TextSection:
+                s += "\n" + textwrap.indent(child.get_section_text_with_refs(), " " * 4) 
+                s += "\n"
+            elif type(child) == TextParagraph:
+                s += "\n" + child.text_with_refs
+                s += "\n"
+        return s
+
     def __eq__(self, other):
         """
         TODO: Test if this actually works for comparing TextSections
