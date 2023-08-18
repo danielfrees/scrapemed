@@ -32,12 +32,13 @@ def investigate_xml_tree(root: ET.Element)->None:
     print("--------------------------------------------\n")
     return
 
-def visualize_element_tree(root: ET.Element, title = 'data/element_tree.gv')->None:
+def visualize_element_tree(root: ET.Element, title = 'data/element_tree.gv', test_mode=False)->None:
     """Visualize an XML element tree using Graphviz."""
     root = copy.copy(root)
     dot = Digraph()
     _add_elements(dot, root)
-    dot.render(title, view=True)
+    if not test_mode:
+        dot.render(title, view=True)
     return
 
 def _add_elements(dot: Digraph, element: ET.Element, parent=None):

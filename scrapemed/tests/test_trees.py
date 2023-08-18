@@ -17,7 +17,7 @@ def test_scrape():
     assert trees._generate_tag_dictionary(test_root) == CORRECT_DATA_DICT 
 
     #simply test that the visualization function runs
-    trees.visualize_element_tree(test_root, title = 'data/test_text_vis.gv')
+    trees.visualize_element_tree(test_root, title = 'data/test_text_vis.gv', test_mode = True)
     trees.investigate_xml_tree(test_root)
 
     return None
