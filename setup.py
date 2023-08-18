@@ -10,7 +10,7 @@ def _read_reqs(relpath):
 _SCRAPEMED_REQS = _read_reqs("requirements.txt")
 _DEPENDENCY_LINKS = [l for l in _SCRAPEMED_REQS if "://" in l]
 _INSTALL_REQUIRES = [l for l in _SCRAPEMED_REQS if "://" not in l]
-_TEST_REQS = _read_reqs(os.path.join("scrapemed", "tests", "requirements.txt"))
+_TEST_REQS = _read_reqs("requirements.txt")
 
 setup(
     name='scrapemed',
