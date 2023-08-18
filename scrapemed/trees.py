@@ -7,18 +7,16 @@ import copy
 from graphviz import Digraph
 import lxml.etree as ET
 
-def investigate_xml_tree(xml_tree: ET.ElementTree):
+def investigate_xml_tree(root: ET.Element)->None:
     """
-    Print some basic statistics and info about your xml.
+    Print some basic statistics and info about your xml, provided its root)
 
     Input: 
-    [xml_tree] = An ElementTree of your xml
+    [root] = Root of an ElementTree of your xml
 
     Output:
     None, all work is printed to stdout.
     """
-    tree = copy.copy(xml_tree)
-    root = tree.getroot()
 
     elem_list = [elem.tag for elem in root.iter()]
     num_elements = len(elem_list)
@@ -30,15 +28,17 @@ def investigate_xml_tree(xml_tree: ET.ElementTree):
     print("--------------------------------------------\n")
 
     #PRINT OVERALL DATA DICTIONARY
-    print(f"Data Dictionary:\n {_generate_data_dictionary(xml_tree)}\n")
+    print(f"Tag Dictionary:\n {_generate_tag_dictionary(root)}\n")
     print("--------------------------------------------\n")
+    return
 
-def visualize_element_tree(element: ET.Element, title = 'data/element_tree.gv'):
+def visualize_element_tree(root: ET.Element, title = 'data/element_tree.gv')->None:
     """Visualize an XML element tree using Graphviz."""
-    element = copy.copy(element)
+    root = copy.copy(root)
     dot = Digraph()
-    _add_elements(dot, element)
+    _add_elements(dot, root)
     dot.render(title, view=True)
+    return
 
 def _add_elements(dot: Digraph, element: ET.Element, parent=None):
     """Recursively add elements to a Graphviz dot graph."""
@@ -47,15 +47,16 @@ def _add_elements(dot: Digraph, element: ET.Element, parent=None):
     dot.node(element.tag, element.tag)
     for child in element:
         _add_elements(dot, child, element.tag)
+    return
 
-def _generate_data_dictionary(tree) -> dict:
+def _generate_tag_dictionary(root: ET.Element) -> dict:
     """
     Generate a dictionary of all tags, each with a subdictionary of attributes, and lists of values seen for each attribute. 
 
     Helps define the scope of tags for a given xml/html tree. 
 
     Input: 
-    [tree] = an ElementTree of xml, html, other tagged language, or combo thereof
+    [root] = root of an ElementTree of xml, html, other tagged language, or combo thereof
 
     Output:
     A dictionary of tags: attr-val dictionaries.
@@ -73,8 +74,6 @@ def _generate_data_dictionary(tree) -> dict:
         tag_n
        }
     """
-    tree = copy.copy(tree)
-    root = tree.getroot()
     data_dict = {}
 
     for element in root.iter():

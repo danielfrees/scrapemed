@@ -13,10 +13,7 @@ class unexpectedTagWarning(Warning):
     """
     Raised when an unexpected tag enclosed in angle brackets is found. 
     """
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
 
 def clean_xml_string(xml_string:str, strip_text_styling=True, verbose=False):
     """

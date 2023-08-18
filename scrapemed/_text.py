@@ -21,10 +21,7 @@ class multipleTitleWarning(Warning):
     """
     Raised when one title expected, but multiple found.
     """
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
 
 #-----------------------------------------TextElement---------------------------------------------------
 class TextElement():

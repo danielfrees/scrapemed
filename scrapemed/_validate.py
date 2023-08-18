@@ -21,6 +21,8 @@ class noDTDFoundError(Exception):
     """
     Raised when no DTD can be found in a downloaded XML, preventing validation.
     """
+    pass
+
 #---------------------------DATA VALIDATION---------------------------------------------------
 def validate_xml(xml : ET.ElementTree) -> bool:
     """

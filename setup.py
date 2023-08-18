@@ -22,6 +22,7 @@ setup(
     packages=find_packages(exclude=['tests', 'tests.*']),
     install_requires=_INSTALL_REQUIRES,
     tests_require=_TEST_REQS,
+    test_suite="tests",
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',

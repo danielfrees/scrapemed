@@ -7,10 +7,7 @@ class reversedBiMapComparisonWarning(Warning):
     """
     Raised when comparing basicBiMaps which are exactly the same but reversed.
     """
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
 
 class basicBiMap(dict):
     """

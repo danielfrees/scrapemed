@@ -26,52 +26,34 @@ class unexpectedMultipleMatchWarning(Warning):
     """
     Warned when one match expected, but multiple found.
     """
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
 
 class unexpectedZeroMatchWarning(Warning):
     """
     Warned when one or more matches expected, and none are found.
     """
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
 
 class badTextFormattingWarning(Warning):
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
 
 class unmatchedCitationWarning(Warning):
     """
     Warned when a citation reference is made but not matched to an actual <ref> tag.
     """
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
 
 class unmatchedTableWarning(Warning):
     """
     Warned when a table reference is made but not matched to an actual <table-wrap> tag.
     """
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
 
 class unmatchedFigureWarning(Warning):
     """
     Warned when a figure reference is made but not matched to an actual <fig> tag.
     """
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
         
 #-----------End Custom Warnings & Exceptions for Parsing------------
 

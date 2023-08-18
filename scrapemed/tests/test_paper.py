@@ -13,7 +13,7 @@ def test_paper():
     email = "danielfrees247@gmail.com"
 
     warnings.filterwarnings("ignore")
-    p = paper.Paper(PMCID, email)
+    p = paper.Paper(PMCID, email, download=True, verbose=True)
     warnings.filterwarnings("default")
 
     assert p.title == 'Phase I Pharmacokinetic Study of Fixed-Dose Combinations of Ibuprofen and Acetaminophen in Healthy Adult and Adolescent Populations'

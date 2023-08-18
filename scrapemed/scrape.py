@@ -13,10 +13,7 @@ class validationWarning(Warning):
     """
     Warned when downloading PMC XML without validating.
     """
-    def __init__(self, message):
-        self.message = message
-    def __str__(self):
-        return repr(self.message)
+    pass
 
 #---------------------Download Funcs for PubMed Central-------------------------------
 def search_pmc():
