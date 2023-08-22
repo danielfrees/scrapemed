@@ -15,13 +15,26 @@ import scrapemed._morehtml as mhtml
 from itertools import chain
 import warnings
 import re
+import pandas as pd
 
-#-------------------------------Classes----------------------------
+#-------------------------------Warnings----------------------------
 class multipleTitleWarning(Warning):
     """
     Raised when one title expected, but multiple found.
     """
     pass
+
+class unhandledTextTagWarning(Warning):
+    """
+    Raised when a tag is encountered in a text section of the XML,
+    but is not explicitly handled by ScrapeMed.
+
+    The tag contents will be ignored if not handled manually.
+
+    Feel free to submit a PR if you add a non-breaking code addition to handle
+    these types of tags.
+    """
+
 
 #-----------------------------------------TextElement---------------------------------------------------
 class TextElement():
@@ -114,8 +127,12 @@ class TextSection(TextElement):
                 self.children.append(TextSection(child, parent=self, ref_map=self.get_ref_map()))
             elif child.tag == 'p':
                 self.children.append(TextParagraph(child, parent=self, ref_map=self.get_ref_map()))
+            elif child.tag == 'table-wrap':
+                self.children.append(TextTable(child, parent=self, ref_map=self.get_ref_map()))
+            elif child.tag == 'fig':
+                self.children.append(TextFigure(child, parent=self, ref_map=self.get_ref_map()))
             else:
-                raise Warning(f"Warning! Unexpected child with of type {child.tag} found under an XML <sec> tag.")
+                warnings.warn(f"Warning! Unexpected child with of type {child.tag} found under an XML <sec> tag.", unhandledTextTagWarning)
         
         #after building the TextSection tree, get textual representations
         self.text = self.get_section_text()
@@ -174,6 +191,97 @@ class TextSection(TextElement):
         """
         return self.title==other.title and self.children==other.children
 #-----------------------------------------end TextSection---------------------------------------------------
+
+#-----------------------------TextTable----------------------------------------
+class TextTable(TextElement):
+    def __init__(self, table_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
+        """
+        Initialize and process table-wrap found in a text element of PMC XML.
+
+        Use panda's read_html function (which relies on lxml and falls back to html5lib)
+        to process the HTML tables into dataframes.
+
+        Adds labels and captions if notated in the xml under //table-wrap/label and //table-wrap/caption/p tags.
+        """
+        #initialize root, parent, and bimaps
+        super().__init__(root=table_root,parent=parent,ref_map=ref_map)
+    
+        #find label if any
+        label_matches = table_root.xpath("label")
+        label = None
+        if len(label_matches) > 0:
+            label = label_matches[0].text
+        #find caption if any
+        caption_matches = table_root.xpath("caption/p")
+        caption = None
+        if len(caption_matches) > 0:
+            caption = caption_matches[0].text
+
+        table_xml_str = ET.tostring(table_root)
+        table_df = pd.read_html(table_xml_str)[0]
+
+        #build title for styled df, if relevant
+        title = None
+        if label and caption:
+            title = f"{label}: {caption}"
+        elif label:
+            title = label
+        elif caption:
+            title = caption
+
+        if title:
+            table_df = table_df.style.set_caption(title)
+
+        self.df = table_df
+
+        return None
+
+    def __str__(self):
+        return str(self.fig_dict)
+
+    def __repr__(self):
+        return repr(self.fig_dict)
+#-----------------------------end TextTable----------------------------------------
+
+#-----------------------------TextFigure---------------------------------------------
+class TextFigure(TextElement):
+    def __init__(self, fig_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
+        """
+        Initialize and parse figure found in a text element of a PMC XML.
+
+        Parses figures into a dictionary with their information (label, caption, and link).
+        Unforunately, the links are relative and cannot be reliably traced to a public URI.
+        This means I have not found a way to download the actual figures to store via Pillow etc.
+
+        TODO: Find a way to grab actual figures. May be impossible.
+        """
+        #initialize root, parent, and bimaps
+        super().__init__(root=fig_root,parent=parent,ref_map=ref_map)
+
+        root = fig_root
+        label = root.find('.//label').text
+        caption = root.find('.//caption')
+        if caption:
+            caption = ''.join(caption.itertext())
+        graphic_href = root.find('.//graphic').get('{http://www.w3.org/1999/xlink}href')
+
+        fig_dict = {
+            'Label': label,
+            'Caption': caption,
+            'Link': graphic_href
+        }
+
+        self.fig_dict = fig_dict
+
+        return None
+
+    def __str__(self):
+        return str(self.fig_dict)
+
+    def __repr__(self):
+        return repr(self.fig_dict)
+#-----------------------------end TextFigure---------------------------------------------
+
 
 #-------------------------------End Classes----------------------------   
 

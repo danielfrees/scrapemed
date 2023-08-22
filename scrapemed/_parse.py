@@ -15,11 +15,12 @@ from typing import Union
 import scrapemed.scrape as scrape
 import lxml.etree as ET
 from scrapemed.utils import basicBiMap
-from scrapemed._text import TextParagraph
-from scrapemed._text import TextSection
+from scrapemed._text import TextParagraph, TextSection, TextTable, TextFigure
 from datetime import datetime
 import pandas as pd
 import warnings
+import textwrap
+import uuid
 
 #-----------Custom Warnings & Exceptions for Parsing------------
 class unexpectedMultipleMatchWarning(Warning):
@@ -105,11 +106,12 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
         'Custom Meta': gather_custom_metadata(root),
         'Ref Map With Tags': copy.deepcopy(ref_map),
         'Ref Map': _clean_ref_map(paper_root = root, ref_map = ref_map),
-        'Citation List': _just_the_citation_list(ref_map),
-        'Tables': _just_the_tables(ref_map),
-        'Figures': _just_the_figures(ref_map)
-        }
-        #'Figures': parse_figures(root, ref_map), #BACKLOG
+    }
+
+    citations, tables, figures = _split_citations_tables_figs(paper_dict['Ref Map'])
+    paper_dict['Citations'] = citations
+    paper_dict['Tables'] = tables
+    paper_dict['Figures'] = figures
 
     if verbose:
         print("Finished generating Paper object for PMCID = {pmcid}...")
@@ -153,9 +155,12 @@ def gather_title(root: ET.Element)->str:
     """
     Grab the title of a PMC paper from its XML root.
     """
-    matches = root.xpath('//article-meta/title-group/article-title/text()')
+    matches = root.xpath('//article-title/text()')
     if len(matches) > 1: 
         warnings.warn("Warning! Multiple titles matched. Setting Paper.title to the first match.", unexpectedMultipleMatchWarning)
+    elif len(matches) == 0:
+        warnings.warn("No article title found in the retrieved XML.", unexpectedZeroMatchWarning)
+        return None
     title = matches[0]
 
     return title
@@ -192,7 +197,9 @@ def _get_contributor_tuples(root: ET.Element, contributors: List[ET.Element]) ->
             aff_texts = root.xpath(f"//contrib-group/aff[@id='{aff_id}']/text()[not(parent::label)]")
             if len(aff_texts) > 1:
                 warnings.warn("Multiple affiliations with the same ID found. Check XML Formatting.", unexpectedMultipleMatchWarning)
-            
+            if len(aff_texts)==0:
+                aff_texts = ["Affiliation data not found."]
+
             institutions = root.xpath(f"//contrib-group/aff[@id='{aff_id}']/institution-wrap/institution/text()")
             institutions = ' '.join([str(inst) for inst in institutions])
 
@@ -254,6 +261,9 @@ def gather_abstract(root: ET.Element, ref_map:basicBiMap)->List[Union[TextSectio
     matches = root.xpath('//abstract')
     if len(matches) > 1: 
         warnings.warn("Warning! Multiple abstracts matched. Filling in Paper.abstract with the first match.", unexpectedMultipleMatchWarning)
+    elif len(matches) == 0:
+        warnings.warn("No abstract found.", unexpectedZeroMatchWarning)
+        return None
     abstract_root = matches[0]
 
     #iterate through abstract subtree and add in text sections (recursive) and text paragraphs (flat)
@@ -277,6 +287,9 @@ def gather_body(root: ET.Element, ref_map:basicBiMap)->List[Union[TextSection, T
     matches = root.xpath('//body')
     if len(matches) > 1: 
         warnings.warn("Warning! Multiple 'body's matched. Filling in Paper.body with the first match.", unexpectedMultipleMatchWarning)
+    elif len(matches) == 0:
+        warnings.warn("Warning! No <body> tag found. This paper may be abstract only, or the Open Access portion may be abstract only. This also may happen with author manuscripts and other non-final editions.")
+        return None
     body_root = matches[0]
 
     #iterate through body subtree and add in text sections (recursive) and text paragraphs (flat)
@@ -305,14 +318,17 @@ def gather_journal_title(root: ET.Element) -> Union[List[str], str]:
     """
     return_val = None
     titles = []
-    title_groups = root.xpath("//journal-meta/journal-title-group")
-    for title_group in title_groups:
-        titles.extend(title_group.getchildren())
+    title_matches = root.xpath("//journal-title")
+    for title in title_matches:
+        titles.append(title.text)
     #might have multiple journals & journal titles
     if len(titles) > 1:
-        return_val = [title.text for title in titles]
+        return_val = titles
+    elif len(titles) == 0:
+        warnings.warn("No journal title found.", unexpectedZeroMatchWarning)
+        return_val = None
     else:
-        return_val = titles[0].text
+        return_val = titles[0]
     return return_val
 
 def gather_issn(root: ET.Element) -> dict:
@@ -425,7 +441,7 @@ def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
         pdate_dict[pub_type] = full_date
     return pdate_dict
 
-def gather_volume(root: ET.Element) -> int:
+def gather_volume(root: ET.Element) -> str:
     """
     Gather Volume # of Parent Publication from PMC XML.
     """
@@ -436,11 +452,11 @@ def gather_volume(root: ET.Element) -> int:
     if not matches:
         warnings.warn("No Volume # found for Publication.", unexpectedZeroMatchWarning)
     else:
-        volume = int(matches[0])
+        volume = matches[0]
 
     return volume
 
-def gather_issue(root: ET.Element) -> int:
+def gather_issue(root: ET.Element) -> str:
     """
     Gather Issue # of Parent Publication from PMC XML.
     """
@@ -451,11 +467,11 @@ def gather_issue(root: ET.Element) -> int:
     if not matches:
         warnings.warn("No Issue # found for Publication.", unexpectedZeroMatchWarning)
     else:
-        issue = int(matches[0])
+        issue = matches[0]
 
     return issue
 
-def gather_fpage(root: ET.Element) -> int:
+def gather_fpage(root: ET.Element) -> str:
     """
     Gather First Page Number of this article in its parent publication.
     """
@@ -466,11 +482,11 @@ def gather_fpage(root: ET.Element) -> int:
     if not matches:
         warnings.warn("No First Page # found for Publication.", unexpectedZeroMatchWarning)
     else:
-        fpage = int(matches[0])
+        fpage = matches[0]
 
     return fpage
 
-def gather_lpage(root: ET.Element) -> int:
+def gather_lpage(root: ET.Element) -> str:
     """
     Gather Last Page Number of this article in its parent publication.
     """
@@ -481,7 +497,7 @@ def gather_lpage(root: ET.Element) -> int:
     if not matches:
         warnings.warn("No Last Page # found for Publication.", unexpectedZeroMatchWarning)
     else:
-        lpage = int(matches[0])
+        lpage = matches[0]
 
     return lpage  
 
@@ -501,8 +517,9 @@ def gather_permissions(root: ET.Element) -> Dict[str, str]:
         copyright_statement = copyright_statement_matches[0]
 
     license_matches = root.xpath("//article-meta/permissions/license")
-    if not license_matches:
+    if len(license_matches) == 0:
         warnings.warn("No license found.", unexpectedZeroMatchWarning)
+        return None
     elif len(license_matches) > 1:
         warnings.warn("Multiple licenses found. Retrieving the first statement.", unexpectedMultipleMatchWarning)
     license = license_matches[0]
@@ -524,7 +541,7 @@ def gather_permissions(root: ET.Element) -> Dict[str, str]:
     return permissions_dict
 
 
-def gather_funding(root: ET.Element) -> str:
+def gather_funding(root: ET.Element) -> List[str]:
     """
     Gather Funding Data from PMC XML.
     """
@@ -534,6 +551,8 @@ def gather_funding(root: ET.Element) -> str:
         institutions = match.xpath('award-group/funding-source/institution/text()')
         funding_institutions.extend([inst for inst in institutions])
 
+    if len(funding_institutions) == 0:
+        funding_institutions = None
     return funding_institutions
 
 
@@ -553,28 +572,66 @@ def gather_footnote(root: ET.Element) -> str:
             else:
                 warnings.warn(f"Unexpected child of type {child.tag} under a footnote (<fn>) tag. Ignoring.")
 
+    if len(footnote) == 0:
+        footnote = None
+
     return footnote
 
-def gather_acknowledgements(root: ET.Element) -> str:
+def gather_acknowledgements(root: ET.Element) -> Union[List[str], str]:
     """
     Gather Acknowledgements from PMC XML.
     """
+    matches = root.xpath("//ack")
+    acknowledgements = [' '.join(match.itertext()).strip() for match in matches]
 
-    return None
+    return acknowledgements
 
 def gather_notes(root: ET.Element) -> str:
     """
     Gather Notes from PMC XML.
     """
+    notes = []
+    matches = root.xpath("//notes")
+    notes = [stringify_note(note) for note in matches if not note.getparent().tag == 'notes']
 
-    return None
+    return notes
 
-def gather_custom_metadata(root: ET.Element)->str:
+def stringify_note(root: ET.Element) -> str:
+    """
+    Recursively stringify notes using their <title>, <p>, and child <notes> content.
+    """
+    note = ""
+    for child in root.iterchildren():
+        if child.tag == 'title':
+            note += f"Title: {child.text}\n"
+        elif child.tag == 'p':
+            note += child.text
+        elif child.tag == 'notes':
+            note += "\n" + textwrap.indent(stringify_note(child), " " * 4) 
+    note += "\n"
+    return note
+
+#def _get_note(note_root: ET.Element) -> 
+
+def gather_custom_metadata(root: ET.Element)->Dict[str, str]:
     """
     Gather any custom metadata key-value pairs from the PMC XML.
     """
-
-    return None
+    custom = {}
+    matches = root.xpath("//custom-meta")
+    for custom_meta in matches:
+        meta_name = custom_meta.find("meta-name")
+        if meta_name is not None:
+            meta_name = meta_name.text
+        meta_data = " ".join(custom_meta.find("meta-value").itertext())
+        if meta_data:
+            if meta_name is None:
+                meta_name = uuid.uuid4() #give random unique identifier if no meta key found
+            custom[meta_name] = meta_data
+    
+    if len(custom) == 0:
+        custom = None
+    return custom
 
 def _parse_citation(citation_root: ET.Element) -> Union[Dict[str, Union[List[str], str]], str]:
     root = citation_root
@@ -587,7 +644,7 @@ def _parse_citation(citation_root: ET.Element) -> Union[Dict[str, Union[List[str
     if not author_matches:
         mixed_citation = root.xpath('//mixed-citation/text()')
         if mixed_citation:
-            return mixed_citation
+            return str(mixed_citation[0])
     #------------------------------------------------------------------------
 
     # If still failed, raise a warning.
@@ -626,61 +683,6 @@ def _try_get_xpath_text(root: ET.Element, xpath:str, verbose = False)-> str:
 
     return return_text
 
-def _parse_table(table_root: ET.Element) -> pd.DataFrame:
-    """
-    Use panda's read_html function (which relies on lxml and falls back to html5lib)
-    to process the HTML tables into dataframes.
-
-    Adds labels and captions if notated in the xml under //table-wrap/label and //table-wrap/caption/p tags.
-    """
-    #find label if any
-    label_matches = table_root.xpath("label")
-    label = None
-    if label_matches:
-        label = label_matches[0].text
-    #find caption if any
-    caption_matches = table_root.xpath("caption/p")
-    caption = None
-    if caption_matches:
-        caption = caption_matches[0].text
-
-    table_xml_str = ET.tostring(table_root)
-    table_df = pd.read_html(table_xml_str)[0]
-
-    #build title for styled df, if relevant
-    title = None
-    if label and caption:
-        title = f"{label}: {caption}"
-    elif label:
-        title = label
-    elif caption:
-        title = caption
-
-    if title:
-        table_df = table_df.style.set_caption(title)
-
-    return table_df
-
-def _parse_figure(fig_root: ET.Element) -> Dict[str, str]:
-    """
-    Parses figures into a dictionary with their information (label, caption, and link).
-    Unforunately, the links are relative and cannot be reliably traced to a public URI.
-    This means I have not found a way to download the actual figures to store via Pillow etc.
-
-    TODO: Find a way to grab actual figures. May be impossible.
-    """
-    root = fig_root
-    label = root.find('.//label').text
-    caption = root.find('.//caption').text
-    graphic_href = root.find('.//graphic').get('{http://www.w3.org/1999/xlink}href')
-
-    fig_dict = {
-        'Label': label,
-        'Caption': caption,
-        'Link': graphic_href
-    }
-
-    return fig_dict
 
 def _find_key_of_xpath(ref_map:basicBiMap, xpath_query:str)->int:
     """
@@ -765,9 +767,9 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
                 warnings.warn(f"<xref> in ref_map with no ref-type specified. Ignoring. ({root.text})")
 
         elif root.tag == "table-wrap":
-            cleaned_ref_map[key] = _parse_table(table_root = root)
+            cleaned_ref_map[key] = TextTable(table_root = root).df
         elif root.tag == "fig":
-            cleaned_ref_map[key] = _parse_figure(fig_root = root)
+            cleaned_ref_map[key] = TextFigure(fig_root = root).fig_dict
         else:
             warnings.warn(f"Unexpected tag of type {root.tag} found in ref map. Leaving as is instead of cleaning.")
             cleaned_ref_map[key] = ET.tostring(root)
@@ -791,35 +793,29 @@ def _get_ref_type(value):
             ref_type = 'fig'
         elif 'Authors' in value:
             ref_type = 'citation'
-    elif type(value) == pd.DataFrame:
+    elif type(value) == str:   #if string, probably a citation scraped via the mixed citation element parsing
+        ref_type = 'citation'  
+    elif isinstance(value, (pd.DataFrame, pd.io.formats.style.Styler)):
         ref_type = 'table'
 
     return ref_type
 
-def _just_the_citation_list(ref_map:basicBiMap) -> List[Dict[str, Union[List[str], str]]]:
+def _split_citations_tables_figs(ref_map:basicBiMap) -> Tuple[List[Union[Dict[str, Union[List[str], str]], str]], List[pd.DataFrame], List[Dict[str, str]]]:
     """
-    Gather Citations List from PMC XML. 
-    THIS IS THE LIST OF REFERENCES/CITATIONS. NOT THE SAME AS ref_map!
+    Split ref map into a citation list, table list, and figure list.
     """
-    
-    return None
+    citations = []
+    tables = []
+    figures = []
+    for i,ref in ref_map.items():
+        if _get_ref_type(ref) == 'citation':
+            citations.append(ref)
+        elif _get_ref_type(ref) == 'table':
+            tables.append(ref)
+        elif _get_ref_type(ref) == 'fig':
+            figures.append(ref)
+        else:
+            warnings.warn(f"Issue finding Reference type for index {i} in reference map.")
 
-def _just_the_tables(ref_map:basicBiMap)->List[pd.DataFrame]:
-    """
-    Parse tables found in the PMC XML into a list.
-    """
-
-    return None
-
-def _just_the_figures(ref_map:basicBiMap)->List[Dict[str, str]]:
-    """
-    Store figure data found in the PMC XML into a list.
-
-    TODO: Use Pillow? At the moment there does not seem to be a replicable way of 
-    retrieving figure URIs. Figures are also the least important for programmatic data
-    analysis. This func is on backlog but please reach out on the ScrapeMed gthub
-    if you are particularly interested in this feature.
-    """
-
-    return None
+    return citations, tables, figures
 #--------------------END GENERATE PAPER DICTIONARY GIVEN PMCID---------------------------

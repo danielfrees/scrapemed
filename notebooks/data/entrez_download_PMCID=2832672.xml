@@ -1,0 +1,1014 @@
+<?xml version="1.0" ?>
+<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN" "https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd">
+<pmc-articleset><article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" article-type="research-article">
+  <?properties open_access?>
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">PLoS Genet</journal-id>
+      <journal-id journal-id-type="iso-abbrev">PLoS Genet</journal-id>
+      <journal-id journal-id-type="publisher-id">plos</journal-id>
+      <journal-id journal-id-type="pmc">plosgen</journal-id>
+      <journal-title-group>
+        <journal-title>PLoS Genetics</journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1553-7390</issn>
+      <issn pub-type="epub">1553-7404</issn>
+      <publisher>
+        <publisher-name>Public Library of Science</publisher-name>
+        <publisher-loc>San Francisco, USA</publisher-loc>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">20221253</article-id>
+      <article-id pub-id-type="pmc">2832672</article-id>
+      <article-id pub-id-type="publisher-id">09-PLGE-RA-1527R3</article-id>
+      <article-id pub-id-type="doi">10.1371/journal.pgen.1000872</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Research Article</subject>
+        </subj-group>
+        <subj-group subj-group-type="Discipline">
+          <subject>Developmental Biology/Developmental Molecular Mechanisms</subject>
+          <subject>Genetics and Genomics/Functional Genomics</subject>
+          <subject>Genetics and Genomics/Gene Discovery</subject>
+          <subject>Genetics and Genomics/Gene Expression</subject>
+          <subject>Molecular Biology/Post-Translational Regulation of Gene Expression</subject>
+          <subject>Molecular Biology/RNA Splicing</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>PPS, a Large Multidomain Protein, Functions with Sex-Lethal to Regulate Alternative Splicing in <italic>Drosophila</italic>
+</article-title>
+        <alt-title alt-title-type="running-head">PPS Regulates <italic>Sxl</italic> Alternative Splicing</alt-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Johnson</surname>
+            <given-names>Matthew L.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1"/>
+          <xref ref-type="author-notes" rid="fn1">
+<sup>&#xA4;a</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Nagengast</surname>
+            <given-names>Alexis A.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1"/>
+          <xref ref-type="author-notes" rid="fn2">
+<sup>&#xA4;b</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Salz</surname>
+            <given-names>Helen K.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1"/>
+          <xref ref-type="corresp" rid="cor1">
+<sup>*</sup>
+</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <addr-line>Department of Genetics, Case Western Reserve University, School of Medicine, Cleveland, Ohio, United States of America</addr-line>
+      </aff>
+      <contrib-group>
+        <contrib contrib-type="editor">
+          <name>
+            <surname>Stubbs</surname>
+            <given-names>Lisa</given-names>
+          </name>
+          <role>Editor</role>
+          <xref ref-type="aff" rid="edit1"/>
+        </contrib>
+      </contrib-group>
+      <aff id="edit1">University of Illinois at Urbana-Champaign, United States of America</aff>
+      <author-notes>
+        <corresp id="cor1">* E-mail: <email>hks@case.edu</email></corresp>
+        <fn id="fn1" fn-type="current-aff">
+          <p><bold>&#xA4;a:</bold> Current address: Department of Biology, Notre Dame College, South Euclid, Ohio, United States of America</p>
+        </fn>
+        <fn id="fn2" fn-type="current-aff">
+          <p><bold>&#xA4;b:</bold> Current address: Departments of Chemistry and Biochemistry, Widener University, Chester, Pennsylvania, United States of America</p>
+        </fn>
+        <fn fn-type="con">
+          <p>Conceived and designed the experiments: MLJ AAN HKS. Performed the experiments: MLJ AAN HKS. Analyzed the data: MLJ AAN HKS. Wrote the paper: MLJ HKS.</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <month>3</month>
+        <year>2010</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>5</day>
+        <month>3</month>
+        <year>2010</year>
+      </pub-date>
+      <volume>6</volume>
+      <issue>3</issue>
+      <elocation-id>e1000872</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>27</day>
+          <month>8</month>
+          <year>2009</year>
+        </date>
+        <date date-type="accepted">
+          <day>3</day>
+          <month>2</month>
+          <year>2010</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Johnson et al.</copyright-statement>
+        <copyright-year>2010</copyright-year>
+        <license xlink:href="http://creativecommons.org/licenses/by/4.0/">
+          <license-p>This is an open-access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are properly credited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <p>Alternative splicing controls the expression of many genes, including the <italic>Drosophila</italic> sex determination gene <italic>Sex-lethal</italic> (<italic>Sxl</italic>). <italic>Sxl</italic> expression is controlled via a negative regulatory mechanism where inclusion of the translation-terminating male exon is blocked in females. Previous studies have shown that the mechanism leading to exon skipping is autoregulatory and requires the SXL protein to antagonize exon inclusion by interacting with core spliceosomal proteins, including the U1 snRNP protein Sans-fille (SNF). In studies begun by screening for proteins that interact with SNF, we identified PPS, a previously uncharacterized protein, as a novel component of the machinery required for <italic>Sxl</italic> male exon skipping. PPS encodes a large protein with four signature motifs, PHD, BRK, TFS2M, and SPOC, typically found in proteins involved in transcription. We demonstrate that PPS has a direct role in <italic>Sxl</italic> male exon skipping by showing first that loss of function mutations have phenotypes indicative of <italic>Sxl</italic> misregulation and second that the PPS protein forms a complex with SXL and the unspliced <italic>Sxl</italic> RNA. In addition, we mapped the recruitment of PPS, SXL, and SNF along the <italic>Sxl</italic> gene using chromatin immunoprecipitation (ChIP), which revealed that, like many other splicing factors, these proteins bind their RNA targets while in close proximity to the DNA. Interestingly, while SNF and SXL are specifically recruited to their predicted binding sites, PPS has a distinct pattern of accumulation along the <italic>Sxl</italic> gene, associating with a region that includes, but is not limited to, the <italic>SxlPm</italic> promoter. Together, these data indicate that PPS is different from other splicing factors involved in male-exon skipping and suggest, for the first time, a functional link between transcription and SXL&#x2013;mediated alternative splicing. Loss of zygotic PPS function, however, is lethal to both sexes, indicating that its role may be of broad significance.</p>
+      </abstract>
+      <abstract abstract-type="summary">
+        <title>Author Summary</title>
+        <p>In <italic>Drosophila</italic> the sex-specific ON/OFF regulation of <italic>Sex-lethal (Sxl)</italic> is controlled by an autoregulatory splicing mechanism that depends on the SXL protein interacting with general splicing factors. Here we identify PPS as a novel component of the machinery required for <italic>Sxl</italic> splicing autoregulation by showing that the lack of <italic>pps</italic> function interferes with <italic>Sxl</italic> expression and that the PPS protein is physically linked to the <italic>Sxl</italic> pre&#x2013;mRNA, the SXL protein and components of the general splicing machinery. PPS, however, stands apart from all other proteins known to control <italic>Sxl</italic> splicing because it is not a general splicing factor. Furthermore, PPS has a distinct pattern of accumulation along the <italic>Sxl</italic> transcription unit that suggests PPS is loaded onto the RNA at the promoter. Together with the observation that the PPS protein contains four signature motifs typically found in proteins that function in transcriptional regulation, our data suggest that linking transcription to splicing regulation is important for controlling <italic>Sxl</italic> expression. This idea is especially intriguing because it indicates that the coupling of transcription and splicing seen <italic>in vitro</italic> and in cell culture studies is likely to be pertinent to developmentally controlled patterns of gene expression in the living animal.</p>
+      </abstract>
+      <counts>
+        <page-count count="11"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="s1">
+      <title>Introduction</title>
+      <p>Understanding tissue- and stage-specific gene regulation remains one of the central issues in developmental biology. Studies of developmentally important genes, such as those that specify and maintain cell fate, have revealed that many genes are regulated post-transcriptionally. The <italic>Drosophila</italic> sex-determination gene <italic>Sex-lethal (Sxl)</italic> is a prime example of a developmental switch gene regulated by alternative splicing. Throughout most of development and in adult tissues, <italic>Sxl</italic> is controlled by sex-specific alternative splicing to produce mRNAs with different coding potentials <xref rid="pgen.1000872-Salz1" ref-type="bibr">[1]</xref>. In males, all transcripts include the translation-terminating third exon leading to the production of mRNAs that encode truncated, inactive proteins. In females, the third exon is always skipped to generate protein encoding mRNAs. The mechanism leading to exon skipping is autoregulatory and depends on the SXL protein binding to multiple intronic sites located both upstream and downstream of the regulated exon. Current models, based on both biochemical and genetic studies, suggest that SXL forces the male exon to be skipped by interacting with and antagonizing a set of general splicing factors, including the U1 snRNP, the U2AF heterodimer, FL(2)d and SPF45 <xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>&#x2013;<xref rid="pgen.1000872-Chaouki1" ref-type="bibr">[4]</xref>. Because <italic>Sxl</italic> controls both its own expression and the expression of a set of downstream target genes, this autoregulatory splicing loop serves as a heritable and irreversible molecular switch for the developmental pathways controlling both somatic sex determination and X-chromosome dosage compensation.</p>
+      <p>Initiation and stable engagement of the <italic>Sxl</italic> autoregulatory splicing loop requires the coordinated use of two alternative promoters <xref rid="pgen.1000872-Salz2" ref-type="bibr">[5]</xref>&#x2013;<xref rid="pgen.1000872-Gonzalez1" ref-type="bibr">[7]</xref>. Throughout most of development, <italic>Sxl</italic> is expressed from the non-sex specific &#x201C;maintenance&#x201D; promoter, <italic>SxlPm</italic>. <italic>SxlPm</italic> is first expressed during the maternal to zygotic transition, but prior to that time <italic>Sxl</italic> is transiently expressed from the female-specific &#x201C;establishment&#x201D; promoter, <italic>SxlPe</italic>. The <italic>SxlPe</italic>-derived transcripts, unlike the transcripts produced from <italic>SxlPm</italic>, are spliced by default to produce SXL protein. Thus the SXL protein present in XX embryos when <italic>SxlPm</italic> is first activated serves to drive the initiating round of exon skipping which leads to a self-sustaining splicing loop. In XY animals, on the other hand, <italic>SxlPe</italic> is not activated, there is no SXL protein, and all <italic>SxlPm-</italic>derived transcripts are spliced in the male mode. While coordinated promoter switching is critical for successful establishment of the <italic>Sxl</italic> autoregulatory splicing loop in early embryogenesis, it has been generally assumed that transcription plays little, if any, role in sex-specific regulation after this point.</p>
+      <p>Here we report the identification and analysis of a previously uncharacterized protein, named <underline>P</underline>rotein <underline>P</underline>artner of <underline>S</underline>ans-fille (PPS, CG6525), as a novel component of the machinery that controls <italic>Sxl</italic> alternative splicing. PPS, a large multidomain protein classified as a transcription regulator based on the presence of 4 distinct and conserved sequence motifs, was identified in a yeast two hybrid screen for proteins that interact with Sans-fille (SNF), the <italic>Drosophila</italic> homolog of the U1 snRNP protein, U1A. We provide compelling evidence that PPS has a direct role in <italic>Sxl</italic> male exon skipping by showing first that the loss of <italic>pps</italic> function interferes with <italic>Sxl</italic> function, and second that PPS can form a complex with the U1 snRNP, SXL and the <italic>Sxl</italic> pre-mRNA. In addition, we mapped the association of PPS, SXL and SNF along the <italic>Sxl</italic> gene by chromatin immunoprecipitation (ChIP), providing evidence that these proteins, like many other splicing factors, bind their RNA targets while in close proximity to the DNA. While we found that SXL and SNF associate with their predicted binding sites, PPS has a distinct pattern of accumulation along the <italic>Sxl</italic> gene which suggests that PPS is loaded onto the RNA at the promoter. Finally, we show that PPS function is not restricted to <italic>Sxl</italic> splicing regulation, indicating that PPS is likely to be more broadly involved in development.</p>
+    </sec>
+    <sec id="s2">
+      <title>Results</title>
+      <sec id="s2a">
+        <title>Identification of PPS, a SNF&#x2013;interacting protein</title>
+        <p>CG6525 was identified in a yeast two hybrid screen for SNF-interacting proteins, giving the gene its name <bold><italic>p</italic></bold>
+<italic>rotein </italic>
+<bold><italic>p</italic></bold>
+<italic>artner of </italic>
+<bold><italic>s</italic></bold>
+<italic>ans-fille (pps;</italic>
+<xref ref-type="fig" rid="pgen-1000872-g001">Figure 1A</xref>). To demonstrate that the PPS/SNF interaction also occurs in <italic>Drosophila</italic> cell extracts, we assayed for complex formation by pull-down experiments in which a GST fusion protein containing the C-terminal end of PPS (amino acids 1370&#x2013;2016) was expressed in <italic>E. coli</italic>, bound to glutathione sepharose beads, and incubated with protein extracts made from embryos. The presence or absence of SNF in the complex formed on the beads was assayed by Western blot analysis (<xref ref-type="fig" rid="pgen-1000872-g001">Figure 1B</xref>). In control studies, we used a GST::SXL fusion protein since it is known to form a complex with SNF <xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>. As predicted by the two hybrid data, we found that GST::PPS, but not GST alone, was capable of selecting SNF out of extracts as efficiently as GST::SXL. These data therefore confirm that PPS and SNF associate <italic>in vivo</italic>.</p>
+        <fig id="pgen-1000872-g001" position="float">
+          <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.g001</object-id>
+          <label>Figure 1</label>
+          <caption>
+            <title>PPS, a large multidomain protein, is a SNF interacting protein.</title>
+            <p>(A) Yeast two-hybrid interactions between PPS and SNF. Positive interactions were tested by assaying the ability of the transformed yeast to grow on selective media after 3 days. (B) PPS/SNF complex assembly tested by GST pull-down assays in whole cell extracts. The lane marked 10% input is a control in which the amount of extract corresponds to 10% of the material applied to the glutathione affinity beads. (C) Diagram of the 2016 amino acid PPS protein. PPS contains 4 conserved motifs, which are drawn approximately to scale. The line above the diagram is the region of the protein used for the yeast two hybrid experiments in (A), in the GST pulls experiments in (B) and for production of the PPS antibody. (D) Genomic organization of PPS and its neighboring genes. Solid boxes represent exons. The position of the insertions used to generate <italic>pps<sup>1</sup></italic> is indicated above the diagram. The genomic DNA deleted in <italic>pps<sup>1</sup></italic> and the genomic DNA used in the rescue constructs is indicated by a solid line below the diagram.</p>
+          </caption>
+          <graphic xlink:href="pgen.1000872.g001"/>
+        </fig>
+        <p>PPS is located on the 3rd chromosome (87B) and, in agreement with the predicted gene structure, we found that the <italic>pps</italic> transcription unit extends over 6.7 kb. and the 11 constitutively spliced exons are predicted to encode an uncharacterized 2016 amino acid protein (<xref ref-type="fig" rid="pgen-1000872-g001">Figure 1C and 1D</xref>). The <italic>pps</italic> open reading frame contains 4 conserved motifs: PHD finger (<underline>p</underline>lant <underline>h</underline>omeo<underline>d</underline>omain), BRK (<underline>Br</underline>ahama and <underline>K</underline>ismet), TFS2M (<underline>t</underline>ranscription elongation <underline>f</underline>actor <underline>S-II</underline>
+<underline>m</underline>iddle) and SPOC (Spen paralogue and orthologue C-terminal). According to the Gene Ontology Database, which assigns functions to uncharacterized proteins based the presence of sequence motifs, PPS is likely to function in transcriptional regulation (see <xref ref-type="sec" rid="s3">discussion</xref>).</p>
+      </sec>
+      <sec id="s2b">
+        <title>
+<italic>pps</italic> is an essential gene</title>
+        <p>To gain insight into the biological role of PPS, we generated a molecular null allele using an FRT-based targeted deletion strategy <xref rid="pgen.1000872-Parks1" ref-type="bibr">[8]</xref>,<xref rid="pgen.1000872-Ryder1" ref-type="bibr">[9]</xref>. Briefly, we induced recombination in animals heterozygous for two FRT-bearing piggyBac insertions with controlled expression of the FLP recombinase and identified a deletion with the desired endpoints using a PCR based strategy. The resulting deletion, depicted in <xref ref-type="fig" rid="pgen-1000872-g001">Figure 1D</xref>, removes the entire coding sequence of <italic>pps</italic> as well as the adjacent gene, <italic>Scg-&#x3B2;</italic>. Animals homozygous for this two gene deletion die during the third instar larval stage. Two critical experiments demonstrate that the lethality is due to the loss of <italic>pps</italic> and not <italic>Scg-&#x3B2;</italic>. First, lethality was fully rescued by one or two copies of <italic>P{pps+}</italic>, a genomic transgene that carries just the <italic>pps</italic> gene (90%, n&#x200A;=&#x200A;554). Second, all aspects of the mutant phenotype remained unchanged by the addition of multiple copies of the adjacent <italic>P{Scg-&#x3B2;+}</italic> genomic transgene (see <xref ref-type="sec" rid="s4">Materials and Methods</xref> for details). Thus, these data provide strong evidence that disruption of PPS is responsible for the larval lethal phenotype and the two gene deletion we have isolated behaves as a <italic>pps</italic> null allele. Based on these genetic data, we have named this deletion <italic>pps<sup>1</sup></italic>.</p>
+        <p>Homozygous <italic>pps<sup>1</sup></italic> mutant animals fail to survive to adulthood, although all animals reach the third instar larval stage. Consistent with the failure to pupate, mutant third instar larvae were found to have a number of defects, including small, underdeveloped imaginal discs, abnormal polytene chromosome morphology and melanized patches of tissue that resemble melanotic tumors (data not shown).</p>
+        <p>Although <italic>pps</italic> null mutants complete embryogenesis without any apparent defects, we cannot rule out an earlier function in embryogenesis. PPS is a maternally provided protein and the extended stability common to many maternally provided proteins typically result in the rescue of homozygous mutant animals into the larval stages. Thus, <italic>pps</italic> mutant animals may survive until the maternal stores of protein are depleted, masking a potential requirement in embryogenesis.</p>
+      </sec>
+      <sec id="s2c">
+        <title>Incomplete rescue of <italic>pps<sup>1</sup></italic> reveals a role in <italic>Sxl</italic> regulation</title>
+        <p>During the course of this analysis, we noted that, while either one or two copies of the <italic>P{pps+}</italic> transgene was sufficient to rescue the lethality of <italic>pps<sup>1</sup></italic> homozygous mutant females, two copies were necessary to rescue the females to fertility. An examination of the ovaries isolated from these sterile mutant females revealed that the ovaries contained tumors (<xref ref-type="fig" rid="pgen-1000872-g002">Figure 2A</xref>). Ovarian tumor phenotypes are also observed in partial loss of function <italic>snf</italic> mutant backgrounds, where the phenotype is caused by defects in <italic>Sxl</italic> splicing regulation <xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>,<xref rid="pgen.1000872-Chau1" ref-type="bibr">[10]</xref>. To investigate the possibility that the <italic>pps</italic> tumor phenotype is also correlated with <italic>Sxl</italic> misregulation, we used RT-PCR to assay the <italic>Sxl</italic> RNA products present in isolated ovarian tissue. Using a single primer pair capable of detecting the female and the larger male spliced products, we found that in ovarian tissue isolated from sterile mutant females, a significant proportion of the spliced products contained the male-specific exon (<xref ref-type="fig" rid="pgen-1000872-g002">Figure 2B and 2C</xref>). Thus, based on these partial loss of function mutant phenotypes, we conclude that <italic>pps</italic>, like <italic>snf</italic>, is required to achieve stable <italic>Sxl</italic> activity in the female germline.</p>
+        <fig id="pgen-1000872-g002" position="float">
+          <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.g002</object-id>
+          <label>Figure 2</label>
+          <caption>
+            <title>
+<italic>Sxl</italic> splicing is disrupted in the ovaries of incompletely rescued <italic>pps<sup>1</sup></italic> mutant females.</title>
+            <p>(A) DAPI-stained ovariole from a wild female (WT) and a <italic>P{pps+}/+</italic>; <italic>pps<sup>1</sup>/Df(3R)Exel7316</italic> female. (B) Diagram of the alternative splicing event that produces sex-specific <italic>Sxl</italic> transcripts. The arrows below the diagram indicate the position of the PCR primer pairs used for RT&#x2013;PCR. (C) The tumor phenotype is correlated with <italic>Sxl</italic> splicing defects. Splicing was assayed by RT&#x2013;PCR using RNA isolated from ovaries dissected from <italic>P{pps+}/+</italic>; <italic>pps<sup>1</sup>/Df(3R)Exel7316</italic> females (<italic>pps</italic> tumors). Controls include splicing in ovaries isolated from wild type (WT) females and splicing in adult males.</p>
+          </caption>
+          <graphic xlink:href="pgen.1000872.g002"/>
+        </fig>
+      </sec>
+      <sec id="s2d">
+        <title>
+<italic>pps<sup>1</sup></italic> is a maternal effect modifier of <italic>Sxl</italic>
+</title>
+        <p>Activation of <italic>Sxl</italic> in the embryo is a multi-step process, starting with the coordinated use of two promoters and culminating with successful engagement of the autoregulatory splicing loop. Thus, perturbation of any single step in the process can lead to a defect in alternative splicing. As a consequence, embryos heterozygous for the normally recessive null allele of <italic>Sxl (Sxl<sup>f1</sup>/+)</italic> are particularly sensitive to the supply of specific splicing and transcription factors deposited into the egg by the mother (<italic>e.g.</italic>
+<xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>&#x2013;<xref rid="pgen.1000872-Chaouki1" ref-type="bibr">[4]</xref>). We therefore reasoned that if maternally provided PPS protein is important for any aspect of <italic>Sxl</italic> regulation, we might expect the viability of <italic>Sxl<sup>f1</sup>/+</italic> females to be affected if their mothers were heterozygous for <italic>pps</italic> (<italic>pps<sup>1</sup>/+</italic>). However, we found that these <italic>Sxl<sup>f1</sup>/+</italic> females were as viable as their control siblings (data not shown). To increase the sensitivity of this assay, we introduced a mutant allele of <italic>daughterless (da<sup>2</sup>)</italic> into the genetic background. <italic>da</italic> encodes a maternally supplied transcription factor required to activate <italic>Sxl</italic>
+<xref rid="pgen.1000872-Cronmiller1" ref-type="bibr">[11]</xref>,<xref rid="pgen.1000872-Keyes1" ref-type="bibr">[12]</xref>. We chose <italic>da<sup>2</sup></italic> to sensitize the genetic background because we have previously shown that the genetic interaction between <italic>snf</italic> and <italic>da</italic> is particularly strong <xref rid="pgen.1000872-Salz3" ref-type="bibr">[13]</xref>. In control crosses, we found that 57% of the expected <italic>Sxl<sup>f1</sup>/+</italic> daughters from <italic>da<sup>2</sup>/+</italic> mothers survived to adulthood (n&#x200A;=&#x200A;275; <xref ref-type="fig" rid="pgen-1000872-g003">Figure 3</xref>). However, when the mothers were heterozygous for both <italic>pps<sup>1</sup></italic> and <italic>da<sup>2</sup></italic>, there was a significant reduction in viability with only 7% of the expected <italic>Sxl<sup>f1</sup>/+</italic> daughters surviving to adulthood (n&#x200A;=&#x200A;222). Restoration of female viability by the genomic rescue construct <italic>P{pps+}</italic> indicates that this female-lethal synergistic interaction is due to the loss of <italic>pps</italic> function (26%; n&#x200A;=&#x200A;517).</p>
+        <fig id="pgen-1000872-g003" position="float">
+          <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.g003</object-id>
+          <label>Figure 3</label>
+          <caption>
+            <title>
+<italic>pps</italic> is a dosage-sensitive maternal modifier of <italic>Sxl</italic>.</title>
+            <p>Synergistic genetic interactions lead to female lethality. In these assays, females of the indicated genotype were mated to <italic>Sxl<sup>f1</sup>/Y</italic> and the resulting progeny scored. On the assumption that an equal number of male and female progeny will be generated from each cross, the percent female viability was calculated by comparing the number of females recovered with the number of males recovered.</p>
+          </caption>
+          <graphic xlink:href="pgen.1000872.g003"/>
+        </fig>
+        <p>To confirm the genetic relationship between <italic>pps</italic> and <italic>Sxl</italic>, we looked for synergistic interactions with mutant alleles of <italic>fl(2)d</italic>, <italic>U2af38</italic> and <italic>spf45</italic>. Mutations in these three genes were picked because they encode core spliceosomal proteins known to play an important role in <italic>Sxl</italic> autoregulation <xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>&#x2013;<xref rid="pgen.1000872-Chaouki1" ref-type="bibr">[4]</xref>. These data show that <italic>pps<sup>1</sup></italic> in combination with mutations in each of these spliceosomal genes exerts a detrimental synergistic effect on the viability of <italic>Sxl<sup>f1</sup>/+</italic> females (<xref ref-type="table" rid="pgen-1000872-t001">Table 1</xref>). Together, these data indicate that the maternally provided PPS protein contributes, in some way, to <italic>Sxl</italic> regulation.</p>
+        <table-wrap id="pgen-1000872-t001" position="float">
+          <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.t001</object-id>
+          <label>Table 1</label>
+          <caption>
+            <title>Lethal interactions between <italic>Sxl<sup>f1</sup>, pps<sup>1</sup></italic>, and mutations in core spliceosomal proteins.</title>
+          </caption>
+          <alternatives>
+            <graphic id="pgen-1000872-t001-1" xlink:href="pgen.1000872.t001"/>
+            <table frame="hsides" rules="groups">
+              <colgroup span="1">
+                <col align="left" span="1"/>
+                <col align="center" span="1"/>
+              </colgroup>
+              <thead>
+                <tr>
+                  <td align="left" rowspan="1" colspan="1">Maternal Genotype</td>
+                  <td align="left" rowspan="1" colspan="1">Viability of <italic>Sxl<sup>f1</sup>/</italic>+ female progeny</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="left" rowspan="1" colspan="1">
+<italic>fl(2)d<sup>2</sup>/+; pps<sup>1</sup>/+</italic>
+</td>
+                  <td align="left" rowspan="1" colspan="1">29% (n&#x200A;=&#x200A;140)</td>
+                </tr>
+                <tr>
+                  <td align="left" rowspan="1" colspan="1">
+<italic>U2af38<sup>&#x394;E18</sup>/+; pps<sup>1</sup>/+</italic>
+</td>
+                  <td align="left" rowspan="1" colspan="1">12% (n&#x200A;=&#x200A;154)</td>
+                </tr>
+                <tr>
+                  <td align="left" rowspan="1" colspan="1">
+<italic>spf45<sup>&#x394;</sup>/+; pps<sup>1</sup>/+</italic>
+</td>
+                  <td align="left" rowspan="1" colspan="1">18% (n&#x200A;=&#x200A;140)</td>
+                </tr>
+              </tbody>
+            </table>
+          </alternatives>
+          <table-wrap-foot>
+            <fn id="nt101">
+              <label/>
+              <p>Females of the indicated maternal genotype were mated to <italic>Sxl<sup>f1</sup></italic> males and the resulting progeny scored. The viability of the female progeny, all of which were heterozygous for <italic>Sxl</italic> (<italic>Sxl<sup>f1</sup>/+</italic>), was assessed by comparing the number of females recovered to the number of males recovered (n). Female progeny from control crosses of single mutant heterozygous mothers mated to <italic>Sxl<sup>f1</sup></italic> males were as viable as their control siblings (data not shown).</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </sec>
+      <sec id="s2e">
+        <title>PPS associates with the U1 snRNP and the SXL protein</title>
+        <p>Previous studies have shown that SXL interacts with SNF in the context of the U1 snRNP <xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>. We reasoned, therefore, that if <italic>pps</italic> has a direct role in <italic>Sxl</italic> splicing autoregulation, then we might be able to detect physical interactions between PPS, the U1 snRNP and SXL. To test this, we generated an antibody against the C-terminal end of PPS (amino acids 1370&#x2013;2016) for co-immunoprecipitation assays. PPS is predicted to encode a single polypeptide of 222 kD, and as predicted, we found that on Western blots, the wild type protein migrates at about 220 kD in extracts made from adults of both sexes, embryos and third instar larvae (<xref ref-type="fig" rid="pgen-1000872-g004">Figure 4A</xref>, and data not shown). In contrast, no immunoreactivity was detected in extracts made from third instar larvae homozygous for <italic>pps<sup>1</sup></italic>, demonstrating the specificity of this antibody. Using this antibody for co-immunoprecipitation experiments, we were able to confirm that PPS and SNF associate <italic>in vivo</italic> (<xref ref-type="fig" rid="pgen-1000872-g004">Figure 4B</xref>). As expected, RNase addition did not abrogate the SNF/PPS interaction, even though the RNase treatment was sufficient to disrupt the known RNase-sensitive interaction between SNF and U2A' (<xref ref-type="fig" rid="pgen-1000872-g004">Figure 4B</xref>).</p>
+        <fig id="pgen-1000872-g004" position="float">
+          <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.g004</object-id>
+          <label>Figure 4</label>
+          <caption>
+            <title>PPS associates with SNF and U1-70K in embryonic extracts.</title>
+            <p>(A) <italic>pps<sup>1</sup></italic> is a protein-null allele. Western blot of extracts made from wild type and <italic>pps<sup>1</sup></italic> mutant animals probed with antibodies against PPS. SNF is used here as a loading control. (B) PPS interacts with SNF in a RNA&#x2013;independent manner. Western blots of PPS and U2A' immunoprecipitations (Co-IP) in nuclear extracts made from embryos probed with an antibody against SNF. The RNase sensitivity of this association was tested by pretreating the extract with a combination of RNase A and RNase T1. Controls include the previously described RNase sensitive SNF/U2A' association. (C) PPS associates with U1-70K. Western blot of PPS and SNF immunoprecipitations (Co-IP) in nuclear extracts made from embryos probed with an antibody against U1-70K. Controls include the previously described SNF/U1-70K association. The lanes marked 2.5% input are controls in which the amount of extract corresponds to 2.5% of the material used in each Co-IP experiment.</p>
+          </caption>
+          <graphic xlink:href="pgen.1000872.g004"/>
+        </fig>
+        <p>To test whether PPS associates with SNF as a component of the U1 snRNP, we asked whether we could detect an interaction between PPS and another core U1 snRNP protein, U1-70K. Our data shows that we were able to co-immunoprecipitate PPS and U1-70K (<xref ref-type="fig" rid="pgen-1000872-g004">Figure 4C</xref>), although we noted that PPS seems to preferentially associate with the more slowly migrating U1-70K species, among the major U1-70K isoforms observed in whole cell extracts. U1-70K is a phosphorylated protein, and studies in mammalian cells that have shown that dephosphorylation of U1-70K is necessary for the splicing reaction to proceed <xref rid="pgen.1000872-Tazi1" ref-type="bibr">[14]</xref>. Thus, if PPS does in fact preferentially associate with the highly phosphorylated form of U1-70K, our data would lead to the conclusion that PPS, unlike SNF, only transiently associates with the U1 snRNP. Direct support for this conclusion comes from our more detailed analysis of PPS's role in <italic>Sxl</italic> splicing autoregulation described below.</p>
+        <p>Finally, we asked whether PPS associates with the SXL protein and found that antibodies against the PPS protein can in fact immunoprecipitate SXL (<xref ref-type="fig" rid="pgen-1000872-g005">Figure 5A</xref>). Interestingly, this interaction was weakened when we carried out these experiments in the presence of RNase. This suggests that the SXL/PPS interaction is mediated and/or stabilized by RNA.</p>
+        <fig id="pgen-1000872-g005" position="float">
+          <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.g005</object-id>
+          <label>Figure 5</label>
+          <caption>
+            <title>PPS associates with the SXL protein and the <italic>Sxl</italic> pre&#x2013;mRNA.</title>
+            <p>(A) PPS interacts with SXL in a RNA-dependent manner. Western blots of PPS immunoprecipitations (Co-IP) in nuclear extracts made from embryos probed with an antibody against SXL. The RNase sensitivity of this association was tested by pretreating the extract with a combination of RNase A and RNase T1. (B,C) PPS associates with the unspliced <italic>Sxl</italic> pre-mRNA in a SXL-independent manner. RNA-immunoprecipitation assays (RIP) were carried out in nuclear extracts made from wild type embryos (WT), or embryos from <italic>da<sup>1</sup>/da<sup>1</sup></italic> mothers. The presence of unspliced <italic>Sxl</italic> RNA in the IP pellet was detected by RT-PCR using an intron 3/exon 4 primer pair. Immunoprecipitations with SXL or SNF were included as positive controls. Negative controls included precipitations with no antibody, pre-immune serum and Polycomb (PC). The lanes marked input are controls in which the amount of extract corresponds to a percentage of the material used in each Co-IP experiment.</p>
+          </caption>
+          <graphic xlink:href="pgen.1000872.g005"/>
+        </fig>
+      </sec>
+      <sec id="s2f">
+        <title>PPS associates with unspliced <italic>Sxl</italic> RNA</title>
+        <p>Because the SXL protein exerts its effect by binding directly to its own pre-mRNA, we postulated that PPS might also associate with the unspliced <italic>Sxl</italic> pre-mRNA. To test this idea, we asked whether <italic>Sxl</italic> pre-mRNA is detectable in PPS immunoprecipitates. The results of these RNA immunoprecipitation assays (RIP), which were carried in nuclear extracts without fixation, clearly shows that the unspliced <italic>Sxl</italic> RNA is detectable by RT-PCR using an intron 3-exon 4 primer pair (<xref ref-type="fig" rid="pgen-1000872-g005">Figure 5B</xref>). In control reactions, we found that <italic>Sxl</italic> RNA was also detected in SXL immunoprecipitates, but not in extracts treated with antibodies against the chromatin binding protein Polycomb (PC) or in pre-immune serum.</p>
+        <p>To determine whether the SXL protein is required for the association between PPS and the <italic>Sxl</italic> pre-mRNA, we carried out RIP assays in nuclear extracts made from embryos collected from mothers homozygous for a viable allele of <italic>daughterless, da<sup>1</sup></italic>. <italic>da<sup>1</sup></italic> mutant mothers produce eggs that lack SXL protein because <italic>SxlPe</italic> is not activated <xref rid="pgen.1000872-Keyes1" ref-type="bibr">[12]</xref>. <italic>SxlPm</italic>, however, is activated, and the resulting transcripts are therefore spliced in the male mode. As illustrated in <xref ref-type="fig" rid="pgen-1000872-g005">Figure 5C</xref>, PPS was able to co-immunoprecipitate unspliced <italic>Sxl</italic> RNA in these SXL-deficient mutant extracts. In control reactions, we found that <italic>Sxl</italic> RNA was detected in SNF immunoprecipitates, but not in controls. Thus, we conclude that the PPS/<italic>Sxl</italic> pre-mRNA association does not depend on the presence of SXL protein in the extract.</p>
+      </sec>
+      <sec id="s2g">
+        <title>Recruitment of PPS, SNF, and SXL during transcription</title>
+        <p>To gain a better understanding of the functional relationship between PPS, SXL and SNF, we compared the dynamics of their recruitment to the nascent <italic>Sxl</italic> transcript by combining genetic analysis with chromatin immunoprecipitation (ChIP) assays (<xref ref-type="fig" rid="pgen-1000872-g006">Figure 6</xref>). Splicing factor-ChIP assays, which have been used in both yeast and mammalian cells, are possible because many splicing factors are recruited to their RNA targets while still in close contact with template DNA <xref rid="pgen.1000872-Kotovic1" ref-type="bibr">[15]</xref>&#x2013;<xref rid="pgen.1000872-Listerman1" ref-type="bibr">[17]</xref>.</p>
+        <p>To validate this approach, ChIP analysis was first carried out with antibodies against SNF in a sexually mixed population of wild type 8&#x2013;12 hour embryos. ChIP studies in mammalian cells have shown that U1 snRNP proteins specifically target regions of genes that include 5&#x2032; splice sites of recognized exons <xref rid="pgen.1000872-Listerman1" ref-type="bibr">[17]</xref>. This predicts that SNF will accumulate on a region that includes the male-specific third exon (Ex3), but not on the SXL binding site which is located &#x223C;250 bp away in the third intron (In3). As a specificity control, we assayed for SNF accumulation on the first exon of the <italic>SxlPe</italic> transcripts (E1) because in 8&#x2013;12 hour embryos E1 is treated as an intron, and thus should not be recognized by the splicing machinery. In agreement with our expectations, we found that SNF was present at the third exon (Ex3), but not at the other two locations. Additional controls for specificity include our demonstration that these three regions of the <italic>Sxl</italic> gene were not precipitated in controls or in ChIP assays carried out with the DNA binding Heat Shock Factor (HSF). As a final control for specificity, ChIPs were also carried out with the 8WG16 antibody against the hypophosphorylated form of RNA polymerase II (Pol IIa), because previous studies have shown that Pol IIa does not accumulate within the body of actively transcribed genes <xref rid="pgen.1000872-Brodsky1" ref-type="bibr">[18]</xref>,<xref rid="pgen.1000872-Wang1" ref-type="bibr">[19]</xref>.</p>
+        <p>Having shown that recruitment of SNF to the <italic>Sxl</italic> gene can be detected by ChIP, we next asked whether we could use this methodology to view SXL and PPS recruitment. In agreement with <italic>in vitro</italic> RNA binding assays <xref rid="pgen.1000872-Samuels1" ref-type="bibr">[20]</xref>, we found that SXL was present at the intronic SXL binding site, In3. PPS, on the other hand, was not only present on the third exon (Ex3) but also localized to the intronic E1 and In3 regions. Together these results argue that PPS, in contrast to both SNF and SXL, is uniformly distributed across the <italic>Sxl</italic> transcription unit.</p>
+        <p>Next we asked whether the pattern of recruitment is different on nascent transcripts destined to be spliced in the female or male mode. Males do not express SXL protein; therefore, SXL-ChIP of chromatin isolated from a mixed sex population of embryos resulted in the analysis of only female embryos. PPS and SNF, on the other hand, are expressed in both male and female embryos, thus the analysis of chromatin from wild type embryos would mask any sex-specific differences, should they exist. To circumvent this issue, we repeated the SNF and PPS ChIP experiments in two mutant populations of embryos. To exclusively assay <italic>Sxl</italic> transcripts destined to be spliced in the female mode, chromatin was prepared from embryos collected from a stable stock in which all females carry an attached X chromosome and all males carry <italic>Sxl<sup>7BO</sup></italic>, an X-linked deletion allele of <italic>Sxl</italic>. As there is no <italic>Sxl</italic> DNA present in the male embryos, this analysis is limited to <italic>Sxl</italic> chromatin isolated from female embryos. To generate a population of embryos where all nascent <italic>Sxl</italic> transcripts are destined to be spliced in the male mode, we prepared chromatin from embryos from <italic>da<sup>1</sup></italic> mothers. As described above, maternal DA protein is required to initiate <italic>SxlPe</italic> transcription early in embryonic development, therefore all eggs laid by homozygous mutant females fail to produce SXL protein. As shown in <xref ref-type="fig" rid="pgen-1000872-g006">Figure 6</xref>, we found that the pattern of PPS and SNF accumulation was not dependent on the source of the chromatin: PPS accumulated at all three sites, whereas SNF was only detected on the third exon. We therefore conclude that the recruitment pattern of PPS and SNF along the <italic>Sxl</italic> gene is the same in males and females.</p>
+        <fig id="pgen-1000872-g006" position="float">
+          <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.g006</object-id>
+          <label>Figure 6</label>
+          <caption>
+            <title>Accumulation of SXL, SNF, and PPS along the body of the <italic>Sxl</italic> gene in embryos.</title>
+            <p>ChIP using SXL, SNF, and PPS specific antibodies. After ChIP, the extracted DNA was analyzed by PCR using primer pairs positioned along the <italic>Sxl</italic> gene as diagramed. Specificity controls include ChIPs using antibodies directed against the Heat Shock Factor (HSF) and RNA Pol IIa (8WG16), as a well as a no antibody control (no Ab). ChIPs were carried out, from left to right, in 8&#x2013;12 hour old wild-type embryos, female embryos (embryos from <italic>C(1)DX</italic> mothers crossed to <italic>Sxl<sup>7BO</sup></italic> males) and embryos from <italic>da<sup>1</sup>/da<sup>1</sup></italic> mothers. To ensure that the PCR reactions of the antibody enriched DNA fell within a linear range of amplification, PCR reactions were carried out on serially diluted input DNA, ranging from 1% to 10% of total DNA. The PCR data shown here are representative of three independent ChIP experiments.</p>
+          </caption>
+          <graphic xlink:href="pgen.1000872.g006"/>
+        </fig>
+      </sec>
+      <sec id="s2h">
+        <title>Recruitment of PPS to the <italic>SxlPm</italic> promoter region</title>
+        <p>The uniform distribution of PPS on the <italic>Sxl</italic> transcription unit, together with its classification in the Gene Ontology Database as a protein involved in transcription, suggested to us that PPS might initially be recruited near <italic>SxlPm</italic>. We therefore repeated the ChIP experiments using two different primer sets targeting sequences upstream of the <italic>SxlPm</italic> transcription start site (P1 and P2) and one that includes the first exon (P3). ChIP studies in <italic>Drosophila</italic> and mammalian cells have shown that the hypophosphorylated form of RNA polymerase II (Pol IIa), detected by the 8WG16 antibody, is highly concentrated at the start of actively transcribed genes <xref rid="pgen.1000872-Brodsky1" ref-type="bibr">[18]</xref>,<xref rid="pgen.1000872-Wang1" ref-type="bibr">[19]</xref>. In agreement with these studies, we found that Pol IIa specifically accumulates at P1, P2 and P3 (<xref ref-type="fig" rid="pgen-1000872-g007">Figure 7</xref>). SNF, as expected, only accumulates on P3, the region that overlaps with the first exon. As shown in <xref ref-type="fig" rid="pgen-1000872-g007">Figure 7</xref>, we found that PPS accumulates on P1, P2 and P3 and that this distribution is not sex-specific. Taken together, these results suggest that PPS associates with the <italic>Sxl</italic> promoter.</p>
+        <fig id="pgen-1000872-g007" position="float">
+          <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.g007</object-id>
+          <label>Figure 7</label>
+          <caption>
+            <title>Accumulation of PPS near the <italic>SxlPm</italic> promoter in embryos.</title>
+            <p>ChIP assays using SNF&#x2013;and PPS&#x2013;specific antibodies were carried out using the same population of embryos as described in <xref ref-type="fig" rid="pgen-1000872-g006">Figure 6</xref>. After ChIP the extracted DNA was analyzed by PCR using primer pairs positioned around the <italic>SxlPm</italic> promoter as diagramed. The 8WG16 antibody, which detects the hypophosphorylated Pol II (Pol IIa), is used here to mark the promoter. Consistent with published studies, Pol IIa was largely detected at the promoter whereas SNF was only detected by a primer set designed to detect the beginning of the transcription unit.</p>
+          </caption>
+          <graphic xlink:href="pgen.1000872.g007"/>
+        </fig>
+      </sec>
+      <sec id="s2i">
+        <title>PPS also targets the SXL&#x2013;regulated <italic>transformer (tra)</italic> pre&#x2013;mRNA</title>
+        <p>In addition to its autoregulatory function, the SXL protein also binds the <italic>tra</italic> pre-mRNA to regulate its sex-specific expression <xref rid="pgen.1000872-Sosnowski1" ref-type="bibr">[21]</xref>. To determine whether PPS is involved in <italic>tra</italic> pre-mRNA splicing, we first carried out RIP assays and found that <italic>tra</italic> pre-mRNA is detectable in PPS immunoprecipitates, as well as in control SXL and SNF immunoprecipitates (<xref ref-type="fig" rid="pgen-1000872-g008">Figure 8A</xref>). We then carried out ChIP experiments to determine whether PPS is recruited to the <italic>tra</italic> promoter region (<xref ref-type="fig" rid="pgen-1000872-g008">Figure 8B</xref>). To demonstrate that we had targeted the promoter region, ChIP experiments with antibodies against the hypophosphorylated form of RNA polymerase II (Pol IIa) 8WG16 were used as a positive control. Antibodies against SNF are used here as a negative control. In accordance with our expectations, we found that PPS does in fact associate with the <italic>tra</italic> promoter region.</p>
+        <fig id="pgen-1000872-g008" position="float">
+          <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.g008</object-id>
+          <label>Figure 8</label>
+          <caption>
+            <title>
+<italic>tra</italic> is a PPS target gene.</title>
+            <p>(A) RIP assays demonstrating that PPS associates with the <italic>tra</italic> pre-mRNA, but not the <italic>snf</italic> pre&#x2013;mRNA or the intronless <italic>U2A</italic> transcript. The presence of unspliced RNA in the IP pellet was detected by RT&#x2013;PCR. (B) ChIP assays demonstrating that PPS is detected at the <italic>tra</italic> promoter (identified by Pol IIa accumulation), but not at the <italic>snf</italic> or the <italic>U2A</italic> promoter. The exact position of the primers used in the RIP and ChIP assays are described in the <xref ref-type="sec" rid="s4">Materials and Methods</xref> section.</p>
+          </caption>
+          <graphic xlink:href="pgen.1000872.g008"/>
+        </fig>
+        <p>While these studies clearly suggest that PPS has an additional role in <italic>tra</italic> splicing regulation, it is unlikely that PPS is globally associated with all actively transcribed genes, as we fail to detect associations with the intronless <italic>U2A</italic> gene and the intron containing <italic>snf</italic> gene (<xref ref-type="fig" rid="pgen-1000872-g008">Figure 8A and 8B</xref>). On the other hand, PPS is clearly not limited to SXL-mediated splicing events because loss of PPS function is lethal to both sexes. What these additional functions are remains to be determined.</p>
+      </sec>
+    </sec>
+    <sec id="s3">
+      <title>Discussion</title>
+      <p>Genetic studies have established that SXL protein is both necessary and sufficient to engage the <italic>Sxl</italic> autoregulatory splicing loop <xref rid="pgen.1000872-Bell1" ref-type="bibr">[22]</xref>. Mechanistically, however, SXL does not act alone and collaborates with components of the general splicing machinery, including the U1 snRNP, to block inclusion of the male exon <xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>. In this study, ChIP assays showed that SNF and SXL are specifically recruited to their predicted binding sites on the nascent transcript: SNF to 5&#x2032; splice sites and SXL to its intronic binding sites. These data, together with our observation that the recruitment of SNF is not influenced by the presence or absence of SXL, support the current model in which SXL blocks male exon inclusion by interacting with general splicing factors bound to authentic splice sites (<xref ref-type="fig" rid="pgen-1000872-g009">Figure 9</xref>). Splicing could be blocked immediately, or spliceosome assembly could continue, stalling only later in the pathway. The U1 snRNP, however, is only transiently associated with the spliceosome as it assembles on the splicing substrate and is released before the spliceosome is catalytically active <xref rid="pgen.1000872-Herold1" ref-type="bibr">[23]</xref>. Therefore it is likely that SXL acts by interrupting spliceosome assembly at some point after splice site recognition by the U1 snRNP, but before catalysis begins.</p>
+      <fig id="pgen-1000872-g009" position="float">
+        <object-id pub-id-type="doi">10.1371/journal.pgen.1000872.g009</object-id>
+        <label>Figure 9</label>
+        <caption>
+          <title>Co-transcriptional model for <italic>Sxl</italic> splicing autoregulation.</title>
+          <p>PPS associates with Pol II during transcription (Pol II, oval) to help recruit the U1 snRNP (U1, blue circle) and SXL (grey circle) to the appropriate locations on the nascent transcript. In addition, PPS may help nucleate the interaction between the U1 snRNP and SXL. Splicing could be blocked immediately (insert) or spliceosome assembly could continue, stalling only later in the pathway. The end result is a dead-end complex that guarantees that the male exon will be skipped, and that exon 2 is spliced to exon 4. In males, where there is no SXL protein, the U1 snRNP is free to assemble into a functional spliceosome and exon 3 is included in the mature transcript (not shown).</p>
+        </caption>
+        <graphic xlink:href="pgen.1000872.g009"/>
+      </fig>
+      <p>In studies begun by screening for SNF-interacting proteins, we identified PPS, a conserved and previously uncharacterized <italic>Drosophila</italic> protein, as a novel component of the machinery required for skipping the <italic>Sxl</italic> male exon. We were able to establish this connection by demonstrating that (1) animals carrying loss of function <italic>pps</italic> mutations are compromised in their ability to regulate <italic>Sxl</italic> splicing, (2) PPS associates with the U1 snRNP via a direct interaction with SNF and (3) PPS associates with the SXL protein and the unspliced <italic>Sxl</italic> RNA.</p>
+      <p>Although physically associated with the U1 snRNP, PPS does not appear to be a general splicing factor because it does not associate with all spliced transcripts (this study), it is not found in affinity-purified <italic>Drosophila</italic> spliceosomal complexes <xref rid="pgen.1000872-Herold1" ref-type="bibr">[23]</xref> and it is not a homolog of a previously identified human splicing protein <xref rid="pgen.1000872-Mount1" ref-type="bibr">[24]</xref>. Thus, PPS stands apart from the other proteins known to facilitate proper <italic>Sxl</italic> splicing, all of which are known to be components of the splicing machinery.</p>
+      <p>The results of our ChIP analysis also distinguishes PPS from known splicing factors, as it reveals a strikingly distinct pattern of accumulation along the <italic>Sxl</italic> gene, including occupancy at the <italic>SxlPm</italic> promoter region. This pattern of accumulation suggests that PPS is loaded onto the RNA at the promoter and/or that it has a role in transcription. Numerous studies have documented physical interactions between the transcriptional machinery and splicing factors <xref rid="pgen.1000872-Pandit1" ref-type="bibr">[25]</xref>. Thus, PPS may well act in concert with the transcription machinery to promote SXL-mediated exon skipping (<xref ref-type="fig" rid="pgen-1000872-g009">Figure 9</xref>). For example, PPS could serve as a bridging protein to accelerate recruitment of SXL to the nascent transcript, or it could facilitate the formation of the inhibitory SXL/U1 snRNP interaction.</p>
+      <p>Whether PPS is physically coupled to the transcription machinery and/or has a role in controlling transcription will require additional studies. However, the fact that PPS contains 4 signature motifs typically found in proteins with known functions in transcription adds credence to this idea. Of these 4 motifs, the PHD finger is the most extensively studied. Numerous studies have shown that PHD fingers have histone methylation binding activity. Indeed, PPS is likely to have histone binding activity, as the PHD domains of both the <italic>S. cerevisiae</italic> (BYE1) and mammalian (DIDO) PPS homologs preferentially bind to tri-methylated H3K4 (H3K4me3) <italic>in vitro</italic>
+<xref rid="pgen.1000872-Shi1" ref-type="bibr">[26]</xref>,<xref rid="pgen.1000872-Prieto1" ref-type="bibr">[27]</xref>. The possibility of a PPS&#x2013;histone link is further strengthened by the presence of the metazoan specific BRK motif, a domain that is found in only two other <italic>Drosophila</italic> proteins&#x2013;Brahma and Kismet&#x2013;both of which are known to be chromatin binding proteins <xref rid="pgen.1000872-Doerks1" ref-type="bibr">[28]</xref>,<xref rid="pgen.1000872-Daubresse1" ref-type="bibr">[29]</xref>. A connection to transcription is also suggested by the presence of the TFS2M motif. This motif is named after its founding member located in the center of the transcription elongation factor S-II, where it is essential for binding Pol II <xref rid="pgen.1000872-Wind1" ref-type="bibr">[30]</xref>. Finally, SPOC domains have been identified in a variety of proteins linked to transcription, the best characterized of which is the human SHARP nuclear hormone co-repressor <xref rid="pgen.1000872-Ariyoshi1" ref-type="bibr">[31]</xref>,<xref rid="pgen.1000872-SanchezPulido1" ref-type="bibr">[32]</xref>. A conserved function in transcription is particularly compelling in light of the current view that transcription and splicing are mechanistically coupled. In this regard, there are a few well-documented examples of mammalian chromatin binding proteins that affect alternative splicing <xref rid="pgen.1000872-Allemand1" ref-type="bibr">[33]</xref>. For example the H3K4me3 binding protein, CHD1, associates with the spliceosome and is required for efficient splicing <xref rid="pgen.1000872-Sims1" ref-type="bibr">[34]</xref>. In another example the BRK domain containing chromatin remodeling protein, BRAHMA/BRG1, influences the alternative splicing of several transcripts <xref rid="pgen.1000872-Batsche1" ref-type="bibr">[35]</xref>.</p>
+      <p>Although still speculative, a mechanism linking transcription to splicing regulation is likely to be of major importance in early embryogenesis. Engagement of the autoregulatory splicing loop requires that the initiating source of SXL protein, produced from the transiently expressed <italic>SxlPe</italic> derived transcripts, be present when <italic>SxlPm</italic> is activated so that its transcripts can be alternatively spliced to produce more SXL protein. The changeover from <italic>SxlPe</italic> to <italic>SxlPm</italic> is tightly coordinated and uncoupling these events leads to disruptions in <italic>Sxl</italic> regulation <xref rid="pgen.1000872-Erickson1" ref-type="bibr">[6]</xref>,<xref rid="pgen.1000872-Gonzalez1" ref-type="bibr">[7]</xref>. While these studies suggest that transcriptional regulation of <italic>SxlPm</italic> is important for the switch to autoregulation, our studies lead us to propose that PPS contributes to the success of this switch by concurrently facilitating <italic>SxlPm</italic> transcription and promoting male-exon skipping.</p>
+      <p>PPS function is not restricted to <italic>Sxl</italic> splicing regulation. In studies designed to test for specificity, we discovered that PPS also associates with the SXL-regulated <italic>tra</italic> pre-mRNA. In addition, we found that <italic>pps</italic> function is essential for viability of both sexes, indicating that <italic>pps</italic> function is not limited to SXL-mediated splicing events and is involved in other developmental pathways. In humans, the PPS homolog DIDO has been linked to a blood disorder called myeloproliferative disease (MPD) <xref rid="pgen.1000872-Futterer1" ref-type="bibr">[36]</xref>. The relevance of this connection is suggested by our finding that homozygous <italic>pps</italic> mutant larvae contain melanotic tumors, tumors that often result from over-proliferation and aggregation of blood cells <xref rid="pgen.1000872-Minakhina1" ref-type="bibr">[37]</xref>. Thus, the discovery of PPS' role in controlling alternative splicing may be of significance to additional developmental pathways.</p>
+    </sec>
+    <sec sec-type="materials|methods" id="s4">
+      <title>Materials and Methods</title>
+      <sec id="s4a">
+        <title>Yeast two hybrid screen</title>
+        <p>Using the entire SNF protein as bait, we screened 9.8&#xD7;10<sup>7</sup> clones from <italic>Drosophila</italic> embryonic and adult cDNA libraries and identified 78 positive clones, all of which included the C-terminal end of the <italic>pps</italic> (CG6525) gene. PPS was also reported to be a binding partner of CDK7 (CG3319) <xref rid="pgen.1000872-Giot1" ref-type="bibr">[38]</xref>. However, we have not been able to verify the authenticity of this interaction (data not shown), and suspect that this interaction is based on an annotation error because the <italic>snf</italic> and <italic>cdk7</italic> genes partially overlap <xref rid="pgen.1000872-Larochelle1" ref-type="bibr">[39]</xref>.</p>
+      </sec>
+      <sec id="s4b">
+        <title>
+<italic>Drosophila</italic> genetics</title>
+        <p>Mutant alleles and deficiencies used in this study include: <italic>Sxl<sup>f1</sup></italic>, <italic>Sxl<sup>7BO</sup> da<sup>1</sup></italic>, <italic>da<sup>2</sup></italic>, <italic>fl(2)d<sup>2</sup></italic>, <italic>U2af38<sup>&#x394;E18</sup>, Df(2Lh)D1</italic> (designated as <italic>spf45<sup>&#x394;</sup></italic> in <xref ref-type="table" rid="pgen-1000872-t001">Table 1</xref>), <italic>Df(3R)Exel7316</italic>, <italic>PBac{WH}Dip-C<sup>f00706</sup></italic> and <italic>PBac{WH}CG17202<sup>f01979</sup></italic>
+<xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>&#x2013;<xref rid="pgen.1000872-Chaouki1" ref-type="bibr">[4]</xref>, <xref rid="pgen.1000872-Parks1" ref-type="bibr">[8]</xref>, <xref rid="pgen.1000872-Keyes1" ref-type="bibr">[12]</xref>, <xref rid="pgen.1000872-Maine1" ref-type="bibr">[40]</xref>&#x2013;<xref rid="pgen.1000872-Cronmiller2" ref-type="bibr">[42]</xref>. We generated <italic>pps<sup>1</sup></italic> by FRT-mediated recombination between <italic>PBac{WH}Dip-C<sup>f00706</sup></italic> and <italic>PBac{WH}CG17202<sup>f01979</sup></italic> using the conditions described previously <xref rid="pgen.1000872-Parks1" ref-type="bibr">[8]</xref>,<xref rid="pgen.1000872-Ryder1" ref-type="bibr">[9]</xref>. Throughout this analysis we found that the phenotypes of <italic>pps<sup>1</sup>/pps<sup>1</sup></italic> and <italic>pps<sup>1</sup></italic>/<italic>Df(3R)Exel7316</italic>, animals to be identical, indicating the absence of confounding background mutations on the <italic>pps<sup>1</sup></italic> mutant chromosome. The <italic>P{pps+}</italic> and <italic>P{Scg-&#x3B2;+, CG17202<sup>+</sup>}</italic> genomic rescue constructs were generated by standard methods in the pCaSpeR4 transformation vector and transgenic flies were produced at Genetic Services (<ext-link ext-link-type="uri" xlink:href="http://www.geneticservices.com">http://www.geneticservices.com</ext-link>). Functional <italic>P{Scg-&#x3B2;+, CG17202<sup>+</sup>}</italic> transgenes (abbreviated as <italic>P{Scg-&#x3B2;+}</italic> in the text) were selected based on their ability to complement a known point mutation in CG17202. Each transgenic line was then tested for its ability to rescue the different <italic>pps</italic> mutant phenotypes, including the lethality of <italic>pps<sup>1</sup></italic>/<italic>Df(3R)Exel7316</italic> and <italic>pps<sup>1</sup>/pps<sup>1</sup></italic> animals. The data presented in this paper are obtained with <italic>P{pps+}</italic> line # 10. Additional marker mutations and balancers used in this study are described on Flybase (<ext-link ext-link-type="uri" xlink:href="http://www.flybase.org">http://www.flybase.org</ext-link>).</p>
+      </sec>
+      <sec id="s4c">
+        <title>Antibodies, GST-pull downs, co-immunoprecipitations, and western Blots</title>
+        <p>The antibody against PPS was raised in guinea pig by Covance (<ext-link ext-link-type="uri" xlink:href="http://www.covance.com">http://www.covance.com</ext-link>) against a glutathione S-transferase (GST) tagged C-terminal domain PPS fragment (amino acids 1370&#x2013;2016) purified from bacteria. We note here that this PPS antibody has not proven to be useful for immunohistochemistry. The other antibodies used in this study include mouse anti-SNF-4G3 <xref rid="pgen.1000872-Habets1" ref-type="bibr">[43]</xref>,<xref rid="pgen.1000872-Flickinger1" ref-type="bibr">[44]</xref>, guinea pig anti-U2A' <xref rid="pgen.1000872-Nagengast2" ref-type="bibr">[45]</xref>, rabbit anti-U170K-151 <xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>, mouse anti-SXL-M114 <xref rid="pgen.1000872-Bopp1" ref-type="bibr">[46]</xref>, guinea pig anti- HSF <xref rid="pgen.1000872-Andrulis1" ref-type="bibr">[47]</xref>, rabbit anti-PC <xref rid="pgen.1000872-Tie1" ref-type="bibr">[48]</xref>, and mouse anti-RNA Pol IIa-8WG16 (Millipore, #05-952). Crude extracts for GST-pull down experiments (<xref ref-type="fig" rid="pgen-1000872-g001">Figure 1</xref>) and Western blots (<xref ref-type="fig" rid="pgen-1000872-g004">Figure 4</xref>) were prepared from 3&#x2013;8 hour old embryos, sexed and genotyped third instar larvae or sexed adults in NET buffer (150 mM NaCl, 50 mM Tris, pH 7.5, 5 mM EDTA) supplemented with 0.5% NP-40 and Complete Mini Protease Inhibitor Cocktail Tablets (Roche). Nuclear extracts for co-immunoprecipitation experiments were prepared from 3&#x2013;18 hour old embryos as described previously <xref rid="pgen.1000872-Tie2" ref-type="bibr">[49]</xref> using NET buffer supplemented with 0.5% NP-40 for the co-IPs in <xref ref-type="fig" rid="pgen-1000872-g004">Figure 4</xref> and 0.05% NP-40 for the co-IPs in <xref ref-type="fig" rid="pgen-1000872-g005">Figure 5</xref>. For experiments in which the extracts were pretreated with RNase, 1/10 volume of RNase A (10 mg/ml) and 1/20 volume of RNase T1 (100,000 units/ml) were added directly to the extract and incubated overnight at 4&#xB0;C. Co-immunoprecipitations, Western blot analysis and GST pull down assays were carried out according to standard protocols, using the conditions described previously <xref rid="pgen.1000872-Nagengast1" ref-type="bibr">[2]</xref>,<xref rid="pgen.1000872-Chaouki1" ref-type="bibr">[4]</xref>,<xref rid="pgen.1000872-Stitzinger1" ref-type="bibr">[50]</xref>.</p>
+      </sec>
+      <sec id="s4d">
+        <title>RT&#x2013;PCR analysis</title>
+        <p>Total RNA was isolated from ovaries, adults or embryos using TRIzol (Invitrogen) as directed by the manufacturer. To analyze the endogenous <italic>Sxl</italic> splicing products, the first strand synthesis was carried out with 1 &#xB5;g of RNA, 500 ng/&#xB5;l random hexamers with the SuperScript II Reverse Transcriptase System (Invitrogen). The PCR reactions, using the High Fidelity Taq system (Roche), were performed in 50 &#xB5;l volume with 2 &#xB5;l of the RT reaction with the following primers: <named-content content-type="gene">GTGGTTATCCCCCATATGGC</named-content> and <named-content content-type="gene">GATGGCAGAGAATGGGAC</named-content>. The PCR conditions were as follows: 94&#xB0;C for 1 min, followed by 30 cycles of 94&#xB0;C for 1 min, 55&#xB0;C for 1 min, and 72&#xB0;C for 2 min, and a single final step at 72&#xB0;C extension for 10 min. Products were detected on a 2% agarose gel by staining with ethidium bromide.</p>
+      </sec>
+      <sec id="s4e">
+        <title>RNA immunoprecipitation (RIP)</title>
+        <p>RNA/protein complexes were immunoprecipitated from nuclear extracts and diluted to 5 &#xB5;g/&#xB5;l in NET buffer (150 mM NaCl, 50 mM Tris, pH 7.5, 5 mM EDTA), supplemented with 0.05% NP-40, Complete Mini Protease Inhibitor Cocktail Tablets (Roche) and RNase inhibitor (100 U/ml) using the conditions described previously <xref rid="pgen.1000872-Stitzinger1" ref-type="bibr">[50]</xref>. RNA was isolated from the RNA/protein complexes using TRIzol (Invitrogen) as directed by the manufacturer. RNA was resuspended in 20 &#xB5;l RNase-free water and DNase-treated. cDNA was synthesized with the SuperScript II Reverse Transcriptase System (Invitrogen) using 4 &#xB5;l of the eluted RNA with a <italic>Sxl</italic> gene specific primer to exon 4 (<named-content content-type="gene">GATGGCAGAGAATGGGAC</named-content>; <xref ref-type="fig" rid="pgen-1000872-g006">Figure 6</xref>) or random hexamers (<xref ref-type="fig" rid="pgen-1000872-g008">Figure 8</xref>). The PCR reactions, using the High Fidelity Taq system (Roche), were performed in 50 &#xB5;l volume with 2 &#xB5;l of the RT reaction with the following primers&#x2013;<italic>Sxl</italic>: <named-content content-type="gene">GAGGGTCAGTCTAAGTTATATTCG</named-content> and <named-content content-type="gene">GATGGCAGAGAATGGGAC</named-content>; <italic>snf</italic>: <named-content content-type="gene">GGGATGTGCGAATGACTAG</named-content> and <named-content content-type="gene">GACTGGAGTTGCGTTCAC</named-content>; <italic>tra</italic>: <named-content content-type="gene">GATGCCGACAGCAGTGGAAC</named-content> and <named-content content-type="gene">GATGGCACTGGATCAGAATCTG</named-content>; <italic>U2A</italic>: <named-content content-type="gene">GGTGAAACT AACGCCGGAGC</named-content> and <named-content content-type="gene">CTCAGCTCCTGCAGGTTGTTG</named-content>. PCR conditions were as follows:: 94&#xB0;C for 1 min, followed by 30 cycles of 94&#xB0;C for 1 min, 55&#xB0;C for 1 min, and 72&#xB0;C for 2 min, and a single final step at 72&#xB0;C extension for 10 min. 2 &#xB5;l of the first-round PCR amplification was subjected to a second round of PCR. . Products were detected on a 2% agarose gel by staining with ethidium bromide.</p>
+      </sec>
+      <sec id="s4f">
+        <title>Chromatin immunoprecipitation (ChIP)</title>
+        <p>Live embryos were dechorionated with 50% bleach and fixed for 15 min in a 1.8% paraformaldehyde/heptane fixative solution. Chromatin was prepared from 1&#x2013;2 gram of fixed 8&#x2013;12 hour old embryos using the conditions described previously <xref rid="pgen.1000872-BirchMachin1" ref-type="bibr">[51]</xref> and sonicated for a total of 80 seconds (20 sec pulses with a 1 min rest on ice) to produce sheared products of 300 to 400 bp. ChIP assays were performed with a commercially available ChIP assay kit (#17&#x2013;295; Millipore). Antibodies used for the IP step were diluted 1&#x2236;40 (Pol IIa, HSF, PC and PPS) and 1&#x2236;20 (SXL and SNF). After purification, the ChIPed DNA samples were resuspended in 30 &#xB5;l water. Enrichment of specific DNA fragments was analyzed by PCR on 2 &#xB5;l ChIP material with the following primer sets: For <italic>Sxl</italic>&#x2013;P1: <named-content content-type="gene">CGGGGCTCAAAAGACATAAA</named-content> and <named-content content-type="gene">GCGTTAGTTAAGACTCAC TCCATTT</named-content>; P2: <named-content content-type="gene">CCGTTACGAATCAAGCGAAG</named-content> and <named-content content-type="gene">GGCTGGTCACAC TGTTCATT</named-content>; P3: <named-content content-type="gene">CAGCCGAGTGCCTAGAAAAA</named-content> and <named-content content-type="gene">ACTTTCCTTCTTCGGCAACA</named-content>; E1: <named-content content-type="gene">CAAGTCCAACTTGTGTTCAGA</named-content> and <named-content content-type="gene">TCGAACAGGGAGTCACAGTAT</named-content>; Ex3: <named-content content-type="gene">CGAAAAGCGAAAGACACTC</named-content> and <named-content content-type="gene">GTG TCCTCGATTCAAAAACAT</named-content>; In3: <named-content content-type="gene">ACATCATGCTTTTCTTAAGTGC</named-content> and <named-content content-type="gene">AACGATCCCCCAGTTATATTC</named-content>. For <italic>U2A</italic>&#x2013;<named-content content-type="gene">GGCAGCGAATTG TTTTTCTG</named-content> and <named-content content-type="gene">GAATCTTATAGCCGCGCAAA</named-content>; For <italic>tra</italic>&#x2013;<named-content content-type="gene">TGGTCTCCATGGAAAACGAG</named-content> and <named-content content-type="gene">TGCAAACACGGTTTCATTTC</named-content>; For <italic>snf</italic>&#x2013;<named-content content-type="gene">AAACACCGGTGCGATAACAT</named-content> and <named-content content-type="gene">CGTTTGGTTGGGTAGCATCT</named-content>. The PCR conditions for <italic>Sxl</italic> primers P1, P2, P3, E1 and Ex3, <italic>tra</italic> and <italic>snf</italic> were as follows: 94&#xB0;C for 2 min, followed by 25 cycles of 94&#xB0;C for 30 sec, 53&#xB0;C for 30 sec, and 72&#xB0;C for 1 min. The PCR conditions for <italic>Sxl</italic> In3 and <italic>U2A</italic> were as follows: 94&#xB0;C for 2 min, followed by 25 cycles of 94&#xB0;C for 30 sec, 55&#xB0;C for 30 sec, and 72&#xB0;C for 1 min. Products were detected on a 3% agarose gel by staining with ethidium bromide.</p>
+      </sec>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <p>We gratefully acknowledge gifts of antibodies and/or fly stocks from E. Andrulis, P. Harte, the Bloomington Stock Center (Indiana University, Bloomington), and the Developmental Studies Hybridoma Bank (University of Iowa, Iowa City). We thank H. Lou, J. Wise, members of the Salz lab, and the anonymous reviewers for their insightful comments and suggestions.</p>
+    </ack>
+    <fn-group>
+      <fn fn-type="COI-statement">
+        <p>The authors have declared that no competing interests exist.</p>
+      </fn>
+      <fn fn-type="financial-disclosure">
+        <p>The National Institutes of Health (NIH) grant R01-GM61039 provided support for this work. NIH training grants provided partial salary support for MLJ (T32-GM008613) and AAN (T32-HD07104). The funders had no role in study design, data collection and analysis, decision to publish or preparation of the manuscript.</p>
+      </fn>
+    </fn-group>
+    <ref-list>
+      <title>References</title>
+      <ref id="pgen.1000872-Salz1">
+        <label>1</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Salz</surname><given-names>HK</given-names></name><name><surname>Erickson</surname></name><name><surname>JW</surname></name></person-group>
+<year>2010</year>
+<article-title>Sex determination in <italic>Drosophila</italic>: the view from the top.</article-title>
+<source>Fly In Press</source>
+</element-citation>
+      </ref>
+      <ref id="pgen.1000872-Nagengast1">
+        <label>2</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Nagengast</surname><given-names>AA</given-names></name><name><surname>Stitzinger</surname><given-names>SM</given-names></name><name><surname>Tseng</surname><given-names>C-H</given-names></name><name><surname>Mount</surname><given-names>SM</given-names></name><name><surname>Salz</surname><given-names>HK</given-names></name></person-group>
+<year>2003</year>
+<article-title>
+<italic>Sex-lethal</italic> splicing autoregulation in vivo: interactions between SEX-LETHAL, the U1 snRNP and U2AF underlie male exon skipping.</article-title>
+<source>Development</source>
+<volume>130</volume>
+<fpage>463</fpage>
+<lpage>471</lpage>
+<pub-id pub-id-type="pmid">12490553</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Penn1">
+        <label>3</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Penn</surname><given-names>JK</given-names></name><name><surname>Graham</surname><given-names>P</given-names></name><name><surname>Deshpande</surname><given-names>G</given-names></name><name><surname>Calhoun</surname><given-names>G</given-names></name><name><surname>Chaouki</surname><given-names>AS</given-names></name><etal/></person-group>
+<year>2008</year>
+<article-title>Functioning of the <italic>Drosophila</italic> Wilms'-tumor-1-associated protein homolog, Fl(2)d, in Sex-lethal-dependent alternative splicing.</article-title>
+<source>Genetics</source>
+<volume>178</volume>
+<fpage>737</fpage>
+<lpage>748</lpage>
+<pub-id pub-id-type="pmid">18245840</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Chaouki1">
+        <label>4</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Chaouki</surname><given-names>AS</given-names></name><name><surname>Salz</surname><given-names>HK</given-names></name></person-group>
+<year>2006</year>
+<article-title>
+<italic>Drosophila</italic> SPF45: a bi-functional protein with roles in both splicing and DNA repair.</article-title>
+<source>PLoS Genet</source>
+<volume>2</volume>
+<fpage>e178</fpage>
+<comment>doi:<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1371/journal.pgen.0020178">10.1371/journal.pgen.0020178</ext-link></comment>
+<pub-id pub-id-type="pmid">17154718</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Salz2">
+        <label>5</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Salz</surname><given-names>HK</given-names></name></person-group>
+<year>2007</year>
+<article-title>Male or female? The answer depends on when you ask.</article-title>
+<source>PLoS Biol</source>
+<volume>5</volume>
+<fpage>e335</fpage>
+<comment>doi:<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1371/journal.pbio.0050335">10.1371/journal.pbio.0050335</ext-link></comment>
+<pub-id pub-id-type="pmid">18162045</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Erickson1">
+        <label>6</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Erickson</surname><given-names>JW</given-names></name><name><surname>Quintero</surname><given-names>JJ</given-names></name></person-group>
+<year>2007</year>
+<article-title>Indirect effects of ploidy suggest X chromosome dose, not the X:A ratio, signals sex in <italic>Drosophila</italic>.</article-title>
+<source>PLoS Biol</source>
+<volume>5</volume>
+<fpage>e332</fpage>
+<comment>doi:<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1371/journal.pbio.0050332">10.1371/journal.pbio.0050332</ext-link></comment>
+<pub-id pub-id-type="pmid">18162044</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Gonzalez1">
+        <label>7</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Gonzalez</surname><given-names>AN</given-names></name><name><surname>Lu</surname><given-names>H</given-names></name><name><surname>Erickson</surname><given-names>JW</given-names></name></person-group>
+<year>2008</year>
+<article-title>A shared enhancer controls a temporal switch between promoters during <italic>Drosophila</italic> primary sex determination.</article-title>
+<source>Proc Natl Acad Sci U S A</source>
+<volume>105</volume>
+<fpage>18436</fpage>
+<lpage>18441</lpage>
+<pub-id pub-id-type="pmid">19011108</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Parks1">
+        <label>8</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Parks</surname><given-names>AL</given-names></name><name><surname>Cook</surname><given-names>KR</given-names></name><name><surname>Belvin</surname><given-names>M</given-names></name><name><surname>Dompe</surname><given-names>N</given-names></name><name><surname>Fawcett</surname><given-names>R</given-names></name><etal/></person-group>
+<year>2004</year>
+<article-title>Systematic generation of high-resolution deletion coverage of the <italic>Drosophila</italic> melanogaster genome.</article-title>
+<source>Nat Gen</source>
+<volume>36</volume>
+<fpage>288</fpage>
+<lpage>292</lpage>
+</element-citation>
+      </ref>
+      <ref id="pgen.1000872-Ryder1">
+        <label>9</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Ryder</surname><given-names>E</given-names></name><name><surname>Blows</surname><given-names>F</given-names></name><name><surname>Ashburner</surname><given-names>M</given-names></name><name><surname>Bautista-Llacer</surname><given-names>R</given-names></name><name><surname>Coulson</surname><given-names>D</given-names></name><etal/></person-group>
+<year>2004</year>
+<article-title>The DrosDel collection: a set of <italic>P</italic>-element insertions for generating custom chromosomal aberrations in <italic>Drosophila melanogaster</italic>.</article-title>
+<source>Genetics</source>
+<volume>167</volume>
+<fpage>797</fpage>
+<lpage>813</lpage>
+<pub-id pub-id-type="pmid">15238529</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Chau1">
+        <label>10</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Chau</surname><given-names>J</given-names></name><name><surname>Kulnane</surname><given-names>LS</given-names></name><name><surname>Salz</surname><given-names>HK</given-names></name></person-group>
+<year>2009</year>
+<article-title>
+<italic>Sex-lethal</italic> facilitates the transition from germline stem cell to committed daughter cell in the <italic>Drosophila</italic> ovary.</article-title>
+<source>Genetics</source>
+<volume>182</volume>
+<fpage>121</fpage>
+<lpage>132</lpage>
+<pub-id pub-id-type="pmid">19237687</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Cronmiller1">
+        <label>11</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Cronmiller</surname><given-names>C</given-names></name><name><surname>Cline</surname><given-names>TW</given-names></name></person-group>
+<year>1986</year>
+<article-title>The relationship of relative gene dose to the complex phenotype of the <italic>daughterless</italic> locus in <italic>Drosophila</italic>.</article-title>
+<source>Dev Genet</source>
+<volume>7</volume>
+<fpage>205</fpage>
+<lpage>221</lpage>
+<pub-id pub-id-type="pmid">3453784</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Keyes1">
+        <label>12</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Keyes</surname><given-names>LN</given-names></name><name><surname>Cline</surname><given-names>TW</given-names></name><name><surname>Schedl</surname><given-names>P</given-names></name></person-group>
+<year>1992</year>
+<article-title>The primary sex-determination signal of <italic>Drosophila</italic> acts at the level of transcription.</article-title>
+<source>Cell</source>
+<volume>68</volume>
+<fpage>933</fpage>
+<lpage>943</lpage>
+<pub-id pub-id-type="pmid">1547493</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Salz3">
+        <label>13</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Salz</surname><given-names>HK</given-names></name></person-group>
+<year>1992</year>
+<article-title>The genetic analysis of <italic>snf</italic>: A <italic>Drosophila</italic> sex determination gene required for activation of <italic>Sex-lethal</italic> in both the germline and the soma.</article-title>
+<source>Genetics</source>
+<volume>130</volume>
+<fpage>547</fpage>
+<lpage>554</lpage>
+<pub-id pub-id-type="pmid">1551576</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Tazi1">
+        <label>14</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Tazi</surname><given-names>J</given-names></name><name><surname>Kornstadt</surname><given-names>U</given-names></name><name><surname>Rossi</surname><given-names>F</given-names></name><name><surname>Jeanteur</surname><given-names>P</given-names></name><name><surname>Cathala</surname><given-names>G</given-names></name><etal/></person-group>
+<year>1993</year>
+<article-title>Thiophosphorylation of U1-70K protein inhibits pre-mRNA splicing.</article-title>
+<source>Nature</source>
+<volume>363</volume>
+<fpage>283</fpage>
+<lpage>286</lpage>
+<pub-id pub-id-type="pmid">8387646</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Kotovic1">
+        <label>15</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Kotovic</surname><given-names>KM</given-names></name><name><surname>Lockshon</surname><given-names>D</given-names></name><name><surname>Boric</surname><given-names>L</given-names></name><name><surname>Neugebauer</surname><given-names>KM</given-names></name></person-group>
+<year>2003</year>
+<article-title>Cotranscriptional recruitment of the U1 snRNP to intron-containing genes in yeast.</article-title>
+<source>Mol Cell Biol</source>
+<volume>23</volume>
+<fpage>5768</fpage>
+<lpage>5779</lpage>
+<pub-id pub-id-type="pmid">12897147</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Swinburne1">
+        <label>16</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Swinburne</surname><given-names>IA</given-names></name><name><surname>Meyer</surname><given-names>CA</given-names></name><name><surname>Liu</surname><given-names>XS</given-names></name><name><surname>Silver</surname><given-names>PA</given-names></name><name><surname>Brodsky</surname><given-names>AS</given-names></name></person-group>
+<year>2006</year>
+<article-title>Genomic localization of RNA binding proteins reveals links between pre-mRNA processing and transcription.</article-title>
+<source>Genome Res</source>
+<volume>16</volume>
+<fpage>912</fpage>
+<lpage>921</lpage>
+<pub-id pub-id-type="pmid">16769980</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Listerman1">
+        <label>17</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Listerman</surname><given-names>I</given-names></name><name><surname>Sapra</surname><given-names>AK</given-names></name><name><surname>Neugebauer</surname><given-names>KM</given-names></name></person-group>
+<year>2006</year>
+<article-title>Cotranscriptional coupling of splicing factor recruitment and precursor messenger RNA splicing in mammalian cells.</article-title>
+<source>Nat Struct Mol Biol</source>
+<volume>13</volume>
+<fpage>815</fpage>
+<lpage>822</lpage>
+<pub-id pub-id-type="pmid">16921380</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Brodsky1">
+        <label>18</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Brodsky</surname><given-names>AS</given-names></name><name><surname>Meyer</surname><given-names>CA</given-names></name><name><surname>Swinburne</surname><given-names>IA</given-names></name><name><surname>Hall</surname><given-names>G</given-names></name><name><surname>Keenan</surname><given-names>BJ</given-names></name><etal/></person-group>
+<year>2005</year>
+<article-title>Genomic mapping of RNA polymerase II reveals sites of co-transcriptional regulation in human cells.</article-title>
+<source>Genome Biol</source>
+<volume>6</volume>
+<fpage>R64</fpage>
+<pub-id pub-id-type="pmid">16086846</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Wang1">
+        <label>19</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Wang</surname><given-names>X</given-names></name><name><surname>Lee</surname><given-names>C</given-names></name><name><surname>Gilmour</surname><given-names>DS</given-names></name><name><surname>Gergen</surname><given-names>JP</given-names></name></person-group>
+<year>2007</year>
+<article-title>Transcription elongation controls cell fate specification in the <italic>Drosophila</italic> embryo.</article-title>
+<source>Genes Dev</source>
+<volume>21</volume>
+<fpage>1031</fpage>
+<lpage>1036</lpage>
+<pub-id pub-id-type="pmid">17473169</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Samuels1">
+        <label>20</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Samuels</surname><given-names>ME</given-names></name><name><surname>Bopp</surname><given-names>D</given-names></name><name><surname>Colvin</surname><given-names>RA</given-names></name><name><surname>Roscigno</surname><given-names>RF</given-names></name><name><surname>Garcia-Blanco</surname><given-names>MA</given-names></name><etal/></person-group>
+<year>1994</year>
+<article-title>RNA binding by SXL proteins <italic>in vitro</italic> and <italic>in vivo</italic>.</article-title>
+<source>Mol Cell Biol</source>
+<volume>14</volume>
+<fpage>4975</fpage>
+<lpage>4990</lpage>
+<pub-id pub-id-type="pmid">7516476</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Sosnowski1">
+        <label>21</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Sosnowski</surname><given-names>BA</given-names></name><name><surname>Belote</surname><given-names>JM</given-names></name><name><surname>McKeown</surname><given-names>M</given-names></name></person-group>
+<year>1989</year>
+<article-title>Sex&#x2013;specific alternative splicing of RNA from the <italic>transformer</italic> gene results from sequence&#x2013;dependent splice site blockage.</article-title>
+<source>Cell</source>
+<volume>3</volume>
+<fpage>449</fpage>
+<lpage>459</lpage>
+</element-citation>
+      </ref>
+      <ref id="pgen.1000872-Bell1">
+        <label>22</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Bell</surname><given-names>LR</given-names></name><name><surname>Horabin</surname><given-names>JI</given-names></name><name><surname>Schedl</surname><given-names>P</given-names></name><name><surname>Cline</surname><given-names>TW</given-names></name></person-group>
+<year>1991</year>
+<article-title>Positive autoregulation of <italic>Sex-lethal</italic> by alternative splicing maintains the female determined state in <italic>Drosophila</italic>.</article-title>
+<source>Cell</source>
+<volume>65</volume>
+<fpage>229</fpage>
+<lpage>239</lpage>
+<pub-id pub-id-type="pmid">2015624</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Herold1">
+        <label>23</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Herold</surname><given-names>N</given-names></name><name><surname>Will</surname><given-names>CL</given-names></name><name><surname>Wolf</surname><given-names>E</given-names></name><name><surname>Kastner</surname><given-names>B</given-names></name><name><surname>Urlaub</surname><given-names>H</given-names></name><etal/></person-group>
+<year>2009</year>
+<article-title>Conservation of the protein composition and electron microscopy structure of <italic>Drosophila</italic> melanogaster and human spliceosomal complexes.</article-title>
+<source>Mol Cell Biol</source>
+<volume>29</volume>
+<fpage>281</fpage>
+<lpage>301</lpage>
+<pub-id pub-id-type="pmid">18981222</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Mount1">
+        <label>24</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Mount</surname><given-names>SM</given-names></name><name><surname>Salz</surname><given-names>HK</given-names></name></person-group>
+<year>2000</year>
+<article-title>Pre-messanger RNA processing factors in the <italic>Drosophila melanogaster</italic> genome.</article-title>
+<source>J Cell Biol</source>
+<volume>150</volume>
+<fpage>37</fpage>
+<lpage>43</lpage>
+</element-citation>
+      </ref>
+      <ref id="pgen.1000872-Pandit1">
+        <label>25</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Pandit</surname><given-names>S</given-names></name><name><surname>Wang</surname><given-names>D</given-names></name><name><surname>Fu</surname><given-names>XD</given-names></name></person-group>
+<year>2008</year>
+<article-title>Functional integration of transcriptional and RNA processing machineries.</article-title>
+<source>Curr Opin Cell Biol</source>
+<volume>20</volume>
+<fpage>260</fpage>
+<lpage>265</lpage>
+<pub-id pub-id-type="pmid">18436438</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Shi1">
+        <label>26</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Shi</surname><given-names>X</given-names></name><name><surname>Kachirskaia</surname><given-names>I</given-names></name><name><surname>Walter</surname><given-names>KL</given-names></name><name><surname>Kuo</surname><given-names>JH</given-names></name><name><surname>Lake</surname><given-names>A</given-names></name><etal/></person-group>
+<year>2007</year>
+<article-title>Proteome-wide analysis in <italic>Saccharomyces cerevisiae</italic> identifies several PHD fingers as novel direct and selective binding modules of histone H3 methylated at either lysine 4 or lysine 36.</article-title>
+<source>J Biol Chem</source>
+<volume>282</volume>
+<fpage>2450</fpage>
+<lpage>2455</lpage>
+<pub-id pub-id-type="pmid">17142463</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Prieto1">
+        <label>27</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Prieto</surname><given-names>I</given-names></name><name><surname>Kouznetsova</surname><given-names>A</given-names></name><name><surname>Futterer</surname><given-names>A</given-names></name><name><surname>Trachana</surname><given-names>V</given-names></name><name><surname>Leonardo</surname><given-names>E</given-names></name><etal/></person-group>
+<year>2009</year>
+<article-title>Synaptonemal complex assembly and H3K4Me3 demethylation determine DIDO3 localization in meiosis.</article-title>
+<source>Chromosoma</source>
+<volume>118</volume>
+<fpage>617</fpage>
+<lpage>632</lpage>
+<pub-id pub-id-type="pmid">19557426</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Doerks1">
+        <label>28</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Doerks</surname><given-names>T</given-names></name><name><surname>Copley</surname><given-names>RR</given-names></name><name><surname>Schultz</surname><given-names>J</given-names></name><name><surname>Ponting</surname><given-names>CP</given-names></name><name><surname>Bork</surname><given-names>P</given-names></name></person-group>
+<year>2002</year>
+<article-title>Systematic identification of novel protein domain families associated with nuclear functions.</article-title>
+<source>Genome Res</source>
+<volume>12</volume>
+<fpage>47</fpage>
+<lpage>56</lpage>
+<pub-id pub-id-type="pmid">11779830</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Daubresse1">
+        <label>29</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Daubresse</surname><given-names>G</given-names></name><name><surname>Deuring</surname><given-names>R</given-names></name><name><surname>Moore</surname><given-names>L</given-names></name><name><surname>Papoulas</surname><given-names>O</given-names></name><name><surname>Zakrajsek</surname><given-names>I</given-names></name><etal/></person-group>
+<year>1999</year>
+<article-title>The <italic>Drosophila kismet</italic> gene is related to chromatin-remodeling factors and is required for both segmentation and segment identity.</article-title>
+<source>Development</source>
+<volume>126</volume>
+<fpage>1175</fpage>
+<lpage>1187</lpage>
+<pub-id pub-id-type="pmid">10021337</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Wind1">
+        <label>30</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Wind</surname><given-names>M</given-names></name><name><surname>Reines</surname><given-names>D</given-names></name></person-group>
+<year>2000</year>
+<article-title>Transcription elongation factor SII.</article-title>
+<source>Bioessays</source>
+<volume>22</volume>
+<fpage>327</fpage>
+<lpage>336</lpage>
+<pub-id pub-id-type="pmid">10723030</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Ariyoshi1">
+        <label>31</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Ariyoshi</surname><given-names>M</given-names></name><name><surname>Schwabe</surname><given-names>JW</given-names></name></person-group>
+<year>2003</year>
+<article-title>A conserved structural motif reveals the essential transcriptional repression function of Spen proteins and their role in developmental signaling.</article-title>
+<source>Genes Dev</source>
+<volume>17</volume>
+<fpage>1909</fpage>
+<lpage>1920</lpage>
+<pub-id pub-id-type="pmid">12897056</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-SanchezPulido1">
+        <label>32</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Sanchez-Pulido</surname><given-names>L</given-names></name><name><surname>Rojas</surname><given-names>AM</given-names></name><name><surname>van Wely</surname><given-names>KH</given-names></name><name><surname>Martinez-A</surname><given-names>C</given-names></name><name><surname>Valencia</surname><given-names>A</given-names></name></person-group>
+<year>2004</year>
+<article-title>SPOC: a widely distributed domain associated with cancer, apoptosis and transcription.</article-title>
+<source>BMC Bioinformatics</source>
+<volume>5</volume>
+<fpage>91</fpage>
+<pub-id pub-id-type="pmid">15239844</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Allemand1">
+        <label>33</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Allemand</surname><given-names>E</given-names></name><name><surname>Batsche</surname><given-names>E</given-names></name><name><surname>Muchardt</surname><given-names>C</given-names></name></person-group>
+<year>2008</year>
+<article-title>Splicing, transcription, and chromatin: a menage a trois.</article-title>
+<source>Curr Opin Genet Dev</source>
+<volume>18</volume>
+<fpage>145</fpage>
+<lpage>151</lpage>
+<pub-id pub-id-type="pmid">18372167</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Sims1">
+        <label>34</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Sims</surname><given-names>R</given-names><suffix>Jr</suffix></name><name><surname>Millhouse</surname><given-names>S</given-names></name><name><surname>Chen</surname><given-names>CF</given-names></name><name><surname>Lewis</surname><given-names>BA</given-names></name><name><surname>Erdjument-Bromage</surname><given-names>H</given-names></name><etal/></person-group>
+<year>2007</year>
+<article-title>Recognition of trimethylated histone H3 lysine 4 facilitates the recruitment of transcription postinitiation factors and pre-mRNA splicing.</article-title>
+<source>Mol Cell</source>
+<volume>28</volume>
+<fpage>665</fpage>
+<lpage>676</lpage>
+<pub-id pub-id-type="pmid">18042460</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Batsche1">
+        <label>35</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Batsche</surname><given-names>E</given-names></name><name><surname>Yaniv</surname><given-names>M</given-names></name><name><surname>Muchardt</surname><given-names>C</given-names></name></person-group>
+<year>2006</year>
+<article-title>The human SWI/SNF subunit Brm is a regulator of alternative splicing.</article-title>
+<source>Nat Struct Mol Biol</source>
+<volume>13</volume>
+<fpage>22</fpage>
+<lpage>29</lpage>
+<pub-id pub-id-type="pmid">16341228</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Futterer1">
+        <label>36</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Futterer</surname><given-names>A</given-names></name><name><surname>Campanero</surname><given-names>MR</given-names></name><name><surname>Leonardo</surname><given-names>E</given-names></name><name><surname>Criado</surname><given-names>LM</given-names></name><name><surname>Flores</surname><given-names>JM</given-names></name><etal/></person-group>
+<year>2005</year>
+<article-title>Dido gene expression alterations are implicated in the induction of hematological myeloid neoplasms.</article-title>
+<source>J Clin Invest</source>
+<volume>115</volume>
+<fpage>2351</fpage>
+<lpage>2362</lpage>
+<pub-id pub-id-type="pmid">16127461</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Minakhina1">
+        <label>37</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Minakhina</surname><given-names>S</given-names></name><name><surname>Steward</surname><given-names>R</given-names></name></person-group>
+<year>2006</year>
+<article-title>Melanotic mutants in <italic>Drosophila</italic>: pathways and phenotypes.</article-title>
+<source>Genetics</source>
+<volume>174</volume>
+<fpage>253</fpage>
+<lpage>263</lpage>
+<pub-id pub-id-type="pmid">16816412</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Giot1">
+        <label>38</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Giot</surname><given-names>L</given-names></name><name><surname>Bader</surname><given-names>JS</given-names></name><name><surname>Brouwer</surname><given-names>C</given-names></name><name><surname>Chaudhuri</surname><given-names>A</given-names></name><name><surname>Kuang</surname><given-names>B</given-names></name><etal/></person-group>
+<year>2003</year>
+<article-title>A protein interaction map of <italic>Drosophila melanogaster</italic>.</article-title>
+<source>Science</source>
+<volume>302</volume>
+<fpage>1727</fpage>
+<lpage>1736</lpage>
+<pub-id pub-id-type="pmid">14605208</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Larochelle1">
+        <label>39</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Larochelle</surname><given-names>S</given-names></name><name><surname>Pandur</surname><given-names>J</given-names></name><name><surname>Fisher</surname><given-names>R</given-names></name><name><surname>Salz</surname><given-names>HK</given-names></name><name><surname>Suter</surname><given-names>B</given-names></name></person-group>
+<year>1998</year>
+<article-title>
+<italic>Cdk7</italic> is essential for mitosis and for <italic>in vivo</italic> Cdk-activating kinase activity.</article-title>
+<source>Genes Dev</source>
+<volume>12</volume>
+<fpage>370</fpage>
+<lpage>381</lpage>
+<pub-id pub-id-type="pmid">9450931</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Maine1">
+        <label>40</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Maine</surname><given-names>EM</given-names></name><name><surname>Salz</surname><given-names>HK</given-names></name><name><surname>Cline</surname><given-names>TW</given-names></name><name><surname>Schedl</surname><given-names>P</given-names></name></person-group>
+<year>1985</year>
+<article-title>The <italic>Sex-lethal</italic> gene of <italic>Drosophila</italic>: DNA alterations associated with sex-specific lethal mutations.</article-title>
+<source>Cell</source>
+<volume>43</volume>
+<fpage>521</fpage>
+<lpage>529</lpage>
+<pub-id pub-id-type="pmid">3000609</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Salz4">
+        <label>41</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Salz</surname><given-names>HK</given-names></name><name><surname>Cline</surname><given-names>TW</given-names></name><name><surname>Schedl</surname><given-names>P</given-names></name></person-group>
+<year>1987</year>
+<article-title>Functional changes associated with structural alterations induced by mobilization of a P element inserted in the <italic>Sex-lethal</italic> gene of <italic>Drosophila</italic>.</article-title>
+<source>Genetics</source>
+<volume>117</volume>
+<fpage>221</fpage>
+<lpage>231</lpage>
+<pub-id pub-id-type="pmid">2822534</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Cronmiller2">
+        <label>42</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Cronmiller</surname><given-names>C</given-names></name><name><surname>Schedl</surname><given-names>P</given-names></name><name><surname>Cline</surname><given-names>TW</given-names></name></person-group>
+<year>1988</year>
+<article-title>Molecular characterization of <italic>daughterless</italic>, a <italic>Drosophila</italic> sex determination gene with multiple roles in development.</article-title>
+<source>Genes Dev</source>
+<volume>2</volume>
+<fpage>1666</fpage>
+<lpage>1676</lpage>
+<pub-id pub-id-type="pmid">2850968</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Habets1">
+        <label>43</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Habets</surname><given-names>WJ</given-names></name><name><surname>Hoet</surname><given-names>MH</given-names></name><name><surname>de Jong</surname><given-names>BAW</given-names></name><name><surname>van der Kemp</surname><given-names>A</given-names></name><name><surname>van Venrooij</surname><given-names>WJ</given-names></name></person-group>
+<year>1989</year>
+<article-title>Mapping of B cell epitopes on small nuclear ribonucleoproteins that react with human autoantibodies as well as with experimentally-induced mouse monoclonal antibodies.</article-title>
+<source>J Immunol</source>
+<volume>143</volume>
+<fpage>2560</fpage>
+<lpage>2566</lpage>
+<pub-id pub-id-type="pmid">2477448</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Flickinger1">
+        <label>44</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Flickinger</surname><given-names>TW</given-names></name><name><surname>Salz</surname><given-names>HK</given-names></name></person-group>
+<year>1994</year>
+<article-title>The <italic>Drosophila</italic> sex determination gene <italic>snf</italic> encodes a nuclear protein with sequence and functional similarity to the mammalian U1A snRNP protein.</article-title>
+<source>Genes Dev</source>
+<volume>8</volume>
+<fpage>914</fpage>
+<lpage>925</lpage>
+<pub-id pub-id-type="pmid">7926776</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Nagengast2">
+        <label>45</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Nagengast</surname><given-names>AA</given-names></name><name><surname>Salz</surname><given-names>HK</given-names></name></person-group>
+<year>2001</year>
+<article-title>The <italic>Drosophila</italic> U2 snRNP-U2A' protein has an essential function that is SNF/U2B&#x2033; independent.</article-title>
+<source>Nucl Acids Res</source>
+<volume>29</volume>
+<fpage>3841</fpage>
+<lpage>3847</lpage>
+<pub-id pub-id-type="pmid">11557816</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Bopp1">
+        <label>46</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Bopp</surname><given-names>D</given-names></name><name><surname>Bell</surname><given-names>LR</given-names></name><name><surname>Cline</surname><given-names>TW</given-names></name><name><surname>Schedl</surname><given-names>P</given-names></name></person-group>
+<year>1991</year>
+<article-title>Developmental distribution of female-specific <italic>Sex-lethal</italic> proteins in <italic>Drosophila melanogaster</italic>.</article-title>
+<source>Genes Dev</source>
+<volume>5</volume>
+<fpage>403</fpage>
+<lpage>415</lpage>
+<pub-id pub-id-type="pmid">1900493</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Andrulis1">
+        <label>47</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Andrulis</surname><given-names>ED</given-names></name><name><surname>Guzman</surname><given-names>E</given-names></name><name><surname>Doring</surname><given-names>P</given-names></name><name><surname>Werner</surname><given-names>J</given-names></name><name><surname>Lis</surname><given-names>JT</given-names></name></person-group>
+<year>2000</year>
+<article-title>High-resolution localization of <italic>Drosophila</italic> Spt5 and Spt6 at heat shock genes in vivo: roles in promoter proximal pausing and transcription elongation.</article-title>
+<source>Genes Dev</source>
+<volume>14</volume>
+<fpage>2635</fpage>
+<lpage>2649</lpage>
+<pub-id pub-id-type="pmid">11040217</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Tie1">
+        <label>48</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Tie</surname><given-names>F</given-names></name><name><surname>Stratton</surname><given-names>CA</given-names></name><name><surname>Kurzhals</surname><given-names>RL</given-names></name><name><surname>Harte</surname><given-names>PJ</given-names></name></person-group>
+<year>2007</year>
+<article-title>The N terminus of <italic>Drosophila</italic> ESC binds directly to histone H3 and is required for E(Z)-dependent trimethylation of H3 lysine 27.</article-title>
+<source>Mol Cell Biol</source>
+<volume>27</volume>
+<fpage>2014</fpage>
+<lpage>2026</lpage>
+<pub-id pub-id-type="pmid">17210640</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Tie2">
+        <label>49</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Tie</surname><given-names>F</given-names></name><name><surname>Furuyama</surname><given-names>T</given-names></name><name><surname>Prasad-Sinha</surname><given-names>J</given-names></name><name><surname>Jane</surname><given-names>E</given-names></name><name><surname>Harte</surname><given-names>PJ</given-names></name></person-group>
+<year>2001</year>
+<article-title>The <italic>Drosophila</italic> Polycomb Group proteins ESC and E(Z) are present in a complex containing the histone-binding protein p55 and the histone deacetylase RPD3.</article-title>
+<source>Development</source>
+<volume>128</volume>
+<fpage>275</fpage>
+<lpage>286</lpage>
+<pub-id pub-id-type="pmid">11124122</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-Stitzinger1">
+        <label>50</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Stitzinger</surname><given-names>S</given-names></name><name><surname>Conrad</surname><given-names>T</given-names></name><name><surname>Zachlin</surname><given-names>A</given-names></name><name><surname>Salz</surname><given-names>HK</given-names></name></person-group>
+<year>1999</year>
+<article-title>Functional analysis of SNF, the <italic>Drosophila</italic> U1A/U2B&#x2033; homolog: identification of dispensable and indispensable motifs for both snRNP assembly and function.</article-title>
+<source>RNA</source>
+<volume>5</volume>
+<fpage>1440</fpage>
+<lpage>1450</lpage>
+<pub-id pub-id-type="pmid">10580472</pub-id></element-citation>
+      </ref>
+      <ref id="pgen.1000872-BirchMachin1">
+        <label>51</label>
+        <element-citation publication-type="journal">
+<person-group person-group-type="author"><name><surname>Birch-Machin</surname><given-names>I</given-names></name><name><surname>Gao</surname><given-names>S</given-names></name><name><surname>Huen</surname><given-names>D</given-names></name><name><surname>McGirr</surname><given-names>R</given-names></name><name><surname>White</surname><given-names>RA</given-names></name><etal/></person-group>
+<year>2005</year>
+<article-title>Genomic analysis of heat-shock factor targets in <italic>Drosophila</italic>.</article-title>
+<source>Genome Biol</source>
+<volume>6</volume>
+<fpage>R63</fpage>
+<pub-id pub-id-type="pmid">15998452</pub-id></element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
+</pmc-articleset>

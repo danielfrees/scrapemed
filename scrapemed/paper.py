@@ -46,8 +46,12 @@ class Paper(Base):
         self.fpage = paper_dict['First Page']
         self.lpage = paper_dict['Last Page']
         self.permissions = paper_dict['Permissions']
-        self.copyright = self.permissions["Copyright Statement"]
-        self.license = self.permissions["License Type"]
+        if self.permissions:
+            self.copyright = self.permissions["Copyright Statement"] 
+            self.license = self.permissions["License Type"]
+        else:
+            self.copyright = None
+            self.license = None
         self.funding = paper_dict['Funding']
         self.footnote = paper_dict['Footnote']
         self.acknowledgements = paper_dict['Acknowledgements']
@@ -55,7 +59,7 @@ class Paper(Base):
         self.custom_meta = paper_dict['Custom Meta']
         self.ref_map = paper_dict['Ref Map']
         self._ref_map_with_tags = paper_dict['Ref Map With Tags']
-        self.citation_list = paper_dict['Citation List']
+        self.citation_list = paper_dict['Citations']
         self.tables = paper_dict['Tables']
         self.figures = paper_dict['Figures']
 

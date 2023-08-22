@@ -1,0 +1,579 @@
+<?xml version="1.0" ?>
+<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN" "https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd">
+<pmc-articleset><article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+  <?properties open_access?>
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Drugs R D</journal-id>
+      <journal-id journal-id-type="iso-abbrev">Drugs R D</journal-id>
+      <journal-title-group>
+        <journal-title>Drugs in R&amp;D</journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1174-5886</issn>
+      <issn pub-type="epub">1179-6901</issn>
+      <publisher>
+        <publisher-name>Springer International Publishing</publisher-name>
+        <publisher-loc>Cham</publisher-loc>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">31925752</article-id>
+      <article-id pub-id-type="pmc">7067712</article-id>
+      <article-id pub-id-type="publisher-id">292</article-id>
+      <article-id pub-id-type="doi">10.1007/s40268-019-00292-1</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Original Research Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Evaluation of Fosphenytoin Therapeutic Drug Monitoring in the Neurocritical Care Unit</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <contrib-id contrib-id-type="orcid">http://orcid.org/0000-0002-1213-1791</contrib-id>
+          <name>
+            <surname>Noval</surname>
+            <given-names>Mandee</given-names>
+          </name>
+          <address>
+            <email>mandee.noval@umm.edu</email>
+          </address>
+          <xref ref-type="aff" rid="Aff1">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Seung</surname>
+            <given-names>Hyunuk</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff2">2</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">http://orcid.org/0000-0001-7093-7649</contrib-id>
+          <name>
+            <surname>Armahizer</surname>
+            <given-names>Michael</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff1">1</xref>
+        </contrib>
+        <aff id="Aff1"><label>1</label><institution-wrap><institution-id institution-id-type="GRID">grid.413036.3</institution-id><institution-id institution-id-type="ISNI">0000 0004 0434 0002</institution-id><institution>University of Maryland Medical Center, </institution></institution-wrap>22 S. Greene Street, Baltimore, MD USA </aff>
+        <aff id="Aff2"><label>2</label><institution-wrap><institution-id institution-id-type="GRID">grid.411024.2</institution-id><institution-id institution-id-type="ISNI">0000 0001 2175 4264</institution-id><institution>University of Maryland School of Pharmacy, </institution></institution-wrap>20 N Pine St, Baltimore, MD USA </aff>
+      </contrib-group>
+      <pub-date pub-type="epub">
+        <day>10</day>
+        <month>1</month>
+        <year>2020</year>
+      </pub-date>
+      <pub-date pub-type="pmc-release">
+        <day>10</day>
+        <month>1</month>
+        <year>2020</year>
+      </pub-date>
+      <pub-date pub-type="ppub">
+        <month>3</month>
+        <year>2020</year>
+      </pub-date>
+      <volume>20</volume>
+      <issue>1</issue>
+      <fpage>17</fpage>
+      <lpage>22</lpage>
+      <permissions>
+        <copyright-statement>&#xA9; The Author(s) 2020</copyright-statement>
+        <license license-type="OpenAccess">
+          <license-p><bold>Open Access</bold>This article is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if changes were made. The images or other third party material in this article are included in the article&#x2019;s Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article&#x2019;s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit <ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by/4.0/">http://creativecommons.org/licenses/by/4.0/</ext-link>.</license-p>
+        </license>
+      </permissions>
+      <abstract id="Abs1">
+        <sec>
+          <title>Objective</title>
+          <p id="Par1">The aim of this study was to determine whether the current method of calculating a fosphenytoin reloading dose results in a therapeutic free phenytoin level on subsequent days.</p>
+        </sec>
+        <sec>
+          <title>Methods</title>
+          <p id="Par2">Medical records of patients receiving fosphenytoin in the neurocritical care unit between July 2017 and June 2018 were screened. Included patients were those who had received at least three doses of fosphenytoin and required reloading doses according to concentrations obtained through therapeutic drug monitoring. Free phenytoin levels were categorized based on the prespecified patient-specific target range, generally between 1.5 and 2.5 mcg/mL.</p>
+        </sec>
+        <sec>
+          <title>Results</title>
+          <p id="Par3">Of the fosphenytoin reloading doses administered, 48% (73/152) resulted in a therapeutic free phenytoin concentration on the subsequent day, with the remaining 52% resulting in nontherapeutic levels (39% subtherapeutic, 13% supratherapeutic). Our evaluation of reloading dose calculation strategies indicated that patients were two times as likely to obtain a therapeutic level when a modified pharmacokinetic equation omitting the use of volume of distribution or salt formulation was used (58%, <italic>n</italic>&#x2009;=&#x2009;39) than they were with doses calculated using the current pharmacokinetic model (41%, <italic>n</italic>&#x2009;=&#x2009;20) or doses based on provider preference (39%, <italic>n</italic>&#x2009;=&#x2009;14).</p>
+        </sec>
+        <sec>
+          <title>Conclusion</title>
+          <p id="Par4">The current method of calculating a fosphenytoin reloading dose in the critically ill population does not consistently result in therapeutic concentrations. With multiple factors affecting the pharmacokinetics of critically ill patients, the creation of a new pharmacokinetic model with less emphasis on volume of distribution may more consistently result in therapeutic concentrations.</p>
+        </sec>
+      </abstract>
+      <custom-meta-group>
+        <custom-meta>
+          <meta-name>issue-copyright-statement</meta-name>
+          <meta-value>&#xA9; The Author(s) 2020</meta-value>
+        </custom-meta>
+      </custom-meta-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="FPar1">
+      <title>Key Points</title>
+      <p id="Par5">
+<table-wrap id="Taba"><table frame="hsides" rules="groups"><tbody><tr><td align="left">Fosphenytoin pharmacokinetics remain unpredictable, especially when the drug is used in critically ill patients with fluctuating factors affecting drug levels and often necessitating dose adjustments.</td></tr><tr><td align="left">Current methods of calculating a reloading dose in patients with subtherapeutic free phenytoin concentration levels do not consistently result in therapeutic free concentrations on subsequent days.</td></tr><tr><td align="left">A modified calculation with less emphasis on volume of distribution was associated with a twofold increased chance of attaining a therapeutic free phenytoin level on the subsequent day.</td></tr></tbody></table></table-wrap>
+</p>
+    </sec>
+    <sec id="Sec1">
+      <title>Background</title>
+      <p id="Par6">Phenytoin and the prodrug fosphenytoin are frequently used in the treatment of critically ill patients experiencing seizures or as prophylaxis in neurologically injured patients [<xref ref-type="bibr" rid="CR1">1</xref>&#x2013;<xref ref-type="bibr" rid="CR3">3</xref>]. Phenytoin exhibits nonlinear elimination pharmacokinetics and has been known to have high interpatient dosing variability, with therapeutic drug monitoring being the standard of care in patients receiving either agent [<xref ref-type="bibr" rid="CR4">4</xref>&#x2013;<xref ref-type="bibr" rid="CR6">6</xref>]. The volume of distribution (<italic>V</italic><sub>d</sub>) of phenytoin is estimated as approximately 0.7&#x2013;1.0 L/kg but may be routinely unpredictable as it increases with both dose and rate, resulting in heightened difficulty when trying to use pharmacokinetic models to predict drug concentrations [<xref ref-type="bibr" rid="CR3">3</xref>, <xref ref-type="bibr" rid="CR7">7</xref>, <xref ref-type="bibr" rid="CR8">8</xref>]. In addition, approximately 90% of phenytoin is bound to plasma albumin, with drug levels being highly affected by conditions or medications that alter protein binding [<xref ref-type="bibr" rid="CR3">3</xref>, <xref ref-type="bibr" rid="CR9">9</xref>].</p>
+      <p id="Par7">While phenytoin itself has unique pharmacokinetic properties, so does the patient population&#xA0;where it's used most often, including&#xA0;many critically ill patients requiring rapid administration for seizure control. Several of the previously mentioned factors are increasingly prevalent in this population, including the presence of hypoalbuminemia affecting protein binding, hepatic dysfunction, renal dysfunction, or concomitant drug interactions [<xref ref-type="bibr" rid="CR7">7</xref>&#x2013;<xref ref-type="bibr" rid="CR9">9</xref>]. These factors, along with the increased number of complex disease states or comorbidities that may alter volume status and drug distribution, further highlight the importance of therapeutic drug monitoring [<xref ref-type="bibr" rid="CR4">4</xref>]. Critical illness also has the potential to affect overall hepatic metabolism of the drug, adding to the difficulty of obtaining a therapeutic free concentration and resulting in the need for frequent dose adjustments based on therapeutic drug monitoring [<xref ref-type="bibr" rid="CR7">7</xref>, <xref ref-type="bibr" rid="CR8">8</xref>, <xref ref-type="bibr" rid="CR10">10</xref>].</p>
+      <p id="Par8">Initial dosing strategies for phenytoin consist of administering an intravenous loading dose of phenytoin or fosphenytoin between 10 and 20&#xA0;mg/kg of phenytoin equivalents followed by initiation of a maintenance regimen [<xref ref-type="bibr" rid="CR3">3</xref>, <xref ref-type="bibr" rid="CR6">6</xref>, <xref ref-type="bibr" rid="CR11">11</xref>, <xref ref-type="bibr" rid="CR12">12</xref>]. Free and/or total levels are then measured approximately 48&#x2013;72&#xA0;h after therapy initiation, with free levels in the range of 1.0&#x2013;2.5 mcg/mL often considered to be therapeutic, although a patient&#x2019;s clinical status must also be considered to determine treatment goal and presumed therapeutic effect [<xref ref-type="bibr" rid="CR6">6</xref>]. If free levels remain low after therapies are initiated, a reloading dose may be administered to increase the likelihood of attaining a therapeutic level. Pharmacokinetic equations can be used to calculate a reloading dose according to the desired goal concentration; however, the use of these equations has not been validated in critically ill populations. The current method of calculating a reloading dose incorporates both the current and the target free level (mcg/mL), along with the estimated V<sub>d</sub> of the drug (0.7 L/kg), the patient&#x2019;s actual body weight (kg), and the salt formulation (0.92) (Eq.&#xA0;<xref rid="Equ1" ref-type="">1</xref>).<disp-formula id="Equ1"><label>1</label><alternatives><tex-math id="M1">\documentclass[12pt]{minimal}
+				\usepackage{amsmath}
+				\usepackage{wasysym} 
+				\usepackage{amsfonts} 
+				\usepackage{amssymb} 
+				\usepackage{amsbsy}
+				\usepackage{mathrsfs}
+				\usepackage{upgreek}
+				\setlength{\oddsidemargin}{-69pt}
+				\begin{document}$${\text{Current Equation Calculated Dose}} = \frac{{\left[ {\left( {{\text{Target Free PHT}} - {\text{Current Free PHT}}} \right) \times 10} \right] \times 0.7 \times {\text{weight}}}}{0.92}$$\end{document}</tex-math><mml:math id="M2" display="block"><mml:mrow><mml:mrow><mml:mtext>Current Equation Calculated Dose</mml:mtext></mml:mrow><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mfenced close="]" open="["><mml:mrow><mml:mfenced close=")" open="("><mml:mrow><mml:mrow><mml:mtext>Target Free PHT</mml:mtext></mml:mrow><mml:mo>-</mml:mo><mml:mrow><mml:mtext>Current Free PHT</mml:mtext></mml:mrow></mml:mrow></mml:mfenced><mml:mo>&#xD7;</mml:mo><mml:mn>10</mml:mn></mml:mrow></mml:mfenced><mml:mo>&#xD7;</mml:mo><mml:mn>0.7</mml:mn><mml:mo>&#xD7;</mml:mo><mml:mtext>weight</mml:mtext></mml:mrow><mml:mrow><mml:mn>0.92</mml:mn></mml:mrow></mml:mfrac></mml:mrow></mml:math><graphic xlink:href="40268_2019_292_Article_Equ1.gif" position="anchor"/></alternatives></disp-formula>where PHT is phenytoin.</p>
+      <p id="Par9">Although this equation is commonly used in practice, we hypothesized that its use does not consistently result in therapeutic concentrations in critically ill patients because of their varied pharmacokinetic parameters and the unpredictable <italic>V</italic><sub>d</sub> of phenytoin.</p>
+      <p id="Par10">The purpose of this study was to determine whether the current method of calculating a fosphenytoin reloading dose routinely results in a therapeutic free phenytoin level in the critically ill population. The primary outcome was to determine the overall incidence of patients achieving therapeutic concentrations on the subsequent day. Secondary outcomes included the development of a new pharmacokinetic dosing strategy to achieve therapeutic free levels and to evaluate the incidence and effect of concomitant drug interactions in patients receiving fosphenytoin.</p>
+    </sec>
+    <sec id="Sec2">
+      <title>Methods</title>
+      <p id="Par11">This retrospective chart review evaluated patients receiving fosphenytoin in the neurocritical care unit (NCCU) at the University of Maryland Medical Center (UMMC) between 1 July 2017 and 30 June 2018. Patients were included in the study if they were aged 18&#x2013;80&#xA0;years, had received at least 3&#xA0;days of fosphenytoin therapy with at least one reloading dose of intravenous fosphenytoin or phenytoin, and had both pre- and post-reloading dose free phenytoin levels collected. Exclusion criteria included pregnant patients, patients who did not require reloading doses, and patients receiving oral phenytoin exclusively. This study was approved by the Institutional Review Board at UMMC.</p>
+      <p id="Par12">Demographic information was collected for each patient, including age, sex, height, and weight. Laboratory data at the day of reloading dose administration was collected, including serum creatinine, serum albumin, aspartate aminotransferase, alanine aminotransferase, and total bilirubin. If laboratory results were not available for the day of fosphenytoin reloading dose administration, the most recent laboratory data available during index admission were collected. Pertinent past medical history was obtained through chart review of confirmed diagnoses, including the presence of renal dysfunction, hepatic dysfunction, or disease states known to impact <italic>V</italic><sub>d</sub> such as heart failure. Renal dysfunction, particularly the presence of acute kidney injury, was defined using RIFLE criteria [<xref ref-type="bibr" rid="CR13">13</xref>, <xref ref-type="bibr" rid="CR14">14</xref>]. Hepatic dysfunction was defined as a documented history of cirrhosis or the presence of elevated transaminases (&#x2265;&#x2009;3&#x2009;&#xD7;&#x2009;upper limit of normal) reflecting the potential for acute liver injury. Concomitant medications with the potential to interact with fosphenytoin were recorded, including aspirin, carbamazepine, dexamethasone, methotrexate, phenobarbital, theophylline, and valproic acid. The medication administration record during the index admission was manually reviewed for receipt of the specified medications. These drugs have been shown to alter phenytoin concentrations by competing for protein binding sites or through cytochrome P450 2C9/2C19 interactions and were chosen based on similar studies.</p>
+      <p id="Par13">Fosphenytoin indication and goal free level were obtained through chart review of NCCU provider notes. The definition of a therapeutic free phenytoin level was based on documented goal levels, ranging from 1 to 2.5 mcg/mL depending on patient- or provider-specific goals. If a goal level was undocumented, we assumed a goal of 1.5&#x2013;2.5 mcg/mL according to institution practice. Phenytoin samples were run using the VITROS<sup>&#xAE;</sup> 6000 Integrated System from Ortho Clinical Diagnostics. Free phenytoin levels were most often collected with morning laboratory tests, approximately 2&#x2013;4&#xA0;h before administration of the morning fosphenytoin dose. Total phenytoin levels were drawn on occasion, at provider discretion, typically upon admission if transferred from an outside hospital.</p>
+      <p id="Par14">Determination of reloading dose strategy was identified retrospectively by comparing the administered dose and the calculated dose using the current reloading dose equation (Eq.&#xA0;<xref rid="Equ1" ref-type="">1</xref>) or a modified equation eliminating the use of <italic>V</italic><sub>d</sub> and salt formulation (Eq.&#xA0;<xref rid="Equ2" ref-type="">2</xref>).<disp-formula id="Equ2"><label>2</label><alternatives><tex-math id="M3">\documentclass[12pt]{minimal}
+				\usepackage{amsmath}
+				\usepackage{wasysym} 
+				\usepackage{amsfonts} 
+				\usepackage{amssymb} 
+				\usepackage{amsbsy}
+				\usepackage{mathrsfs}
+				\usepackage{upgreek}
+				\setlength{\oddsidemargin}{-69pt}
+				\begin{document}$${\text{Modified Equation Calculated Dose}} = \left[ {\left( {{\text{Target Free PHT}} - {\text{Current Free PHT}}} \right) \times 10} \right] \times {\text{weight}}$$\end{document}</tex-math><mml:math id="M4" display="block"><mml:mrow><mml:mrow><mml:mtext>Modified Equation Calculated Dose</mml:mtext></mml:mrow><mml:mo>=</mml:mo><mml:mfenced close="]" open="["><mml:mrow><mml:mfenced close=")" open="("><mml:mrow><mml:mrow><mml:mtext>Target Free PHT</mml:mtext></mml:mrow><mml:mo>-</mml:mo><mml:mrow><mml:mtext>Current Free PHT</mml:mtext></mml:mrow></mml:mrow></mml:mfenced><mml:mo>&#xD7;</mml:mo><mml:mn>10</mml:mn></mml:mrow></mml:mfenced><mml:mo>&#xD7;</mml:mo><mml:mtext>weight</mml:mtext></mml:mrow></mml:math><graphic xlink:href="40268_2019_292_Article_Equ2.gif" position="anchor"/></alternatives></disp-formula></p>
+      <p id="Par15">Doses were considered to be calculated using either equation if they were within 250&#xA0;mg of the predicted value as dose rounding is common practice at our institution. Doses that were not within 250&#xA0;mg of the predicted value using either equation were considered to not be based on an equation.</p>
+      <p id="Par16">Descriptive statistics were used to report frequencies and ranges. Normally distributed data are reported as means&#x2009;&#xB1;&#x2009;standard deviations. Bivariate analysis was performed to measure associations between all predictors and outcomes. For bivariate analysis, a logistic regression model was used for outcomes with independent factors. Odds ratios with 95% confidence intervals were calculated to measure associations between outcomes and effects, with a <italic>p</italic> value&#x2009;&lt;&#x2009;0.05 considered statistically significant. Data analysis was performed using SAS version 9.4 (SAS Institute, Cary, NC, USA).</p>
+    </sec>
+    <sec id="Sec3">
+      <title>Results</title>
+      <p id="Par17">A total of 155 patients were reviewed, with 51 patients meeting the inclusion criteria. From these 51 patients, 152 reloading doses of intravenous phenytoin or fosphenytoin were analyzed. The study population was mostly female (60.8%) with a mean age of 59&#x2009;&#xB1;&#x2009;14.4&#xA0;years, a mean weight of 85.4&#x2009;&#xB1;&#x2009;22.2&#xA0;kg, and a mean body mass index (BMI) of 30.1&#x2009;&#xB1;&#x2009;7.2&#xA0;kg/m<sup>2</sup> (Table&#xA0;<xref rid="Tab1" ref-type="table">1</xref>). The most common admission diagnoses for those in the NCCU receiving fosphenytoin were status epilepticus (54.9%), hemorrhagic stroke (29.4%), and ischemic stroke (2.0%). Renal dysfunction was highly prevalent, with 33 patients (64.7%) experiencing some degree of decline in renal function, whereas hepatic dysfunction was less apparent, with only five patients (9.8%) experiencing abnormalities in liver function. Other comorbidities assessed included the presence of a preexisting seizure disorder (25.5%) or heart failure (5.9%).<table-wrap id="Tab1"><label>Table&#xA0;1</label><caption><p>Baseline characteristics</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">Characteristics</th><th align="left">Patients (<italic>n</italic>&#x2009;=&#x2009;51)</th></tr></thead><tbody><tr><td align="left">Age (years)</td><td align="left">59.2&#x2009;&#xB1;&#x2009;14.4</td></tr><tr><td align="left">Female</td><td align="left">31 (60.8)</td></tr><tr><td align="left">Weight (kg)</td><td align="left">85.4&#x2009;&#xB1;&#x2009;22.2</td></tr><tr><td align="left">BMI (kg/m<sup>2</sup>)</td><td align="left">30.1&#x2009;&#xB1;&#x2009;7.2</td></tr><tr><td align="left" colspan="2">Admission diagnosis</td></tr><tr><td align="left">&#xA0;Status epilepticus</td><td align="left">28 (54.9)</td></tr><tr><td align="left">&#xA0;Subarachnoid hemorrhage</td><td align="left">9 (17.6)</td></tr><tr><td align="left">&#xA0;Intracerebral hemorrhage</td><td align="left">6 (11.8)</td></tr><tr><td align="left">&#xA0;Acute ischemic stroke</td><td align="left">1 (2.0)</td></tr><tr><td align="left">&#xA0;Other</td><td align="left">7 (13.7)</td></tr><tr><td align="left" colspan="2">Comorbidities</td></tr><tr><td align="left">&#xA0;Overall renal dysfunction</td><td align="left">33 (64.7)</td></tr><tr><td align="left">&#xA0;&#xA0;Acute kidney injury</td><td align="left">21 (41.1)</td></tr><tr><td align="left">&#xA0;&#xA0;Chronic kidney disease</td><td align="left">12 (23.5)</td></tr><tr><td align="left">&#xA0;&#xA0;Continuous renal replacement therapy</td><td align="left">3 (5.9)</td></tr><tr><td align="left">&#xA0;&#xA0;Hemodialysis</td><td align="left">1 (2.0)</td></tr><tr><td align="left">&#xA0;Preexisting seizure disorder</td><td align="left">13 (25.5)</td></tr><tr><td align="left">&#xA0;Overall hepatic dysfunction</td><td align="left">5 (9.8)</td></tr><tr><td align="left">&#xA0;Heart failure</td><td align="left">3 (5.9)</td></tr></tbody></table><table-wrap-foot><p>Data are presented as mean&#x2009;&#xB1;&#x2009;standard deviation or <italic>N</italic> (%) unless otherwise indicated</p><p><italic>BMI</italic> body mass index</p></table-wrap-foot></table-wrap></p>
+      <p id="Par18">Fosphenytoin was most often prescribed for treatment of seizures (92.2%) compared with prophylaxis (9.8%) (Table&#xA0;<xref rid="Tab2" ref-type="table">2</xref>). Free phenytoin targets varied according to patient and provider, with most patients having a target free phenytoin goal of 1.5&#x2013;2.0 mcg/mL (25.5%) or an unspecified patient-specific goal (31.4%), assumed to be 1.5&#x2013;2.5 mcg/mL at our institution. The average initial loading dose administered was approximately 18&#xA0;mg/kg, though loading doses were not consistently reported in patients transferred from outside institutions.<table-wrap id="Tab2"><label>Table&#xA0;2</label><caption><p>Fosphenytoin dosing information</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">Dosing</th><th align="left">Patients</th></tr></thead><tbody><tr><td align="left" colspan="2">Fosphenytoin indication (<italic>n</italic>&#x2009;=&#x2009;51)</td></tr><tr><td align="left">&#xA0;Seizures</td><td align="left">47 (92.2)</td></tr><tr><td align="left">&#xA0;Home medication</td><td align="left">5 (9.8)</td></tr><tr><td align="left">&#xA0;Prophylaxis</td><td align="left">4 (7.8)</td></tr><tr><td align="left" colspan="2">Free phenytoin target goal (<italic>n</italic>&#x2009;=&#x2009;51)</td></tr><tr><td align="left">&#xA0;1.0&#x2013;2.0 mcg/mL</td><td align="left">4 (7.8)</td></tr><tr><td align="left">&#xA0;1.5&#x2013;2.0 mcg/mL</td><td align="left">13 (25.5)</td></tr><tr><td align="left">&#xA0;1.5&#x2013;2.5 mcg/mL</td><td align="left">11 (21.6)</td></tr><tr><td align="left">&#xA0;2.0&#x2013;2.5 mcg/mL</td><td align="left">7 (13.7)</td></tr><tr><td align="left">&#xA0;Unspecified</td><td align="left">16 (31.4)</td></tr><tr><td align="left">Initial loading dose (mg/kg)</td><td align="left">18.2&#x2009;&#xB1;&#x2009;4.4</td></tr><tr><td align="left" colspan="2">Reloading dose calculation strategy (<italic>n</italic>&#x2009;=&#x2009;152)</td></tr><tr><td align="left">&#xA0;Equation</td><td align="left">49 (32.2)</td></tr><tr><td align="left">&#xA0;Equation without <italic>V</italic><sub>d</sub> or salt formulation</td><td align="left">67 (44.1)</td></tr><tr><td align="left">&#xA0;Provider preference</td><td align="left">36 (23.7)</td></tr></tbody></table><table-wrap-foot><p>Data are presented as mean&#x2009;&#xB1;&#x2009;standard deviation or N (%) unless otherwise indicated</p><p><italic>V</italic><sub><italic>d</italic></sub> volume of distribution</p></table-wrap-foot></table-wrap></p>
+      <p id="Par19">Of fosphenytoin reloading doses that were administered, 48% (73/152) of doses resulted in a therapeutic free phenytoin concentration on the subsequent day, with the remaining 52% resulting in nontherapeutic levels (39% subtherapeutic, 13% supratherapeutic) (Table&#xA0;<xref rid="Tab3" ref-type="table">3</xref>). Total levels were rarely collected (9/152) and were not frequently used to calculate reloading doses. When evaluating administered doses to determine whether they were based on calculations, we identified differences in the ability to obtain therapeutic free phenytoin levels. Among doses administered, 67 (44%) were based on a calculation not using <italic>V</italic><sub>d</sub> or salt formulation, 49 (32%) were based on a calculation using <italic>V</italic><sub>d</sub> and salt formulation, and 36 (24%) were not based on a calculation. Doses calculated without using <italic>V</italic><sub>d</sub> or salt formulation resulted in the highest percentage of therapeutic free phenytoin concentrations (58%, <italic>n</italic>&#x2009;=&#x2009;39) compared with doses calculated using V<sub>d</sub> and salt formulation (41%, <italic>n</italic>&#x2009;=&#x2009;20) and doses not based on a calculation (39%, <italic>n</italic>&#x2009;=&#x2009;14).<table-wrap id="Tab3"><label>Table&#xA0;3</label><caption><p>Classification of fosphenytoin free levels stratified by dosing strategy</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">Free phenytoin levels</th><th align="left">Within goal</th><th align="left">Below goal</th><th align="left">Above goal</th></tr></thead><tbody><tr><td align="left">All doses (<italic>n</italic>&#x2009;=&#x2009;152)</td><td char="(" align="char">73 (48.0)</td><td char="(" align="char">59 (38.8)</td><td char="(" align="char">20 (13.2)</td></tr><tr><td align="left" colspan="4">Dosing strategy used</td></tr><tr><td align="left">&#xA0;Equation (<italic>n</italic>&#x2009;=&#x2009;49)</td><td char="(" align="char">20 (40.8)</td><td char="(" align="char">28 (57.1)</td><td char="(" align="char">1 (2.1)</td></tr><tr><td align="left">&#xA0;Equation without <italic>V</italic><sub>d</sub>/SF (<italic>n</italic>&#x2009;=&#x2009;67)</td><td char="(" align="char">39 (58.2)</td><td char="(" align="char">18 (26.9)</td><td char="(" align="char">10 (14.9)</td></tr><tr><td align="left">&#xA0;Provider preference (<italic>n</italic>&#x2009;=&#x2009;36)</td><td char="(" align="char">14 (38.9)</td><td char="(" align="char">13 (36.1)</td><td char="(" align="char">9 (25.0)</td></tr></tbody></table><table-wrap-foot><p>Data are presented as <italic>n</italic> (%)</p><p><italic>SF</italic> salt formulation, <italic>V</italic><sub><italic>d</italic></sub> volume of distribution</p></table-wrap-foot></table-wrap></p>
+      <p id="Par20">Using a bivariate analysis, we identified that the use of a modified pharmacokinetic equation without the addition of <italic>V</italic><sub>d</sub> and salt formulation was associated with a twofold increase in achieving therapeutic levels (odds ratio 2.10; 95% confidence interval 1.08&#x2013;4.01) (Table&#xA0;<xref rid="Tab4" ref-type="table">4</xref>). Other factors assessed, including the presence of organ dysfunction and drug interactions, were not statistically significantly associated with the incidence of attaining therapeutic levels.<table-wrap id="Tab4"><label>Table&#xA0;4</label><caption><p>Bivariate analysis of factors associated with attainment of therapeutic free levels</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">Variable</th><th align="left">Odds ratio (95% CI)</th><th align="left"><italic>P</italic> value</th></tr></thead><tbody><tr><td align="left">Equation dosing</td><td char="(" align="char">0.65 (0.32&#x2013;1.30)</td><td char="." align="char">0.22</td></tr><tr><td align="left">Equation without <italic>V</italic><sub>d</sub>&#x2009;+&#x2009;SF</td><td char="(" align="char">2.10 (1.08&#x2013;4.01)</td><td char="." align="char">0.03</td></tr><tr><td align="left">Provider dosing</td><td char="(" align="char">0.62 (0.28&#x2013;1.32)</td><td char="." align="char">0.21</td></tr><tr><td align="left">BMI&#x2009;&#x2265;&#x2009;30</td><td char="(" align="char">0.85 (0.44&#x2013;1.61)</td><td char="." align="char">0.61</td></tr><tr><td align="left">Renal dysfunction</td><td char="(" align="char">0.57 (0.28&#x2013;1.16)</td><td char="." align="char">0.12</td></tr><tr><td align="left">Liver dysfunction</td><td char="(" align="char">0.71 (0.19&#x2013;2.61)</td><td char="." align="char">0.60</td></tr><tr><td align="left">Concomitant ASA</td><td char="(" align="char">0.75 (0.94&#x2013;4.70)</td><td char="." align="char">0.07</td></tr><tr><td align="left">Concomitant dexamethasone</td><td char="(" align="char">0.84 (0.36&#x2013;1.94)</td><td char="." align="char">0.68</td></tr><tr><td align="left">Concomitant phenobarbital</td><td char="(" align="char">0.77 (0.37&#x2013;1.48)</td><td char="." align="char">0.43</td></tr><tr><td align="left">Concomitant VPA</td><td char="(" align="char">1.09 (0.38&#x2013;3.08)</td><td char="." align="char">0.87</td></tr></tbody></table><table-wrap-foot><p><italic>ASA</italic> acetylsalicylic acid (aspirin), <italic>BMI</italic> body mass index, <italic>CI</italic> confidence interval, <italic>SF</italic> salt formulation, <italic>V</italic><sub><italic>d</italic></sub> volume of distribution, <italic>VPA</italic> valproic acid</p></table-wrap-foot></table-wrap></p>
+      <p id="Par21">The overall incidence of drug interactions in the study population was relatively high, with 26 (51%) patients having at least one concomitant medication that may interfere with phenytoin levels and five (9.8%) patients experiencing more than one drug interaction (Table&#xA0;<xref rid="Tab5" ref-type="table">5</xref>). Aspirin was the drug most commonly involved interaction (27.5%, <italic>n</italic>&#x2009;=&#x2009;14) with the potential to displace phenytoin from binding sites, although this is increasingly rare at the prophylactic doses often used, followed by dexamethasone (13.7%, <italic>n</italic>&#x2009;=&#x2009;7) and phenobarbital (13.7%, <italic>n</italic>&#x2009;=&#x2009;7).<table-wrap id="Tab5"><label>Table&#xA0;5</label><caption><p>Incidence of drug interactions</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">Drug</th><th align="left">Patients (<italic>n</italic>&#x2009;=&#x2009;51)</th></tr></thead><tbody><tr><td align="left">Overall incidence of drug interactions</td><td char="(" align="char">26 (51.0)</td></tr><tr><td align="left">Aspirin</td><td char="(" align="char">14 (27.5)</td></tr><tr><td align="left">Carbamazepine</td><td char="(" align="char">0 (0.0)</td></tr><tr><td align="left">Dexamethasone</td><td char="(" align="char">7 (13.7)</td></tr><tr><td align="left">Methotrexate</td><td char="(" align="char">0 (0.0)</td></tr><tr><td align="left">Phenobarbital</td><td char="(" align="char">7 (13.7)</td></tr><tr><td align="left">Theophylline</td><td char="(" align="char">0 (0.0)</td></tr><tr><td align="left">Valproic acid</td><td char="(" align="char">3 (5.9)</td></tr></tbody></table><table-wrap-foot><p>Data are presented as <italic>n</italic> (%)</p></table-wrap-foot></table-wrap></p>
+    </sec>
+    <sec id="Sec4">
+      <title>Discussion</title>
+      <p id="Par22">The pharmacokinetics of phenytoin are known to be unpredictable, and therapeutic drug monitoring has been well-established as a method of determining drug efficacy and toxicity. With numerous factors affecting drug distribution and the potential for drug saturation, dosing needs remain highly individualized throughout treatment courses. Previous studies have evaluated phenytoin therapeutic drug monitoring in various populations, including obesity and critical illness; however, few studies have evaluated the accuracy of dose adjustments in these patients after initial therapy [<xref ref-type="bibr" rid="CR8">8</xref>, <xref ref-type="bibr" rid="CR11">11</xref>].</p>
+      <p id="Par23">Overall, we evaluated three different strategies for calculating a reloading dose to determine whether a difference existed in the incidence of obtaining subsequent therapeutic free phenytoin concentrations. Our analysis of 51 patients receiving 152 doses showed that patients had the greatest chance of achieving a therapeutic level when the modified equation omitting <italic>V</italic><sub>d</sub> and salt formulation was used. The use of the current method of calculating a reloading dose more commonly resulted in subtherapeutic concentrations, showing that it is more likely to underdose patients. The <italic>V</italic><sub>d</sub> used in the current Eq.&#xA0;(0.7 L/kg) is an estimate of the predicted value; however, previous studies have shown that the V<sub>d</sub> of phenytoin is affected by fluid status, weight, and albumin, all of which fluctuate significantly in critically ill patients, making it difficult to predict a standard <italic>V</italic><sub>d</sub> applicable for all [<xref ref-type="bibr" rid="CR9">9</xref>]. Though <italic>V</italic><sub>d</sub> is likely the pharmacokinetic parameter with the lowest interindividual variability, the&#xA0;value that should be used in this increasingly complex population remains uncertain and begs the question of whether <italic>V</italic><sub>d</sub> should be increased to a value of 1 L/kg to better represent the difference in critically ill patient pharmacokinetics, essentially omitting it from the equation.</p>
+      <p id="Par24">When using a bivariate analysis to determine whether any factors were associated with an increased incidence of attaining a therapeutic level, patients receiving doses based on the modified equation were two times as likely to achieve a therapeutic level. Interestingly, a large number of patients had renal dysfunction, which is thought to be associated with an increased fraction of free phenytoin, expected to correlate with an increase in <italic>V</italic><sub>d</sub> and the potential need for decreased doses [<xref ref-type="bibr" rid="CR9">9</xref>]. Our bivariate analysis found no statistically significant association between phenytoin use, renal dysfunction, and obtaining therapeutic drug concentrations, and these patients were just as likely to experience subtherapeutic concentrations. Other factors analyzed, including the use of interacting medications, also showed no association, although these medications are known to have the potential to affect drug concentrations, and providers should still be cognizant of concomitant use.</p>
+      <p id="Par25">Many patients (51%) experienced at least one drug interaction, with most involving concomitant use of a medication with the potential to displace phenytoin from albumin binding sites (aspirin, valproic acid). This would, in theory, result in falsely elevated total drug concentrations, whereas the unbound concentration may remain unchanged or potentially increase if the displacing drug also inhibits phenytoin metabolism. It is possible that the true effect of such interactions were not seen because a low dose of aspirin was used in all patients and phenytoin itself is an inducer, potentially cancelling out the effects of other interactions. This effect also may not have been as apparent since free levels were primarily collected as opposed to total, with most patients still experiencing subtherapeutic concentrations.</p>
+      <p id="Par26">Our study has some limitations. First, it was retrospective in design, making it difficult to ensure free levels collected were &#x201C;true&#x201D; troughs. At our institution, free phenytoin levels are analyzed twice daily, with levels most often obtained with morning laboratory tests for convenience. Although this may affect study generalizability, this is the standard method of dose adjustment at our institution and mimics practicality. In addition, the dosing strategy used was extrapolated from predicted calculations, but we cannot tell whether the dosing strategy was deliberately chosen by the ordering provider or whether assistance was provided by a clinical pharmacist. Also, the list of drug interactions and comorbidities is not all inclusive but selected based on commonly included medications throughout the literature. Finally, because of the retrospective design, only a small number of patients had certain comorbidities of interest, including hepatic dysfunction, limiting our ability to make conclusions regarding the effects these comorbidities exerted on phenytoin levels.</p>
+    </sec>
+    <sec id="Sec5">
+      <title>Conclusion</title>
+      <p id="Par27">The current method of calculating a fosphenytoin reloading dose in the critically ill population does not consistently result in therapeutic levels, leading to more patients with persistently subtherapeutic phenytoin concentrations. With multiple factors affecting pharmacokinetics in critically ill patients, the use of a modified pharmacokinetic equation with less emphasis on <italic>V</italic><sub>d</sub> may result in therapeutic concentrations more consistently than current strategies.</p>
+    </sec>
+  </body>
+  <back>
+    <notes>
+      <title>Compliance with Ethical Standards</title>
+      <notes notes-type="COI-statement">
+        <title>Conflicts of Interest</title>
+        <p id="Par28">Mandee Noval, Hyunuk Seung, and Michael Armahizer have no conflicts of interest that are directly relevant to the content of this article.</p>
+      </notes>
+      <notes notes-type="funding">
+        <title>Funding</title>
+        <p id="Par29">No sources of funding were used to conduct this study or prepare this manuscript.</p>
+      </notes>
+    </notes>
+    <ref-list id="Bib1">
+      <title>References</title>
+      <ref id="CR1">
+        <label>1.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Brophy</surname>
+              <given-names>GM</given-names>
+            </name>
+            <name>
+              <surname>Bell</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Claassen</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Alldredge</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Bleck</surname>
+              <given-names>TP</given-names>
+            </name>
+            <collab>Neurocritical Care Society Status Epilepticus Guideline Writing Committee</collab>
+            <etal/>
+          </person-group>
+          <article-title>Guidelines for the Evaluation and Management of Status Epilepticus</article-title>
+          <source>Neurocrit Care.</source>
+          <year>2012</year>
+          <volume>17</volume>
+          <fpage>3</fpage>
+          <lpage>23</lpage>
+          <pub-id pub-id-type="doi">10.1007/s12028-012-9695-z</pub-id>
+          <pub-id pub-id-type="pmid">22528274</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR2">
+        <label>2.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Carney</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Totten</surname>
+              <given-names>AM</given-names>
+            </name>
+            <name>
+              <surname>O&#x2019;Reilly</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Ullman</surname>
+              <given-names>JS</given-names>
+            </name>
+            <name>
+              <surname>Hawryluk</surname>
+              <given-names>GWJ</given-names>
+            </name>
+            <name>
+              <surname>Bell</surname>
+              <given-names>MJ</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Guidelines for the management of severe traumatic brain injury, Fourth Edition</article-title>
+          <source>Neurosurgery.</source>
+          <year>2017</year>
+          <volume>80</volume>
+          <fpage>6</fpage>
+          <lpage>15</lpage>
+          <pub-id pub-id-type="doi">10.1227/NEU.0000000000001432</pub-id>
+          <pub-id pub-id-type="pmid">27654000</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR3">
+        <label>3.</label>
+        <mixed-citation publication-type="other">Cerebyx [package insert]. New York, NY: Pfizer; 2018.</mixed-citation>
+      </ref>
+      <ref id="CR4">
+        <label>4.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Chan</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Beran</surname>
+              <given-names>RG</given-names>
+            </name>
+          </person-group>
+          <article-title>Value of therapeutic drug level monitoring and unbound (free) levels</article-title>
+          <source>Seizure.</source>
+          <year>2008</year>
+          <volume>17</volume>
+          <fpage>572</fpage>
+          <lpage>575</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.seizure.2007.12.007</pub-id>
+          <pub-id pub-id-type="pmid">18262440</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR5">
+        <label>5.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Valodia</surname>
+              <given-names>PN</given-names>
+            </name>
+            <name>
+              <surname>Seymour</surname>
+              <given-names>MA</given-names>
+            </name>
+            <name>
+              <surname>McFadyen</surname>
+              <given-names>ML</given-names>
+            </name>
+            <name>
+              <surname>Miller</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Folb</surname>
+              <given-names>PI</given-names>
+            </name>
+          </person-group>
+          <article-title>Validation of population pharmacokinetic parameters of phenytoin using the parallel michaelis-menten and first-order elimination model</article-title>
+          <source>Ther Drug Monit.</source>
+          <year>2000</year>
+          <volume>22</volume>
+          <fpage>313</fpage>
+          <lpage>319</lpage>
+          <pub-id pub-id-type="doi">10.1097/00007691-200006000-00013</pub-id>
+          <pub-id pub-id-type="pmid">10850399</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR6">
+        <label>6.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Patsalos</surname>
+              <given-names>PN</given-names>
+            </name>
+            <name>
+              <surname>Berry</surname>
+              <given-names>DJ</given-names>
+            </name>
+            <name>
+              <surname>Bourgeois</surname>
+              <given-names>BFD</given-names>
+            </name>
+            <name>
+              <surname>Cloyd</surname>
+              <given-names>JC</given-names>
+            </name>
+            <name>
+              <surname>Glauser</surname>
+              <given-names>TA</given-names>
+            </name>
+            <name>
+              <surname>Johannessen</surname>
+              <given-names>SI</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Antiepileptic drugsbest practice guidelines for therapeutic drug monitoring: a position paper by the subcommission on therapeutic drug monitoring. ILAE Commission on Therapeutic Strategies</article-title>
+          <source>Epilepsia.</source>
+          <year>2008</year>
+          <volume>49</volume>
+          <fpage>1239</fpage>
+          <lpage>1276</lpage>
+          <pub-id pub-id-type="doi">10.1111/j.1528-1167.2008.01561.x</pub-id>
+          <pub-id pub-id-type="pmid">18397299</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR7">
+        <label>7.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Anderson</surname>
+              <given-names>GD</given-names>
+            </name>
+          </person-group>
+          <article-title>Pharmacokinetic, pharmacodynamic, and pharmacogenetic targeted therapy of antiepileptic drugs</article-title>
+          <source>Ther Drug Monit</source>
+          <year>2008</year>
+          <volume>30</volume>
+          <fpage>173</fpage>
+          <lpage>180</lpage>
+          <pub-id pub-id-type="doi">10.1097/FTD.0b013e318167d11b</pub-id>
+          <pub-id pub-id-type="pmid">18367977</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR8">
+        <label>8.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>von Winckelmann</surname>
+              <given-names>SL</given-names>
+            </name>
+            <name>
+              <surname>Spriet</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Willems</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <article-title>Therapeutic drug monitoring of phenytoin in critically ill patients</article-title>
+          <source>Pharmacotherapy.</source>
+          <year>2008</year>
+          <volume>28</volume>
+          <fpage>1391</fpage>
+          <lpage>1400</lpage>
+          <pub-id pub-id-type="doi">10.1592/phco.28.11.1391</pub-id>
+          <pub-id pub-id-type="pmid">18956999</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR9">
+        <label>9.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Frame</surname>
+              <given-names>B</given-names>
+            </name>
+            <name>
+              <surname>Beal</surname>
+              <given-names>SL</given-names>
+            </name>
+          </person-group>
+          <article-title>Non-steady state population kinetics of intravenous phenytoin</article-title>
+          <source>Ther Drug Monit.</source>
+          <year>1998</year>
+          <volume>20</volume>
+          <fpage>408</fpage>
+          <lpage>416</lpage>
+          <pub-id pub-id-type="doi">10.1097/00007691-199808000-00010</pub-id>
+          <pub-id pub-id-type="pmid">9712466</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR10">
+        <label>10.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Power</surname>
+              <given-names>BM</given-names>
+            </name>
+            <name>
+              <surname>Forbes</surname>
+              <given-names>AM</given-names>
+            </name>
+            <name>
+              <surname>van Heerden</surname>
+              <given-names>PV</given-names>
+            </name>
+            <name>
+              <surname>Ilett</surname>
+              <given-names>KF</given-names>
+            </name>
+          </person-group>
+          <article-title>Pharmacokinetics of drugs used in critically ill adults</article-title>
+          <source>Clin Pharmacokinet</source>
+          <year>1998</year>
+          <volume>34</volume>
+          <fpage>25</fpage>
+          <lpage>56</lpage>
+          <pub-id pub-id-type="doi">10.2165/00003088-199834010-00002</pub-id>
+          <pub-id pub-id-type="pmid">9474472</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR11">
+        <label>11.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>DasGupta</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Alaniz</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Burghardt</surname>
+              <given-names>D</given-names>
+            </name>
+          </person-group>
+          <article-title>Evaluation of intravenous phenytoin and fosphenytoin loading doses: influence of obesity and sex</article-title>
+          <source>Ann Pharmacother</source>
+          <year>2019</year>
+          <volume>53</volume>
+          <fpage>458</fpage>
+          <lpage>463</lpage>
+          <pub-id pub-id-type="doi">10.1177/1060028018818785</pub-id>
+          <pub-id pub-id-type="pmid">30522345</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR12">
+        <label>12.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Tobler</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>H&#xF6;sli</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>M&#xFC;hlebach</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Huber</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <article-title>Free phenytoin assessment in patients: measured versus calculated blood serum levels</article-title>
+          <source>Int J Clin Pharm.</source>
+          <year>2016</year>
+          <volume>38</volume>
+          <fpage>303</fpage>
+          <lpage>309</lpage>
+          <pub-id pub-id-type="doi">10.1007/s11096-015-0241-x</pub-id>
+          <pub-id pub-id-type="pmid">26746902</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR13">
+        <label>13.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bellomo</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Kellum</surname>
+              <given-names>JA</given-names>
+            </name>
+            <name>
+              <surname>Ronco</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <article-title>Defining and classifying acute renal failure: from advocacy to consensus and validation of the RIFLE criteria</article-title>
+          <source>Intensive Care Med</source>
+          <year>2007</year>
+          <volume>33</volume>
+          <fpage>409</fpage>
+          <lpage>413</lpage>
+          <pub-id pub-id-type="doi">10.1007/s00134-006-0478-x</pub-id>
+          <pub-id pub-id-type="pmid">17165018</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR14">
+        <label>14.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lopes</surname>
+              <given-names>JA</given-names>
+            </name>
+            <name>
+              <surname>Jorge</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <article-title>The RIFLE and AKIN classifications for acute kidney injury: a critical and comprehensive review</article-title>
+          <source>Clin Kidney J</source>
+          <year>2013</year>
+          <volume>6</volume>
+          <fpage>8</fpage>
+          <lpage>14</lpage>
+          <pub-id pub-id-type="doi">10.1093/ckj/sfs160</pub-id>
+          <pub-id pub-id-type="pmid">27818745</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
+</pmc-articleset>

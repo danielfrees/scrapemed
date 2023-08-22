@@ -1,0 +1,1080 @@
+<?xml version="1.0" ?>
+<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN" "https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd">
+<pmc-articleset><article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ali="http://www.niso.org/schemas/ali/1.0/" article-type="research-article" dtd-version="1.3">
+  <?properties open_access?>
+  <processing-meta base-tagset="archiving" mathml-version="3.0" table-model="xhtml" tagset-family="jats">
+    <restricted-by>pmc</restricted-by>
+  </processing-meta>
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">BMC Public Health</journal-id>
+      <journal-id journal-id-type="iso-abbrev">BMC Public Health</journal-id>
+      <journal-title-group>
+        <journal-title>BMC Public Health</journal-title>
+      </journal-title-group>
+      <issn pub-type="epub">1471-2458</issn>
+      <publisher>
+        <publisher-name>BioMed Central</publisher-name>
+        <publisher-loc>London</publisher-loc>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">36690965</article-id>
+      <article-id pub-id-type="pmc">9872380</article-id>
+      <article-id pub-id-type="publisher-id">15060</article-id>
+      <article-id pub-id-type="doi">10.1186/s12889-023-15060-9</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Research</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Effect of an electronic reminder of follow-up screening after pregnancy complicated by gestational diabetes mellitus: a randomized controlled trial</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <name>
+            <surname>Nielsen</surname>
+            <given-names>Jane Hyldgaard</given-names>
+          </name>
+          <address>
+            <email>jhy@ucn.dk</email>
+          </address>
+          <xref ref-type="aff" rid="Aff1">1</xref>
+          <xref ref-type="aff" rid="Aff2">2</xref>
+          <xref ref-type="aff" rid="Aff3">3</xref>
+          <xref ref-type="aff" rid="Aff4">4</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Fonager</surname>
+            <given-names>Kirsten</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff5">5</xref>
+          <xref ref-type="aff" rid="Aff6">6</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Kristensen</surname>
+            <given-names>Jette Kolding</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff7">7</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Overgaard</surname>
+            <given-names>Charlotte</given-names>
+          </name>
+          <xref ref-type="aff" rid="Aff2">2</xref>
+          <xref ref-type="aff" rid="Aff8">8</xref>
+        </contrib>
+        <aff id="Aff1"><label>1</label><institution-wrap><institution-id institution-id-type="GRID">grid.460790.c</institution-id><institution-id institution-id-type="ISNI">0000 0004 0634 4373</institution-id><institution>Department of Midwifery, </institution><institution>University College of Northern Denmark, </institution></institution-wrap>Aalborg &#xD8;st, Denmark </aff>
+        <aff id="Aff2"><label>2</label><institution-wrap><institution-id institution-id-type="GRID">grid.5117.2</institution-id><institution-id institution-id-type="ISNI">0000 0001 0742 471X</institution-id><institution>Public Health and Epidemiology Group, Department of Health Science and Technology, </institution><institution>Aalborg University, </institution></institution-wrap>Aalborg, Denmark </aff>
+        <aff id="Aff3"><label>3</label><institution-wrap><institution-id institution-id-type="GRID">grid.460790.c</institution-id><institution-id institution-id-type="ISNI">0000 0004 0634 4373</institution-id><institution>Research Center for Health and Applied Technology, </institution><institution>University College of Northern Denmark, </institution></institution-wrap>Aalborg, Denmark </aff>
+        <aff id="Aff4"><label>4</label><institution-wrap><institution-id institution-id-type="GRID">grid.5600.3</institution-id><institution-id institution-id-type="ISNI">0000 0001 0807 5670</institution-id><institution>DECIPH&#x2019;er, Cardiff School of Social Sciences, </institution><institution>Cardiff University, </institution></institution-wrap>Cardiff, Wales </aff>
+        <aff id="Aff5"><label>5</label><institution-wrap><institution-id institution-id-type="GRID">grid.27530.33</institution-id><institution-id institution-id-type="ISNI">0000 0004 0646 7349</institution-id><institution>Department of Social Medicine, </institution><institution>Aalborg University Hospital, </institution></institution-wrap>Aalborg, Denmark </aff>
+        <aff id="Aff6"><label>6</label><institution-wrap><institution-id institution-id-type="GRID">grid.5117.2</institution-id><institution-id institution-id-type="ISNI">0000 0001 0742 471X</institution-id><institution>Department of Clinical Medicine, </institution><institution>Aalborg University, </institution></institution-wrap>Aalborg, Denmark </aff>
+        <aff id="Aff7"><label>7</label><institution-wrap><institution-id institution-id-type="GRID">grid.5117.2</institution-id><institution-id institution-id-type="ISNI">0000 0001 0742 471X</institution-id><institution>Centre for General Practice, </institution><institution>Aalborg University, </institution></institution-wrap>Aalborg, Denmark </aff>
+        <aff id="Aff8"><label>8</label><institution-wrap><institution-id institution-id-type="GRID">grid.10825.3e</institution-id><institution-id institution-id-type="ISNI">0000 0001 0728 0170</institution-id><institution> Unit of Health Promotion, Department of Public Health, </institution><institution>University of Southern Denmark, </institution></institution-wrap>Esbjerg, Denmark </aff>
+      </contrib-group>
+      <pub-date pub-type="epub">
+        <day>23</day>
+        <month>1</month>
+        <year>2023</year>
+      </pub-date>
+      <pub-date pub-type="pmc-release">
+        <day>23</day>
+        <month>1</month>
+        <year>2023</year>
+      </pub-date>
+      <pub-date pub-type="collection">
+        <year>2023</year>
+      </pub-date>
+      <volume>23</volume>
+      <elocation-id>153</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>1</day>
+          <month>6</month>
+          <year>2022</year>
+        </date>
+        <date date-type="accepted">
+          <day>16</day>
+          <month>1</month>
+          <year>2023</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>&#xA9; The Author(s) 2023</copyright-statement>
+        <license>
+          <ali:license_ref specific-use="textmining" content-type="ccbylicense">https://creativecommons.org/licenses/by/4.0/</ali:license_ref>
+          <license-p><bold>Open Access</bold>This article is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if changes were made. The images or other third party material in this article are included in the article's Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article's Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit <ext-link ext-link-type="uri" xlink:href="https://creativecommons.org/licenses/by/4.0/">http://creativecommons.org/licenses/by/4.0/</ext-link>. The Creative Commons Public Domain Dedication waiver (<ext-link ext-link-type="uri" xlink:href="https://creativecommons.org/publicdomain/zero/1.0/">http://creativecommons.org/publicdomain/zero/1.0/</ext-link>) applies to the data made available in this article, unless otherwise stated in a credit line to the data.</license-p>
+        </license>
+      </permissions>
+      <abstract id="Abs1">
+        <sec>
+          <title>Aim</title>
+          <p id="Par1">To determine the effectiveness of despatching an electronic reminder of participation in screening for gestational diabetes. The reminder was sent to the women 1&#x2013;8&#xA0;years after delivery.</p>
+        </sec>
+        <sec>
+          <title>Methods</title>
+          <p id="Par2">A registry-based, randomized controlled trial in the North Denmark Region among women with gestational diabetes. Randomization was made, which included seven groups stratified by the child&#x2019;s birth year (2012&#x2013;2018). The intervention group received standard care supplemented by an electronic reminder through a secure nationwide email system (<italic>n</italic>&#x2009;=&#x2009;731), while the control group received only standard care (<italic>n</italic>&#x2009;=&#x2009;732). The primary outcome was based on blood testing for diabetes (OGTT, HbA1c or fasting P-glucose).</p>
+        </sec>
+        <sec>
+          <title>Results</title>
+          <p id="Par3">A total of 471 (32.1%) women participated in screening. The primary outcome was experienced by 257 women (35.1%) in the intervention group and 214 women (29.2%) in the control group. The effect of the reminder seemed to increase with recipient&#x2019;s age, non-western origin, urban dwelling, and multiparity. Of those who participated in follow-up screening, 56 (3.8%) were diagnosed with type 2 diabetes.</p>
+        </sec>
+        <sec>
+          <title>Conclusion</title>
+          <p id="Par4">Electronic reminders, based on the principles of informed choice and patient-centred care, to women have been shown to support life-long participation in follow-up screening. Attempts to further stimulation of coverage could however be considered.</p>
+        </sec>
+        <sec>
+          <title>Trail registration</title>
+          <p id="Par5">ISRCTN registry (22/04/2022, ISRCTN23558707).</p>
+        </sec>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <title>Keywords</title>
+        <kwd>Gestational diabetes mellitus</kwd>
+        <kwd>Type 2 diabetes</kwd>
+        <kwd>Follow-up screening</kwd>
+        <kwd>Reminder</kwd>
+        <kwd>Health prevention</kwd>
+        <kwd>Health research</kwd>
+      </kwd-group>
+      <custom-meta-group>
+        <custom-meta>
+          <meta-name>issue-copyright-statement</meta-name>
+          <meta-value>&#xA9; The Author(s) 2023</meta-value>
+        </custom-meta>
+      </custom-meta-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="Sec1">
+      <title>Introduction</title>
+      <p id="Par11">The prevalence of gestational diabetes (GDM) varies regionally, thus affecting approximately 7&#x2013;8% of pregnancies in Europe [<xref ref-type="bibr" rid="CR1">1</xref>] and 3&#x2013;4% of pregnancies in Denmark [<xref ref-type="bibr" rid="CR2">2</xref>]. These variations can be explained by different screening strategies, diagnostic criteria and population groups [<xref ref-type="bibr" rid="CR1">1</xref>]. Nonetheless, in addition to increasing the risk of pregnancy complications, women with pregnancy complicated by GDM are at an approximately eightfold higher lifetime risk of type 2 diabetes mellitus after pregnancy [<xref ref-type="bibr" rid="CR3">3</xref>], as well as an increased risk of cardiovascular diseases [<xref ref-type="bibr" rid="CR4">4</xref>]. Guidelines therefore recommend follow-up screening 2&#x2013;3&#xA0;month after birth and every 12&#xA0;months, or at least every three years [<xref ref-type="bibr" rid="CR5">5</xref>]. The low uptake of postpartum screening is, however, a challenge shared by many countries [<xref ref-type="bibr" rid="CR6">6</xref>, <xref ref-type="bibr" rid="CR7">7</xref>]. With approximately 17% of women participating in screening 4&#x2013;6&#xA0;years after birth [<xref ref-type="bibr" rid="CR6">6</xref>], Denmark has seen a drop in the uptake, which is problematic as attendance and receiving a diagnosis of diabetes are positively associated [<xref ref-type="bibr" rid="CR6">6</xref>]. The untapped potential for early diabetes detection recently led the International Diabetes Federation (IDF) to call for further research into the field [<xref ref-type="bibr" rid="CR4">4</xref>].</p>
+      <p id="Par12">Although reminder interventions have been found effective in targeting some of the many documented barriers to follow-up screening after birth, the effect varies strongly across settings [<xref ref-type="bibr" rid="CR8">8</xref>]. Our recently published review affirmed the influence of several contextual factors [<xref ref-type="bibr" rid="CR8">8</xref>] on institutional, community and policy levels. These factors include the need for continuity and collaboration on care across healthcare sectors, standardization of care, logistics, and compensation of the women&#x2019;s expenses, challenging work obligations and time spent on screening [<xref ref-type="bibr" rid="CR8">8</xref>].</p>
+      <p id="Par13">As previous studies of the effect of reminder interventions have followed women for only 12&#xA0;months after birth, the available data concern the short-term effects of screening [<xref ref-type="bibr" rid="CR8">8</xref>&#x2013;<xref ref-type="bibr" rid="CR10">10</xref>]. As we know that women with previous GDM remain at high risk of diabetes for at least 15&#xA0;years after birth [<xref ref-type="bibr" rid="CR11">11</xref>], the declining participation rates [<xref ref-type="bibr" rid="CR6">6</xref>] are worrying and call for exploration of the long-term effect of reminder interventions.</p>
+      <p id="Par14">The aim of this study was to determine the effectiveness of an electronic reminder intervention targeting women whose pregnancy was complicated by GDM with regard to increasing participation in follow-up screening in general practice clinics. All women in the cohort who had delivered between 2012 and 2018 were eligible.</p>
+    </sec>
+    <sec id="Sec2">
+      <title>Materials and methods</title>
+      <sec id="Sec3">
+        <title>Study design and participants</title>
+        <sec id="Sec4">
+          <title>Design and setting</title>
+          <p id="Par15">This study was designed as a two-armed, single-blinded randomized controlled trial. The setting was the North Denmark Region, with approximately 0.6 million inhabitants [<xref ref-type="bibr" rid="CR12">12</xref>]. Denmark offers all citizens universal healthcare free of charge [<xref ref-type="bibr" rid="CR12">12</xref>], including follow-up screening for women with previous GDM [<xref ref-type="bibr" rid="CR13">13</xref>]. It is however up to the women themselves to remember to make use of this offer. General practitioners (GPs) play a key role in all aspects of primary healthcare [<xref ref-type="bibr" rid="CR12">12</xref>], including follow-up care. The identification of study population, obtaining information on baseline characteristics, despatching reminders and assessing outcomes were enabled by the Danish civil registration system. Holding a permanent and unique number (CPR number) for all residents, the system enables the linkage of individual data across multiple nation-wide registers while ensuring total anonymity [<xref ref-type="bibr" rid="CR12">12</xref>].</p>
+        </sec>
+        <sec id="Sec5">
+          <title>Participants</title>
+          <sec id="FPar1">
+            <title>Inclusion and exclusion criteria</title>
+            <p id="Par16">Women who had given birth between 2012 and 2018 and were diagnosed with GDM were eligible for inclusion. Diagnostic test during pregnancy consists of an oral glucose tolerance test (OGTT) with diagnostic criteria of a 2-h blood glucose (&#x2265;&#x2009;9.0&#xA0;mmol/l) [<xref ref-type="bibr" rid="CR13">13</xref>]. In attempts to strengthen the credibility of GDM diagnosis, women also diagnosed with diabetes (e.g., type 1 or type 2 diabetes mellitus) more than 40&#xA0;weeks prior to birth were excluded. We also excluded women who had already been diagnosed with diabetes during/after pregnancy prior to the intervention, women who no longer lived in the region or who had died. If a woman was registered with more than one GDM-affected pregnancy, inclusion was based on the youngest live-born child.</p>
+          </sec>
+          <sec id="FPar2">
+            <title>Identification and data sources</title>
+            <p id="Par17">Women were identified via the National Patient Register, which is based on all hospital admissions in Denmark, contains personal information on patients, including CPR number, home municipality, age, parity (primipara or multipara), BMI and death [<xref ref-type="bibr" rid="CR14">14</xref>]. The Danish Health Service's classification system, reporting on hospital admissions to the National Patient Register, is based on WHO&#x2019;s International Statistical Classification of Diseases and Related Health Problems (ICD-10) [<xref ref-type="bibr" rid="CR15">15</xref>], and enabled this identification (e.g., birth (ICD10:D080-D084), GDM-diagnosis (ICD10: D024) and other diabetes diagnosis (ICD10:DE10-14)). Information on ethnicity and employment status was retrieved from the Danish Employment's database (DREAM database) [<xref ref-type="bibr" rid="CR14">14</xref>].</p>
+          </sec>
+          <sec id="FPar3">
+            <title>Sample size</title>
+            <p id="Par18">The sample size was determined on the basis of a risk difference calculation. Based on participation rates in the region and a reminder intervention achieving an effect above 10% points [<xref ref-type="bibr" rid="CR6">6</xref>, <xref ref-type="bibr" rid="CR16">16</xref>, <xref ref-type="bibr" rid="CR17">17</xref>], it was estimated that 388 women per arm were required to detect at least a 10%-point improvement in participation and increase test attendance from 50 to 60%, with 80% power, &#x3B1; of 0.05 and expectation of no loss to follow-up.</p>
+          </sec>
+        </sec>
+      </sec>
+      <sec id="Sec6">
+        <title>Study intervention</title>
+        <p id="Par19">In the setting of the North Denmark region, women with a pregnancy complicated by GDM are routinely informed by a nurse or midwife about the increased risk of type 2 diabetes mellitus and the recommendation of follow-up screening after birth. If the woman has insulin-treated GDM, an appointment for the first screening is scheduled at two to three months after birth, while it is left to women with noninsulin-treated GDM to book a screening appointment with their GP. In all cases, the woman is responsible for booking further screening appointments in the years following birth in general practice. Overall, the region has high participation rates for the first screening, while a significant decline is observed in the following years [<xref ref-type="bibr" rid="CR6">6</xref>]. The described study intervention consisted of an electronic reminder of screening sent to all women in the intervention group, who additionally received standard care. The email informed the women of the increased risk of type 2 diabetes and the benefits of early diabetes detection. Recommendations on screening, details on the booking procedure and a contact address for further information were given. The approach was based on the principles of informed choice, patient-centred care, and the belief that brief decision support interventions are helpful for pregnant women [<xref ref-type="bibr" rid="CR18">18</xref>].</p>
+        <p id="Par20">Women who had participated in screening in the previous 12&#xA0;months were asked to disregard the reminder, which was sent through a secure nation-wide email system accessed by almost all citizens in Denmark for information from public authorities (e.g., the healthcare system, tax authorities, etc.). Women can access the Danish secured email systems by use of a mobile application. The system was thus easily accessible [<xref ref-type="bibr" rid="CR19">19</xref>]. Citizens can apply for exception from use of this secured email system due to e.g., mental or physical illness; in the North Denmark region exception is estimated to be granted to approximately seven percent of the population. As the secure email was linked to the women&#x2019;s CPR number, no further contact information was needed. The reminder was despatched on 27 August 2020.</p>
+        <p id="Par21">To support adoption [<xref ref-type="bibr" rid="CR8">8</xref>, <xref ref-type="bibr" rid="CR20">20</xref>] of the follow-up screening and local anchoring in the region, its GPs were informed of the project through official and organizational channels. The total cost of the entire intervention, which is likely to decrease if routinely implemented, did not exceed &#x20AC;1000 (secure email fee).</p>
+      </sec>
+      <sec id="Sec7">
+        <title>Randomization</title>
+        <p id="Par22">The study population was stratified on the calendar year for the GDM pregnancy, based on the birth year of the child. An independent statistician was tasked with randomization into either intervention group or control group within each stratum using R Core Team software (2020) [<xref ref-type="bibr" rid="CR21">21</xref>] with a computer-generated random allocation sequence to create a 1:1 ratio. Determined by formal chance processes, the assignment to the intervention could not be predicted or influenced. The outcome assessor was furthermore blinded to treatment allocations, which prevented bias in the estimated effect of the intervention. While the nature of the intervention precluded blinding of participants within intervention groups, the control group members were unaware of the intervention study.</p>
+      </sec>
+      <sec id="Sec8">
+        <title>Outcome assessment</title>
+        <p id="Par23">The primary outcome was any participation in follow-up screening after receiving a reminder, defined as the performance of the recommended blood test for diabetes. In general practice, HbA1c are the recommended diagnostic test used for women with previous GDM [<xref ref-type="bibr" rid="CR13">13</xref>]. The HbA1c measurement (mmol/mol) complies to the more recent standardization from the International Federation of Clinical Chemistry (IFCC) [<xref ref-type="bibr" rid="CR13">13</xref>]. The tests performed in the general practice clinics could however be either an oral glucose tolerance test (OGTT) or a fasting P-glucose test, and blood samples for HbA1c which were sent from GPs for analysis in a regional biochemical department. Different data sources were therefore combined to assess the primary outcome. The registry of National Health Insurance Statistics contains information on health insurance services made in general practice [<xref ref-type="bibr" rid="CR14">14</xref>], and pay-per-performance principles ensured registration and monitoring of the screening tests. The performance code for GP clinics&#x2019; testing of blood glucose was used (Code: 7136). GPs could also request a P-glucose analysis from hospitals&#x2019; biochemical departments, which used NPU (Nomenclature for Properties and Units) terminology, an international coding system that enables identification of test results [<xref ref-type="bibr" rid="CR22">22</xref>]. NPU codes used to determine performed test are NPU27412 (HbA1c), NPU21530 (OGTT) and NPU02192 (P-glucose). The secondary outcome was a diagnosis of type 2 diabetes mellitus defined by HbA1c test values&#x2009;&#x2265;&#x2009;48&#xA0;mmol/mol as identified through the NPU coding, or a diabetes diagnosis (ICD10:DE10-14) registered by the hospital. Outcome data were retrieved in February 2021, approximately 6&#xA0;months after reminders were despatched.</p>
+      </sec>
+      <sec id="Sec9">
+        <title>Data analysis</title>
+        <p id="Par24">The baseline characteristics of all randomized women were compared descriptively, showing frequency and percentages in total and between the control and intervention groups. Categorizations of baseline characteristics included Age (&#x2264;&#x2009;25 Years, 26&#x2013;35 Years, 36&#x2013;50 Years), Ethnicity (Danish/western, non-western), Employment status in percentages (defined as number of weeks as self-supporting, including women on maternity leave and state education support 0&#x2013;2&#xA0;years before despatch of reminders) (&#x2265;&#x2009;80%, 20&#x2013;80%,&#x2009;&#x2264;&#x2009;20%) [<xref ref-type="bibr" rid="CR23">23</xref>], Municipality (urban: 219,500 inhabitants in one municipality, rural: 371,000 inhabitants across 10 municipalities), Parity (primipara, multipara) and Body mass index kg/m<sup>2</sup> (BMI; underweight/normal (BMI&#x2009;&lt;&#x2009;25), overweight (BMI 26&#x2013;30), obese (BMI&#x2009;&gt;&#x2009;30).</p>
+        <p id="Par25">We estimated the effect of the intervention by reporting risk ratios (RR), risk differences (RD) and 95% confidence intervals (CI) for primary outcomes. To calculate the number of women diagnosed with diabetes and a <italic>P</italic>-value in relation to the secondary outcome, Pearson&#x2019;s chi square test was used. Outcome comparisons were made according to randomization allocations, including women who did not receive the reminder intervention as intended. This preserved the integrity of randomization during analysis and respected the intention-to-treat principle. A histogram was prepared to graphically display frequency and distribution of the primary outcome in the time after despatching the reminder to the intervention group. Distributions of the primary outcome was made according to five timeline cut-offs (August/September, October, November, December, and January/February).</p>
+        <p id="Par26">A forest plot graphically displayed the estimated results according to stratified groups representing years after birth. To estimate the effect of the intervention for different subgroups, we also stratified for age, ethnicity, employment status, municipality, parity, and BMI. All statistical analyses were performed using Stata 16.1 software for Windows&#xAE; (StataCorp., College Station, TX, USA).</p>
+      </sec>
+    </sec>
+    <sec id="Sec10">
+      <title>Results</title>
+      <sec id="Sec11">
+        <title>Recruitment and participant flow</title>
+        <p id="Par27">Of the 1708 women assessed for eligibility, 188 had a diabetes diagnosis prior to birth (Fig.&#xA0;<xref rid="Fig1" ref-type="fig">1</xref>). Additionally, of the 57 excluded women, two had died before study onset, 17 had been diagnosed with diabetes during/after pregnancy prior to the intervention, and 38 no longer lived in the North Denmark Region (Fig.&#xA0;<xref rid="Fig1" ref-type="fig">1</xref>). Participants were randomized to either control group/standard care (<italic>n</italic>&#x2009;=&#x2009;732) or intervention group/standard care and an email reminder (<italic>n</italic>&#x2009;=&#x2009;731). Ten (1.37%) of the 731 women in the intervention group did not use the secure email system (no reason reported). These women belonged to the following groups stratified by year: 2013 (two women), 2014 (four women), 2016 (three women) and 2017 (one woman). In accordance with the intention-to treat-principle, the ten women were included as part of follow-up leading to a complete follow-up of the 1463 women.<fig id="Fig1"><label>Fig. 1</label><caption><p>Flowchart</p></caption><graphic xlink:href="12889_2023_15060_Fig1_HTML" id="MO1"/></fig></p>
+      </sec>
+      <sec id="Sec12">
+        <title>Characteristics of included women</title>
+        <p id="Par28">There were no notable differences between the control group and the intervention group at trial entry (Table <xref rid="Tab1" ref-type="table">1</xref>). Both groups were dominated by women between 26&#x2013;35&#xA0;years of age (&#x2248; 66%), of Danish or western decent (&#x2248; 88%). With mostly self-supporting women, and approximately 13% receiving public benefits for more than 80% of the time, the included group of women reflected the general socio-economic conditions of women at childbearing age. Equal numbers of women lived in urban municipalities and rural municipalities; the same applied to parity. As could be expected for women with prior GDM, many (&#x2248; 41%) had a BMI&#x2009;&gt;&#x2009;30 before pregnancy and were categorized as obese.<table-wrap id="Tab1"><label>Table 1</label><caption><p>Baseline characteristics of women included in study</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">Factor</th><th align="left">Total (<italic>n</italic>&#x2009;=&#x2009;1463) (%)</th><th align="left">Intervention (<italic>n</italic>&#x2009;=&#x2009;731) (%)</th><th align="left">Control (<italic>n</italic>&#x2009;=&#x2009;732) (%)</th></tr></thead><tbody><tr><td align="left" colspan="4"><bold>Age:</bold></td></tr><tr><td align="left">&#x2003;&#x2009;&#x2264;&#x2009;25 Years</td><td align="left">118 (8.0)</td><td align="left">63 (8.6)</td><td align="left">55 (7.5)</td></tr><tr><td align="left">&#x2003;26&#x2013;35 Years</td><td align="left">958 (65.5)</td><td align="left">466 (63.7)</td><td align="left">492 (67.4)</td></tr><tr><td align="left">&#x2003;36&#x2013;50 Years</td><td align="left">385 (26.3)</td><td align="left">202 (27.6)</td><td align="left">183 (25.0)</td></tr><tr><td align="left">&#x2003;Missing</td><td align="left">2 (0.1)</td><td align="left">0 (0.0)</td><td align="left">2 (0.2)</td></tr><tr><td align="left" colspan="4"><bold>Ethnicity:</bold></td></tr><tr><td align="left">&#x2003;Danish/western</td><td align="left">1253 (88.1)</td><td align="left">628 (88.8)</td><td align="left">625 (87.5)</td></tr><tr><td align="left">&#x2003;Non-western</td><td align="left">168 (11.8)</td><td align="left">79 (11.1)</td><td align="left">89 (12.4)</td></tr><tr><td align="left">&#x2003;Missing</td><td align="left">42 (2.8)</td><td align="left">24 (3.2)</td><td align="left">18 (2.5)</td></tr><tr><td align="left" colspan="4"><bold>Employment status</bold><sup>a</sup><bold>:</bold></td></tr><tr><td align="left">&#x2003;&#x2009;&#x2265;&#x2009;80%</td><td align="left">1008 (68.9)</td><td align="left">501 (68.6)</td><td align="left">507 (69.2)</td></tr><tr><td align="left">&#x2003;20&#x2013;80%</td><td align="left">273 (18.6)</td><td align="left">141 (19.2)</td><td align="left">132 (18.0)</td></tr><tr><td align="left">&#x2003;&#x2009;&#x2264;&#x2009;20%</td><td align="left">182 (12.4)</td><td align="left">89 (12.1)</td><td align="left">93 (12.7)</td></tr><tr><td align="left" colspan="4"><bold>Municipality</bold><sup>b</sup><bold>:</bold></td></tr><tr><td align="left">&#x2003;Urban</td><td align="left">691 (47.2)</td><td align="left">335 (45.8)</td><td align="left">356 (48.6)</td></tr><tr><td align="left">&#x2003;Rural</td><td align="left">772 (52.7)</td><td align="left">396 (54.1)</td><td align="left">376 (51.3)</td></tr><tr><td align="left" colspan="4"><bold>Parity:</bold></td></tr><tr><td align="left">&#x2003;Primipara</td><td align="left">668 (45.6)</td><td align="left">335 (45.8)</td><td align="left">333 (45.4)</td></tr><tr><td align="left">&#x2003;Multipara</td><td align="left">794 (54.3)</td><td align="left">395 (54.1)</td><td align="left">399 (54.5)</td></tr><tr><td align="left">&#x2003;Missing</td><td align="left">1 (0.07)</td><td align="left">1 (0.1)</td><td align="left">0 (0.0)</td></tr><tr><td align="left" colspan="4"><bold>BMI kg/m</bold><sup><bold>2</bold>c</sup><bold>:</bold></td></tr><tr><td align="left">&#x2003;&#x2009;&lt;&#x2009;25</td><td align="left">418 (28.7)</td><td align="left">211 (28.9)</td><td align="left">207 (28.5)</td></tr><tr><td align="left">&#x2003;25&#x2013;30</td><td align="left">437 (30.0)</td><td align="left">218 (29.9)</td><td align="left">219 (30.1)</td></tr><tr><td align="left">&#x2003;&#x2009;&gt;&#x2009;30</td><td align="left">600 (41.2)</td><td align="left">300 (41.1)</td><td align="left">300 (41.3)</td></tr><tr><td align="left">&#x2003;Missing</td><td align="left">8 (0.5)</td><td align="left">2 (0.2)</td><td align="left">6 (0.8)</td></tr></tbody></table><table-wrap-foot><p><sup>a</sup>Defined as number of weeks as self-supporting, including on maternity leave or receiving education grant 0&#x2013;2&#xA0;years before despatch of reminder, calculated in percentage (&#x2265;&#x2009;80%, 20&#x2013;80%,&#x2009;&#x2264;&#x2009;20%)</p><p><sup>b</sup>Urban (219,500 inhabitants in 1 municipality), rural (371,000 inhabitants across 10 municipalities)</p><p><sup>c</sup><italic>BMI</italic> Body mass index kg/m<sup>2</sup>: Underweight/normal (BMI&#x2009;&lt;&#x2009;25), overweight (BMI 25&#x2013;30), obese (BMI&#x2009;&gt;&#x2009;30)</p></table-wrap-foot></table-wrap></p>
+      </sec>
+      <sec id="Sec13">
+        <title>Postpartum follow-up and early detection of diabetes</title>
+        <p id="Par29">Screening involved 471 (32.1%) women. The primary outcome event was experienced by 257 women (35.1%) in the intervention group and 214 women (29.2%) in the control group. We demonstrated a 20% increased chance of participation in screening in the intervention group (RR: 1.20; 95% CI 1.03&#x2013;1.39) and a 5% increase in absolute risk (RD: 0.05; 95% CI 0.01&#x2013;0.10] (Table <xref rid="Tab2" ref-type="table">2</xref>).<table-wrap id="Tab2"><label>Table 2</label><caption><p>Outcome: participation in screening</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">Outcome</th><th align="left">Total (<italic>n</italic>&#x2009;=&#x2009;1463) (%)</th><th align="left">Intervention (<italic>n</italic>&#x2009;=&#x2009;731) (%)</th><th align="left">Control (<italic>n</italic>&#x2009;=&#x2009;732) (%)</th><th align="left">Relative risk (95% CI)</th><th align="left">Risk difference</th></tr></thead><tbody><tr><td align="left">Women participating in screening</td><td align="left">471 (32.1)</td><td align="left">257 (35.1)</td><td align="left">214 (29.2)</td><td char="&#x2013;" align="char">1.20 (1.03&#x2013;1.39)</td><td char="&#x2013;" align="char">0.05 (0.01&#x2013;0.10)</td></tr></tbody></table></table-wrap></p>
+        <p id="Par30">Screening was performed using a HbA1c test in 415 women (NPU27412), a OGTT in 34 women (NPU21530), by P-glucose testing (NPU02192) of 14 women, while 8 women were tested according to the performance code for GPs (Code:7136).</p>
+        <p id="Par31">The effect was highest immediately after the reminder was sent out in August/September and October (Fig.&#xA0;<xref rid="Fig2" ref-type="fig">2</xref>).<fig id="Fig2"><label>Fig. 2</label><caption><p>Histogram illustrating the distribution of participation in screening in time after despatching the reminder</p></caption><graphic xlink:href="12889_2023_15060_Fig2_HTML" id="MO2"/></fig></p>
+        <p id="Par32">Figure&#xA0;<xref rid="Fig3" ref-type="fig">3</xref> shows that in all years, except 2012, the proportion of women who participated in screening were highest in the intervention group.<fig id="Fig3"><label>Fig. 3</label><caption><p>Forest plot illustrating the effect of the reminder according to stratified groups representing years after birth</p></caption><graphic xlink:href="12889_2023_15060_Fig3_HTML" id="MO3"/></fig></p>
+        <p id="Par33">Among the women who participated in follow-up screening, 56 (3.8%) were diagnosed with type 2 diabetes mellitus after the reminder was despatched.</p>
+        <p id="Par34">The secondary outcome (type 2 diabetes diagnosis) was detected in 32 women within the intervention group and in 24 women in the control group. No significant difference was found (<italic>P</italic>-value: 0.27). Most of the women with type 2 diabetes mellitus were diagnosed according to HbA1c&#x2009;&gt;&#x2009;48&#xA0;mmol/mol (54 women); only two women were identified through hospital ICD-10 codes.</p>
+      </sec>
+      <sec id="Sec14">
+        <title>Subgroup analyses</title>
+        <p id="Par35">Compared with women receiving standard care, women in the intervention group showed significantly higher participation rates if they were of Danish or western decent, 26&#x2013;35&#xA0;years old, multipara, lived in an urban area and with a BMI&#x2009;&lt;&#x2009;25 (Table <xref rid="Tab3" ref-type="table">3</xref>). The risk difference, i.e., the difference in the probability of experiencing the event, appeared to increase with age and with non-western origin, urban dwelling, multiparity, and for women with BMI&#x2009;&lt;&#x2009;25.<table-wrap id="Tab3"><label>Table 3</label><caption><p>Subgroup analysis</p></caption><table frame="hsides" rules="groups"><thead><tr><th align="left">Subgroups</th><th align="left">Total (<italic>n</italic>&#x2009;=&#x2009;1463) (%)</th><th align="left">Intervention (<italic>n</italic>&#x2009;=&#x2009;731) (%)</th><th align="left">Control (<italic>n</italic>&#x2009;=&#x2009;732) (%)</th><th align="left">Relative risk (95% CI)</th><th align="left">Risk Differenceis</th></tr></thead><tbody><tr><td align="left" colspan="6"><bold>Age:</bold></td></tr><tr><td align="left">&#x2003;&#x2009;&#x2264;&#x2009;25 Years</td><td align="left">28 (23.7)</td><td align="left">15 (23.8)</td><td align="left">13 (23.6)</td><td align="left">1.00 (0.52&#x2013;1.92)</td><td align="left">0.00 (-0.15&#x2013;0.16)</td></tr><tr><td align="left">&#x2003;26&#x2013;35 Years</td><td align="left">321 (33.5)</td><td align="left">171 (36.7)</td><td align="left">150 (30.4)</td><td align="left">1.20 (1.00&#x2013;1.43)</td><td align="left">0.06 (0.00&#x2013;0.12)</td></tr><tr><td align="left">&#x2003;36&#x2013;50 Years</td><td align="left">122 (31.6)</td><td align="left">71 (35.1)</td><td align="left">51 (27.8)</td><td align="left">1.26 (0.93&#x2013;1.70)</td><td align="left">0.07 (-0.01&#x2013;0.16)</td></tr><tr><td align="left" colspan="6"><bold>Ethnicity:</bold></td></tr><tr><td align="left">&#x2003;Danish/western</td><td align="left">409 (32.6)</td><td align="left">222 (35.3)</td><td align="left">187 (29.9)</td><td align="left">1.18 (1.00&#x2013;1.38)</td><td align="left">0.05 (0.00&#x2013;0.10)</td></tr><tr><td align="left">&#x2003;Non-western</td><td align="left">57 (33.9)</td><td align="left">31 (39.2)</td><td align="left">26 (29.2)</td><td align="left">1.34 (0.87&#x2013;2.05)</td><td align="left">0.10 (-0.04&#x2013;0.24)</td></tr><tr><td align="left" colspan="6"><bold>Employment status</bold><sup>a</sup><bold>:</bold></td></tr><tr><td align="left">&#x2003;&#x2009;&#x2265;&#x2009;80%</td><td align="left">320 (31.7)</td><td align="left">172 (34.3)</td><td align="left">148 (29.1)</td><td align="left">1.17 (0.98&#x2013;1.41)</td><td align="left">0.05 (-0.00&#x2013;0.10)</td></tr><tr><td align="left">&#x2003;20&#x2013;80%</td><td align="left">83 (30.4)</td><td align="left">49 (34.7)</td><td align="left">34 (25.7)</td><td align="left">1.34 (0.93&#x2013;1.94)</td><td align="left">0.08 (-0.01&#x2013;0.19)</td></tr><tr><td align="left">&#x2003;&#x2009;&#x2264;&#x2009;20%</td><td align="left">68 (37.3)</td><td align="left">36 (40.4)</td><td align="left">32 (34.4)</td><td align="left">1.17 (0.80&#x2013;1.71)</td><td align="left">0.06 (-0.08&#x2013;0.20)</td></tr><tr><td align="left" colspan="6"><bold>Municipality</bold><sup>b</sup><bold>:</bold></td></tr><tr><td align="left">&#x2003;Urban</td><td align="left">216 (31.2)</td><td align="left">124 (37.0)</td><td align="left">92 (25.8)</td><td align="left">1.43 (1.14&#x2013;1.79)</td><td align="left">0.11 (0.04&#x2013;0.18)</td></tr><tr><td align="left">&#x2003;Rural</td><td align="left">255 (33.0)</td><td align="left">133 (33.5)</td><td align="left">122 (32.4)</td><td align="left">1.03 (0.84&#x2013;1.26)</td><td align="left">0.01 (-0.05&#x2013;0.07)</td></tr><tr><td align="left" colspan="6"><bold>Para:</bold></td></tr><tr><td align="left">&#x2003;Primipara</td><td align="left">233 (34.8)</td><td align="left">121 (36.1)</td><td align="left">112 (33.6)</td><td align="left">1.07 (0.87&#x2013;1.32)</td><td align="left">0.02 (-0.04&#x2013;0.09)</td></tr><tr><td align="left">&#x2003;Multipara</td><td align="left">238 (29.9)</td><td align="left">136 (34.4)</td><td align="left">102 (25.5)</td><td align="left">1.34 (1.08&#x2013;1.67)</td><td align="left">0.08 (0.02&#x2013;0.15)</td></tr><tr><td align="left" colspan="6"><bold>BMI kg/m</bold><sup><bold>2</bold> c</sup><bold>:</bold></td></tr><tr><td align="left">&#x2003;&#x2009;&lt;&#x2009;25</td><td align="left">123 (29.4)</td><td align="left">76 (36.0)</td><td align="left">47 (22.7)</td><td align="left">1.58 (1.16&#x2013;2.16)</td><td align="left">0.13 (0.04&#x2013;0.21)</td></tr><tr><td align="left">&#x2003;25&#x2013;30</td><td align="left">135 (30.8)</td><td align="left">68 (31.1)</td><td align="left">67 (30.5)</td><td align="left">1.01 (0.77&#x2013;1.34)</td><td align="left">0.00 (-0.08&#x2013;0.09)</td></tr><tr><td align="left">&#x2003;&#x2009;&gt;&#x2009;30</td><td align="left">209 (34.8)</td><td align="left">113 (37.6)</td><td align="left">96 (32.0)</td><td align="left">1.17 (0.94&#x2013;1.46)</td><td align="left">0.05 (-0.01&#x2013;0.13)</td></tr></tbody></table><table-wrap-foot><p><sup>a</sup>Defined as number of weeks as self-supporting or receiving public benefits 0&#x2013;2&#xA0;years before despatch of reminder, calculated in percentages</p><p><sup>b</sup>Urban (219,500 inhabitants in 1 municipality), rural (371,000 inhabitants across 10 municipalities)</p><p><sup>c</sup>BMI, body mass index kg/m<sup>2</sup>: Underweight/normal (BMI&#x2009;&lt;&#x2009;25), overweight (BMI 25&#x2013;30), obese (BMI&#x2009;&gt;&#x2009;30)</p></table-wrap-foot></table-wrap></p>
+      </sec>
+      <sec id="Sec15">
+        <title>Identified harms</title>
+        <p id="Par36">No significant harms were identified as a result of the study.</p>
+      </sec>
+    </sec>
+    <sec id="Sec16">
+      <title>Discussion</title>
+      <sec id="Sec17">
+        <title>Key results</title>
+        <p id="Par37">This study demonstrates a significant increase in participation in screening among women with prior GDM who receive an email reminder in comparison with women who receive only standard care. Our results thereby corroborate the growing body of evidence that reminding women to be screened after birth are effective [<xref ref-type="bibr" rid="CR9">9</xref>, <xref ref-type="bibr" rid="CR24">24</xref>, <xref ref-type="bibr" rid="CR25">25</xref>]. Our study, is to the best of our knowledge the first to test the effect of a reminder beyond the first 12&#xA0;months after birth [<xref ref-type="bibr" rid="CR8">8</xref>], and the studied intervention appears to support the recommendation of participation in screening [<xref ref-type="bibr" rid="CR5">5</xref>]. As the women in our study received the reminder only once, we have no knowledge of the potential of yearly reminders. Reminder fatigue can occur over time with increasing numbers of reminders but is not inevitable [<xref ref-type="bibr" rid="CR26">26</xref>]. Since the majority of guidelines recommend recurrent annual follow-up screenings, or at least every three years after birth, the use of annual reminders may increase adherence even further. Subgroup analysis has moreover suggested that women of non-western origin are more likely to respond to the reminder. This is interesting, as previous published literature suggest that women of non-Western can be hard to engage in screening [<xref ref-type="bibr" rid="CR27">27</xref>]. Also, our analysis suggests that reminders are supportive for multiparas, however even when adding a reminder to usual care participation of multiparas do not quit get on the same level of participation as primiparas. This could indicate that it can be hard to prioritize screening when joggling family related practicalities, something which have been identified in previous studies [<xref ref-type="bibr" rid="CR27">27</xref>].</p>
+        <p id="Par38">Contextual factors may explain the variations in effect found between this study and previous studies [<xref ref-type="bibr" rid="CR8">8</xref>, <xref ref-type="bibr" rid="CR9">9</xref>]. Unlike the situation in many other countries, our Danish study setting provided universal and free access to healthcare and life-long follow-up screening. As pointed out in a published RCT study, this seems to be central to the effect of reminders, as participation was significantly higher in patients covered by public healthcare [<xref ref-type="bibr" rid="CR10">10</xref>].</p>
+        <p id="Par39">Our study also found a stronger effect of the reminder among urban women. However, it is important to notice that women from rural areas in general seems to participate in screening more than women from urban areas but might not be especially responsive to a reminder.</p>
+        <p id="Par40">The reminder nevertheless seems to support continuity of care for women with previous GDM, a group that has expressed discontent about fragmented care and little opportunity to receive elaboration on health risks and recommendations [<xref ref-type="bibr" rid="CR28">28</xref>]. This problem is documented by international research, which found that women experience care as particularly fragmented on their return to general practice care following a hospital birth [<xref ref-type="bibr" rid="CR27">27</xref>].</p>
+        <p id="Par41">Drawing on the unique possibility offered by Denmark&#x2019;s civil registration number system to link individual data across multiple nationwide registers, our simple intervention design enabled us to identify and recruit participants, despatch the reminders, and assess outcomes without causing any significant disturbances for current practices. This ensured sufficient recruitment and retention rates with no loss to follow-up, a frequent challenge to the feasibility of executing interventions studies [<xref ref-type="bibr" rid="CR29">29</xref>]. In comparison to similar interventions studies, our sample was sizable and retention satisfactory [<xref ref-type="bibr" rid="CR24">24</xref>, <xref ref-type="bibr" rid="CR25">25</xref>, <xref ref-type="bibr" rid="CR30">30</xref>&#x2013;<xref ref-type="bibr" rid="CR32">32</xref>]. The use of an existing secure email system involving almost all Danish citizens also helped ensure the reminders near total delivery rate. Only about 1% of the intervention group population failed to receive the reminder, which is an improvement on similar intervention studies [<xref ref-type="bibr" rid="CR16">16</xref>, <xref ref-type="bibr" rid="CR17">17</xref>]. Neither did local changes or modifications during implementation and delivery alter the intervention&#x2019;s content, which may otherwise challenge the fidelity of more complex intervention designs [<xref ref-type="bibr" rid="CR29">29</xref>]. The low intervention costs also support the feasibility and sustainability of similar interventions in the future. However, as the highest effect of the reminder is found briefly after despatch, we recommend that revisions of local guidelines benefit from discussions of frequency and time of despatching reminders. Finally, the recommended test for screening in Denmark (HbA1c) could have eradicated previous barriers, such as the discomfort of the OGTT or that fasting was needed [<xref ref-type="bibr" rid="CR27">27</xref>].</p>
+        <p id="Par42">Reflection on coverage of an intervention in a specific service setting gives indications of its integration [<xref ref-type="bibr" rid="CR29">29</xref>]. Our study&#x2019;s overall participation rate of 32.1% may be considered low in comparison with other studies, whose rates range from 44 to 76% in the first 12&#xA0;months after birth [<xref ref-type="bibr" rid="CR16">16</xref>, <xref ref-type="bibr" rid="CR17">17</xref>, <xref ref-type="bibr" rid="CR24">24</xref>]. However, the long-term perspective of this study allows us to disclose significantly higher participation rates in the later follow-up screenings compared with those previously found in the region (approximately 17% of women participating in screening 4&#x2013;6&#xA0;years after birth) [<xref ref-type="bibr" rid="CR6">6</xref>]. This may suggest that decision aids such as electronic reminders can be effective in enhancing informed decision-making about participation in screening programmes [<xref ref-type="bibr" rid="CR18">18</xref>], as recommended by the World Health Organization that high uptake in screening should not take precedence over women&#x2019;s informed choice concerning participation in screening according to their individual values and preferences [<xref ref-type="bibr" rid="CR33">33</xref>].</p>
+        <p id="Par43">However, as poor communication across sectors and GP clinics&#x2019; insufficient information on risks and recommendations may challenge participation in follow-up screening [<xref ref-type="bibr" rid="CR27">27</xref>, <xref ref-type="bibr" rid="CR28">28</xref>], initiatives to further increase the effect of reminders should be prioritized. Attempts to increase attention to screening stimulate the participation of women burdened by everyday life obligations [<xref ref-type="bibr" rid="CR27">27</xref>], including those who have expressed a wish to attend follow-up screening [<xref ref-type="bibr" rid="CR28">28</xref>]. Reminders targeting both physicians and women [<xref ref-type="bibr" rid="CR34">34</xref>] in combination with staff training and other initiatives [<xref ref-type="bibr" rid="CR16">16</xref>, <xref ref-type="bibr" rid="CR25">25</xref>], have been established as effective and should be considered in the effort to overcome barriers. However, the implementation of reminders appears to pose a challenge to general practice clinics [<xref ref-type="bibr" rid="CR17">17</xref>]. Even though the secured email systems used in this study have the above-mentioned benefits and were considered easily accessible to women in the context of Denmark, other types of reminders to women have also been shown effective in increasing participation [<xref ref-type="bibr" rid="CR8">8</xref>, <xref ref-type="bibr" rid="CR9">9</xref>]. Our data also suggest that the reminder was less effectual among younger women and women with overweight. The young women&#x2019;s poor response could be explained by the low-risk perception established in a survey study that found great divergence between young persons&#x2019; recognition of GDM as a general risk factor for diabetes and their assessment of own risk of diabetes [<xref ref-type="bibr" rid="CR35">35</xref>]. Our results support previous findings that women with overweight are less likely to participate in screening due to apprehensions about receiving a type 2 diabetes mellitus diagnosis [<xref ref-type="bibr" rid="CR8">8</xref>]. Ways to support these two groups of women should be identified.</p>
+      </sec>
+      <sec id="Sec18">
+        <title>Strengths and limitations</title>
+        <p id="Par44">The simple study design, with its adaptation to existing system resources, ensured the inclusion of practically all cases and high follow-up rates. The validity of the Danish National Patient Register database enabled the identification of women with a GDM diagnosis, lending strong support to our expectation that women receiving this diagnosis through ICD-10 coding during pregnancy/childbirth are correct [<xref ref-type="bibr" rid="CR12">12</xref>]. We moreover attempted to ensure that misdiagnoses were excluded. The use of an RCT design for evaluating interventions is generally considered a strength as it helps prevent selection bias and potential confounding, and our baseline info ensured successful randomization.</p>
+        <p id="Par45">To ensure the long-term sustainability of the reminder intervention, we included women who had been screened in the previous 12&#xA0;months. Any negative consequences of receiving an irrelevant reminder were limited by encouraging the women to disregard it, but more knowledge of women&#x2019;s perspectives on receiving the reminder is, however, needed to ensure that no significant harms were associated with this study. The results of a qualitative study of this are forthcoming.</p>
+        <p id="Par46">In the assessment of the primary outcome, several data sources were used to secure identification of an event which according to recommendations could include three different blood tests. However, in relation to the secondary outcome, ICD-10 coding fails to securely identify those who are merely diagnosed and treated for type 2 diabetes mellitus in general practice [<xref ref-type="bibr" rid="CR12">12</xref>]. Our additional identification of type 2 diabetes mellitus diagnosis through NPU coding nonetheless ensured satisfactory identification, hence HbA1c test was found to be the most frequently used test for screening in general practice clinics. The single-blinded design prevented bias in estimating the effect of the intervention by ensuring that the outcome assessor and the control group were blinded to treatment allocation. Moreover, the application of intention-to-treat principles in the data analysis reflects real-life practice and minimizes the chance of overestimating effects.</p>
+        <p id="Par47">Our subgroup analysis contributes to the discussion of the design of future electronic reminder systems, but its results should be interpreted with caution as the numbers were small and randomization may not have been maintained in the subgroups. Moreover, knowledge of insulin therapy rates during pregnancy with GDM should be classified, as it can affect women's motivation to participate in screening. Nevertheless, the RCT design is expected to have distributed the number of women who have received insulin therapy during pregnancy equally between the control and the intervention group.</p>
+        <p id="Par48">Informing GPs about the study before despatching the reminder may have increased uptake of screening in the control group, which may have resulted in an underestimation of the effect of the reminder. However, we believe this would have had a minor effect as GPs properly are inundated by information, and that the reminder was addressed to women.</p>
+      </sec>
+      <sec id="Sec19">
+        <title>Implications for practice and research</title>
+        <p id="Par49">We urge general practice clinics to continue to strengthen attempts to engage in the decision-making process with women and support knowledge transfer between healthcare sectors. Such challenges appear to have diminished the effect of the reminder, creating a barrier to follow-up screening. Even if the reminder were routinely despatched, women should be offered support for their decision-making, especially if their GDM pregnancy occurred several years earlier. Nevertheless, routine use of reminders should be considered, in order to strengthen women's opportunity to be tested and, in dialogue with general practitioners, gain information on how diabetes conversion can be prevented. It is especially important in a Danish setting where evidence-based lifestyle interventions are not systematically available to women with impaired glucose tolerance (IGT). Our work has implications for all research concerning the coverage of reminder interventions. An adjunct process evaluation to our study, which is currently being analysed, can help generate more knowledge about women's experiences of receiving the reminder and participating in screening. Also, no previous cost-effectiveness studies on the use of reminder systems to increase uptake in screening after birth for this specific group of women have been identified. Finally, should potentials of yearly reminders and more knowledge about the specific subgroups be analysed.</p>
+      </sec>
+    </sec>
+    <sec id="Sec20">
+      <title>Conclusion</title>
+      <p id="Par50">Electronic reminders to women can support the recommendation of participation in follow-up screening, as this study test found that a reminder beyond the first 12&#xA0;months after birth are effective in increasing women&#x2019;s participation in screening. The reminder is based on the principles of informed choice and patient-centred care, which are believed to be a strength. The advantage of the intervention stems from its simplicity and the use of a nationwide secure email system linked to women&#x2019;s CPR number, for which policy makers should analyse contextual conditions for implementation. Attempts to further stimulation of coverage could however be considered, possibly focusing on strengthen engagement of women in the decision-making process and support of knowledge transfer between healthcare sectors.</p>
+    </sec>
+  </body>
+  <back>
+    <glossary>
+      <title>Abbreviations</title>
+      <def-list>
+        <def-item>
+          <term>GDM</term>
+          <def>
+            <p id="Par6">Gestational Diabetes Mellitus</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>OGTT</term>
+          <def>
+            <p id="Par7">Oral glucose tolerance test</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>IDF</term>
+          <def>
+            <p id="Par8">International Diabetes Federation</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>WHO</term>
+          <def>
+            <p id="Par9">World Health Organisation</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>CPR</term>
+          <def>
+            <p id="Par10">The Central Person Register number</p>
+          </def>
+        </def-item>
+      </def-list>
+    </glossary>
+    <fn-group>
+      <fn>
+        <p>
+          <bold>Publisher&#x2019;s Note</bold>
+        </p>
+        <p>Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.</p>
+      </fn>
+    </fn-group>
+    <ack>
+      <title>Acknowledgements</title>
+      <p>The research was funded by the Department of Midwifery and the Sustainable Science research programme at University College of Northern Denmark, the Department of Health Science and Technology, Aalborg University, and the Clinical Nursing Research Unit, Aalborg University Hospital. The academic work was also supported by the Centre for the Development and Evaluation of Complex Interventions for Public Health Improvement (DECIPH&#x2019;er), a UKCRC Public Health Research Centre of Excellence.</p>
+    </ack>
+    <notes notes-type="author-contribution">
+      <title>Authors&#x2019; contributions</title>
+      <p>JHN, KF, JKK and CO all contributed to development of the study protocol. KF retrieved the register data. Supported by KF, JHN was responsible for organizing the despatch of the reminder and conducted the data analysis. JHN wrote the first draft of the paper while KF, JKK and CO contributed to interpretation of data. The final version of this article was discussed, revised and approved by all authors.</p>
+    </notes>
+    <notes notes-type="funding-information">
+      <title>Funding</title>
+      <p>This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.</p>
+    </notes>
+    <notes notes-type="data-availability">
+      <title>Availability of data and materials</title>
+      <p>All data generated or analysed during this study are included in this published article.</p>
+    </notes>
+    <notes>
+      <title>Declarations</title>
+      <notes id="FPar4" notes-type="funding">
+        <title>Ethics approval and consent to participate</title>
+        <p id="Par51">The Danish science ethics committee of the North Denmark Region, Denmark was approached and it waived the need for ethics approval as well as informed consent. The study thereby adheres to Danish legislation [<xref ref-type="bibr" rid="CR36">36</xref>], European General Data Protection Regulations (GDPR) [<xref ref-type="bibr" rid="CR37">37</xref>], and the Danish Code of Conduct for Research Integrity [<xref ref-type="bibr" rid="CR38">38</xref>] in relation to data protection and good scientific practice. The study was furthermore carried out in accordance with the Code of Ethics of the World Medical Association [<xref ref-type="bibr" rid="CR39">39</xref>] and registered within the North Denmark Region (ID number 2020&#x2013;006) as well as the ISRCTN registry (22/04/2022, ISRCTN23558707). This research did not receive any grants from funding agencies in the public, commercial, or not-for-profit sectors. The reporting of the study draws on the CONSORT-Routine guidelines [<xref ref-type="bibr" rid="CR40">40</xref>].</p>
+      </notes>
+      <notes id="FPar5">
+        <title>Consent for publication</title>
+        <p id="Par52">Not applicable.</p>
+      </notes>
+      <notes id="FPar6" notes-type="COI-statement">
+        <title>Competing interests</title>
+        <p id="Par53">The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.</p>
+      </notes>
+    </notes>
+    <ref-list id="Bib1">
+      <title>References</title>
+      <ref id="CR1">
+        <label>1.</label>
+        <mixed-citation publication-type="other">Wang H, Li N, Chivese T, Werfalli M, Sun H, Yuen L, et al. IDF Diabetes Atlas: Estimation of Global and Regional Gestational Diabetes Mellitus Prevalence for 2021 by International Association of Diabetes in Pregnancy Study Group&#x2019;s Criteria. Diabetes Res Clin Pract. 2022; 183:109050. 10.1016/j.diabres.2021.109050</mixed-citation>
+      </ref>
+      <ref id="CR2">
+        <label>2.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Jeppesen</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Maindal</surname>
+              <given-names>HT</given-names>
+            </name>
+            <name>
+              <surname>Kristensen</surname>
+              <given-names>JK</given-names>
+            </name>
+            <name>
+              <surname>Ovesen</surname>
+              <given-names>PG</given-names>
+            </name>
+            <name>
+              <surname>Witte</surname>
+              <given-names>DR</given-names>
+            </name>
+          </person-group>
+          <article-title>National study of the prevalence of gestational diabetes mellitus among Danish women from 2004 to 2012</article-title>
+          <source>Scand J Public Health</source>
+          <year>2017</year>
+          <volume>45</volume>
+          <fpage>811</fpage>
+          <lpage>817</lpage>
+          <pub-id pub-id-type="doi">10.1177/1403494817736943</pub-id>
+          <pub-id pub-id-type="pmid">29059007</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR3">
+        <label>3.</label>
+        <mixed-citation publication-type="other">Dennison RA, Chen ES, Green ME, Legard C, Kotecha D, Farmer G, et al. The absolute and relative risk of type 2 diabetes after gestational diabetes: A systematic review and meta-analysis of 129 studies. Diabetes Res Clin Pract 2021; 171:108625. 10.1016/j.diabres.2020.108625</mixed-citation>
+      </ref>
+      <ref id="CR4">
+        <label>4.</label>
+        <mixed-citation publication-type="other">International Diabetes Federation. IDF DIABETES ATLAS; <ext-link ext-link-type="uri" xlink:href="https://diabetesatlas.org/atlas/tenth-edition/">https://diabetesatlas.org/atlas/tenth-edition/</ext-link>; 2021[Accessed 01.08.22]</mixed-citation>
+      </ref>
+      <ref id="CR5">
+        <label>5.</label>
+        <mixed-citation publication-type="other">American Diabetes Association. 13. Management of Diabetes in Pregnancy: Standards of Medical Care in Diabetes-2018. Diabetes care 2018;41:S137-S143. 10.2337/dc18-S013</mixed-citation>
+      </ref>
+      <ref id="CR6">
+        <label>6.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Olesen</surname>
+              <given-names>CR</given-names>
+            </name>
+            <name>
+              <surname>Nielsen</surname>
+              <given-names>JH</given-names>
+            </name>
+            <name>
+              <surname>Mortensen</surname>
+              <given-names>RN</given-names>
+            </name>
+            <name>
+              <surname>B&#xF8;ggild</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Torp-Pedersen</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Overgaard</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <article-title>Associations between follow-up screening after gestational diabetes and early detection of diabetes &#x2013; a register based study</article-title>
+          <source>BMC Public Health</source>
+          <year>2014</year>
+          <volume>14</volume>
+          <issue>1</issue>
+          <fpage>841</fpage>
+          <pub-id pub-id-type="doi">10.1186/1471-2458-14-841</pub-id>
+          <pub-id pub-id-type="pmid">25115200</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR7">
+        <label>7.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vounzoulaki</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Khunti</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Abner</surname>
+              <given-names>SC</given-names>
+            </name>
+            <name>
+              <surname>Tan</surname>
+              <given-names>BK</given-names>
+            </name>
+            <name>
+              <surname>Davies</surname>
+              <given-names>MJ</given-names>
+            </name>
+            <name>
+              <surname>Gillies</surname>
+              <given-names>CL</given-names>
+            </name>
+          </person-group>
+          <article-title>Progression to type 2 diabetes in women with a known history of gestational diabetes: systematic review and meta-analysis</article-title>
+          <source>BMJ</source>
+          <year>2020</year>
+          <volume>369</volume>
+          <fpage>m1361</fpage>
+          <pub-id pub-id-type="doi">10.1136/bmj.m1361</pub-id>
+          <pub-id pub-id-type="pmid">32404325</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR8">
+        <label>8.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nielsen</surname>
+              <given-names>JH</given-names>
+            </name>
+            <name>
+              <surname>Melendez-Torres</surname>
+              <given-names>GJ</given-names>
+            </name>
+            <name>
+              <surname>Rotevatn</surname>
+              <given-names>TA</given-names>
+            </name>
+            <name>
+              <surname>Peven</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Fonager</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Overgaard</surname>
+              <given-names>C</given-names>
+            </name>
+          </person-group>
+          <article-title>How do reminder systems in follow-up screening for women with previous gestational diabetes work? - a realist review</article-title>
+          <source>BMC Health Serv Res</source>
+          <year>2021</year>
+          <volume>21</volume>
+          <issue>1</issue>
+          <fpage>535</fpage>
+          <pub-id pub-id-type="doi">10.1186/s12913-021-06569-z</pub-id>
+          <pub-id pub-id-type="pmid">34074278</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR9">
+        <label>9.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Jeppesen</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Kristensen</surname>
+              <given-names>JK</given-names>
+            </name>
+            <name>
+              <surname>Ovesen</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Maindal</surname>
+              <given-names>HT</given-names>
+            </name>
+          </person-group>
+          <article-title>The forgotten risk? A systematic review of the effect of reminder systems for postpartum screening for type 2 diabetes in women with previous gestational diabetes</article-title>
+          <source>BMC Res Notes</source>
+          <year>2015</year>
+          <volume>8</volume>
+          <fpage>373</fpage>
+          <pub-id pub-id-type="doi">10.1186/s13104-015-1334-2</pub-id>
+          <pub-id pub-id-type="pmid">26306499</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR10">
+        <label>10.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Khalifeh</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Iyer</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Cantor</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Quist-Nelson</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Tumas</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Berghella</surname>
+              <given-names>V</given-names>
+            </name>
+          </person-group>
+          <article-title>MDA Reminder System for Postpartum DM Screening in GDM Patients: A Randomized Controlled Trial [RCT]</article-title>
+          <source>Obst Gyne</source>
+          <year>2017</year>
+          <volume>129</volume>
+          <fpage>178S</fpage>
+          <pub-id pub-id-type="doi">10.1097/01.AOG.0000514129.39621.61</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR11">
+        <label>11.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Song</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Lyu</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Li</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Liu</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Li</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Ma</surname>
+              <given-names>RC</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Long-term risk of diabetes in women at varying durations after gestational diabetes: a systematic review and meta-analysis with more than 2 million women</article-title>
+          <source>Obes Rev</source>
+          <year>2018</year>
+          <volume>19</volume>
+          <issue>3</issue>
+          <fpage>421</fpage>
+          <lpage>429</lpage>
+          <pub-id pub-id-type="doi">10.1111/obr.12645</pub-id>
+          <pub-id pub-id-type="pmid">29266655</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR12">
+        <label>12.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Schmidt</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Schmidt</surname>
+              <given-names>SAJ</given-names>
+            </name>
+            <name>
+              <surname>Adelborg</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Sundb&#xF8;ll</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Laugesen</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Ehrenstein</surname>
+              <given-names>V</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>The Danish health care system and epidemiological research: from health care contacts to database records</article-title>
+          <source>Clin Epidemiol</source>
+          <year>2019</year>
+          <volume>11</volume>
+          <fpage>563</fpage>
+          <pub-id pub-id-type="doi">10.2147/CLEP.S179083</pub-id>
+          <pub-id pub-id-type="pmid">31372058</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR13">
+        <label>13.</label>
+        <mixed-citation publication-type="other">Danish Society for general Practice (DSAM). Gestationel Diabetes. <ext-link ext-link-type="uri" xlink:href="https://vejledninger.dsam.dk/type2d/?mode=showPage&amp;pageId=141">https://vejledninger.dsam.dk/type2d/?mode=showPage&amp;pageId=141</ext-link>; 2022 [Accessed 01.11.22]</mixed-citation>
+      </ref>
+      <ref id="CR14">
+        <label>14.</label>
+        <mixed-citation publication-type="other">Aarhus University. The National Centre for Register-Based Research, <ext-link ext-link-type="uri" xlink:href="https://econ.au.dk/the-national-centre-for-register-based-research/danish-registers/">https://econ.au.dk/the-national-centre-for-register-based-research/danish-registers/</ext-link>; 2022 [Accessed 01.08.22]</mixed-citation>
+      </ref>
+      <ref id="CR15">
+        <label>15.</label>
+        <mixed-citation publication-type="other">The Danish Health Data Authority. The Danish Medical Coding Classification System, <ext-link ext-link-type="uri" xlink:href="https://sundhedsdatastyrelsen.dk/da/english/health_data_and_registers/classifications">https://sundhedsdatastyrelsen.dk/da/english/health_data_and_registers/classifications</ext-link> ;2022 [Accessed 01.05.22]</mixed-citation>
+      </ref>
+      <ref id="CR16">
+        <label>16.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vesco</surname>
+              <given-names>KK</given-names>
+            </name>
+            <name>
+              <surname>Dietz</surname>
+              <given-names>PM</given-names>
+            </name>
+            <name>
+              <surname>Bulkley</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Bruce</surname>
+              <given-names>FC</given-names>
+            </name>
+            <name>
+              <surname>Callaghan</surname>
+              <given-names>WM</given-names>
+            </name>
+            <name>
+              <surname>England</surname>
+              <given-names>L</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>A system-based intervention to improve postpartum diabetes screening among women with gestational diabetes</article-title>
+          <source>Am J Obstet Gynecol</source>
+          <year>2012</year>
+          <volume>207</volume>
+          <fpage>283.e1</fpage>
+          <lpage>283.e6</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.ajog.2012.08.017</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR17">
+        <label>17.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Halperin</surname>
+              <given-names>IJ</given-names>
+            </name>
+            <name>
+              <surname>Sehgal</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Lowe</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Hladunewich</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Wong</surname>
+              <given-names>BM</given-names>
+            </name>
+          </person-group>
+          <article-title>Increasing timely postpartum oral glucose tolerance test completion in women with gestational diabetes: a quality-improvement initiative</article-title>
+          <source>Can J Diabetes</source>
+          <year>2015</year>
+          <volume>39</volume>
+          <issue>6</issue>
+          <fpage>451</fpage>
+          <lpage>456</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.jcjd.2015.06.004</pub-id>
+          <pub-id pub-id-type="pmid">26277221</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR18">
+        <label>18.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Elwyn</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Frosch</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Thomson</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Joseph-Williams</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Lloyd</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Kinnersley</surname>
+              <given-names>P</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Shared Decision Making: A Model for Clinical Practice</article-title>
+          <source>J Gen Intern Med</source>
+          <year>2012</year>
+          <volume>27</volume>
+          <issue>10</issue>
+          <fpage>1361</fpage>
+          <lpage>1367</lpage>
+          <pub-id pub-id-type="doi">10.1007/s11606-012-2077-6</pub-id>
+          <pub-id pub-id-type="pmid">22618581</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR19">
+        <label>19.</label>
+        <mixed-citation publication-type="other">E-Boks.dk, <ext-link ext-link-type="uri" xlink:href="https://www.e-boks.com/danmark/en/what-is-e-boks/">https://www.e-boks.com/danmark/en/what-is-e-boks/</ext-link> ;2022 [Accessed 01.05.2022]</mixed-citation>
+      </ref>
+      <ref id="CR20">
+        <label>20.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bonell</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Jamal</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Melendez-Torres</surname>
+              <given-names>GJ</given-names>
+            </name>
+            <name>
+              <surname>Cummins</surname>
+              <given-names>S</given-names>
+            </name>
+          </person-group>
+          <article-title>&#x2018;Dark logic&#x2019;: theorising the harmful consequences of public health interventions</article-title>
+          <source>J Epidemiol Comm Health</source>
+          <year>2015</year>
+          <volume>69</volume>
+          <fpage>95</fpage>
+          <lpage>98</lpage>
+          <pub-id pub-id-type="doi">10.1136/jech-2014-204671</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR21">
+        <label>21.</label>
+        <mixed-citation publication-type="other">R Core Team [2020]. A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, <ext-link ext-link-type="uri" xlink:href="https://www.R-project.org/;2022">https://www.R-project.org/;2022</ext-link> [Accessed 01.05.2022]</mixed-citation>
+      </ref>
+      <ref id="CR22">
+        <label>22.</label>
+        <mixed-citation publication-type="other">The Danish Health Data Authority. NPU-terminologi-Dansk Release Center, <ext-link ext-link-type="uri" xlink:href="https://sundhedsdatastyrelsen.dk/da/rammer-og-retningslinjer/om-terminologi/npu">https://sundhedsdatastyrelsen.dk/da/rammer-og-retningslinjer/om-terminologi/npu</ext-link> ;2022 [Accessed 01.05.2022]</mixed-citation>
+      </ref>
+      <ref id="CR23">
+        <label>23.</label>
+        <mixed-citation publication-type="other">Dansk Arbejdsgiverforening. Langtidsfors&#xF8;rgende Unge, <ext-link ext-link-type="uri" xlink:href="https://www.da.dk/globalassets/besk%C3%A6ftigelse/rapport_langtidsfors%C3%B8rgede_unge_2020.pdf;2020">https://www.da.dk/globalassets/besk%C3%A6ftigelse/rapport_langtidsfors%C3%B8rgede_unge_2020.pdf;2020</ext-link> [Accessed 01.05.2022]</mixed-citation>
+      </ref>
+      <ref id="CR24">
+        <label>24.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Olmos</surname>
+              <given-names>PR</given-names>
+            </name>
+            <name>
+              <surname>Borzone</surname>
+              <given-names>GR</given-names>
+            </name>
+            <name>
+              <surname>Berkowitz</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Mertens</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Busso</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Santos</surname>
+              <given-names>JL</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Preventive letter: doubling the return rate after gestational diabetes mellitus</article-title>
+          <source>Matern Child Health J</source>
+          <year>2015</year>
+          <volume>19</volume>
+          <fpage>939</fpage>
+          <lpage>944</lpage>
+          <pub-id pub-id-type="doi">10.1007/s10995-014-1614-9</pub-id>
+          <pub-id pub-id-type="pmid">25269853</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR25">
+        <label>25.</label>
+        <mixed-citation publication-type="other">Shea AK, Shah BR, Clark HD, Malcolm J, Walker M, Karovitch A, et al. The effectiveness of implementing a reminder system into routine clinical practice: does it increase postpartum screening in women with gestational diabetes?. Chronic Dis Can. 2011; 31:58&#x2013;64. 10.24095/hpcdp.31.2.02</mixed-citation>
+      </ref>
+      <ref id="CR26">
+        <label>26.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Green</surname>
+              <given-names>LA</given-names>
+            </name>
+            <name>
+              <surname>Nease</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Klinkman</surname>
+              <given-names>MS</given-names>
+            </name>
+          </person-group>
+          <article-title>Clinical reminders designed and implemented using cognitive and organizational science principles decrease reminder fatigue</article-title>
+          <source>JABFM</source>
+          <year>2015</year>
+          <volume>28</volume>
+          <fpage>351</fpage>
+          <lpage>359</lpage>
+          <pub-id pub-id-type="doi">10.3122/jabfm.2015.03.140243</pub-id>
+          <pub-id pub-id-type="pmid">25957368</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR27">
+        <label>27.</label>
+        <mixed-citation publication-type="other">Dennison RA, Fox RA, Ward RJ, Griffin SJ, Usher-Smith JA. Women&#x2019;s views on screening for Type 2 diabetes after gestational diabetes: a systematic review, qualitative synthesis and recommendations for increasing uptake. Diabet Med. 2020;37:29&#x2013;43. 10.1111/dme.14081.</mixed-citation>
+      </ref>
+      <ref id="CR28">
+        <label>28.</label>
+        <mixed-citation publication-type="other">Nielsen JH, Olesen CR, Kristiansen TM, Bak CK, Overgaard C. Reasons for women&#x2019;s non-participation in follow-up screening after gestational diabetes. Women Birth. 2015;28(4):e157&#x2013;63. 10.1016/j.wombi.2015.04.006.</mixed-citation>
+      </ref>
+      <ref id="CR29">
+        <label>29.</label>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Richards</surname>
+              <given-names>DA</given-names>
+            </name>
+            <name>
+              <surname>Hallberg</surname>
+              <given-names>IR</given-names>
+            </name>
+          </person-group>
+          <source>Complex Interventions in Health. An overview of research methods</source>
+          <year>2015</year>
+          <edition>1</edition>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>Routledge</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="CR30">
+        <label>30.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lega</surname>
+              <given-names>IC</given-names>
+            </name>
+            <name>
+              <surname>McLaughlin</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Coroneos</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Handley-Derry</surname>
+              <given-names>F</given-names>
+            </name>
+            <name>
+              <surname>Donovan</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Lipscombe</surname>
+              <given-names>LL</given-names>
+            </name>
+          </person-group>
+          <article-title>A physician reminder to improve postpartum diabetes screening in women with gestational diabetes mellitus</article-title>
+          <source>Diabetes Res Clin Pract</source>
+          <year>2012</year>
+          <volume>95</volume>
+          <fpage>352</fpage>
+          <lpage>357</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.diabres.2011.10.023</pub-id>
+          <pub-id pub-id-type="pmid">22099149</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR31">
+        <label>31.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Peticca</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Shah</surname>
+              <given-names>BR</given-names>
+            </name>
+            <name>
+              <surname>Shea</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Clark</surname>
+              <given-names>HD</given-names>
+            </name>
+            <name>
+              <surname>Malcolm</surname>
+              <given-names>JC</given-names>
+            </name>
+            <name>
+              <surname>Walker</surname>
+              <given-names>M</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Clinical predictors for diabetes screening in the first year postpartum after gestational diabetes</article-title>
+          <source>Obstetric Med</source>
+          <year>2014</year>
+          <volume>7</volume>
+          <fpage>116</fpage>
+          <lpage>120</lpage>
+          <pub-id pub-id-type="doi">10.1177/1753495X14528487</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR32">
+        <label>32.</label>
+        <mixed-citation publication-type="other">Sarmiento AJ, Bernardo DC, Isip-Tan IT. A Randomized Controlled Trial on the Effectiveness of Short Message Service [SMS] Reminders in Improving Postpartum Follow-up among Gestational Diabetes Mellitus Patients. J ASEAN Fed Endocr Soc. 2019; 34:62&#x2013;72. 10.15605/jafes.034.01.10</mixed-citation>
+      </ref>
+      <ref id="CR33">
+        <label>33.</label>
+        <mixed-citation publication-type="other">World Health Organization (WHO). Increase effectiveness, maximize benefits and minimize harm Screening programmes: a short guide. <ext-link ext-link-type="uri" xlink:href="https://apps.who.int/iris/handle/10665/330829">https://apps.who.int/iris/handle/10665/330829</ext-link> ;2022 [Accessed 01.11.2022]</mixed-citation>
+      </ref>
+      <ref id="CR34">
+        <label>34.</label>
+        <mixed-citation publication-type="other">Korpi-Hyovalti E, Laaksonen DE, Schwab U, Heinonen S, Niskanen L. How can we increase postpartum glucose screening in women at high risk for gestational diabetes mellitus?. Int J Endocrinol. 2012; 2012:519267. 10.1155/2012/519267</mixed-citation>
+      </ref>
+      <ref id="CR35">
+        <label>35.</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kim</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Goewey</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>McEwen</surname>
+              <given-names>LN</given-names>
+            </name>
+            <name>
+              <surname>Ferrara</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Piette</surname>
+              <given-names>JD</given-names>
+            </name>
+            <name>
+              <surname>Walker</surname>
+              <given-names>EA</given-names>
+            </name>
+          </person-group>
+          <article-title>Risk perception for diabetes among women with histories of gestational diabetes mellitus</article-title>
+          <source>Diabetes Care</source>
+          <year>2007</year>
+          <volume>30</volume>
+          <fpage>2281</fpage>
+          <lpage>2286</lpage>
+          <pub-id pub-id-type="doi">10.2337/dc07-0618</pub-id>
+          <pub-id pub-id-type="pmid">17575087</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="CR36">
+        <label>36.</label>
+        <mixed-citation publication-type="other">The Danish Ministry of Health and the Elderly. Research Ethics of Health Science Research and Health Data Science Research Projects [LBK 1338], <ext-link ext-link-type="uri" xlink:href="https://www.retsinformation.dk/eli/lta/2020/1338">https://www.retsinformation.dk/eli/lta/2020/1338</ext-link> ;2022 [Accessed 01.05.2022]</mixed-citation>
+      </ref>
+      <ref id="CR37">
+        <label>37.</label>
+        <mixed-citation publication-type="other">European Commission. The General Data Protection Regulation [GDPR], <ext-link ext-link-type="uri" xlink:href="https://ec.europa.eu/info/law/law-topic/data-protection/data-protection-eu">https://ec.europa.eu/info/law/law-topic/data-protection/data-protection-eu</ext-link> ;2022 [Accessed 01.05.2022]</mixed-citation>
+      </ref>
+      <ref id="CR38">
+        <label>38.</label>
+        <mixed-citation publication-type="other">The Danish Ministry of Higher Education and Science. The Danish Code of Conduct for Research Integrity, <ext-link ext-link-type="uri" xlink:href="https://ufm.dk/en/publications/2014/the-danish-code-of-conduct-for-research-integrity">https://ufm.dk/en/publications/2014/the-danish-code-of-conduct-for-research-integrity</ext-link> ;2021 [Accessed 01.05.2022]</mixed-citation>
+      </ref>
+      <ref id="CR39">
+        <label>39.</label>
+        <mixed-citation publication-type="other">World Medical Association. International Code of Medical Ethics, <ext-link ext-link-type="uri" xlink:href="https://www.wma.net/policies-post/wma-international-code-of-medical-ethics/">https://www.wma.net/policies-post/wma-international-code-of-medical-ethics/</ext-link> ;2021 [Accessed 01.05.2022]</mixed-citation>
+      </ref>
+      <ref id="CR40">
+        <label>40.</label>
+        <mixed-citation publication-type="other">Kwakkenbos L, Imran M, Mccall SJ, Mccord KA, Fr&#xF6;bert O, Hemkens LG, et al. CONSORT extension for the reporting of randomised controlled trials conducted using cohorts and routinely collected data [CONSORT-ROUTINE]: checklist with explanation and elaboration. BMJ. 2021;373. 10.1136/bmj.n857</mixed-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
+</pmc-articleset>
