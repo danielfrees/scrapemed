@@ -1,0 +1,1267 @@
+<?xml version="1.0" ?>
+<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN" "https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd">
+<pmc-articleset><article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.3" xml:lang="en" article-type="research-article">
+  <?properties open_access?>
+  <processing-meta base-tagset="archiving" mathml-version="3.0" table-model="xhtml" tagset-family="jats">
+    <restricted-by>pmc</restricted-by>
+  </processing-meta>
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">J Healthc Eng</journal-id>
+      <journal-id journal-id-type="iso-abbrev">J Healthc Eng</journal-id>
+      <journal-id journal-id-type="publisher-id">JHE</journal-id>
+      <journal-title-group>
+        <journal-title>Journal of Healthcare Engineering</journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">2040-2295</issn>
+      <issn pub-type="epub">2040-2309</issn>
+      <publisher>
+        <publisher-name>Hindawi</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">35070240</article-id>
+      <article-id pub-id-type="pmc">8767368</article-id>
+      <article-id pub-id-type="doi">10.1155/2022/6294148</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Research Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Preparation of Drug Sustained-Release Scaffold with De-Epithelized Human Amniotic Epithelial Cells and Thiolated Chitosan Nanocarriers and Its Repair Effect on Spinal Cord Injury</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0002-3085-9735</contrib-id>
+          <name>
+            <surname>Zhu</surname>
+            <given-names>Lijuan</given-names>
+          </name>
+          <xref rid="I1" ref-type="aff">
+<sup>1</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0001-8277-527X</contrib-id>
+          <name>
+            <surname>Tian</surname>
+            <given-names>Shaohua</given-names>
+          </name>
+          <xref rid="I2" ref-type="aff">
+<sup>2</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0002-2617-0206</contrib-id>
+          <name>
+            <surname>Li</surname>
+            <given-names>Zhiyong</given-names>
+          </name>
+          <xref rid="I2" ref-type="aff">
+<sup>2</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0003-2898-7516</contrib-id>
+          <name>
+            <surname>Fan</surname>
+            <given-names>Dandan</given-names>
+          </name>
+          <xref rid="I2" ref-type="aff">
+<sup>2</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0001-5993-5570</contrib-id>
+          <name>
+            <surname>Gao</surname>
+            <given-names>Hongwei</given-names>
+          </name>
+          <xref rid="I2" ref-type="aff">
+<sup>2</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0002-7785-0455</contrib-id>
+          <name>
+            <surname>Zhang</surname>
+            <given-names>Hongyu</given-names>
+          </name>
+          <xref rid="I2" ref-type="aff">
+<sup>2</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0002-2751-5464</contrib-id>
+          <name>
+            <surname>Bao</surname>
+            <given-names>Zhengqing</given-names>
+          </name>
+          <xref rid="I2" ref-type="aff">
+<sup>2</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author" corresp="yes">
+          <contrib-id contrib-id-type="orcid" authenticated="false">https://orcid.org/0000-0002-3756-119X</contrib-id>
+          <name>
+            <surname>Zhang</surname>
+            <given-names>Wenlong</given-names>
+          </name>
+          <email>qysfzwl@qmu.edu.cn</email>
+          <xref rid="I2" ref-type="aff">
+<sup>2</sup>
+</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="I1">
+<sup>1</sup>Neurology Department, The Third Affiliated Hospital of Qiqihar Medical University, Qiqihar 161000, Heilongjiang, China</aff>
+      <aff id="I2">
+<sup>2</sup>Orthopedics Department, The Third Affiliated Hospital of Qiqihar Medical University, Qiqihar 161000, Heilongjiang, China</aff>
+      <author-notes>
+        <fn fn-type="other">
+          <p>Academic Editor: Bhagyaveni M.A</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <year>2022</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>11</day>
+        <month>1</month>
+        <year>2022</year>
+      </pub-date>
+      <volume>2022</volume>
+      <elocation-id>6294148</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>23</day>
+          <month>11</month>
+          <year>2021</year>
+        </date>
+        <date date-type="rev-recd">
+          <day>11</day>
+          <month>12</month>
+          <year>2021</year>
+        </date>
+        <date date-type="accepted">
+          <day>17</day>
+          <month>12</month>
+          <year>2021</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Copyright &#xA9; 2022 Lijuan Zhu et al.</copyright-statement>
+        <copyright-year>2022</copyright-year>
+        <license>
+          <ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/" specific-use="textmining" content-type="ccbylicense">https://creativecommons.org/licenses/by/4.0/</ali:license_ref>
+          <license-p>This is an open access article distributed under the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <p>The disability rate of spinal cord injury (SCI) is extremely high, and stem cell inhibition is one of the most effective schemes in treating the spinal cord, but the survival rate is extremely low after stem cell transplantation, so it cannot be widely used in clinic. Studies have revealed that loading stem cells with biological scaffolds can effectively improve the survival rate and effect after stem cell transplantation. Therefore, this research was devised to analyze the repair effect of thiolated chitosan nanocarriers scaffold carrying de-epithelized human amniotic epithelial cells (HAECs) on SCI. And we used thiolated chitosan as nanocarriers, aiming to provide a reliable theoretical basis for future clinical practice. Through experiments, we concluded that the Tarlov and BBB scores of rats with SCI were raised under the intervention of thiolated chitosan carrying HAECs, while the inflammatory factors in serum, oxidative stress reaction in spinal cord tissue, apoptosis rate of nerve cells, and autophagy protein expression were all suppressed. Thus, the thiolated chitosan carrying HAECs may be applied to treat SCI by suppressing autophagy protein expression, oxidative stress response, and release of inflammatory factors in spinal cord tissue, which may be a new clinical therapy for SCI in the future. Even though we cannot understand exactly the therapeutic mechanism of thiolated chitosan carrying HAECs for SCI, the real clinical application of thiolated chitosan carrying HAECs needs to be confirmed by human experiments.</p>
+      </abstract>
+      <funding-group>
+        <award-group>
+          <funding-source>Qiqihar Science and Technology Bureau</funding-source>
+          <award-id>SFZD-2019135</award-id>
+        </award-group>
+      </funding-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="sec1">
+      <title>1. Introduction</title>
+      <p>SCI is one of the primary causes of limb dysfunction [<xref rid="B1" ref-type="bibr">1</xref>]. For the past few years, the incidence of SCI has been on the rise, with dozens to tens of thousands of new patients with SCI every year around the world, mainly due to traffic accidents, high-altitude falls, violence, or sports injuries [<xref rid="B2" ref-type="bibr">2</xref>&#x2013;<xref rid="B4" ref-type="bibr">4</xref>]. In the process of SCI, patients will have a series of local or systemic events such as hypotension, ischemia, and vasospasm [<xref rid="B5" ref-type="bibr">5</xref>]. These pathological changes can easily lead to organ dysfunction, shock, and even paralysis [<xref rid="B6" ref-type="bibr">6</xref>]. For now, SCI is usually treated conservatively in clinical practice, and drugs such as corticosteroids, gangliosides, scopolamine, and neurotrophy are commonly applied [<xref rid="B7" ref-type="bibr">7</xref>, <xref rid="B8" ref-type="bibr">8</xref>]. Although it can relieve the SCI of patients, it is difficult to cure completely, and there are some toxic and side effects [<xref rid="B9" ref-type="bibr">9</xref>, <xref rid="B10" ref-type="bibr">10</xref>]. With the increasingly serious threat of SCI, it is urgent to find an effective, stable, and rapid cure scheme for SCI in a clinic.</p>
+      <p>As a kind of stem cell, HAECs have been proven to be effective in transplantation therapy for central nervous system diseases [<xref rid="B11" ref-type="bibr">11</xref>, <xref rid="B12" ref-type="bibr">12</xref>]. Moreover, previous studies have also revealed that HAECs have a very significant effect in the process of resisting cell aging and repairing cell damage [<xref rid="B13" ref-type="bibr">13</xref>, <xref rid="B14" ref-type="bibr">14</xref>]. Compared with other transplanted cells, HAECs have higher safety and wider access, so it has great potential for clinical application [<xref rid="B15" ref-type="bibr">15</xref>]. However, the cell survival rate is extremely low through stem cell transplantation alone, which may not play an effective role in healing injury [<xref rid="B16" ref-type="bibr">16</xref>]. In recent years, it has been found in clinic that loading stem cells with biological scaffolds can effectively improve the survival rate and effect after stem cell transplantation, among which chitosan is a very commonly used loading material [<xref rid="B17" ref-type="bibr">17</xref>]. As a kind of natural macromolecular polysaccharide from shrimp and crab shells, chitosan is extremely mild and safe [<xref rid="B18" ref-type="bibr">18</xref>]. Chitosan can be electrostatically combined with nucleic acid to form nanoparticles, which not only have a very high protective effect on the DNA contained in them but can also make it release slowly and promote their binding to human cells [<xref rid="B19" ref-type="bibr">19</xref>]. Therefore, chitosan is applied as medicine or as a stem cell carrier for clinic medicine, and its effect has been generally recognized [<xref rid="B20" ref-type="bibr">20</xref>, <xref rid="B21" ref-type="bibr">21</xref>]. According to related studies, sulfhydrylation of chitosan can further enhance the cell permeability of nanoparticles, which is beneficial to cell binding [<xref rid="B22" ref-type="bibr">22</xref>]. Therefore, this research was devised to treat SCI by preparing de-epithelized human amniotic basement membrane and using thiolated chitosan as nanocarriers, aiming to provide a reliable theoretical basis for future clinical practice.</p>
+    </sec>
+    <sec id="sec2">
+      <title>2. Materials and Methods</title>
+      <p>Forty SPF SD rats, half male and half female, weighing 280&#x2013;320&#x2009;g, were from Zhuhai BesTest Bio-Tech Co., Ltd., with license number SYXK (Guangdong) 2020&#x2013;0229. They were fed adaptively for one week. Rats were randomly assigned to 4 groups: transplanted HAECs (group A, GA), transplanted thiolated chitosan carrying HAECs (group B, GB), no processing (model group, MG), and control group (CG).</p>
+      <p>In GA, GB, and MG, rats were anesthetized with pelltobarbitalum natricum intraperitoneally and then fastened on the fixed mount. Next, the skin and muscle at T9-T10 level were carefully cut layer by layer, the neural plate at T9-T10 was excised, and the spinal cord was clamped with a microvascular clamp at a pressure of 20&#x2009;g/cm<sup>2</sup> for 90&#x2009;s, and then the incision was closed. In CG, a microvascular clamp was not applied to treat the spinal cord, and the others were the same as abovementioned. A week later, rats in GA were transplanted with HAECs (ScienCell Research Laboratories, Inc.). The epithelial cell layer of HAECs was eliminated by trypsinase digestion, and 5&#x2009;<italic toggle="yes">&#x3BC;</italic>L (2 cells/<italic toggle="yes">&#x3BC;</italic>L) cells were obtained and implanted into the transection site of model rats. In CG and MG, rats were implanted with the same amount of physiological saline. The chitosan (500&#x2009;mg) was obtained and mingled with 8&#x2009;mL of hydrochloric acid (1&#x2009;mol/L). Then, the deionized water was supplemented to 50&#x2009;mL, and then 1.38&#x2009;g of 1-(3-dimethylaminopropyl)-3-ethyl carbodiimide hydrochloride was supplemented to continue. The pure thioglycollic acid (0.5&#x2009;mL) was added and changed it to pH 5.0 with 2&#x2009;mol/L sodium hydroxide. They were placed at ambient temperature for 6 hours in the dark, and then dialyzed with hydrochloric acid (5&#x2009;mmol/L), hydrochloric acid (5&#x2009;mmol/L), 1% sodium chloride, and hydrochloric acid (1&#x2009;mmol/L), respectively, for 12 hours each time. Freeze-drying was applied to prepare the thiolated chitosan solid. The thiolated chitosan (1.25&#x2009;mg) was added to the 5-5'-dithio-bis-nitrobenzoic acid solution (0.5&#x2009;mg/mL) for 3&#x2009;h. After that, it was centrifuged for 15&#x2009;min (15116&#x2009;&#xD7;&#x2009;g, 4&#xB0;C) to obtain the supernatant, and the OD value (412&#x2009;nm) was tested via an enzyme-labeling instrument. The morphology of thiolated chitosan was observed under a scanning electron microscope (SEM). HAECs and the prepared thiolated chitosan were cultivated for 24 hours, and then transplanted to rats in GB according to the scheme in 2.3. The concentration of HAECs was changed to 5&#x2009;&#xD7;&#x2009;10<sup>3</sup>/hole and inoculated it into 96-hole plate. After 24&#x2009;h, the culture medium was replaced, the thiolated chitosan was supplemented, and cultivated for 24&#x2009;h, 48&#x2009;h, and 72&#x2009;h, respectively. Next, 20&#x2009;<italic toggle="yes">&#x3BC;</italic>L MTT solution (5&#x2009;mg/mL) was added. After 4h, the supernatant was discarded and DMSO (150&#x2009;<italic toggle="yes">&#x3BC;</italic>L) was supplemented. The OD value (570&#x2009;nm) was tested via an enzyme-labeling instrument. The growth of HAECs cells with thiolated chitosan was compared with that without thiolated chitosan. In the three groups, rats were assessed by the Tarlov score [<xref rid="B23" ref-type="bibr">23</xref>] and the Basso Beattie Bresnahan (BBB) score [<xref rid="B24" ref-type="bibr">24</xref>] on the 0th, 3<sup>rd</sup>, 5<sup>th</sup>, and 7<sup>th</sup> days after transplantation. The higher the score, the better the situation.</p>
+      <p>After transplantation for 7 days, all the rats were killed by cutting their necks under anesthesia. The abdominal aorta blood (5&#x2009;mL) was drawn and centrifuged for 10 min (1504&#x2009;&#xD7;&#x2009;g, 4&#xB0;C) to obtain serum, which was put in a refrigerator at &#x2212;80&#xB0;C. In addition, the spinal cord tissue from the T9&#x2013;T10 injured segment of rats was obtained and cut into small pieces of 1&#x2009;mm<sup>3</sup> for a subsequent test. ELISA was used to test inflammatory factors such as interleukin-6 (IL-8) and interleukin-10 (IL-10) and tumour necrosis factor-<italic toggle="yes">&#x3B1;</italic> (TNF-<italic toggle="yes">&#x3B1;</italic>) in rat serum, and the kits were all from Invitrogen, the States. Spinal tissue samples were collected from samples in 2.9. The contents of malondialdehyde (MDA) and superoxide dismutase (SOD) in tissues were tested via xanthine oxidation and thiobarbituric acid. The kit was purchased from Beijing Biolab Technology Co., Ltd. and Sigma-Aldrich, the States. Spinal tissue samples were collected from samples in 2.9. They were fastened in 4% paraformaldehyde for 72 hours and prepared into paraffin sections (5&#x2009;<italic toggle="yes">&#x3BC;</italic>m). Then, it was dyed in accordance with the specifications of the TUNEL apoptosis kit (Abcam, China) and counted under a microscope to calculate the apoptosis rate of nerve cells. Spinal cord tissue was put in RIPA lysate (Invitrogen, the States), and protein concentration was verified via BCA (Invitrogen, the States). SDS-PAGE electrophoresis was applied to transfer the film and seal it for 1&#x2009;h. Beclinl (1: 1,000), LC3 (1: 1,000), P62 (1: 1,000), and GAPDH primary antibody (1: 2,000) were supplemented overnight. Then, the film was washed with TBST and HRP-labeled goat anti-rabbit IgG secondary antibody was added (1: 4,000). ECL (Sigma-Aldrich, the States) was applied for detection, and the gray value was calculated.</p>
+      <p>All results were represented as (mean number&#x2009;&#xB1;&#x2009;standard deviation) and analyzed by SPSS19.0. Independent sample <italic toggle="yes">t</italic>-test was applied for comparison between groups. Univariate analysis of variance and LSD back testing were applied for comparison among groups. <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05 was considered significant.</p>
+    </sec>
+    <sec id="sec3">
+      <title>3. Results</title>
+      <sec id="sec3.1">
+        <title>3.1. Preparation of Thiolated Chitosan</title>
+        <p>According to the test, the sulfhydryl group in 1&#x2009;g of thiolated chitosan was approximately 214.52&#x2009;&#xB1;&#x2009;14.26, which was higher than in nonthiolated chitosan (26.42&#x2009;&#xB1;&#x2009;4.86) (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.001, <xref rid="fig1" ref-type="fig">Figure 1(a)</xref>). By observing the morphology of thiolated chitosan nanoparticles under SEM, it could be seen that thiolated chitosan showed a dense and complete circular structure, which was evenly distributed in the field of vision and had no gaps. The appearance was smooth, and the size was equal (<xref rid="fig1" ref-type="fig">Figure 1(b)</xref>).</p>
+      </sec>
+      <sec id="sec3.2">
+        <title>3.2. Effect of Thiolated Chitosan on the Survival Rate of HAECs</title>
+        <p>MTT assay revealed that the HAECs curve with the intervention of thiolated chitosan was higher than that without intervention (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, <xref rid="fig2" ref-type="fig">Figure 2</xref>).</p>
+      </sec>
+      <sec id="sec3.3">
+        <title>3.3. Evaluation of SCI</title>
+        <p>On the 0th and 3rd day, Tarlov and BBB scores had no difference in GA, GB, and MG (<italic toggle="yes">P</italic>&#x2009;&gt;&#x2009;0.05, Tables <xref rid="tab1" ref-type="table">1</xref> and <xref rid="tab2" ref-type="table">2</xref>), and they were lower than those in CG (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, Tables <xref rid="tab1" ref-type="table">1</xref> and <xref rid="tab2" ref-type="table">2</xref>). On the 5<sup>th</sup> and 7<sup>th</sup> days, the Tarlov and BBB scores in MG were the lowest among the three groups, followed by GA, and GB was higher than GA but lower than the CG (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, Tables <xref rid="tab1" ref-type="table">1</xref> and <xref rid="tab2" ref-type="table">2</xref>). In GA and GB, it increased from the third day (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, Tables <xref rid="tab1" ref-type="table">1</xref> and <xref rid="tab2" ref-type="table">2</xref>).</p>
+      </sec>
+      <sec id="sec3.4">
+        <title>3.4. Comparison of Inflammatory Factors</title>
+        <p>In GA, IL-6, IL-10, and TNF-<italic toggle="yes">&#x3B1;</italic> were (18.86&#x2009;&#xB1;&#x2009;4.34&#x2009;pg/mL), (31.42&#x2009;&#xB1;&#x2009;7.42&#x2009;pg/mL), and (52.62&#x2009;&#xB1;&#x2009;9.57&#x2009;pg/mL), respectively. In GB, they were (11.87&#x2009;&#xB1;&#x2009;3.42&#x2009;pg/mL), (22.42&#x2009;&#xB1;&#x2009;6.72&#x2009;pg/mL), and (37.84&#x2009;&#xB1;&#x2009;6.65&#x2009;pg/mL), respectively. In MG, they were (29.42&#x2009;&#xB1;&#x2009;5.63&#x2009;pg/mL), (42.85&#x2009;&#xB1;&#x2009;10.52&#x2009;pg/mL), and (84.63&#x2009;&#xB1;&#x2009;11.74&#x2009;pg/mL), respectively. In CG, they were (9.62&#x2009;&#xB1;&#x2009;2.05&#x2009;pg/mL), (12.84&#x2009;&#xB1;&#x2009;4.26&#x2009;pg/mL), and (18.93&#x2009;&#xB1;&#x2009;4.71&#x2009;pg/mL), respectively. The levels of IL-6, IL-10, and TNF-<italic toggle="yes">&#x3B1;</italic> in MG were the highest, followed by GA. The levels of IL-10 and TNF-<italic toggle="yes">&#x3B1;</italic> in GB were lower than those in GA but higher than those in CG (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, Figures <xref rid="fig3" ref-type="fig">3(a)</xref>&#x2013;<xref rid="fig3" ref-type="fig">3(c)</xref>). Nevertheless, there was no difference between GB and CG in IL-6 (<italic toggle="yes">P</italic>&#x2009;&gt;&#x2009;0.05, <xref rid="fig3" ref-type="fig">Figure 3(a)</xref>), which was lower than that in GA (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, <xref rid="fig3" ref-type="fig">Figure 3(a)</xref>).</p>
+      </sec>
+      <sec id="sec3.5">
+        <title>3.5. Comparison of Oxidative Stress</title>
+        <p>There was no difference in SOD between GB and CG (<italic toggle="yes">P</italic>&#x2009;&gt;&#x2009;0.05, <xref rid="fig4" ref-type="fig">Figure 4(a)</xref>), which was higher than the other two groups. But SOD in GA was higher than that in MG (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, <xref rid="fig4" ref-type="fig">Figure 4(a)</xref>). The MDA in MG was the highest among the four groups, followed by GA, and the MDA in GB was lower than that in GA but higher than that in CG (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, <xref rid="fig4" ref-type="fig">Figure 4(b)</xref>).</p>
+      </sec>
+      <sec id="sec3.6">
+        <title>3.6. Comparison of Apoptosis Rate of Nerve Cells</title>
+        <p>The apoptosis rate of nerve cells was about (24.81&#x2009;&#xB1;&#x2009;3.42%) in GA, (14.83&#x2009;&#xB1;&#x2009;2.93%) in GB, (42.82&#x2009;&#xB1;&#x2009;5.63%) in MG, and (7.63&#x2009;&#xB1;&#x2009;1.18) in CG. Compared with the four groups, the apoptosis rate of nerve cells in MG was the highest, followed by GA, and GB was lower than GA but higher than CG (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, <xref rid="fig5" ref-type="fig">Figure 5</xref>).</p>
+      </sec>
+      <sec id="sec3.7">
+        <title>3.7. Expression of Autophagy Protein</title>
+        <p>After detection, we concluded that the expression of Beclinl, LC3, and P62 protein in the spinal cord tissue of MG was the highest among the four groups, while they were the lowest in CG (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, Figures <xref rid="fig6" ref-type="fig">6(a)</xref> and <xref rid="fig6" ref-type="fig">6(b)</xref>). There was no difference in Beclinl between GA and GB (<italic toggle="yes">P</italic>&#x2009;&gt;&#x2009;0.05, Figures <xref rid="fig6" ref-type="fig">6(a)</xref> and <xref rid="fig6" ref-type="fig">6(b)</xref>), but LC3 and P62 were higher than those in GB (<italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05, Figures <xref rid="fig6" ref-type="fig">6(a)</xref> and <xref rid="fig6" ref-type="fig">6(b)</xref>).</p>
+      </sec>
+    </sec>
+    <sec id="sec4">
+      <title>4. Discussion</title>
+      <p>SCI is one of the most common traumatic diseases at present, and its complications (such as muscle atrophy, infection, respiratory system disease) are becoming more and more complex and serious [<xref rid="B25" ref-type="bibr">25</xref>]. As one of the effective treatment schemes for SCI, stem cell transplantation has a significant effect, but it cannot be widely applied in clinical practice due to its low survival rate [<xref rid="B26" ref-type="bibr">26</xref>]. The emergence of nanodrug-carrying scaffolds may be the breakthrough of clinical application of stem cell transplantation in the future. Moreover, a large number of studies have revealed that oxidative damage, inflammatory response, and changes in cell biological behavior caused by oxygen free radicals all play a vital role in the development of SCI [<xref rid="B27" ref-type="bibr">27</xref>, <xref rid="B28" ref-type="bibr">28</xref>]. Therefore, in order to confirm the effect of nanodrug-carrying scaffolds on stem cell transplantation in treating SCI, this research was devised to make a step-by-step analysis through the abovementioned points.</p>
+      <p>Firstly, we tested the sulfhydryl groups in the prepared thiolated chitosan and found that the content of sulfhydryl groups in the thiolated chitosan increased obviously. Previous studies have revealed that the sulfhydryl groups can greatly destroy the intramolecular hydrogen bonds of chitosan, improve the water solubility of chitosan, and form disulfide bonds with the sulfhydryl groups of mucin molecules, thus increasing the mucosal adsorption effect of nanoparticles and the absorption rate of encapsulated drugs in vivo [<xref rid="B29" ref-type="bibr">29</xref>]. Therefore, the thiolated chitosan is more convenient for drug loading than the nonsulfhydryl chitosan, and it has a higher utilization value. By observing the cell survival of HAECs under the intervention of thiolated chitosan, we concluded that the growth of HAECs under the intervention of thiolated chitosan was obviously higher than that without intervention, which suggested that thiolated chitosan not only had no toxic and side effects on HAECs, but also could effectively enhance cell activation, so it had a crucial effect on making up for the low survival rate of stem cell transplantation. Therefore, we assessed the state of SCI in rats with SCI and control rats which were transplanted with HAECs, thiolated chitosan carrying HAECs, and did not intervene. The findings revealed that the scores of rats transplanted with HAECs and thiolated chitosan carrying HAECs in GA and GB were better than those of rats in MG, which also preliminarily revealed that the two transplantation schemes might have had definite improvement effects on SCI and the thiolated chitosan carrying HAECs was better. Then, we also concluded that the inflammatory factors in GB were obviously lower than those of rats in GA and MG by comparing the inflammatory factors of rats in the four groups, which revealed that the inflammatory reaction and inflammatory injury in the bodies of rats in GB were obviously ameliorated. However, the development of SCI is due to the massive release of inflammatory mediators, resulting in the injury and necrosis of tissues and cells, thus aggravating the disease [<xref rid="B30" ref-type="bibr">30</xref>]. From this, we could conclude that HAECs carrying thiolated chitosan had a significant effect on the inhibition of inflammatory factors. The release of inflammatory factors is mainly activated by the peroxidation of tissues or cells [<xref rid="B31" ref-type="bibr">31</xref>]. The aggravation of oxidative stress is also an important pathological process that causes secondary injury to the injury site and its surrounding tissues after SCI [<xref rid="B32" ref-type="bibr">32</xref>]. After SCI, a large number of oxygen free radicals can be produced in tissues to cause oxidative damage to cells and damage neurons, glial cells, and other normal cells around them, resulting in cell necrosis and apoptosis [<xref rid="B33" ref-type="bibr">33</xref>, <xref rid="B34" ref-type="bibr">34</xref>]. SOD and MDA are the most sensitive indicators of oxidative stress response, and their role in responding to oxidative stress in various diseases has been repeatedly verified [<xref rid="B35" ref-type="bibr">35</xref>, <xref rid="B36" ref-type="bibr">36</xref>]. SOD has a strong ability to scavenge superoxide anion radicals, which indicates the antioxidation ability of the body. MDA is the final product of lipid peroxidation [<xref rid="B37" ref-type="bibr">37</xref>]. Our test results revealed that SOD levels in GB were raised while MDA levels declined, which indicated that oxidative stress reactions were obviously suppressed and the antioxidant capacity of tissues was improved. The detection results of TUNEL also revealed that the apoptosis rate of nerve cells in GB had obviously declined, which might be related to the effective inhibition of oxidative stress reaction. Finally, in order to further clarify the repair effect of thiolated chitosan carrying HAECs on SCI, we also tested autophagy proteins in spinal cord tissue. As an important factor causing cell injury and death, autophagy has been confirmed to increase obviously during SCI. In this test, we concluded that the autophagy proteins Beclinl, LC3, and P62 of rats in GB were obviously lower than those in MG. It could be seen that thiolated chitosan carrying HAECs also had an effective inhibitory effect on autophagy, and this inhibition might be the key to reduce oxidative stress response and inflammatory reactions of cells.</p>
+    </sec>
+    <sec id="sec5">
+      <title>5. Conclusion</title>
+      <p>The nanodrug-carrying scaffolds of thiolated chitosan can ameliorate the survival rate of HAECs. The thiolated chitosan carrying HAECs may be applied to treat SCI by suppressing autophagy protein expression, oxidative stress response, and release of inflammatory factors in spinal cord tissue, which may be a new clinical therapy for SCI in the future.</p>
+      <p>However, we cannot understand exactly the therapeutic mechanism of thiolated chitosan carrying HAECs for SCI due to the limited conditions, and the improvement of thiolated chitosan for HAECs' shortcomings may not only ameliorate the cell survival rate and the binding rate with the body, but also have a deeper and potential relationship between them, which is worth exploring and discovering. Nevertheless, the real clinical application of thiolated chitosan carrying HAECs needs to be confirmed by human experiments.</p>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>Acknowledgments</title>
+      <p>This paper was supported by Qiqihar Science and Technology Bureau (SFZD-2019135).</p>
+    </ack>
+    <sec sec-type="data-availability">
+      <title>Data Availability</title>
+      <p>The datasets used and/or analyzed during the current study are available from the corresponding author on reasonable request.</p>
+    </sec>
+    <sec sec-type="COI-statement">
+      <title>Conflicts of Interest</title>
+      <p>The authors declare that they have no conflicts of interest.</p>
+    </sec>
+    <ref-list>
+      <ref id="B1" content-type="article">
+        <label>1</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Bican</surname><given-names>O.</given-names></name>
+<name><surname>Minagar</surname><given-names>A.</given-names></name>
+<name><surname>Pruitt</surname><given-names>A. A.</given-names></name>
+</person-group>
+          <article-title>The spinal cord</article-title>
+          <source>
+<italic toggle="yes">Neurologic Clinics</italic>
+</source>
+          <year>2013</year>
+          <volume>31</volume>
+          <issue>1</issue>
+          <fpage>1</fpage>
+          <lpage>18</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.ncl.2012.09.009</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84870201473</pub-id>
+          <pub-id pub-id-type="pmid">23186894</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B2" content-type="article">
+        <label>2</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Cho</surname><given-names>T. A.</given-names></name>
+</person-group>
+          <article-title>Spinal cord functional anatomy</article-title>
+          <source>
+<italic toggle="yes">Continuum</italic>
+</source>
+          <year>2015</year>
+          <volume>21</volume>
+          <issue>1 Spinal Cord Disorders</issue>
+          <fpage>13</fpage>
+          <lpage>35</lpage>
+          <pub-id pub-id-type="doi">10.1212/01.con.0000461082.25876.4a</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84923166552</pub-id>
+          <pub-id pub-id-type="pmid">25651215</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3" content-type="article">
+        <label>3</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Bhattacharyya</surname><given-names>S.</given-names></name>
+</person-group>
+          <article-title>Spinal cord disorders: myelopathy</article-title>
+          <source>
+<italic toggle="yes">The American Journal of Medicine</italic>
+</source>
+          <year>2018</year>
+          <volume>131</volume>
+          <issue>11</issue>
+          <fpage>1293</fpage>
+          <lpage>1297</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.amjmed.2018.03.009</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85048717350</pub-id>
+          <pub-id pub-id-type="pmid">29605415</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B4" content-type="article">
+        <label>4</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Novy</surname><given-names>J.</given-names></name>
+</person-group>
+          <article-title>Spinal cord syndromes</article-title>
+          <source>
+<italic toggle="yes">Frontiers of Neurology and Neuroscience</italic>
+</source>
+          <year>2012</year>
+          <volume>30</volume>
+          <fpage>195</fpage>
+          <lpage>198</lpage>
+          <pub-id pub-id-type="doi">10.1159/000333682</pub-id>
+          <pub-id pub-id-type="pmid">22377894</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B5" content-type="article">
+        <label>5</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Bartlett</surname><given-names>R. D.</given-names></name>
+<name><surname>Choi</surname><given-names>D.</given-names></name>
+<name><surname>Phillips</surname><given-names>J. B.</given-names></name>
+</person-group>
+          <article-title>Biomechanical properties of the spinal cord: implications for tissue engineering and clinical translation</article-title>
+          <source>
+<italic toggle="yes">Regenerative Medicine</italic>
+</source>
+          <year>2016</year>
+          <volume>11</volume>
+          <issue>7</issue>
+          <fpage>659</fpage>
+          <lpage>673</lpage>
+          <pub-id pub-id-type="doi">10.2217/rme-2016-0065</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84988369282</pub-id>
+          <pub-id pub-id-type="pmid">27592549</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B6" content-type="article">
+        <label>6</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Nadvornik</surname><given-names>P.</given-names></name>
+</person-group>
+          <article-title>Spinal cord stereotaxy: an overview</article-title>
+          <source>
+<italic toggle="yes">Journal of Neurological Surgery. Part A, Central European Neurosurgery</italic>
+</source>
+          <year>2015</year>
+          <volume>76</volume>
+          <issue>4</issue>
+          <fpage>318</fpage>
+          <lpage>322</lpage>
+          <pub-id pub-id-type="doi">10.1055/s-0034-1376194</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84953865977</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B7" content-type="article">
+        <label>7</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Nguyen</surname><given-names>L. H.</given-names></name>
+<name><surname>Gao</surname><given-names>M.</given-names></name>
+<name><surname>Lin</surname><given-names>J.</given-names></name>
+<name><surname>Wu</surname><given-names>W.</given-names></name>
+<name><surname>Wang</surname><given-names>J.</given-names></name>
+<name><surname>Chew</surname><given-names>S. Y.</given-names></name>
+</person-group>
+          <article-title>Three-dimensional aligned nanofibers-hydrogel scaffold for controlled non-viral drug/gene delivery to direct axon regeneration in spinal cord injury treatment</article-title>
+          <source>
+<italic toggle="yes">Scientific Reports</italic>
+</source>
+          <year>2017</year>
+          <volume>7</volume>
+          <issue>7</issue>
+          <fpage>p. 42212</fpage>
+          <pub-id pub-id-type="doi">10.1038/srep42212</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85011928454</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B8" content-type="article">
+        <label>8</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>P&#xEA;go</surname><given-names>A. P.</given-names></name>
+<name><surname>Kubinova</surname><given-names>S.</given-names></name>
+<name><surname>Cizkova</surname><given-names>D.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>Regenerative medicine for the treatment of spinal cord injury: more than just promises?</article-title>
+          <source>
+<italic toggle="yes">Journal of Cellular and Molecular Medicine</italic>
+</source>
+          <year>2012</year>
+          <volume>16</volume>
+          <issue>11</issue>
+          <fpage>2564</fpage>
+          <lpage>2582</lpage>
+          <pub-id pub-id-type="doi">10.1111/j.1582-4934.2012.01603.x</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84868098934</pub-id>
+          <pub-id pub-id-type="pmid">22805417</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B9" content-type="article">
+        <label>9</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Geurts</surname><given-names>J. W.</given-names></name>
+<name><surname>Joosten</surname><given-names>E. A.</given-names></name>
+<name><surname>van Kleef</surname><given-names>M.</given-names></name>
+</person-group>
+          <article-title>Current status and future perspectives of spinal cord stimulation in treatment of chronic pain</article-title>
+          <source>
+<italic toggle="yes">Pain</italic>
+</source>
+          <year>2017</year>
+          <volume>158</volume>
+          <issue>5</issue>
+          <fpage>771</fpage>
+          <lpage>774</lpage>
+          <pub-id pub-id-type="doi">10.1097/j.pain.0000000000000847</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85033778242</pub-id>
+          <pub-id pub-id-type="pmid">28106667</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B10" content-type="article">
+        <label>10</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Jensen</surname><given-names>M. P.</given-names></name>
+<name><surname>Brownstone</surname><given-names>R. M.</given-names></name>
+</person-group>
+          <article-title>Mechanisms of spinal cord stimulation for the treatment of pain: still in the dark after 50 years</article-title>
+          <source>
+<italic toggle="yes">European Journal of Pain</italic>
+</source>
+          <year>2019</year>
+          <volume>23</volume>
+          <issue>4</issue>
+          <fpage>652</fpage>
+          <lpage>659</lpage>
+          <pub-id pub-id-type="doi">10.1002/ejp.1336</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85057977181</pub-id>
+          <pub-id pub-id-type="pmid">30407696</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B11" content-type="article">
+        <label>11</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Wang</surname><given-names>T. G.</given-names></name>
+<name><surname>Xu</surname><given-names>J.</given-names></name>
+<name><surname>Zhu</surname><given-names>A. H.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>Human amniotic epithelial cells combined with silk fibroin scaffold in the repair of spinal cord injury</article-title>
+          <source>
+<italic toggle="yes">Neural regeneration research</italic>
+</source>
+          <year>2016</year>
+          <volume>11</volume>
+          <issue>10</issue>
+          <fpage>1670</fpage>
+          <lpage>1677</lpage>
+          <pub-id pub-id-type="doi">10.4103/1673-5374.193249</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84994803131</pub-id>
+          <pub-id pub-id-type="pmid">27904501</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B12" content-type="article">
+        <label>12</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Sankar</surname><given-names>V.</given-names></name>
+<name><surname>Muthusamy</surname><given-names>R.</given-names></name>
+</person-group>
+          <article-title>Role of human amniotic epithelial cell transplantation in spinal cord injury repair research</article-title>
+          <source>
+<italic toggle="yes">Neuroscience</italic>
+</source>
+          <year>2003</year>
+          <volume>118</volume>
+          <issue>1</issue>
+          <fpage>11</fpage>
+          <lpage>17</lpage>
+          <pub-id pub-id-type="doi">10.1016/s0306-4522(02)00929-6</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-0037466268</pub-id>
+          <pub-id pub-id-type="pmid">12676132</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B13" content-type="article">
+        <label>13</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Pan</surname><given-names>C.</given-names></name>
+<name><surname>Lang</surname><given-names>H.</given-names></name>
+<name><surname>Zhang</surname><given-names>T.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>Conditioned medium derived from human amniotic stem cells delays H2O2induced premature senescence in human dermal fibroblasts</article-title>
+          <source>
+<italic toggle="yes">International Journal of Molecular Medicine</italic>
+</source>
+          <year>2019</year>
+          <volume>44</volume>
+          <issue>5</issue>
+          <fpage>1629</fpage>
+          <lpage>1640</lpage>
+          <pub-id pub-id-type="doi">10.3892/ijmm.2019.4346</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85073667556</pub-id>
+          <pub-id pub-id-type="pmid">31545472</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B14" content-type="article">
+        <label>14</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Tan</surname><given-names>J. L.</given-names></name>
+<name><surname>Lau</surname><given-names>S. N.</given-names></name>
+<name><surname>Leaw</surname><given-names>B.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>Amnion epithelial cell-derived exosomes restrict lung injury and enhance endogenous lung repair</article-title>
+          <source>
+<italic toggle="yes">Stem Cells Translational Medicine</italic>
+</source>
+          <year>2018</year>
+          <volume>7</volume>
+          <issue>2</issue>
+          <fpage>180</fpage>
+          <lpage>196</lpage>
+          <pub-id pub-id-type="doi">10.1002/sctm.17-0185</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85041114330</pub-id>
+          <pub-id pub-id-type="pmid">29297621</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B15" content-type="article">
+        <label>15</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Menon</surname><given-names>R.</given-names></name>
+<name><surname>Boldogh</surname><given-names>I.</given-names></name>
+<name><surname>Urrabaz-Garza</surname><given-names>R.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>Senescence of primary amniotic cells via oxidative DNA damage</article-title>
+          <source>
+<italic toggle="yes">PLoS One</italic>
+</source>
+          <year>2013</year>
+          <volume>8</volume>
+          <issue>12</issue>
+          <pub-id pub-id-type="publisher-id">e83416</pub-id>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0083416</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84893588561</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B16" content-type="article">
+        <label>16</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>He</surname><given-names>H.</given-names></name>
+<name><surname>Cho</surname><given-names>H.-T.</given-names></name>
+<name><surname>Li</surname><given-names>W.</given-names></name>
+<name><surname>Kawakita</surname><given-names>T.</given-names></name>
+<name><surname>Jong</surname><given-names>L.</given-names></name>
+<name><surname>Tseng</surname><given-names>S. C. G.</given-names></name>
+</person-group>
+          <article-title>Signaling-transduction pathways required for ex vivo expansion of human limbal explants on intact amniotic membrane</article-title>
+          <source>
+<italic toggle="yes">Investigative Opthalmology &amp; Visual Science</italic>
+</source>
+          <year>2006</year>
+          <volume>47</volume>
+          <issue>1</issue>
+          <fpage>151</fpage>
+          <lpage>157</lpage>
+          <pub-id pub-id-type="doi">10.1167/iovs.05-0351</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-33644841408</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B17" content-type="article">
+        <label>17</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Muxika</surname><given-names>A.</given-names></name>
+<name><surname>Etxabide</surname><given-names>A.</given-names></name>
+<name><surname>Uranga</surname><given-names>J.</given-names></name>
+<name><surname>Guerrero</surname><given-names>P.</given-names></name>
+<name><surname>de la Caba</surname><given-names>K.</given-names></name>
+</person-group>
+          <article-title>Chitosan as a bioactive polymer: processing, properties and applications</article-title>
+          <source>
+<italic toggle="yes">International Journal of Biological Macromolecules</italic>
+</source>
+          <year>2017</year>
+          <volume>105</volume>
+          <issue>Pt 2</issue>
+          <fpage>1358</fpage>
+          <lpage>1368</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.ijbiomac.2017.07.087</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85025814666</pub-id>
+          <pub-id pub-id-type="pmid">28735006</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B18" content-type="article">
+        <label>18</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Younes</surname><given-names>I.</given-names></name>
+<name><surname>Rinaudo</surname><given-names>M.</given-names></name>
+</person-group>
+          <article-title>Chitin and chitosan preparation from marine sources. Structure, properties and applications</article-title>
+          <source>
+<italic toggle="yes">Marine Drugs</italic>
+</source>
+          <year>2015</year>
+          <volume>13</volume>
+          <issue>3</issue>
+          <fpage>1133</fpage>
+          <lpage>1174</lpage>
+          <pub-id pub-id-type="doi">10.3390/md13031133</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84925840401</pub-id>
+          <pub-id pub-id-type="pmid">25738328</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B19" content-type="article">
+        <label>19</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Patrulea</surname><given-names>V.</given-names></name>
+<name><surname>Ostafe</surname><given-names>V.</given-names></name>
+<name><surname>Borchard</surname><given-names>G.</given-names></name>
+<name><surname>Jordan</surname><given-names>O.</given-names></name>
+</person-group>
+          <article-title>Chitosan as a starting material for wound healing applications</article-title>
+          <source>
+<italic toggle="yes">European Journal of Pharmaceutics and Biopharmaceutics</italic>
+</source>
+          <year>2015</year>
+          <volume>97</volume>
+          <issue>Pt B</issue>
+          <fpage>417</fpage>
+          <lpage>426</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.ejpb.2015.08.004</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84947921812</pub-id>
+          <pub-id pub-id-type="pmid">26614560</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B20" content-type="article">
+        <label>20</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Shariatinia</surname><given-names>Z.</given-names></name>
+</person-group>
+          <article-title>Carboxymethyl chitosan: properties and biomedical applications</article-title>
+          <source>
+<italic toggle="yes">International Journal of Biological Macromolecules</italic>
+</source>
+          <year>2018</year>
+          <volume>120</volume>
+          <issue>Pt B</issue>
+          <fpage>1406</fpage>
+          <lpage>1419</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.ijbiomac.2018.09.131</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85054031049</pub-id>
+          <pub-id pub-id-type="pmid">30267813</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B21" content-type="article">
+        <label>21</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Costa</surname><given-names>E. M.</given-names></name>
+<name><surname>Silva</surname><given-names>S.</given-names></name>
+<name><surname>Veiga</surname><given-names>M.</given-names></name>
+<name><surname>Tavaria</surname><given-names>F. K.</given-names></name>
+<name><surname>Pintado</surname><given-names>M. M.</given-names></name>
+</person-group>
+          <article-title>Chitosan&#x2019;s biological activity upon skin-related microorganisms and its potential textile applications</article-title>
+          <source>
+<italic toggle="yes">World Journal of Microbiology and Biotechnology</italic>
+</source>
+          <year>2018</year>
+          <volume>34</volume>
+          <issue>7</issue>
+          <fpage>p. 93</fpage>
+          <pub-id pub-id-type="doi">10.1007/s11274-018-2471-2</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85048498548</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B22" content-type="article">
+        <label>22</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Mahmood</surname><given-names>A.</given-names></name>
+<name><surname>Lanthaler</surname><given-names>M.</given-names></name>
+<name><surname>Laffleur</surname><given-names>F.</given-names></name>
+<name><surname>Huck</surname><given-names>C. W.</given-names></name>
+<name><surname>Bernkop-Schn&#xFC;rch</surname><given-names>A.</given-names></name>
+</person-group>
+          <article-title>Thiolated chitosan micelles: highly mucoadhesive drug carriers</article-title>
+          <source>
+<italic toggle="yes">Carbohydrate Polymers</italic>
+</source>
+          <year>2017</year>
+          <volume>167</volume>
+          <fpage>250</fpage>
+          <lpage>258</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.carbpol.2017.03.019</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85016017957</pub-id>
+          <pub-id pub-id-type="pmid">28433160</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B23" content-type="article">
+        <label>23</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Nazli</surname><given-names>Y.</given-names></name>
+<name><surname>Colak</surname><given-names>N.</given-names></name>
+<name><surname>Alpay</surname><given-names>M.</given-names></name>
+<name><surname>Uysal</surname><given-names>S.</given-names></name>
+<name><surname>Uzunlar</surname><given-names>A.</given-names></name>
+<name><surname>Cakir</surname><given-names>O.</given-names></name>
+</person-group>
+          <article-title>Neuroprotective effect of atorvastatin in spinal cord ischemia-reperfusion injury</article-title>
+          <source>
+<italic toggle="yes">Clinics</italic>
+</source>
+          <year>2015</year>
+          <volume>70</volume>
+          <issue>1</issue>
+          <fpage>52</fpage>
+          <lpage>60</lpage>
+          <pub-id pub-id-type="doi">10.6061/clinics/2015(01)10</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84922349890</pub-id>
+          <pub-id pub-id-type="pmid">25672430</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B24" content-type="article">
+        <label>24</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Zeng</surname><given-names>H.</given-names></name>
+<name><surname>Liu</surname><given-names>N.</given-names></name>
+<name><surname>Yang</surname><given-names>Y.-y.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>Lentivirus-mediated downregulation of <italic toggle="yes">&#x3B1;</italic>-synuclein reduces neuroinflammation and promotes functional recovery in rats with spinal cord injury</article-title>
+          <source>
+<italic toggle="yes">Journal of Neuroinflammation</italic>
+</source>
+          <year>2019</year>
+          <volume>16</volume>
+          <issue>1</issue>
+          <fpage>p. 283</fpage>
+          <pub-id pub-id-type="doi">10.1186/s12974-019-1658-2</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B25" content-type="article">
+        <label>25</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Rogers</surname><given-names>W. K.</given-names></name>
+<name><surname>Todd</surname><given-names>M.</given-names></name>
+</person-group>
+          <article-title>Acute spinal cord injury</article-title>
+          <source>
+<italic toggle="yes">Best Practice &amp; Research Clinical Anaesthesiology</italic>
+</source>
+          <year>2016</year>
+          <volume>30</volume>
+          <issue>1</issue>
+          <fpage>27</fpage>
+          <lpage>39</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.bpa.2015.11.003</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84960879681</pub-id>
+          <pub-id pub-id-type="pmid">27036601</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B26" content-type="article">
+        <label>26</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Gao</surname><given-names>L.</given-names></name>
+<name><surname>Peng</surname><given-names>Y.</given-names></name>
+<name><surname>Xu</surname><given-names>W.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>Progress in stem cell therapy for spinal cord injury</article-title>
+          <source>
+<italic toggle="yes">Stem Cells International</italic>
+</source>
+          <year>2020</year>
+          <volume>2020</volume>
+          <fpage>16</fpage>
+          <pub-id pub-id-type="publisher-id">2853650</pub-id>
+          <pub-id pub-id-type="doi">10.1155/2020/2853650</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B27" content-type="article">
+        <label>27</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Li</surname><given-names>Z.</given-names></name>
+<name><surname>Wu</surname><given-names>F.</given-names></name>
+<name><surname>Xu</surname><given-names>D.</given-names></name>
+<name><surname>Zhi</surname><given-names>Z.</given-names></name>
+<name><surname>Xu</surname><given-names>G.</given-names></name>
+</person-group>
+          <article-title>Inhibition of TREM1 reduces inflammation and oxidative stress after spinal cord injury (SCI) associated with HO-1 expressions</article-title>
+          <source>
+<italic toggle="yes">Biomedicine &amp; Pharmacotherapy</italic>
+</source>
+          <year>2019</year>
+          <volume>109</volume>
+          <fpage>2014</fpage>
+          <lpage>2021</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.biopha.2018.08.159</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85057102745</pub-id>
+          <pub-id pub-id-type="pmid">30551457</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B28" content-type="article">
+        <label>28</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Dai</surname><given-names>J.</given-names></name>
+<name><surname>Xu</surname><given-names>L. J.</given-names></name>
+<name><surname>Han</surname><given-names>G. D.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>MiR-137 attenuates spinal cord injury by modulating NEUROD4 through reducing inflammation and oxidative stress</article-title>
+          <source>
+<italic toggle="yes">European Review for Medical and Pharmacological Sciences</italic>
+</source>
+          <year>2018</year>
+          <volume>22</volume>
+          <issue>7</issue>
+          <fpage>1884</fpage>
+          <lpage>1890</lpage>
+          <pub-id pub-id-type="doi">10.26355/eurrev_201804_14709</pub-id>
+          <pub-id pub-id-type="pmid">29687839</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B29" content-type="article">
+        <label>29</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Yu</surname><given-names>Y.</given-names></name>
+<name><surname>Huo</surname><given-names>M.</given-names></name>
+<name><surname>Fu</surname><given-names>Y.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>N-deoxycholic acid-N,O-hydroxyethyl chitosan with a sulfhydryl modification to enhance the oral absorptive efficiency of paclitaxel</article-title>
+          <source>
+<italic toggle="yes">Molecular Pharmaceutics</italic>
+</source>
+          <year>2017</year>
+          <volume>14</volume>
+          <issue>12</issue>
+          <fpage>4539</fpage>
+          <lpage>4550</lpage>
+          <pub-id pub-id-type="doi">10.1021/acs.molpharmaceut.7b00662</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85037610197</pub-id>
+          <pub-id pub-id-type="pmid">29058910</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B30" content-type="article">
+        <label>30</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Bloom</surname><given-names>O.</given-names></name>
+<name><surname>Herman</surname><given-names>P. E.</given-names></name>
+<name><surname>Spungen</surname><given-names>A. M.</given-names></name>
+</person-group>
+          <article-title>Systemic inflammation in traumatic spinal cord injury</article-title>
+          <source>
+<italic toggle="yes">Experimental Neurology</italic>
+</source>
+          <year>2020</year>
+          <volume>325</volume>
+          <pub-id pub-id-type="publisher-id">113143</pub-id>
+          <pub-id pub-id-type="doi">10.1016/j.expneurol.2019.113143</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B31" content-type="article">
+        <label>31</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Fan</surname><given-names>Q.</given-names></name>
+<name><surname>Cavus</surname><given-names>O.</given-names></name>
+<name><surname>Xiong</surname><given-names>L.</given-names></name>
+<name><surname>Xia</surname><given-names>Y.</given-names></name>
+</person-group>
+          <article-title>Spinal cord injury: how could acupuncture help?</article-title>
+          <source>
+<italic toggle="yes">Journal of Acupuncture and Meridian Studies</italic>
+</source>
+          <year>2018</year>
+          <volume>11</volume>
+          <issue>4</issue>
+          <fpage>124</fpage>
+          <lpage>132</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.jams.2018.05.002</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85048292239</pub-id>
+          <pub-id pub-id-type="pmid">29753705</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B32" content-type="article">
+        <label>32</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Savikj</surname><given-names>M.</given-names></name>
+<name><surname>Kostovski</surname><given-names>E.</given-names></name>
+<name><surname>Lundell</surname><given-names>L. S.</given-names></name>
+<name><surname>Iversen</surname><given-names>P. O.</given-names></name>
+<name><surname>Massart</surname><given-names>J.</given-names></name>
+<name><surname>Widegren</surname><given-names>U.</given-names></name>
+</person-group>
+          <article-title>Altered oxidative stress and antioxidant defence in skeletal muscle during the first year following spinal cord injury</article-title>
+          <source>
+<italic toggle="yes">Physiological reports</italic>
+</source>
+          <year>2019</year>
+          <volume>7</volume>
+          <issue>16</issue>
+          <pub-id pub-id-type="publisher-id">e14218</pub-id>
+          <pub-id pub-id-type="doi">10.14814/phy2.14218</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85071437555</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B33" content-type="article">
+        <label>33</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Ozturk</surname><given-names>A. M.</given-names></name>
+<name><surname>Sozbilen</surname><given-names>M. C.</given-names></name>
+<name><surname>Sevgili</surname><given-names>E.</given-names></name>
+<name><surname>Dagci</surname><given-names>T.</given-names></name>
+<name><surname>&#xD6;zyalcin</surname><given-names>H.</given-names></name>
+<name><surname>Armagan</surname><given-names>G.</given-names></name>
+</person-group>
+          <article-title>Epidermal growth factor regulates apoptosis and oxidative stress in a rat model of spinal cord injury</article-title>
+          <source>
+<italic toggle="yes">Injury</italic>
+</source>
+          <year>2018</year>
+          <volume>49</volume>
+          <issue>6</issue>
+          <fpage>1038</fpage>
+          <lpage>1045</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.injury.2018.03.021</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85044383722</pub-id>
+          <pub-id pub-id-type="pmid">29602490</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B34" content-type="article">
+        <label>34</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Jia</surname><given-names>Z.</given-names></name>
+<name><surname>Zhu</surname><given-names>H.</given-names></name>
+<name><surname>Li</surname><given-names>J.</given-names></name>
+<name><surname>Wang</surname><given-names>X.</given-names></name>
+<name><surname>Misra</surname><given-names>H.</given-names></name>
+<name><surname>Li</surname><given-names>Y.</given-names></name>
+</person-group>
+          <article-title>Oxidative stress in spinal cord injury and antioxidant-based intervention</article-title>
+          <source>
+<italic toggle="yes">Spinal Cord</italic>
+</source>
+          <year>2012</year>
+          <volume>50</volume>
+          <issue>4</issue>
+          <fpage>264</fpage>
+          <lpage>274</lpage>
+          <pub-id pub-id-type="doi">10.1038/sc.2011.111</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84859564436</pub-id>
+          <pub-id pub-id-type="pmid">21987065</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B35" content-type="article">
+        <label>35</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>He</surname><given-names>R.</given-names></name>
+<name><surname>Cui</surname><given-names>M.</given-names></name>
+<name><surname>Lin</surname><given-names>H.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>Melatonin resists oxidative stress-induced apoptosis in nucleus pulposus cells</article-title>
+          <source>
+<italic toggle="yes">Life Sciences</italic>
+</source>
+          <year>2018</year>
+          <volume>199</volume>
+          <fpage>122</fpage>
+          <lpage>130</lpage>
+          <pub-id pub-id-type="doi">10.1016/j.lfs.2018.03.020</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85044776039</pub-id>
+          <pub-id pub-id-type="pmid">29526797</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B36" content-type="article">
+        <label>36</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>Qiu</surname><given-names>C.</given-names></name>
+<name><surname>Wu</surname><given-names>J.</given-names></name>
+<name><surname>Pei</surname><given-names>F.</given-names></name>
+<etal/>
+</person-group>
+          <article-title>[Correlation between oxidative stress factors and prognosis of patients with sepsis]</article-title>
+          <source>
+<italic toggle="yes">Zhonghua Wei Zhong Bing Ji Jiu Yi Xue</italic>
+</source>
+          <year>2019</year>
+          <volume>31</volume>
+          <issue>7</issue>
+          <fpage>847</fpage>
+          <lpage>851</lpage>
+          <pub-id pub-id-type="doi">10.3760/cma.j.issn.2095-4352.2019.07.010</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-85071453679</pub-id>
+          <pub-id pub-id-type="pmid">31441408</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B37" content-type="article">
+        <label>37</label>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+<name><surname>He</surname><given-names>M.</given-names></name>
+<name><surname>Ding</surname><given-names>Y.</given-names></name>
+<name><surname>Chu</surname><given-names>C.</given-names></name>
+<name><surname>Tang</surname><given-names>J.</given-names></name>
+<name><surname>Xiao</surname><given-names>Q.</given-names></name>
+<name><surname>Luo</surname><given-names>Z.-G.</given-names></name>
+</person-group>
+          <article-title>Autophagy induction stabilizes microtubules and promotes axon regeneration after spinal cord injury</article-title>
+          <source>
+<italic toggle="yes">Proceedings of the National Academy of Sciences</italic>
+</source>
+          <year>2016</year>
+          <volume>113</volume>
+          <issue>40</issue>
+          <fpage>11324</fpage>
+          <lpage>11329</lpage>
+          <pub-id pub-id-type="doi">10.1073/pnas.1611282113</pub-id>
+          <pub-id pub-id-type="other">2-s2.0-84989879940</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <floats-group>
+    <fig position="float" id="fig1">
+      <label>Figure 1</label>
+      <caption>
+        <p>Preparation of thiolated chitosan. (a) Sulfhydryl content in thiolated chitosan and chitosan, <sup><italic toggle="yes">&#x2217;&#x2217;&#x2217;</italic></sup><italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.001; (b) SEM image of thiolated chitosan.</p>
+      </caption>
+      <graphic xlink:href="JHE2022-6294148.001" position="float"/>
+    </fig>
+    <fig position="float" id="fig2">
+      <label>Figure 2</label>
+      <caption>
+        <p>Growth curve of HAECs. <sup>&#x2217;</sup>P &#xFF1C; 0.05.</p>
+      </caption>
+      <graphic xlink:href="JHE2022-6294148.002" position="float"/>
+    </fig>
+    <fig position="float" id="fig3">
+      <label>Figure 3</label>
+      <caption>
+        <p>Comparison of inflammatory factors. (a) IL-6 concentration; (b) IL-10 concentration; and (c) TNF-<italic toggle="yes">&#x3B1;</italic> concentration. <sup><italic toggle="yes">&#x2217;</italic></sup> represents the comparison with GA, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05; # represents the comparison with GB, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05; @ represents the comparison with MG, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05.</p>
+      </caption>
+      <graphic xlink:href="JHE2022-6294148.003" position="float"/>
+    </fig>
+    <fig position="float" id="fig4">
+      <label>Figure 4</label>
+      <caption>
+        <p>Oxidative stress. (a) SOD concentration; (b) MDA concentration. <sup><italic toggle="yes">&#x2217;</italic></sup> represents the comparison with GA, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05; # represents the comparison with GB, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05; @ represents the comparison with MG, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05.</p>
+      </caption>
+      <graphic xlink:href="JHE2022-6294148.004" position="float"/>
+    </fig>
+    <fig position="float" id="fig5">
+      <label>Figure 5</label>
+      <caption>
+        <p>Apoptosis rate of nerve cells. <sup><italic toggle="yes">&#x2217;</italic></sup> represents the comparison with GA, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05; # represents the comparison with GB, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05; @ represents the comparison with MG, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05.</p>
+      </caption>
+      <graphic xlink:href="JHE2022-6294148.005" position="float"/>
+    </fig>
+    <fig position="float" id="fig6">
+      <label>Figure 6</label>
+      <caption>
+        <p>Expression of autophagy protein. (a) Protein expression; (b) western blot. <sup><italic toggle="yes">&#x2217;</italic></sup> represents the comparison with GA, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05; # represents the comparison with GB, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05; @ represents the comparison with MG, <italic toggle="yes">P</italic>&#x2009;&lt;&#x2009;0.05.</p>
+      </caption>
+      <graphic xlink:href="JHE2022-6294148.006" position="float"/>
+    </fig>
+    <table-wrap position="float" id="tab1">
+      <label>Table 1</label>
+      <caption>
+        <p>Tarlov score.</p>
+      </caption>
+      <table frame="hsides" rules="groups">
+        <thead>
+          <tr>
+            <th align="left" rowspan="1" colspan="1">&#x2009;</th>
+            <th align="center" rowspan="1" colspan="1">GA</th>
+            <th align="center" rowspan="1" colspan="1">GB</th>
+            <th align="center" rowspan="1" colspan="1">MG</th>
+            <th align="center" rowspan="1" colspan="1">CG</th>
+            <th align="center" rowspan="1" colspan="1">F</th>
+            <th align="center" rowspan="1" colspan="1">
+<italic toggle="yes">P</italic>
+</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">0&#x2009;d</td>
+            <td align="center" rowspan="1" colspan="1">1.4&#x2009;&#xB1;&#x2009;0.2</td>
+            <td align="center" rowspan="1" colspan="1">1.5&#x2009;&#xB1;&#x2009;0.3</td>
+            <td align="center" rowspan="1" colspan="1">1.4&#x2009;&#xB1;&#x2009;0.2</td>
+            <td align="center" rowspan="1" colspan="1">5.0&#x2009;&#xB1;&#x2009;0.0</td>
+            <td align="center" rowspan="1" colspan="1">540.200</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">3&#x2009;d</td>
+            <td align="center" rowspan="1" colspan="1">2.0&#x2009;&#xB1;&#x2009;0.2<sup><italic toggle="yes">&#x2217;</italic></sup></td>
+            <td align="center" rowspan="1" colspan="1">2.1&#x2009;&#xB1;&#x2009;0.2<sup><italic toggle="yes">&#x2217;</italic></sup></td>
+            <td align="center" rowspan="1" colspan="1">1.9&#x2009;&#xB1;&#x2009;0.3<sup><italic toggle="yes">&#x2217;</italic></sup></td>
+            <td align="center" rowspan="1" colspan="1">5.0&#x2009;&#xB1;&#x2009;0.0<sup>&amp;$^</sup></td>
+            <td align="center" rowspan="1" colspan="1">401.700</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">5&#x2009;d</td>
+            <td align="center" rowspan="1" colspan="1">2.6&#x2009;&#xB1;&#x2009;0.4<sup><italic toggle="yes">&#x2217;</italic></sup><sup>#</sup></td>
+            <td align="center" rowspan="1" colspan="1">3.1&#x2009;&#xB1;&#x2009;0.3<sup><italic toggle="yes">&#x2217;</italic></sup><sup>#&amp;</sup></td>
+            <td align="center" rowspan="1" colspan="1">2.2&#x2009;&#xB1;&#x2009;0.4<sup><italic toggle="yes">&#x2217;</italic></sup><sup>&amp;$</sup></td>
+            <td align="center" rowspan="1" colspan="1">5.0&#x2009;&#xB1;&#x2009;0.0<sup>&amp;$^</sup></td>
+            <td align="center" rowspan="1" colspan="1">96.270</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">7&#x2009;d</td>
+            <td align="center" rowspan="1" colspan="1">3.2&#x2009;&#xB1;&#x2009;0.5<sup><italic toggle="yes">&#x2217;</italic></sup><sup>#@</sup></td>
+            <td align="center" rowspan="1" colspan="1">4.2&#x2009;&#xB1;&#x2009;0.4<sup><italic toggle="yes">&#x2217;</italic></sup><sup>#@&amp;</sup></td>
+            <td align="center" rowspan="1" colspan="1">2.3&#x2009;&#xB1;&#x2009;0.5<sup><italic toggle="yes">&#x2217;</italic></sup><sup>&amp;$</sup></td>
+            <td align="center" rowspan="1" colspan="1">5.0&#x2009;&#xB1;&#x2009;0.0<sup>&amp;$^</sup></td>
+            <td align="center" rowspan="1" colspan="1">74.100</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">
+<italic toggle="yes">F</italic>
+</td>
+            <td align="center" rowspan="1" colspan="1">48.490</td>
+            <td align="center" rowspan="1" colspan="1">147.600</td>
+            <td align="center" rowspan="1" colspan="1">12.100</td>
+            <td align="center" rowspan="1" colspan="1">&#x2014;</td>
+            <td align="center" rowspan="1" colspan="1">&#x2009;</td>
+            <td align="center" rowspan="1" colspan="1">&#x2009;</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">P</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+            <td align="center" rowspan="1" colspan="1">&#x2014;</td>
+            <td align="center" rowspan="1" colspan="1">&#x2009;</td>
+            <td align="center" rowspan="1" colspan="1">&#x2009;</td>
+          </tr>
+        </tbody>
+      </table>
+      <table-wrap-foot>
+        <fn>
+          <p>Note. <sup><italic toggle="yes">&#x2217;</italic></sup> represents the comparison with the same group on the 0th day, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05; # represents the comparison with the same group on the 3<sup>rd</sup> day, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05; @ represents the comparison with the same group on the 5<sup>th</sup> day, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05; &amp; represents the comparison with GA at the same time, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05; $ represents the comparison with GB at the same time, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05; ^ represents the comparison with MG at the same time, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05.</p>
+        </fn>
+      </table-wrap-foot>
+    </table-wrap>
+    <table-wrap position="float" id="tab2">
+      <label>Table 2</label>
+      <caption>
+        <p>BBB score.</p>
+      </caption>
+      <table frame="hsides" rules="groups">
+        <thead>
+          <tr>
+            <th align="left" rowspan="1" colspan="1">&#x2009;</th>
+            <th align="center" rowspan="1" colspan="1">GA</th>
+            <th align="center" rowspan="1" colspan="1">GB</th>
+            <th align="center" rowspan="1" colspan="1">MG</th>
+            <th align="center" rowspan="1" colspan="1">CG</th>
+            <th align="center" rowspan="1" colspan="1">F</th>
+            <th align="center" rowspan="1" colspan="1">P</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">0 d</td>
+            <td align="center" rowspan="1" colspan="1">3.6&#x2009;&#xB1;&#x2009;0.4</td>
+            <td align="center" rowspan="1" colspan="1">3.8&#x2009;&#xB1;&#x2009;0.3</td>
+            <td align="center" rowspan="1" colspan="1">3.7&#x2009;&#xB1;&#x2009;0.4</td>
+            <td align="center" rowspan="1" colspan="1">15.8&#x2009;&#xB1;&#x2009;0.5</td>
+            <td align="center" rowspan="1" colspan="1">2219.000</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">3 d</td>
+            <td align="center" rowspan="1" colspan="1">6.2&#x2009;&#xB1;&#x2009;0.6<sup><italic toggle="yes">&#x2217;</italic></sup></td>
+            <td align="center" rowspan="1" colspan="1">6.4&#x2009;&#xB1;&#x2009;0.5<sup><italic toggle="yes">&#x2217;</italic></sup></td>
+            <td align="center" rowspan="1" colspan="1">6.1&#x2009;&#xB1;&#x2009;0.6<sup><italic toggle="yes">&#x2217;</italic></sup></td>
+            <td align="center" rowspan="1" colspan="1">15.7&#x2009;&#xB1;&#x2009;0.7<sup>&amp;$^</sup></td>
+            <td align="center" rowspan="1" colspan="1">614.200</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">5 d</td>
+            <td align="center" rowspan="1" colspan="1">8.4&#x2009;&#xB1;&#x2009;0.5<sup><italic toggle="yes">&#x2217;</italic></sup><sup>#</sup></td>
+            <td align="center" rowspan="1" colspan="1">9.0&#x2009;&#xB1;&#x2009;0.6<sup><italic toggle="yes">&#x2217;</italic></sup><sup>#&amp;</sup></td>
+            <td align="center" rowspan="1" colspan="1">6.4&#x2009;&#xB1;&#x2009;0.6<sup><italic toggle="yes">&#x2217;</italic></sup><sup>&amp;$</sup></td>
+            <td align="center" rowspan="1" colspan="1">15.9&#x2009;&#xB1;&#x2009;0.6<sup>&amp;$^</sup></td>
+            <td align="center" rowspan="1" colspan="1">514.400</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">7 d</td>
+            <td align="center" rowspan="1" colspan="1">9.7&#x2009;&#xB1;&#x2009;0.9<sup><italic toggle="yes">&#x2217;</italic></sup><sup>#@</sup></td>
+            <td align="center" rowspan="1" colspan="1">12.8&#x2009;&#xB1;&#x2009;1.1<sup><italic toggle="yes">&#x2217;</italic></sup><sup>#@&amp;</sup></td>
+            <td align="center" rowspan="1" colspan="1">6.9&#x2009;&#xB1;&#x2009;0.7<sup><italic toggle="yes">&#x2217;</italic></sup><sup>&amp;$</sup></td>
+            <td align="center" rowspan="1" colspan="1">15.5&#x2009;&#xB1;&#x2009;0.6<sup>&amp;$^</sup></td>
+            <td align="center" rowspan="1" colspan="1">194.100</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">F</td>
+            <td align="center" rowspan="1" colspan="1">181.000</td>
+            <td align="center" rowspan="1" colspan="1">308.800</td>
+            <td align="center" rowspan="1" colspan="1">59.050</td>
+            <td align="center" rowspan="1" colspan="1">0.799</td>
+            <td align="center" rowspan="1" colspan="1">&#x2009;</td>
+            <td align="center" rowspan="1" colspan="1">&#x2009;</td>
+          </tr>
+          <tr>
+            <td align="left" rowspan="1" colspan="1">P</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+            <td align="center" rowspan="1" colspan="1">&#xFF1C;0.001</td>
+            <td align="center" rowspan="1" colspan="1">0.503</td>
+            <td align="center" rowspan="1" colspan="1">&#x2009;</td>
+            <td align="center" rowspan="1" colspan="1">&#x2009;</td>
+          </tr>
+        </tbody>
+      </table>
+      <table-wrap-foot>
+        <fn>
+          <p>Note. <sup><italic toggle="yes">&#x2217;</italic></sup> represents the comparison with the same group on the 0th day, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05; # represents the comparison with the same group on the 3<sup>rd</sup> day, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05; @ represents the comparison with the same group on the 5<sup>th</sup> day, <italic toggle="yes">P</italic>&#x2009;&#xFF1C; 0.05; &amp; represents the comparison with GA at the same time, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05; $ represents the comparison with GB at the same time, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05; ^ represents the comparison with MG at the same time, <italic toggle="yes">P</italic>&#x2009;&#xFF1C;&#x2009;0.05.</p>
+        </fn>
+      </table-wrap-foot>
+    </table-wrap>
+  </floats-group>
+</article>
+</pmc-articleset>

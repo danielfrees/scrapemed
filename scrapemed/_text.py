@@ -237,10 +237,10 @@ class TextTable(TextElement):
         return None
 
     def __str__(self):
-        return str(self.fig_dict)
+        return str(self.df)
 
     def __repr__(self):
-        return repr(self.fig_dict)
+        return repr(self.df)
 #-----------------------------end TextTable----------------------------------------
 
 #-----------------------------TextFigure---------------------------------------------

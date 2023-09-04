@@ -24,9 +24,10 @@ Base = declarative_base()
 class Paper(Base):
     __tablename__ = "Papers"
 
-    def __init__(self, pmcid:int, email:str, download:bool=False, validate:bool=True, verbose:bool=False):
-        paper_dict = parse.generate_paper_dict(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
-        
+    def __init__(self, paper_dict:dict)->None:
+        """
+        Initialize a paper with a dictionary of paper information (ie. from parse.generate_paper_dict)
+        """
         self.title = paper_dict['Title']
         self.authors = paper_dict['Authors']
         self.non_author_contributors = paper_dict['Non-Author Contributors']
@@ -59,11 +60,28 @@ class Paper(Base):
         self.custom_meta = paper_dict['Custom Meta']
         self.ref_map = paper_dict['Ref Map']
         self._ref_map_with_tags = paper_dict['Ref Map With Tags']
-        self.citation_list = paper_dict['Citations']
+        self.citations = paper_dict['Citations']
         self.tables = paper_dict['Tables']
         self.figures = paper_dict['Figures']
 
-        self.data_dict = parse.generate_data_dict()
+        self.data_dict = parse.define_data_dict()
+
+    @classmethod 
+    def from_pmc(cls, pmcid:int, email:str, download:bool=False, validate:bool=True, verbose:bool=False):
+        """
+        Generate a Paper from a pmcid. Specify your email for auth.
+        """
+        paper_dict = parse.paper_dict_from_pmc(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
+        return cls(paper_dict)
+
+    @classmethod
+    def from_xml(cls, root:ET.Element, verbose:bool=False):
+        """
+        Generate a Paper straight from PMC XML.
+        """
+        paper_dict = parse.generate_paper_dict(root)
+        return cls(paper_dict)
+
 
         
     def __str__(self):

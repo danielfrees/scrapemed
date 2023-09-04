@@ -1,5 +1,6 @@
 import scrapemed._text as _text
-from scrapemed._text import TextParagraph, TextSection
+from scrapemed._text import TextParagraph, TextSection, TextTable, TextFigure
+from scrapemed.paper import Paper
 import lxml.etree as ET
 from scrapemed.utils import basicBiMap
 import warnings
@@ -54,5 +55,45 @@ def test_text():
     full_test2_p1_subtree_text = _text.stringify_children(test2_p1.root)
     print(full_test2_p1_subtree_text)
     assert full_test2_p1_subtree_text.strip() == "Testing <xref>reference <italic>test</italic></xref> paragraph <italic>1</italic>".strip()
+
+    tables_and_figs_xml = """<article>
+  <body>
+    <table-wrap id="tab1">
+      <table>
+        <thead>
+          <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+          </tr>
+          <tr>
+            <td>Data 3</td>
+            <td>Data 4</td>
+          </tr>
+        </tbody>
+      </table>
+    </table-wrap>
+    
+    <figure id="fig1">
+      <caption>Figure 1: Sample Figure</caption>
+      <!-- Your figure content goes here -->
+    </figure>
+    
+    <xref rid="fig1" ref-type="figure">Figure 1</xref>
+    <xref rid="tab1" ref-type="table">Table 1</xref>
+  </body>
+</article>"""
+
+    tables_and_figs_root = ET.fromstring(tables_and_figs_xml.encode('utf-8'))
+    
+    table_root = tables_and_figs_root.xpath("//table-wrap")[0]
+    print(TextTable(table_root))
+    print(type(TextTable(table_root)))
+
 
     return None

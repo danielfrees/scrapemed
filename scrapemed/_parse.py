@@ -10,7 +10,7 @@ Middleman between the "scrape" module and the "paper" module for scrapemed.
 
 """
 import copy
-from typing import Text, List, Dict, Tuple
+from typing import Text, List, Dict, Tuple, Set
 from typing import Union
 import scrapemed.scrape as scrape
 import lxml.etree as ET
@@ -59,12 +59,12 @@ class unmatchedFigureWarning(Warning):
 #-----------End Custom Warnings & Exceptions for Parsing------------
 
 #--------------------GENERATE PAPER DICTIONARY GIVEN PMCID-------------------------------
-def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bool = True, verbose:bool = False)->dict:
+def paper_dict_from_pmc(pmcid:int, email:str, download:bool = False, validate:bool = True, verbose:bool = False)->dict:
     """
     Wrapper that scrapes a PMC article specified by PMCID from the web (through scrape module),
     then parses the XML retrieved into a dictionary of useful values. 
 
-    Middleman between scrape.py and paper.py.
+    Middleman between scrape.py and Paper.from_pmc.
 
     Paper objects in paper.py handle actual dictionary -> object conversion.
     """
@@ -74,6 +74,16 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
     paper_tree = scrape.get_xml(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
     root = paper_tree.getroot()
 
+    return generate_paper_dict(paper_root = root)
+
+def generate_paper_dict(paper_root:ET.Element, verbose:bool = False)->dict:
+    """
+    Given the root of an XML tree, parse through it and generate a flattened dictionary
+    of relevant PMC paper XML information.
+
+    Expects the XML to be in NLM articleset 2.0 DTD format.
+    """
+    root = paper_root
     #KEEP TRACK OF XREFS, TABLES, FIGURES IN BIMAP
     #(THIS WILL BE UPDATED DURING TEXT RETRIEVAL WHEN HTML REF TAGS ARE SPLIT OUT)
     ref_map = basicBiMap()
@@ -118,7 +128,7 @@ def generate_paper_dict(pmcid:int, email:str, download:bool = False, validate:bo
 
     return paper_dict
 
-def generate_data_dict()->dict:
+def define_data_dict()->dict:
     """
     Returns a static definition of each of the elements returned in a Paper dict.
     """
@@ -182,13 +192,13 @@ def _get_contributor_tuples(root: ET.Element, contributors: List[ET.Element]) ->
         if contrib_type:
             contrib_type = contrib_type.strip()
         first_name = contributor.findtext(".//given-names")
-        if first_name:
+        if first_name is not None:
             first_name = first_name.strip()
         last_name = contributor.findtext(".//surname")
-        if last_name:
+        if last_name is not None:
             last_name = last_name.strip()
         address = contributor.findtext(".//address/email")
-        if address:
+        if address is not None:
             address = address.strip()
         affiliations = []
         aff_paths = contributor.xpath(".//xref[@ref-type='aff']")
@@ -420,7 +430,7 @@ def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
 
         year = 1 #default
         year_matches = match.xpath("year/text()")
-        if year_matches:
+        if len(year_matches) > 0:
             year = int(year_matches[0])
         else:
             warnings.warn("No year found for one of the publishing dates. Defaulting to year = 1!", unexpectedZeroMatchWarning)
@@ -428,7 +438,7 @@ def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
         #if not month found, assume the 1st (standard practice - )
         month = 1
         month_matches = match.xpath("month/text()")
-        if month_matches:
+        if len(month_matches) > 0:
             month = int(month_matches[0])
 
         #if no day found, assume the 1st (standard practice)
@@ -449,7 +459,7 @@ def gather_volume(root: ET.Element) -> str:
 
     matches = root.xpath("//article-meta/volume/text()")
     volume = None
-    if not matches:
+    if len(matches) == 0:
         warnings.warn("No Volume # found for Publication.", unexpectedZeroMatchWarning)
     else:
         volume = matches[0]
@@ -464,7 +474,7 @@ def gather_issue(root: ET.Element) -> str:
 
     matches = root.xpath("//article-meta/issue/text()")
     issue = None
-    if not matches:
+    if len(matches) == 0:
         warnings.warn("No Issue # found for Publication.", unexpectedZeroMatchWarning)
     else:
         issue = matches[0]
@@ -479,7 +489,7 @@ def gather_fpage(root: ET.Element) -> str:
 
     matches = root.xpath("//article-meta/fpage/text()")
     fpage = None
-    if not matches:
+    if len(matches) == 0:
         warnings.warn("No First Page # found for Publication.", unexpectedZeroMatchWarning)
     else:
         fpage = matches[0]
@@ -494,7 +504,7 @@ def gather_lpage(root: ET.Element) -> str:
 
     matches = root.xpath("//article-meta/lpage/text()")
     lpage = None
-    if not matches:
+    if len(matches) == 0:
         warnings.warn("No Last Page # found for Publication.", unexpectedZeroMatchWarning)
     else:
         lpage = matches[0]
@@ -641,14 +651,14 @@ def _parse_citation(citation_root: ET.Element) -> Union[Dict[str, Union[List[str
 
     # If failed, try to find full citation in mixed-citation format---------------
     mixed_citation = None
-    if not author_matches:
+    if len(author_matches) == 0:
         mixed_citation = root.xpath('//mixed-citation/text()')
         if mixed_citation:
             return str(mixed_citation[0])
     #------------------------------------------------------------------------
 
     # If still failed, raise a warning.
-    if not author_matches:
+    if len(author_matches) == 0:
         warnings.warn(f"No authors found in citation {root.get('id')}", unexpectedZeroMatchWarning)
 
     #tries to retrieve all of the following info, fails silently if none found since many refs incomplete
@@ -713,6 +723,7 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
         root = ET.fromstring(item)
 
         #-------XREFS LINK TO ACTUAL ITEMS OR FILL WITH BIBR--------------
+        #process xrefs to citations, tables, and figures
         if root.tag == "xref":
             if root.get("ref-type") == "bibr":
                 ref_id = root.get("rid")
@@ -723,7 +734,7 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
                 # XPath expression to find the <ref> element based on the reference ID
                 matching_citation_expr = f"//ref[@id='{ref_id}']"
                 matches = paper_root.xpath(matching_citation_expr)
-                if not matches:
+                if len(matches) == 0:
                     warnings.warn(f"Citation without matching reference (Citation {root.text})!", unmatchedCitationWarning)
                     continue
                 elif len(matches) > 1:
@@ -740,12 +751,14 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
                     continue
                 
                 table_xpath = f"//table-wrap[@id='{table_id}']"
-                matching_table_key = _find_key_of_xpath(ref_map, table_xpath)
-                if not matching_table_key:
-                    warnings.warn(f"Table ref unmatched. No table with id {table_id} found in the ref_map.", unmatchedTableWarning)
-                else:
-                    #will be replaced by the actual link at the end when the cleaned ref map is complete
-                    cleaned_ref_map[key] = matching_table_key
+                matches = paper_root.xpath(table_xpath)
+                if len(matches) == 0:
+                    warnings.warn(f"Table xref with rid={table_id} not matched in the XML!", unmatchedTableWarning)
+                    continue
+                elif len(matches) > 1:
+                    warnings.warn("Multiple references found for a single table. Filling in with the first match.")
+                table_root = matches[0]
+                cleaned_ref_map[key] = TextTable(table_root = table_root)
 
             elif root.get("ref-type") == "fig":
                 fig_id = root.get("rid")
@@ -754,20 +767,24 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
                     continue
                 
                 fig_xpath = f"//fig[@id='{fig_id}']"
-                matching_fig_key = _find_key_of_xpath(ref_map, fig_xpath)
-                if not matching_fig_key:
-                    warnings.warn(f"No fig with id {fig_id} found in the ref_map.", unmatchedFigureWarning)
-                else:
-                    #will be replaced by the actual link at the end when the cleaned ref map is complete
-                    cleaned_ref_map[key] = matching_fig_key
+                matches = paper_root.xpath(fig_xpath)
+                if len(matches)==0:
+                    warnings.warn(f"Figure xref with rid={fig_id} not matched in the XML!", unmatchedFigureWarning)
+                    continue
+                elif len(matches) > 1:
+                    warnings.warn("Multiple references found for a single figure. Filling in with the first match.")
+                fig_root = matches[0]
+                cleaned_ref_map[key] = TextFigure(fig_root = fig_root)
 
             elif root.get("ref-type"):
                 warnings.warn(f"Unknown reference type: {root.get('ref_type')} found in ref_map.")
             else:
                 warnings.warn(f"<xref> in ref_map with no ref-type specified. Ignoring. ({root.text})")
 
+        #process tables that are directly in the ref map
         elif root.tag == "table-wrap":
             cleaned_ref_map[key] = TextTable(table_root = root).df
+        #process figures that are directly in the ref map
         elif root.tag == "fig":
             cleaned_ref_map[key] = TextFigure(fig_root = root).fig_dict
         else:
@@ -795,14 +812,34 @@ def _get_ref_type(value):
             ref_type = 'citation'
     elif type(value) == str:   #if string, probably a citation scraped via the mixed citation element parsing
         ref_type = 'citation'  
-    elif isinstance(value, (pd.DataFrame, pd.io.formats.style.Styler)):
+    elif isinstance(value, TextFigure):
+        ref_type = 'fig'
+    elif isinstance(value, TextTable):
         ref_type = 'table'
 
     return ref_type
 
-def _split_citations_tables_figs(ref_map:basicBiMap) -> Tuple[List[Union[Dict[str, Union[List[str], str]], str]], List[pd.DataFrame], List[Dict[str, str]]]:
+def _get_unique_tables(table_list:List[pd.DataFrame]) -> List[dict]:
     """
-    Split ref map into a citation list, table list, and figure list.
+    TODO: Given a set of tables (pd.DataFrame or Stylers), return a unique set.
+    """
+    return table_list
+
+def _get_unique_citations(citation_list:List[dict]) -> List[dict]:
+    """
+    TODO: Given a set of citations, return a unique set based on citation['PMID']
+    """
+    return citation_list
+
+def _get_unique_figures(fig_list:List[dict]) -> List[dict]:
+    """
+    TODO: Given a set of figures, return a unique set of figures based on fig['Label']
+    """
+    return fig_list
+
+def _split_citations_tables_figs(ref_map:basicBiMap) -> Tuple[Set[Union[Dict[str, Union[List[str], str]], str]], Set[pd.DataFrame], Set[Dict[str, str]]]:
+    """
+    Split ref map into a citation set, table set, and figure set.
     """
     citations = []
     tables = []
@@ -811,11 +848,11 @@ def _split_citations_tables_figs(ref_map:basicBiMap) -> Tuple[List[Union[Dict[st
         if _get_ref_type(ref) == 'citation':
             citations.append(ref)
         elif _get_ref_type(ref) == 'table':
-            tables.append(ref)
+            tables.append(ref.df)
         elif _get_ref_type(ref) == 'fig':
-            figures.append(ref)
+            figures.append(ref.fig_dict)
         else:
             warnings.warn(f"Issue finding Reference type for index {i} in reference map.")
 
-    return citations, tables, figures
+    return _get_unique_citations(citations), _get_unique_tables(tables), _get_unique_figures(figures)
 #--------------------END GENERATE PAPER DICTIONARY GIVEN PMCID---------------------------
