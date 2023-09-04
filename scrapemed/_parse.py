@@ -783,10 +783,10 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
 
         #process tables that are directly in the ref map
         elif root.tag == "table-wrap":
-            cleaned_ref_map[key] = TextTable(table_root = root).df
+            cleaned_ref_map[key] = TextTable(table_root = root)
         #process figures that are directly in the ref map
         elif root.tag == "fig":
-            cleaned_ref_map[key] = TextFigure(fig_root = root).fig_dict
+            cleaned_ref_map[key] = TextFigure(fig_root = root)
         else:
             warnings.warn(f"Unexpected tag of type {root.tag} found in ref map. Leaving as is instead of cleaning.")
             cleaned_ref_map[key] = ET.tostring(root)

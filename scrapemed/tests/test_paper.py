@@ -4,16 +4,19 @@ import pandas as pd
 import warnings
 import os
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def test_paper():
     path_to_testdata = os.path.join(os.path.dirname(__file__), "testdata")
 
     #Specify creds and PMCID
     PMCID = 7067710#------------------------------------------------------------------
-    email = "danielfrees247@gmail.com"
+    email = os.getenv("PMC_EMAIL")
 
     warnings.filterwarnings("ignore")
-    p = paper.Paper(PMCID, email, download=True, verbose=True)
+    p = paper.Paper.from_pmc(PMCID, email, download=True, verbose=True)
     warnings.filterwarnings("default")
 
     assert p.title == 'Phase I Pharmacokinetic Study of Fixed-Dose Combinations of Ibuprofen and Acetaminophen in Healthy Adult and Adolescent Populations'
@@ -66,7 +69,7 @@ def test_paper():
     email = "danielfrees247@gmail.com"
 
     warnings.filterwarnings("ignore")
-    p = paper.Paper(PMCID, email)
+    p = paper.Paper.from_pmc(PMCID, email)
     warnings.filterwarnings("default")
 
     assert p.title == 'Decline and diversity in Swedish seas: Environmental narratives in marine history, science and policy'
