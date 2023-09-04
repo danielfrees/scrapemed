@@ -16,6 +16,7 @@ from scrapemed._parse import TextSection
 from scrapemed.utils import basicBiMap
 import lxml.etree as ET
 import pandas as pd
+import datetime
 
 #--------------------PAPER OBJECT SCHEMA-------------------------------------------
 #Deriving from SQLalchemy base so this can be SQL Alchemy friendly when I scale to connection with the backend
@@ -28,6 +29,15 @@ class Paper(Base):
         """
         Initialize a paper with a dictionary of paper information (ie. from parse.generate_paper_dict)
         """
+        #capture current time as time of last update. Note that this date may not be synced with PMC paper updates if using
+        #initialization via Paper.from_xml. Use Paper.from_pmc to update papers directly via PMC
+        current_datetime = datetime.datetime.now()
+        current_year = current_datetime.year
+        current_month = current_datetime.month
+        current_day = current_datetime.day
+        self.last_updated = (current_month, current_day, current_year)
+
+        #read in the Paper data from the parsed paper_dict
         self.title = paper_dict['Title']
         self.authors = paper_dict['Authors']
         self.non_author_contributors = paper_dict['Non-Author Contributors']
@@ -67,40 +77,46 @@ class Paper(Base):
         self.data_dict = parse.define_data_dict()
 
     @classmethod 
-    def from_pmc(cls, pmcid:int, email:str, download:bool=False, validate:bool=True, verbose:bool=False):
+    def from_pmc(cls, pmcid:int, email:str, download:bool=False, validate:bool=True, verbose:bool=False, suppress_warnings:bool=False):
         """
         Generate a Paper from a pmcid. Specify your email for auth.
         """
-        paper_dict = parse.paper_dict_from_pmc(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
+        paper_dict = parse.paper_dict_from_pmc(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose, suppress_warnings=suppress_warnings)
         return cls(paper_dict)
 
     @classmethod
-    def from_xml(cls, root:ET.Element, verbose:bool=False):
+    def from_xml(cls, root:ET.Element, verbose:bool=False, suppress_warnings:bool=False):
         """
         Generate a Paper straight from PMC XML.
         """
-        paper_dict = parse.generate_paper_dict(root)
+        paper_dict = parse.generate_paper_dict(root, verbose=verbose, suppress_warnings=suppress_warnings)
         return cls(paper_dict)
 
-
-        
     def __str__(self):
         s = ""
         #TODO: Add Important Metadata
 
         #Append all text from abstract PaperSections
-        for sec in self.abstract:
-            s += str(sec)
+        if self.abstract:
+            for sec in self.abstract:
+                s += str(sec)
         #Append all text from body PaperSections
-        for sec in self.body:
-            s += str(sec)
+        if self.body:
+            for sec in self.body:
+                s += str(sec)
         return s
     
     def __eq__(self, other):
         """
-        For two Paper objects to be equal, they must share the same DOI and have the same date of last update.
+        For two Paper objects to be equal, they must share the same PMCID and have the same date of last update.
+
+        Two Papers may be exactly equal but be downlaoded or parsed on different dates. These will not evaluate to equal. 
+        Simply compare Paper1.article_id['pmc'] and Paper2.article_id['pmc'] if that is your desired behavior.
+
+        Note also that articles which are not open access on PMC may not have a PMCID, and a unique comparison will need to be made for these
+        to check equality. 
         """
-        return self.doi == other.doi and self.last_updated == other.last_updated
+        return self.article_id['pmc'] == other.article_id['pmc'] and self.last_updated == other.last_updated
 
     def to_relational(self)->pd.Series:
         """

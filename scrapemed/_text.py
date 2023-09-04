@@ -20,13 +20,13 @@ import pandas as pd
 #-------------------------------Warnings----------------------------
 class multipleTitleWarning(Warning):
     """
-    Raised when one title expected, but multiple found.
+    Warned when one title expected, but multiple found.
     """
     pass
 
 class unhandledTextTagWarning(Warning):
     """
-    Raised when a tag is encountered in a text section of the XML,
+    Warned when a tag is encountered in a text section of the XML,
     but is not explicitly handled by ScrapeMed.
 
     The tag contents will be ignored if not handled manually.
@@ -35,13 +35,18 @@ class unhandledTextTagWarning(Warning):
     these types of tags.
     """
 
+class readHTMLFailure(Warning):
+    """
+    Warned when pandas read_html function fails (rare). May happen with tables void of readable data (ie. tables that contain only graphics).
+    """
+
 
 #-----------------------------------------TextElement---------------------------------------------------
 class TextElement():
     """
     Base class for elements parsed from XML/HTML markup language. 
     """        
-    def __init__(self, root:ET.Element, parent:'TextElement'=None, ref_map:basicBiMap=None):
+    def __init__(self, root:ET.Element, parent:'TextElement'=None, ref_map:basicBiMap=basicBiMap()):
         self.root = root
         self.parent = parent
         self.ref_map = ref_map
@@ -77,7 +82,7 @@ class TextParagraph(TextElement):
 
     TODO: Deal with xrefs, tables, etc. found within p tags.
     """
-    def __init__(self, p_root:ET.Element, parent=None, ref_map:basicBiMap=None):
+    def __init__(self, p_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
         """
         
         """
@@ -121,7 +126,8 @@ class TextSection(TextElement):
         for child in sec_root.iterchildren():
             if child.tag == 'title':
                 if self.title:
-                    raise multipleTitleWarning("Warning: Multiple Titles found for a single TextSection. Check markup file formatting.")
+                    warnings.warn(multipleTitleWarning("Warning: Multiple Titles found for a single TextSection. Check markup file formatting. Using first title found."))
+                    continue
                 self.title = child.text
             elif child.tag == 'sec':
                 self.children.append(TextSection(child, parent=self, ref_map=self.get_ref_map()))
@@ -218,7 +224,12 @@ class TextTable(TextElement):
             caption = caption_matches[0].text
 
         table_xml_str = ET.tostring(table_root)
-        table_df = pd.read_html(table_xml_str)[0]
+        try:
+            table_df = pd.read_html(table_xml_str)[0]
+        except ValueError as e:
+            warnings.warn(f"Table with label {label} and caption {caption} could not be parsed with pd.read_html.", readHTMLFailure)
+            self.df = None
+            return None
 
         #build title for styled df, if relevant
         title = None
@@ -259,9 +270,11 @@ class TextFigure(TextElement):
         super().__init__(root=fig_root,parent=parent,ref_map=ref_map)
 
         root = fig_root
-        label = root.find('.//label').text
+        label = root.find('.//label')
+        if label is not None:
+            label = label.text
         caption = root.find('.//caption')
-        if caption:
+        if caption is not None:
             caption = ''.join(caption.itertext())
         graphic_href = root.find('.//graphic').get('{http://www.w3.org/1999/xlink}href')
 

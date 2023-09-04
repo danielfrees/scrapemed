@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<!DOCTYPE pmc-articleset PUBLIC "-//NLM//DTD ARTICLE SET 2.0//EN" "https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd">
+<pmc-articleset><article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+  <!--The publisher of this article does not allow downloading of the full text in XML form.-->
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Plant Physiol</journal-id>
+      <journal-title>Plant Physiology</journal-title>
+      <issn pub-type="ppub">0032-0889</issn>
+      <issn pub-type="epub">1532-2548</issn>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="pmid">16656901</article-id>
+      <article-id pub-id-type="pmc">1086993</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Articles</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Growth Physics in <italic>Nitella</italic>: a Method for Continuous <italic>in Vivo</italic> Analysis of Extensibility Based on a Micro-manometer Technique for Turgor Pressure <xref ref-type="fn" rid="fn1"><sup>1</sup></xref></article-title>
+      </title-group>
+      <contrib-group>
+<contrib contrib-type="author"><name><surname>Green</surname><given-names>Paul B.</given-names></name></contrib>
+</contrib-group>
+      <aff id="af1">Department of Biology, University of Pennsylvania, Philadelphia, Pennsylvania 19104</aff>
+      <author-notes>
+        <fn id="fn1">
+          <label>1</label>
+          <p> Supported by National Science Foundation Grants GB 2575 and 6055X.</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="ppub">
+        <month>08</month>
+        <year>1968</year>
+      </pub-date>
+      <volume>43</volume>
+      <issue>8</issue>
+      <fpage>1169</fpage>
+      <lpage>1184</lpage>
+      <abstract>
+<p>The view that the plant cell grows by the yielding of the cell wall to turgor pressure can be expressed in the equation: rate = cell extensibility &#xD7; turgor. All growth rate responses can in principle be resolved into changes in the 2 latter variables. Extensibility will relate primarily to the yielding properties of the cell wall, turgor primarily to solute uptake or production. Use of this simple relationship <italic>in vivo</italic> requires that at least 2 of the 3 variables be measured in a growing cell. Extensibility is not amenable to direct measurement. Data on rate and turgor for single <italic>Nitella</italic> cells can, however, be continuously gathered to permit calculation of extensibility (rate/turgor). Rate is accurately obtained from measurements on time-lapse film. Turgor is estimated in the same cell, to within 0.1 atm or less, by measurement of the ability of the cell to compress gas trapped in the closed end of a capillary the open end of which is in the cell vacuole. The method is independent of osmotic equilibrium. It operates continuously for several days, over a several fold increase in cell length, and has response time of less than one minute. Rapid changes in turgor brought on by changes in tonicity of the medium, show that extensibility, as defined above, is not constant but has a value of zero unless the cell has about 80% of normal turgor. Because elastic changes are small, extensibility relates to growth. Over long periods of treatment in a variety of osmotica the threshold value for extensibility and growth is seen to fall to lower values to permit resumption of growth at reduced turgor. A brief period of rapid growth (5&#xD7; normal) follows the return to normal turgor. All variables then become normal and the cycle can be repeated. The cell remains essentially at osmotic equilibrium, even while growing at 5&#xD7; the normal rate. The method has potential for detailed <italic>in vivo</italic> analyses of &#x201C;wall softening.&#x201D;</p>
+<sec sec-type="scanned-figures"><title>Images</title><fig id="F1"><graphic xlink:href="plntphys00487-0004-a" xlink:role="1172"/></fig><fig id="F2"><graphic xlink:href="plntphys00487-0005-a" xlink:role="1173"/></fig></sec></abstract>
+    </article-meta>
+  </front>
+</article>
+</pmc-articleset>

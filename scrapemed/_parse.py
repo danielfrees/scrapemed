@@ -59,7 +59,7 @@ class unmatchedFigureWarning(Warning):
 #-----------End Custom Warnings & Exceptions for Parsing------------
 
 #--------------------GENERATE PAPER DICTIONARY GIVEN PMCID-------------------------------
-def paper_dict_from_pmc(pmcid:int, email:str, download:bool = False, validate:bool = True, verbose:bool = False)->dict:
+def paper_dict_from_pmc(pmcid:int, email:str, download:bool = False, validate:bool = True, verbose:bool = False, suppress_warnings:bool = False)->dict:
     """
     Wrapper that scrapes a PMC article specified by PMCID from the web (through scrape module),
     then parses the XML retrieved into a dictionary of useful values. 
@@ -74,15 +74,17 @@ def paper_dict_from_pmc(pmcid:int, email:str, download:bool = False, validate:bo
     paper_tree = scrape.get_xml(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
     root = paper_tree.getroot()
 
-    return generate_paper_dict(paper_root = root)
+    return generate_paper_dict(paper_root = root, verbose=verbose, suppress_warnings=suppress_warnings)
 
-def generate_paper_dict(paper_root:ET.Element, verbose:bool = False)->dict:
+def generate_paper_dict(paper_root:ET.Element, verbose:bool = False, suppress_warnings:bool = False)->dict:
     """
     Given the root of an XML tree, parse through it and generate a flattened dictionary
     of relevant PMC paper XML information.
 
     Expects the XML to be in NLM articleset 2.0 DTD format.
     """
+    if suppress_warnings:
+        warnings.simplefilter("ignore")
     root = paper_root
     #KEEP TRACK OF XREFS, TABLES, FIGURES IN BIMAP
     #(THIS WILL BE UPDATED DURING TEXT RETRIEVAL WHEN HTML REF TAGS ARE SPLIT OUT)
@@ -125,6 +127,9 @@ def generate_paper_dict(paper_root:ET.Element, verbose:bool = False)->dict:
 
     if verbose:
         print("Finished generating Paper object for PMCID = {pmcid}...")
+
+    if suppress_warnings:
+        warnings.simplefilter("default")
 
     return paper_dict
 
@@ -232,8 +237,9 @@ def gather_authors(root: ET.Element)-> pd.DataFrame:
     Returns a DataFrame of author info.
     """
     authors = root.xpath(".//contrib[@contrib-type='author']")
-    if not authors:
+    if len(authors) == 0:
         warnings.warn("Warning! Authors could not be matched", unexpectedZeroMatchWarning)
+        return None
 
     # Extract the first and last names of the authors and store them in a list
     author_tuples = _get_contributor_tuples(root=root, contributors=authors)
@@ -253,7 +259,7 @@ def gather_non_author_contributors(root: ET.Element) -> Union[str, pd.DataFrame]
     return_val = "No non-author contributors were found after parsing this paper."
 
     non_author_contributors = root.xpath(".//contrib[not(@contrib-type='author')]")
-    if non_author_contributors:
+    if len(non_author_contributors) > 0:
         non_author_tuples = _get_contributor_tuples(root=root, contributors=non_author_contributors)
         non_authors_df = pd.DataFrame(non_author_tuples)
         non_authors_df.columns = ['Contributor_Type', 'First_Name', 'Last_Name', 'Email_Address', 'Affiliations']
@@ -392,12 +398,16 @@ def gather_article_types(root: ET.Element) -> List[str]:
     matches = root.xpath("//article-meta/article-categories")
     if len(matches) > 1: 
         warnings.warn("Warning! Multiple 'article-categories' lists matched. Filling in Paper.article_categories with the first match.", unexpectedMultipleMatchWarning)
+    elif len(matches) == 0:
+        warnings.warn("No 'article-categories' list found.", unexpectedZeroMatchWarning)
+        return None
+
     article_categories = matches[0]
     heading_categories = article_categories.xpath("subj-group[@subj-group-type='heading']/subject")
     heading_cats = [heading_cat.text for heading_cat in heading_categories]
 
     if not heading_cats:
-        heading_cats = "No article type found (No article category with subject type 'heading')."
+        heading_cats = "No article type found (No article category with subject type 'heading'). Check Paper.article_categories for other categories."
     return heading_cats
 
 def gather_article_categories(root: ET.Element) -> List[str]:
@@ -407,6 +417,9 @@ def gather_article_categories(root: ET.Element) -> List[str]:
     matches = root.xpath("//article-meta/article-categories")
     if len(matches) > 1: 
         warnings.warn("Warning! Multiple 'article-categories' lists matched. Filling in Paper.article_categories with the first match.", unexpectedMultipleMatchWarning)
+    elif len(matches) == 0:
+        warnings.warn("No 'article-categories' list found.", unexpectedZeroMatchWarning)
+        return None
     article_categories = matches[0]
     other_categories = article_categories.xpath("subj-group[not(@subj-group-type='heading')]/subject")
     other_cats = [{other_cat.get("subj-group-type"): other_cat.text} for other_cat in other_categories]
@@ -444,7 +457,7 @@ def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
         #if no day found, assume the 1st (standard practice)
         day = 1
         day_matches = match.xpath("day/text()")
-        if day_matches:
+        if len(day_matches) > 0:
             day = int(day_matches[0])
 
         full_date = datetime(year=year, month=month, day=day)
@@ -519,7 +532,7 @@ def gather_permissions(root: ET.Element) -> Dict[str, str]:
     """
     copyright_statement_matches = root.xpath("//article-meta/permissions/copyright-statement/text()")
     copyright_statement = "No copyright statement found."
-    if not copyright_statement_matches:
+    if len(copyright_statement_matches) == 0:
         warnings.warn("No copyright statement found.", unexpectedZeroMatchWarning)
     elif len(copyright_statement_matches) > 1:
         warnings.warn("Multiple copyright statements found. Retrieving the first statement.", unexpectedMultipleMatchWarning)
@@ -633,7 +646,10 @@ def gather_custom_metadata(root: ET.Element)->Dict[str, str]:
         meta_name = custom_meta.find("meta-name")
         if meta_name is not None:
             meta_name = meta_name.text
-        meta_data = " ".join(custom_meta.find("meta-value").itertext())
+        meta_value = custom_meta.find("meta-value")
+        meta_data = None
+        if meta_value is not None:
+            meta_data = " ".join(meta_value.itertext())
         if meta_data:
             if meta_name is None:
                 meta_name = uuid.uuid4() #give random unique identifier if no meta key found
@@ -653,7 +669,7 @@ def _parse_citation(citation_root: ET.Element) -> Union[Dict[str, Union[List[str
     mixed_citation = None
     if len(author_matches) == 0:
         mixed_citation = root.xpath('//mixed-citation/text()')
-        if mixed_citation:
+        if len(mixed_citation) > 0:
             return str(mixed_citation[0])
     #------------------------------------------------------------------------
 
@@ -702,7 +718,7 @@ def _find_key_of_xpath(ref_map:basicBiMap, xpath_query:str)->int:
     # Iterate through the dictionary and find the key with matching value
     matching_key = None
     for key, value in ref_map.items():
-        if ET.fromstring(value).xpath(xpath_query):
+        if len(ET.fromstring(value).xpath(xpath_query)) > 0:
             matching_key = key
             break
 

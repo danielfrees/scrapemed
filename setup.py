@@ -15,7 +15,7 @@ _TEST_REQS = _read_reqs("requirements.txt")
 setup(
     name='scrapemed',
     version='0.0.9',
-    description='ScrapeMed: Pythonic Data Scraping for PubMed Central.',
+    description='ScrapeMed: Data Scraping for PubMed Central.',
     author='Daniel Frees',
     author_email='danielfrees@g.ucla.edu',
     url='https://github.com/mediboard/nlp/scrapemed',

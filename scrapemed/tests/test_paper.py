@@ -15,9 +15,7 @@ def test_paper():
     PMCID = 7067710#------------------------------------------------------------------
     email = os.getenv("PMC_EMAIL")
 
-    warnings.filterwarnings("ignore")
-    p = paper.Paper.from_pmc(PMCID, email, download=True, verbose=True)
-    warnings.filterwarnings("default")
+    p = paper.Paper.from_pmc(PMCID, email, download=False, suppress_warnings=True)
 
     assert p.title == 'Phase I Pharmacokinetic Study of Fixed-Dose Combinations of Ibuprofen and Acetaminophen in Healthy Adult and Adolescent Populations'
     AUTHORS_DATA = {
@@ -68,15 +66,16 @@ def test_paper():
     PMCID = 7067711#------------------------------------------------------------------makes sure flat abstracts work too
     email = "danielfrees247@gmail.com"
 
-    warnings.filterwarnings("ignore")
-    p = paper.Paper.from_pmc(PMCID, email)
-    warnings.filterwarnings("default")
+    p = paper.Paper.from_pmc(PMCID, email, download=False, suppress_warnings=True)
 
     assert p.title == 'Decline and diversity in Swedish seas: Environmental narratives in marine history, science and policy'
     ABSTRACT_7067711 = ""
     with open(os.path.join(path_to_testdata, "7067711_abstract.txt")) as f:
         ABSTRACT_7067711 = f.read()
     assert str(p.abstract[0]) == ABSTRACT_7067711 #makes sure the retrieved abstract is a flat string matching the abstract on PMC
+
+    PMCID = 8460637#-----------------------------makes sure empty XMLs (XML that can't be retreived from PMC) work too. Worst case scenario
+    #TODO
 
                             
     return None
