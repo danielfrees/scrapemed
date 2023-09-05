@@ -29,6 +29,12 @@ class Paper(Base):
         """
         Initialize a paper with a dictionary of paper information (ie. from parse.generate_paper_dict)
         """
+        if not paper_dict:
+            self.has_data = False
+            return None
+        else: 
+            self.has_data = True
+        
         #capture current time as time of last update. Note that this date may not be synced with PMC paper updates if using
         #initialization via Paper.from_xml. Use Paper.from_pmc to update papers directly via PMC
         current_datetime = datetime.datetime.now()
@@ -77,30 +83,90 @@ class Paper(Base):
         self.data_dict = parse.define_data_dict()
 
     @classmethod 
-    def from_pmc(cls, pmcid:int, email:str, download:bool=False, validate:bool=True, verbose:bool=False, suppress_warnings:bool=False):
+    def from_pmc(cls, pmcid:int, email:str, download:bool=False, validate:bool=True, verbose:bool=False, suppress_warnings:bool=False, suppress_errors:bool=False):
         """
         Generate a Paper from a pmcid. Specify your email for auth.
+        
+        [pmcid] - Unique PMCID for the article to parse.
+        [email] - Provide your email address for authentication with PMC
+        [download] - Whether or not to download the XML retreived from PMC
+        [validate] - Whether or not to validate the XML from PMC against NLM articleset 2.0 DTD (HIGHLY RECOMMENDED)
+        [verbose] - Whether or not to have verbose output for testing
+        [suppress_warnings] - Whether to suppress warnings while parsing XML. 
+            Note: Warnings are frequent, because of the variable nature of PMC XML data. 
+            Recommended to suppress when parsing many XMLs at once.
+        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.
         """
-        paper_dict = parse.paper_dict_from_pmc(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose, suppress_warnings=suppress_warnings)
+        paper_dict = parse.paper_dict_from_pmc(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
         return cls(paper_dict)
 
     @classmethod
-    def from_xml(cls, root:ET.Element, verbose:bool=False, suppress_warnings:bool=False):
+    def from_xml(cls, root:ET.Element, verbose:bool=False, suppress_warnings:bool=False, suppress_errors:bool=False):
         """
         Generate a Paper straight from PMC XML.
+
+        [root] - ET.Element of the root of the PMC XML
+        [verbose] - Whether or not to have verbose output for testing
+        [suppress_warnings] - Whether to suppress warnings while parsing XML. 
+            Note: Warnings are frequent, because of the variable nature of PMC XML data. 
+            Recommended to suppress when parsing many XMLs at once.
+        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.
         """
-        paper_dict = parse.generate_paper_dict(root, verbose=verbose, suppress_warnings=suppress_warnings)
+        paper_dict = parse.generate_paper_dict(root, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
         return cls(paper_dict)
+    
+    def print_abstract(self)->str:
+        """
+        Prints and returns a string of the abstract.
+        """
+        s = self.abstract_as_str()
+        print(s)
+        return s
+    
+    def abstract_as_str(self)->str:
+        s = ""
+        if self.abstract:
+            for sec in self.abstract:
+                s += "\n"
+                s += str(sec)
+        return s
+    
+    def print_body(self)->str:
+        """
+        Prints and returns a string of the body.
+        """
+        s = self.body_as_str()
+        print(s)
+        return s
+    
+    def body_as_str(self)->str:
+        """
+        Returns a string of the body.
+        """
+        s = ""
+        if self.body:
+            for sec in self.body:
+                s += "\n"
+                s += str(sec)
+        return s
+    
+    def __bool__(self):
+        """
+        The truth value of a Paper object depends on whether it parsed succesfully during initialization.
+        """
+        return self.has_data
 
     def __str__(self):
         s = ""
-        #TODO: Add Important Metadata
-
+        s += f"\nPMCID: {self.article_id['pmc']}\n"
+        s += f"Title: {self.title}\n"
         #Append all text from abstract PaperSections
+        s+= f"\nAbstract:\n"
         if self.abstract:
             for sec in self.abstract:
                 s += str(sec)
         #Append all text from body PaperSections
+        s+= f"\nBody:\n"
         if self.body:
             for sec in self.body:
                 s += str(sec)
@@ -116,6 +182,8 @@ class Paper(Base):
         Note also that articles which are not open access on PMC may not have a PMCID, and a unique comparison will need to be made for these
         to check equality. 
         """
+        if not self:
+            return False
         return self.article_id['pmc'] == other.article_id['pmc'] and self.last_updated == other.last_updated
 
     def to_relational(self)->pd.Series:
@@ -123,8 +191,51 @@ class Paper(Base):
         Generates a pandas Series representation of the paper. Some data will be lost, 
         but most useful text data and metadata will be retained in the relational shape.
         """
-        #TODO
-        return None
+
+        data = {
+            'Last_Updated': self.last_updated,
+            'Title': self.title,
+            'Authors': self._extract_names(self.authors) if isinstance(self.authors, pd.DataFrame) else None,
+            'Non_Author_Contributors': self._extract_names(self.non_author_contributors) if isinstance(self.non_author_contributors, pd.DataFrame) else None,
+            'Abstract': self.abstract_as_str(),
+            'Body': self.body_as_str(),
+            'Journal_ID': self.journal_id,
+            'Journal_Title': self.journal_title,
+            'ISSN': self.issn,
+            'Publisher_Name': self.publisher_name,
+            'Publisher_Location': self.publisher_location,
+            'Article_ID': self.article_id,
+            'Article_Types': self.article_types,
+            'Article_Categories': self.article_categories,
+            'Published_Date': self._serialize_dict(self.published_date) if isinstance(self.published_date, dict) else None,
+            'Volume': self.volume,
+            'Issue': self.issue,
+            'First_Page': self.fpage,
+            'Last_Page': self.lpage,
+            'Copyright': self.copyright,
+            'License': self.license,
+            'Funding': self.funding,
+            'Footnote': self.footnote,
+            'Acknowledgements': self.acknowledgements,
+            'Notes': self.notes,
+            'Custom_Meta': self.custom_meta,
+            'Ref_Map': self.ref_map,
+            'Citations': [self._serialize_dict(c) for c in self.citations if isinstance(c, dict)],
+            'Tables': [self._serialize_df(t) for t in self.tables if isinstance(t, (pd.io.formats.style.Styler, pd.DataFrame))],
+            'Figures': self.figures
+        }
+        return pd.Series(data)
+    
+    #---------------Helper functions for to_relational---------------------
+    def _extract_names(self, df):
+        return df.apply(lambda row: f"{row['First_Name']} {row['Last_Name']}", axis=1).tolist()
+
+    def _serialize_dict(self, data_dict):
+        return "; ".join([f"{key}: {value}" for key, value in data_dict.items()])
+
+    def _serialize_df(self, df):
+        return df.to_html()
+    #---------------End Helper functions for to_relational--------------------- 
 
     def vectorize(self, embedding_model, chunk_size:int):
         """

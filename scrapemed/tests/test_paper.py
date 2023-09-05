@@ -75,7 +75,9 @@ def test_paper():
     assert str(p.abstract[0]) == ABSTRACT_7067711 #makes sure the retrieved abstract is a flat string matching the abstract on PMC
 
     PMCID = 8460637#-----------------------------makes sure empty XMLs (XML that can't be retreived from PMC) work too. Worst case scenario
-    #TODO
+    #For now, just make sure it can be grabbed without breaking
+
+    p = paper.Paper.from_pmc(PMCID, email, download=False, suppress_warnings=True)
 
                             
     return None

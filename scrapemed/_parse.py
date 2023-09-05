@@ -59,7 +59,7 @@ class unmatchedFigureWarning(Warning):
 #-----------End Custom Warnings & Exceptions for Parsing------------
 
 #--------------------GENERATE PAPER DICTIONARY GIVEN PMCID-------------------------------
-def paper_dict_from_pmc(pmcid:int, email:str, download:bool = False, validate:bool = True, verbose:bool = False, suppress_warnings:bool = False)->dict:
+def paper_dict_from_pmc(pmcid:int, email:str, download:bool = False, validate:bool = True, verbose:bool = False, suppress_warnings:bool = False, suppress_errors:bool = False)->dict:
     """
     Wrapper that scrapes a PMC article specified by PMCID from the web (through scrape module),
     then parses the XML retrieved into a dictionary of useful values. 
@@ -74,17 +74,40 @@ def paper_dict_from_pmc(pmcid:int, email:str, download:bool = False, validate:bo
     paper_tree = scrape.get_xml(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
     root = paper_tree.getroot()
 
-    return generate_paper_dict(paper_root = root, verbose=verbose, suppress_warnings=suppress_warnings)
+    return generate_paper_dict(paper_root = root, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
 
-def generate_paper_dict(paper_root:ET.Element, verbose:bool = False, suppress_warnings:bool = False)->dict:
+def generate_paper_dict(paper_root:ET.Element, verbose:bool = False, suppress_warnings:bool = False, suppress_errors:bool = False)->dict:
     """
     Given the root of an XML tree, parse through it and generate a flattened dictionary
     of relevant PMC paper XML information.
 
     Expects the XML to be in NLM articleset 2.0 DTD format.
+
+    Optionally suppress warnings and/or errors.
+    If errors are suppressed, None will be returned upon failed parsing.
     """
+    paper_dict = None
+
     if suppress_warnings:
         warnings.simplefilter("ignore")
+    
+    if suppress_errors:
+        try:
+            paper_dict = _actually_generate_paper_dict(paper_root, verbose)
+        except Exception as e:
+            print(f"An exception occurred: {str(e)}")
+    else:
+        paper_dict = _actually_generate_paper_dict(paper_root, verbose)
+
+    if suppress_warnings:
+        warnings.simplefilter("default")
+
+    return paper_dict
+
+def _actually_generate_paper_dict(paper_root:ET.Element, verbose:bool = False)->dict:
+    """
+    Actual paper dict generation function. Called by wrapper generate_paper_dict().
+    """
     root = paper_root
     #KEEP TRACK OF XREFS, TABLES, FIGURES IN BIMAP
     #(THIS WILL BE UPDATED DURING TEXT RETRIEVAL WHEN HTML REF TAGS ARE SPLIT OUT)
@@ -126,11 +149,8 @@ def generate_paper_dict(paper_root:ET.Element, verbose:bool = False, suppress_wa
     paper_dict['Figures'] = figures
 
     if verbose:
-        print("Finished generating Paper object for PMCID = {pmcid}...")
-
-    if suppress_warnings:
-        warnings.simplefilter("default")
-
+        print(f"Finished generating Paper object for PMCID = {paper_dict['Article ID']['pmc']}...")
+        
     return paper_dict
 
 def define_data_dict()->dict:
