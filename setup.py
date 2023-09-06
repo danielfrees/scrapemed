@@ -1,16 +1,28 @@
 from setuptools import setup, find_packages
 import os
 
-def _read_reqs(relpath):
-    fullpath = os.path.join(os.path.dirname(__file__), relpath)
-    with open(fullpath) as f:
-        return [s.strip() for s in f.readlines()
-                if (s.strip() and not s.startswith("#"))]
+_SCRAPEMED_REQS = [
+    'biopython>=1.78',
+    'graphviz>=0.20.1',
+    'lxml>=4.9.2',
+    'pandas>=1.5.2',
+    'requests-html>=0.10.0',
+    'sqlalchemy>=1.4.39',
+    'beautifulsoup4>=4.11',
+    'html5lib>=1.1',
+    'jinja2',
+    'python-dotenv',
+    'chromadb',
+    'sentence-transformers',
+    'langchain',
+    'uuid',
+    'matplotlib',
+    'wordcloud',
+    'urllib',
+]
 
-_SCRAPEMED_REQS = _read_reqs("requirements.txt")
-_DEPENDENCY_LINKS = [l for l in _SCRAPEMED_REQS if "://" in l]
-_INSTALL_REQUIRES = [l for l in _SCRAPEMED_REQS if "://" not in l]
-_TEST_REQS = _read_reqs("requirements.txt")
+_INSTALL_REQUIRES = _SCRAPEMED_REQS
+_TEST_REQS = _SCRAPEMED_REQS
 
 setup(
     name='scrapemed',
