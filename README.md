@@ -13,6 +13,8 @@
 
 ⭐ Natural language Paper querying and Paper embedding, powered via LangChain and ChromaDB
 
+⭐ Available on PyPI! Simply `pip install scrapemed`.
+
 ### Shoutout: 
 
 Package sponsored by Daceflow.ai!
