@@ -6,3 +6,4 @@
 .env
 .pytest_cache
 *.pyc
+scrapemed.egg-info/*
