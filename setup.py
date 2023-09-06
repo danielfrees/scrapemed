@@ -19,7 +19,12 @@ setup(
     author='Daniel Frees',
     author_email='danielfrees@g.ucla.edu',
     url='https://github.com/mediboard/nlp/scrapemed',
-    packages=find_packages(exclude=['tests', 'tests.*']),
+    packages=[
+        'scrapemed',
+    ],
+    package_dir={
+        'scrapemed': 'scrapemed',
+    },
     install_requires=_INSTALL_REQUIRES,
     tests_require=_TEST_REQS,
     test_suite="tests",
