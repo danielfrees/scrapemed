@@ -15,4 +15,3 @@ langchain
 uuid
 matplotlib
 wordcloud
-urllib

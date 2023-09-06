@@ -18,7 +18,6 @@ _SCRAPEMED_REQS = [
     'uuid',
     'matplotlib',
     'wordcloud',
-    'urllib',
 ]
 
 _INSTALL_REQUIRES = _SCRAPEMED_REQS
