@@ -25,7 +25,7 @@ _TEST_REQS = _SCRAPEMED_REQS
 
 setup(
     name='scrapemed',
-    version='1.0.0',
+    version='1.0.4',
     description='ScrapeMed: Data Scraping for PubMed Central.',
     author='Daniel Frees',
     author_email='danielfrees@g.ucla.edu',
@@ -37,7 +37,7 @@ setup(
         'scrapemed': 'scrapemed',
     },
     package_data={
-        'scrapemed': [os.path.join('scrapemed', 'data' 'DTDs', '*')],
+        'scrapemed': [os.path.join('data', 'DTDs', '*')],
     },
     install_requires=_INSTALL_REQUIRES,
     tests_require=_TEST_REQS,
