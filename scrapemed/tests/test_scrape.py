@@ -2,6 +2,7 @@ import pytest
 import scrapemed.scrape as scrape
 from dotenv import load_dotenv
 import os
+import lxml
 load_dotenv()
 
 def test_scrape():

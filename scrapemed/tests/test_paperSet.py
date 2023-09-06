@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-def test_dataset():
+def test_paperset():
     EMAIL = os.getenv("PMC_EMAIL")
     pset = paperSet.from_search(EMAIL, term = "brain[ti] AND surgery[ti]", retmax = 3)
     assert len(pset.papers) == 3

@@ -66,7 +66,7 @@ class paperSet:
         print("Generating paperSet from PMCID list (This can take a while due to PMC HTTP Request Limitations!)...")
 
         xml_list = scrape.get_xmls(pmcids=pmcids, email=email, download=download, validate=validate, strip_text_styling=strip_text_styling, verbose=verbose)
-        paper_list = [Paper.from_xml(xml_root, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors) for xml_root in xml_list]
+        paper_list = [Paper.from_xml(pmcid, xml_root, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors) for pmcid, xml_root in zip(pmcids, xml_list)]
         return cls(papers=paper_list)
 
     def __iter__(self):
