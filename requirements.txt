@@ -13,3 +13,5 @@ chromadb
 sentence-transformers
 langchain
 uuid
+matplotlib
+wordcloud

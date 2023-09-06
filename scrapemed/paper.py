@@ -21,12 +21,19 @@ from difflib import SequenceMatcher
 import uuid
 import re
 import warnings
+from urllib.error import HTTPError
+import time
 
 class emptyTextWarning(Warning):
     """
     Warned when trying to perform a text operation on a Paper which has no text.
     """
     pass
+
+class pubmedHTTPError(Warning):
+    """
+    Warned when unable to retrieve a PMC XML repeatedly. Can occasionally happen on PMC due to traffic.
+    """
 
 #--------------------PAPER OBJECT SCHEMA-------------------------------------------
 class Paper():
@@ -51,6 +58,7 @@ class Paper():
         self.last_updated = (current_month, current_day, current_year)
 
         #read in the Paper data from the parsed paper_dict
+        self.pmcid = paper_dict['PMCID']
         self.title = paper_dict['Title']
         self.authors = paper_dict['Authors']
         self.non_author_contributors = paper_dict['Non-Author Contributors']
@@ -108,14 +116,27 @@ class Paper():
             Recommended to suppress when parsing many XMLs at once.
         [suppress_errors] - Return None on failed XML parsing, instead of raising an error.
         """
-        paper_dict = parse.paper_dict_from_pmc(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
+        NUM_TRIES = 3
+        paper_dict = None
+        for i in range(NUM_TRIES):
+            try:
+                paper_dict = parse.paper_dict_from_pmc(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
+            except HTTPError:
+                time.sleep(5)
+        if not paper_dict:
+            warnings.warn("Unable to retrieve PMCID {pmcid} from PMC. Try again later, may be due to HTTP traffic.", pubmedHTTPError)
+            return False
         return cls(paper_dict)
 
     @classmethod
-    def from_xml(cls, root:ET.Element, verbose:bool=False, suppress_warnings:bool=False, suppress_errors:bool=False):
+    def from_xml(cls, pmcid:int, root:ET.Element, verbose:bool=False, suppress_warnings:bool=False, suppress_errors:bool=False):
         """
         Generate a Paper straight from PMC XML.
 
+        [pmcid] - PMCID for the XML. 
+                This is not a mistake! 
+                Super important to have a trustworthy PMCID. 
+                Provide manually when uploading XML manually.
         [root] - ET.Element of the root of the PMC XML
         [verbose] - Whether or not to have verbose output for testing
         [suppress_warnings] - Whether to suppress warnings while parsing XML. 
@@ -123,7 +144,7 @@ class Paper():
             Recommended to suppress when parsing many XMLs at once.
         [suppress_errors] - Return None on failed XML parsing, instead of raising an error.
         """
-        paper_dict = parse.generate_paper_dict(root, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
+        paper_dict = parse.generate_paper_dict(pmcid, root, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
         return cls(paper_dict)
     
     def print_abstract(self)->str:
@@ -185,7 +206,7 @@ class Paper():
 
     def __str__(self):
         s = ""
-        s += f"\nPMCID: {self.article_id['pmc']}\n"
+        s += f"\nPMCID: {self.pmcid}\n"
         s += f"Title: {self.title}\n"
         #Append all text from abstract PaperSections
         s+= f"\nAbstract:\n"
@@ -204,14 +225,14 @@ class Paper():
         For two Paper objects to be equal, they must share the same PMCID and have the same date of last update.
 
         Two Papers may be exactly equal but be downlaoded or parsed on different dates. These will not evaluate to equal. 
-        Simply compare Paper1.article_id['pmc'] and Paper2.article_id['pmc'] if that is your desired behavior.
+        Simply compare Paper1.pmcid and Paper2.pmcid if that is your desired behavior.
 
-        Note also that articles which are not open access on PMC may not have a PMCID, and a unique comparison will need to be made for these
-        to check equality. 
+        Note also that articles which are not open access on PMC may not have a PMCID, and a unique comparison will need to be made for these.
+        However, most papers downloaded via ScrapeMed should have a PMCID.
         """
         if not self:
             return False
-        return self.article_id['pmc'] == other.article_id['pmc'] and self.last_updated == other.last_updated
+        return self.pmcid == other.pmcid and self.last_updated == other.last_updated
 
     def to_relational(self)->pd.Series:
         """
@@ -220,6 +241,7 @@ class Paper():
         """
 
         data = {
+            'PMCID': self.pmcid,
             'Last_Updated': self.last_updated,
             'Title': self.title,
             'Authors': self._extract_names(self.authors) if isinstance(self.authors, pd.DataFrame) else None,
@@ -286,7 +308,7 @@ class Paper():
         #Set up an in-memory chromadb collection for this paper
         client = chromadb.Client()
         try:
-            self.vector_collection = client.get_or_create_collection(f"Paper-PMCID-{self.article_id['pmc']}")
+            self.vector_collection = client.get_or_create_collection(f"Paper-PMCID-{self.pmcid}")
         except:
             self.vector_collection = client.get_or_create_collection(f"Paper-Random-UUID-{uuid.uuid4()}")
 
@@ -301,9 +323,9 @@ class Paper():
     
         #chunk the text, add metadata for the PMCID each chunk originates from, add unique chunk ids
         p_chunks = chunk_model.split_text(self.full_text())
-        p_metadatas = [{"pmcid": self.article_id['pmc']}] * len(p_chunks)
+        p_metadatas = [{"pmcid": self.pmcid}] * len(p_chunks)
         try:
-            pmcid = self.article_id['pmc']
+            pmcid = self.pmcid
         except:
             pmcid = uuid.uuid4()
         p_ids = [self._generate_chunk_id(pmcid, i) for i in range(len(p_chunks))]

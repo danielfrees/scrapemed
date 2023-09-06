@@ -74,9 +74,9 @@ def paper_dict_from_pmc(pmcid:int, email:str, download:bool = False, validate:bo
     paper_tree = scrape.get_xml(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
     root = paper_tree.getroot()
 
-    return generate_paper_dict(paper_root = root, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
+    return generate_paper_dict(pmcid=pmcid, paper_root = root, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
 
-def generate_paper_dict(paper_root:ET.Element, verbose:bool = False, suppress_warnings:bool = False, suppress_errors:bool = False)->dict:
+def generate_paper_dict(pmcid:int, paper_root:ET.Element, verbose:bool = False, suppress_warnings:bool = False, suppress_errors:bool = False)->dict:
     """
     Given the root of an XML tree, parse through it and generate a flattened dictionary
     of relevant PMC paper XML information.
@@ -93,18 +93,18 @@ def generate_paper_dict(paper_root:ET.Element, verbose:bool = False, suppress_wa
     
     if suppress_errors:
         try:
-            paper_dict = _actually_generate_paper_dict(paper_root, verbose)
+            paper_dict = _actually_generate_paper_dict(pmcid, paper_root, verbose)
         except Exception as e:
             print(f"An exception occurred: {str(e)}")
     else:
-        paper_dict = _actually_generate_paper_dict(paper_root, verbose)
+        paper_dict = _actually_generate_paper_dict(pmcid, paper_root, verbose)
 
     if suppress_warnings:
         warnings.simplefilter("default")
 
     return paper_dict
 
-def _actually_generate_paper_dict(paper_root:ET.Element, verbose:bool = False)->dict:
+def _actually_generate_paper_dict(pmcid:int, paper_root:ET.Element, verbose:bool = False)->dict:
     """
     Actual paper dict generation function. Called by wrapper generate_paper_dict().
     """
@@ -115,6 +115,7 @@ def _actually_generate_paper_dict(paper_root:ET.Element, verbose:bool = False)->
 
     #STORE EXTRACTED INFO IN PAPER DICT
     paper_dict = {
+        'PMCID': pmcid,
         'Title': gather_title(root),
         'Authors': gather_authors(root),
         'Non-Author Contributors': gather_non_author_contributors(root),
@@ -149,7 +150,7 @@ def _actually_generate_paper_dict(paper_root:ET.Element, verbose:bool = False)->
     paper_dict['Figures'] = figures
 
     if verbose:
-        print(f"Finished generating Paper object for PMCID = {paper_dict['Article ID']['pmc']}...")
+        print(f"Finished generating Paper object for PMCID = {paper_dict['PMCID']}...")
         
     return paper_dict
 
@@ -158,30 +159,39 @@ def define_data_dict()->dict:
     Returns a static definition of each of the elements returned in a Paper dict.
     """
     data_dict = {
-        'Title': "",
-        'Authors': "",
-        'Non-Author Contributors': "",
-        'Abstract': "",
-        'Body': "",
-        'Journal ID': "",
-        'Journal Title': "",
-        'ISSN': "",
-        'Publisher Name': "",
-        'Publisher Location': "",
-        'Article ID': "",
-        'Article Types': "",
-        'Article Categories': "",
-        'Published Date': "Dict of arious publishing dates of the paper (ie: electronic pub, print pub).",
+        'PMCID': "PMCID of the PMC article. Unique.",
+        'Title': "Title of the PMC article.",
+        'Authors': "Dataframe of the PMC Authors, including first names, last names, email addresses, and affiliations if provided.",
+        'Non-Author Contributors': "Dataframe of the non-author contributors, including first names, last names, email addresses, and affiliations if provided.",
+        'Abstract': "List of TextSections parsed from the abstract portion of the XML. Use Paper.print_abstract() or Paper.abstract_as_str() for a simple view of the text.",
+        'Body': "List of TextSections parsed from the body portion of the XML. Use Paper.print_body() or Paper.body_as_str() for a simple view of the text.",
+        'Journal ID': "Dict of ID Type, ID pairs for the Journal in which the article was published. ie. NLM-TA and ISO-ABBREV IDs.",
+        'Journal Title': "Name of the journal in text.",
+        'ISSN': "Dict of ISSN type, ISSN number values for the article.",
+        'Publisher Name': "Name of the publisher in text.",
+        'Publisher Location': "Location of the publisher in text.",
+        'Article ID': "Dict of ID Type, ID Value pairs. ie. p.article_id['pmc'] gives the PMCID for the article.",
+        'Article Types': "List of 'header' article types for the article.",
+        'Article Categories': "List of 'non-header' article types for the article.",
+        'Published Date': "Dict of various publishing dates of the paper (ie: electronic pub, print pub).",
         'Volume': "The Volume # in which this paper was published in its journal(s).",
         'Issue': "The Issue # in which this paper was grouped within the volume of the journal(s) in which it is published.",
+        'FPage': "First page on which this paper was published in its journal.",
+        "LPage": "Last page on which this paper was published in its journal.",
         'Permissions': "Summary of copyright statement, license type, and full license text for the paper.",
         'Copyright Statement': "Returns the Copyright statement. Usually a short phrase identifying the individuals who have copyrighted this research, under a copyright license type found via paper.license.",
         'License': "Returns the License Type the research is licensed under (ie: Open Access).",
         'Funding': "Returns a list of groups which funded the research. Important for bias detection.",
-        'Footnote': "",
-        'Acknowledgements': "",
-        'Notes': "",
-        'Ref Map': ""
+        'Footnote': "Text of any footnote statement provided with the article.",
+        'Acknowledgements': "List of acknowledgement statements provided with the article.",
+        'Notes': "List of notes included with the article.",
+        'Custom Meta': "Dict of custom metadata key, value pairs provided with the article.",
+        'Ref Map': """Dict of Index, Reference value pairs. Use p.ref_map to decode data references 
+        within TextSection.text_with_refs text. ie. When working with the full text with 
+        references, you may come across something like [MHTML::dataref::0]. This means 
+        that the reference under p.ref_map[0] was extracted from this location in the text.
+        This can be useful for linking text with tables, figures, and xrefs for more 
+        detailed analysis."""
         }
     
     return data_dict
