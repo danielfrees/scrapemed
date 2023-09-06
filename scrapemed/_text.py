@@ -79,8 +79,6 @@ class TextElement():
 class TextParagraph(TextElement):
     """
     Class representation of the data found in an XML <p> tag.
-
-    TODO: Deal with xrefs, tables, etc. found within p tags.
     """
     def __init__(self, p_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
         """

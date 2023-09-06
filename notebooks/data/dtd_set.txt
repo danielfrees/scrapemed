@@ -1,1 +1,0 @@
-{'https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd'}
