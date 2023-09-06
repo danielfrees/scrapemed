@@ -7,9 +7,6 @@ from PubMed Central without stressing about the details.
 """
 
 import pprint
-from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR, Boolean, DateTime
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
 import scrapemed._parse as parse
 import scrapemed.scrape as scrape
 from scrapemed._parse import TextSection
@@ -17,12 +14,22 @@ from scrapemed.utils import basicBiMap
 import lxml.etree as ET
 import pandas as pd
 import datetime
+import chromadb
+from langchain.text_splitter import CharacterTextSplitter
+from typing import Union, List, Dict
+from difflib import SequenceMatcher
+import uuid
+import re
+import warnings
+
+class emptyTextWarning(Warning):
+    """
+    Warned when trying to perform a text operation on a Paper which has no text.
+    """
+    pass
 
 #--------------------PAPER OBJECT SCHEMA-------------------------------------------
-#Deriving from SQLalchemy base so this can be SQL Alchemy friendly when I scale to connection with the backend
-Base = declarative_base()
-
-class Paper(Base):
+class Paper():
     __tablename__ = "Papers"
 
     def __init__(self, paper_dict:dict)->None:
@@ -81,6 +88,10 @@ class Paper(Base):
         self.figures = paper_dict['Figures']
 
         self.data_dict = parse.define_data_dict()
+
+        self.vector_collection = None
+
+        return None
 
     @classmethod 
     def from_pmc(cls, pmcid:int, email:str, download:bool=False, validate:bool=True, verbose:bool=False, suppress_warnings:bool=False, suppress_errors:bool=False):
@@ -155,6 +166,22 @@ class Paper(Base):
         The truth value of a Paper object depends on whether it parsed succesfully during initialization.
         """
         return self.has_data
+    
+    def full_text(self, print_text:bool = False):
+        """
+        Return the full abstract and/or body text string of this Paper. Optionally print.
+        """
+        s = ""
+        if self.abstract:
+            s += "Abstract: \n"
+            s += self.abstract_as_str()
+        if self.body:
+            s += "Body: \n"
+            s += self.body_as_str()
+
+        if print_text:
+            print(s)
+        return s
 
     def __str__(self):
         s = ""
@@ -237,40 +264,184 @@ class Paper(Base):
         return df.to_html()
     #---------------End Helper functions for to_relational--------------------- 
 
-    def vectorize(self, embedding_model, chunk_size:int):
+    def vectorize(self, chunk_size:int = 100, chunk_overlap:int = 20, refresh:bool=False):
         """
-        Generates a lightweight vector database representation of the paper,
-        stored in paper.embedded.
-        """
-        self.embedded = None
+        Generates an in-memory vector database representation of the paper,
+        stored in paper.vector_collection. (Abstract and body only)
 
+        Input:
+        [chunk_size] - approximate chunk size to split paper into (len)
+        [chunk_overlap] - approximate desired chunk overlap (len)
+        [refresh] - Whether or not to clear and re-vectorize the paper (ie. with new settings)
+        """
+        if not refresh and self.vector_collection:
+            print("Paper already vectorized! To re-vectorize with new settings, pass refresh=True.")
+            return None
+        
+        print("Vectorizing Paper (This may take a little while)...")
+        if len(self.full_text()) == 0:
+            warnings.warn("Attempted to vectorize a Paper with no text. Aborting.", emptyTextWarning)
+            return None
+        
+        #Set up an in-memory chromadb collection for this paper
+        client = chromadb.Client()
+        try:
+            self.vector_collection = client.get_or_create_collection(f"Paper-PMCID-{self.article_id['pmc']}")
+        except:
+            self.vector_collection = client.get_or_create_collection(f"Paper-Random-UUID-{uuid.uuid4()}")
+
+        #setup chunk model
+        chunk_model = CharacterTextSplitter(
+            separator="\\n\\n|\\n|\\.|\\s", 
+            is_separator_regex=True, 
+            chunk_size = chunk_size,
+            chunk_overlap = chunk_overlap,
+            length_function = len,
+            keep_separator = True)
+    
+        #chunk the text, add metadata for the PMCID each chunk originates from, add unique chunk ids
+        p_chunks = chunk_model.split_text(self.full_text())
+        p_metadatas = [{"pmcid": self.article_id['pmc']}] * len(p_chunks)
+        try:
+            pmcid = self.article_id['pmc']
+        except:
+            pmcid = uuid.uuid4()
+        p_ids = [self._generate_chunk_id(pmcid, i) for i in range(len(p_chunks))]
+
+        #upload the chunked texts into the vector collection
+        self.vector_collection.add(
+            documents = p_chunks,
+            metadatas = p_metadatas,
+            ids = p_ids
+        )
+
+        print("Done Vectorizing Paper! Natural language query with Paper.query() now available.")
         return None
     
-    def query(self, query:str, n_results:int)->str:
+    #-----------------helper funcs for self.vectorize-----------------
+    def _generate_chunk_id(self, pmcid:str, index:Union[int,str]):
+        """
+        Generate id for a PMC text chunk, using pmcid and index of the chunk.
+        The chunk indices should be unique. Recommended to use indexes from the result
+        of chunk model. 
+        """
+        return f"pmcid-{pmcid}-chunk-{str(index)}"
+
+    def _get_chunk_index_from_chunk_id(self, chunk_id:str)->str:
+        """
+        Given a PMCID Chunk ID, in the format generated by _generate_pmcid_chunk_id,
+        gather the index of the chunk.
+        """
+        pattern = re.compile(r"chunk-(\d+)")  # Compile the regex pattern
+        match = pattern.search(chunk_id)
+        index = None
+        if match:
+            index = match.group(1)
+        return index    
+
+    def _get_pmcid_from_chunk_id(self, chunk_id:str)->str:
+        """
+        Given a PMCID Chunk ID, in the format generated by _generate_pmcid_chunk_id,
+        gather the PMCID of the chunk.
+        """
+        pattern = re.compile(r"pmcid-(\d+)")  # Compile the regex pattern
+        match = pattern.search(chunk_id)
+        pmcid = None
+        if match:
+            pmcid = match.group(1)
+        return pmcid    
+    #-----------------end helper funcs for self.vectorize-----------------
+
+    def query(self, query:str, n_results:int =1, n_before:int = 2, n_after:int = 2)->Dict[str,str]:
         """
         Query the paper with natural language questions. 
             Input:
             [query] - string question
             [n_results] - number of most semantically similar paper sections to retrieve
+            [n_before] - int, how many chunks before the match to include in combined output
+            [n_after] - int, how many chunks after the match to include in combined output
+
             Output:
-            Paper chunks most semantically similar to the input quesiton.
+            Dict with key(s) = most semantically similar result chunk(s), and value(s) = Paper text(s) 
+            around  the most semantically similar result chunk(s). Text length determined by 
+            the chunk size used in self.vectorize() and n_before and n_after.
         """
-    
-    #paper identifiers, DOI should be a completely unique string and is PK
-    doi = Column("doi", String, primary_key=True)
-    title = Column("title", String)
-    pmcid = Column("pmcid", String)  #for articles in PMC
-    authors = Column("authors", String)  #list of authors of paper, could potentially blow out into multiple columns later
-    journal = Column("journal", String)
 
-    #last updated date (retrieved from PMC to track paper updates)
-    last_updated = Column("last_update", DateTime)
+        result = self.expanded_query(
+            query=query,
+            n_results = n_results,
+            n_before = n_before, 
+            n_after = n_after
+            )
+        
+        return result
+        
+    #-----------------helper funcs for self.query----------------------
+    def expanded_query(self, query:str, n_results:int=1, n_before:int = 2, n_after:int = 2)->Dict[str,str]:
+        """
+        Query function that matches natural language query with vectorized Paper.
+        [query] - str, natural language query for paper
+        [n_before] - int, how many chunks before the match to include in combined output
+        [n_after] - int, how many chunks after the match to include in combined output
+        """
+        #if the paper has not already been vectorized, vectorize
+        if not self.vector_collection:
+            self.vectorize()
+        #if vectorization fails, abort
+        if not self.vector_collection:
+            return None
+        
+        result = self.vector_collection.query(
+            query_texts=[query],
+            include=["documents"], 
+            n_results=n_results)
 
-    #xml text for the abstract & body separately (each sub-sectioned into a list of strings)
-    abstract = Column("abstract", String) 
-    body = Column("body", String)
+        expanded_results = {}
+        for id in result['ids'][0]:
+            chunk_index = self._get_chunk_index_from_chunk_id(id)
+            pmcid = self._get_pmcid_from_chunk_id(id)
+            #get the texts before and after the result chunk
+            expanded_ids = []
+            for i in range(1, n_before+1):
+                expanded_ids.append(self._generate_chunk_id(pmcid, int(chunk_index) - i))
+            expanded_ids.append(id)
+            for i in range(1, n_after+1):
+                expanded_ids.append(self._generate_chunk_id(pmcid, int(chunk_index) + i))
 
-    #xml text for references
-    references = Column("references", String)
+            expanded_results[f"Match on {id}"] = self.vector_collection.get(
+                    ids=expanded_ids,
+                )['documents']
 
+        cleaned_results = {}
+        #append docs together two at a time, removing overlap
+        for match, docs in expanded_results.items():
+            combined_result = ""
+            #combined docs together
+            if len(docs) == 0:
+                combined_result = None
+            elif len(docs) == 1:
+                combined_result = docs[0]
+            else:
+                #combine first two docs, removing overlap, to start the combined result
+                substring_match = SequenceMatcher(None, docs[0], docs[1]).find_longest_match(0, len(docs[0]), 0, len(docs[1]))
+                combined_docs = docs[0][:substring_match.a]+docs[1][substring_match.b:]
+                combined_result += combined_docs
+                #eat these first two docs
+                if len(docs) >= 3:
+                    docs = docs[2:]
+                else:
+                    docs = []
+                #continue eating the rest one by one
+                while len(docs) >= 1:
+                    substring_match = SequenceMatcher(None, combined_result, docs[0]).find_longest_match(0, len(combined_result), 0, len(docs[0]))
+                    combined_result = combined_result[:substring_match.a]+docs[0][substring_match.b:]
+                    #eat the processed doc
+                    if len(docs) >=2:
+                        docs = docs[1:]
+                    else:
+                        docs = []
+                    
+                cleaned_results[match] = "..." + combined_result + "..."
+        
+        return cleaned_results
 #--------------------END PAPER OBJECT SCHEMA-------------------------------------------
