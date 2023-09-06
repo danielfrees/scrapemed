@@ -7,10 +7,10 @@ requests-html>=0.10.0
 sqlalchemy>=1.4.39
 beautifulsoup4>=4.11
 html5lib>=1.1
+charset-normalizer==3.1.0
 jinja2
 python-dotenv
 chromadb
-sentence-transformers
 langchain
 uuid
 matplotlib

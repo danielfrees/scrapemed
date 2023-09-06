@@ -13,11 +13,11 @@ _SCRAPEMED_REQS = [
     'jinja2',
     'python-dotenv',
     'chromadb',
-    'sentence-transformers',
     'langchain',
     'uuid',
     'matplotlib',
     'wordcloud',
+    'charset-normalizer>=3.1.0'
 ]
 
 _INSTALL_REQUIRES = _SCRAPEMED_REQS
@@ -35,6 +35,9 @@ setup(
     ],
     package_dir={
         'scrapemed': 'scrapemed',
+    },
+    package_data={
+        'scrapemed': [os.path.join('scrapemed', 'data' 'DTDs', '*'],
     },
     install_requires=_INSTALL_REQUIRES,
     tests_require=_TEST_REQS,
