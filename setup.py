@@ -37,7 +37,7 @@ setup(
         'scrapemed': 'scrapemed',
     },
     package_data={
-        'scrapemed': [os.path.join('scrapemed', 'data' 'DTDs', '*'],
+        'scrapemed': [os.path.join('scrapemed', 'data' 'DTDs', '*')],
     },
     install_requires=_INSTALL_REQUIRES,
     tests_require=_TEST_REQS,
