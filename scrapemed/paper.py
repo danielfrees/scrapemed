@@ -121,6 +121,7 @@ class Paper():
         for i in range(NUM_TRIES):
             try:
                 paper_dict = parse.paper_dict_from_pmc(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
+                break
             except HTTPError:
                 time.sleep(5)
         if not paper_dict:

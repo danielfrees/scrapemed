@@ -49,9 +49,9 @@ You will need to install clang++ for chromadb and the Paper vectorization to wor
 
 ***Now an overview of the package structure:***
 
-Under `notebooks` you can find some example work using the scrapemed modules, which may provide some insight into usage possibilities. 
+Under `examples` you can find some example work using the scrapemed modules, which may provide some insight into usage possibilities. 
 
-Under `notebooks/data` you will find some example downloaded date (XML from Pubmed Central). It is recommended that any time you download data while working out of the notebooks, it should go here. Downloads will also go here by default when passing `download=True` to the scrapemed module functions which allow you to do so.
+Under `examples/data` you will find some example downloaded date (XML from Pubmed Central). It is recommended that any time you download data while working out of the notebooks, it should go here. Downloads will also go here by default when passing `download=True` to the scrapemed module functions which allow you to do so.
 
 Under `scrapemed/tests` you will find several python scripts which can be run using pytest. If you also clone the `.github/workflows/test-scrapemed.yml`, these tests will be automatically run on any PR/ push to your github repo. Under `scrapemed/test/testdata` are some XML data crafted for the purpose of testing scrapemed. This data is necessary to run the testing scripts.
 
