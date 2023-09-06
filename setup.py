@@ -25,7 +25,7 @@ _TEST_REQS = _SCRAPEMED_REQS
 
 setup(
     name='scrapemed',
-    version='1.0.4',
+    version='1.0.5',
     description='ScrapeMed: Data Scraping for PubMed Central.',
     author='Daniel Frees',
     author_email='danielfrees@g.ucla.edu',
