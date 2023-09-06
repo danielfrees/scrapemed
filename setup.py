@@ -14,7 +14,7 @@ _TEST_REQS = _read_reqs("requirements.txt")
 
 setup(
     name='scrapemed',
-    version='0.0.9',
+    version='1.0.0',
     description='ScrapeMed: Data Scraping for PubMed Central.',
     author='Daniel Frees',
     author_email='danielfrees@g.ucla.edu',
@@ -24,7 +24,7 @@ setup(
     tests_require=_TEST_REQS,
     test_suite="tests",
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
