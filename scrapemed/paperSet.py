@@ -19,10 +19,13 @@ class paperSet:
         """
         Initalize a paperSet. Usually called via paperSet.from_search() or paperSet.from_pmcid_list().
         """
-        self.papers = papers
+        self.papers = []
+        for paper in papers:
+            if paper:
+                self.papers.append(paper)
 
         # Make a df of the papers
-        paper_series_list = [paper.to_relational() for paper in papers]
+        paper_series_list = [paper.to_relational() for paper in self.papers]
         self.df = pd.DataFrame(paper_series_list)
 
         self.index = 0
@@ -163,7 +166,6 @@ class paperSet:
         self.visualize_title_wordcloud()
 
         return None
-    
 
     def visualize_unique_values(self, columns_to_visualize= ['Last_Updated', 'Journal_Title'])->None:
         for column in columns_to_visualize:

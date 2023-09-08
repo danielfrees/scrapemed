@@ -125,8 +125,8 @@ class Paper():
             except HTTPError:
                 time.sleep(5)
         if not paper_dict:
-            warnings.warn("Unable to retrieve PMCID {pmcid} from PMC. Try again later, may be due to HTTP traffic.", pubmedHTTPError)
-            return False
+            warnings.warn(f"Unable to retrieve PMCID {pmcid} from PMC. May be due to HTTP traffic or broken XML formatting, try again later if the former.", pubmedHTTPError)
+            return None
         return cls(paper_dict)
 
     @classmethod
