@@ -7,3 +7,4 @@
 .pytest_cache
 *.pyc
 scrapemed.egg-info/*
+test_setup_scrapemed/*
