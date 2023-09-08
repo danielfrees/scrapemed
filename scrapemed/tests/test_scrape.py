@@ -1,12 +1,14 @@
 import pytest
 import scrapemed.scrape as scrape
 from dotenv import load_dotenv
+from Bio import Entrez
 import os
 import lxml
 load_dotenv()
 
 def test_scrape():
     EMAIL = os.getenv("PMC_EMAIL")
+    Entrez.email = EMAIL
 
     #test pmc scraping
     brain_surgery_articles = scrape.search_pmc(EMAIL, "brain[ti] AND surgery[ti]", retmax = 10, verbose = False)['IdList']

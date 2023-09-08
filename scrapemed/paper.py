@@ -6,7 +6,6 @@ Paper objects are defined here, as well end-user functionality for scraping data
 from PubMed Central without stressing about the details.
 """
 
-import pprint
 import scrapemed._parse as parse
 import scrapemed.scrape as scrape
 from scrapemed._parse import TextSection
