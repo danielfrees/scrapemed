@@ -7,6 +7,9 @@
 
 [![codecov](https://codecov.io/gh/danielfrees/scrapemed/branch/main/graph/badge.svg?token=VZ5UO1YB93)](https://codecov.io/gh/danielfrees/scrapemed)
 
+![PyPI](https://img.shields.io/pypi/v/scrapemed?label=pypi%20package)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/scrapemed)
+
 ⭐ **Used by Duke University** to power medical generative AI research.
 
 ⭐ Enables pythonic object-oriented access to a **massive amount of research data**. PMC constitutes over 14% of [The Pile](https://www.arxiv-vanity.com/papers/2101.00027/).
