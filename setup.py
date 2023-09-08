@@ -17,7 +17,8 @@ _SCRAPEMED_REQS = [
     'uuid',
     'matplotlib',
     'wordcloud',
-    'charset-normalizer>=3.1.0'
+    'charset-normalizer>2',
+    'charset-normalizer<2'
 ]
 
 _INSTALL_REQUIRES = _SCRAPEMED_REQS
