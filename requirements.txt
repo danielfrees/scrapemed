@@ -16,3 +16,4 @@ langchain
 uuid
 matplotlib
 wordcloud
+sphinx_rtd_theme
