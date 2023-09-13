@@ -54,7 +54,7 @@ Beyond the heavy-lifting performed behind the scenes  by ScrapeMed to standardiz
 
 ## Sponsorship
 
-Package sponsored by Daceflow.ai!
+***Package sponsored by Daceflow.ai!***
 
 If you'd like to sponsor a feature or donate to the project, reach out to me at danielfrees@g.ucla.edu.
 
