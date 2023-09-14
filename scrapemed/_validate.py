@@ -67,4 +67,3 @@ def validate_xml(xml: ET.ElementTree) -> bool:
 
 
 # -------------------------END DATA VALIDATION-------------------------------
-

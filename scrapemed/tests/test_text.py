@@ -27,9 +27,9 @@ def test_text():
     text1_p2 = text1_ts.children[1]
     text1_sec1 = text1_ts.children[2]
     text1_grandchild = text1_sec1.children[0]
-    assert type(text1_p1) == TextParagraph
-    assert type(text1_p2) == TextParagraph
-    assert type(text1_sec1) == TextSection
+    assert isinstance(text1_p1, TextParagraph)
+    assert isinstance(text1_p2, TextParagraph)
+    assert isinstance(text1_sec1, TextSection)
     assert text1_ts.title == "Test of the scrapemed._text Module"
     assert text1_sec1.title == "Testing Subsection"
     assert text1_grandchild.text == "Grandchild test"
@@ -113,4 +113,3 @@ def test_text():
     print(type(TextTable(table_root)))
 
     return None
-

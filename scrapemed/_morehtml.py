@@ -93,4 +93,3 @@ def remove_mhtml_tags(text: str) -> str:
     mhtml_r = re.compile(mhtml_pattern)
     # remove MHTML tags and return result
     return mhtml_r.sub("", text)
-

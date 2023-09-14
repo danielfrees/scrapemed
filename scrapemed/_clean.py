@@ -236,4 +236,3 @@ def split_text_and_refs(
             text = ""
 
     return cleaned_text
-

@@ -69,4 +69,3 @@ def test_clean():
     print("RESULTING REF MAP: " + str(ref_map))
 
     return None
-

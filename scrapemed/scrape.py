@@ -175,4 +175,3 @@ def xml_tree_from_string(
 
 
 # --------------------End Convert XML strings -> Trees---------------------
-

@@ -330,4 +330,3 @@ class paperSet:
         return None
 
     # TODO: Add deletion methods if requested by ScrapeMed users.
-

@@ -278,7 +278,10 @@ def define_data_dict() -> dict:
               Important for bias detection."""
         ),
         "Footnote": "Text of any footnote statement provided with the article.",
-        "Acknowledgements": "List of acknowledgement statements provided with the article.",
+        "Acknowledgements": cleanerdoc(
+            """List of acknowledgement statements provided with
+            the article."""
+        ),
         "Notes": "List of notes included with the article.",
         "Custom Meta": cleanerdoc(
             """Dict of custom metadata key, value pairs
@@ -1132,8 +1135,8 @@ def _clean_ref_map(paper_root: ET.Element, ref_map: basicBiMap) -> basicBiMap:
                 if not fig_id:
                     warnings.warn(
                         (
-                            f"Figure ref unmatched. Figure ref without matching "
-                            "figure (Figure {root.text})!"
+                            "Figure ref unmatched. Figure ref without matching "
+                            f"figure (Figure {root.text})!"
                         ),
                         unmatchedFigureWarning,
                     )
@@ -1167,8 +1170,8 @@ def _clean_ref_map(paper_root: ET.Element, ref_map: basicBiMap) -> basicBiMap:
             else:
                 warnings.warn(
                     (
-                        f"<xref> in ref_map with no ref-type specified. "
-                        "Ignoring. ({root.text})"
+                        "<xref> in ref_map with no ref-type specified. "
+                        f"Ignoring. ({root.text})"
                     )
                 )
 
@@ -1189,7 +1192,7 @@ def _clean_ref_map(paper_root: ET.Element, ref_map: basicBiMap) -> basicBiMap:
 
     # Final pass to set up links now that everything should be filled in
     for key, item in cleaned_ref_map.items():
-        if type(item) == int:
+        if isinstance(item, int):
             link_index = item
             cleaned_ref_map[key] = cleaned_ref_map[link_index]
 
@@ -1203,12 +1206,12 @@ def _get_ref_type(value):
     Returns None if no known type is found.
     """
     ref_type = None
-    if type(value) == dict:
+    if isinstance(value, dict):
         if "Caption" in value:
             ref_type = "fig"
         elif "Authors" in value:
             ref_type = "citation"
-    elif type(value) == str:
+    elif isinstance(value, str):
         # if string, probably a citation scraped via
         # the mixed citation element parsing
         ref_type = "citation"
@@ -1276,4 +1279,3 @@ def _split_citations_tables_figs(
 
 
 # ----------------END GENERATE PAPER DICTIONARY GIVEN PMCID----------------
-

@@ -2,7 +2,6 @@
 Test ScrapeMed's scrape module.
 """
 
-import pytest
 import scrapemed.scrape as scrape
 from dotenv import load_dotenv
 from Bio import Entrez
@@ -35,7 +34,6 @@ def test_scrape():
 
     # check that get_xmls func works properly
     xmls = scrape.get_xmls(brain_surgery_articles[0:2], email=EMAIL)
-    assert type(xmls[0]) == lxml.etree._ElementTree
+    assert isinstance(xmls[0], lxml.etree._ElementTree)
 
     return None
-

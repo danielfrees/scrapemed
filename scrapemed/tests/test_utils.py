@@ -26,4 +26,3 @@ def test_utils():
         ), "Exactly reversed bimaps raise warning, and are not equal."
 
     return None  # success
-

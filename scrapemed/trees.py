@@ -87,7 +87,7 @@ def _generate_tag_dictionary(root: ET.Element) -> dict:
 
     for element in root.iter():
         # ignore processing instructions
-        if type(element) == ET._ProcessingInstruction:
+        if isinstance(element, ET._ProcessingInstruction):
             continue
 
         # dictionary of key-value pairs such that we have
@@ -124,4 +124,3 @@ def _generate_tag_dictionary(root: ET.Element) -> dict:
 
 
 # ----------------END DESCRIBE / CONVERT DATA-------------------
-

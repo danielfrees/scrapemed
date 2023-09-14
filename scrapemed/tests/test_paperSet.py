@@ -29,4 +29,3 @@ def test_paperset():
     assert len(pset.to_df()) == 2
 
     return None
-

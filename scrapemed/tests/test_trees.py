@@ -37,4 +37,3 @@ def test_scrape():
     trees.investigate_xml_tree(test_root)
 
     return None
-

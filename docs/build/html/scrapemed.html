@@ -71,6 +71,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-scrapemed.utils">scrapemed.utils module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#scrapemed.utils.basicBiMap"><code class="docutils literal notranslate"><span class="pre">basicBiMap</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scrapemed.utils.cleanerdoc"><code class="docutils literal notranslate"><span class="pre">cleanerdoc()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#scrapemed.utils.reversedBiMapComparisonWarning"><code class="docutils literal notranslate"><span class="pre">reversedBiMapComparisonWarning</span></code></a></li>
 </ul>
 </li>
@@ -115,8 +116,8 @@
 <span id="scrapemed-paper-module"></span><h2>scrapemed.paper module<a class="headerlink" href="#module-scrapemed.paper" title="Link to this heading"></a></h2>
 <p>The scrapemed “paper” module is intended as the primary point of contact for
 scrapemed end users.</p>
-<p>Paper objects are defined here, as well end-user functionality for scraping data
-from PubMed Central without stressing about the details.</p>
+<p>Paper objects are defined here, as well end-user functionality for scraping
+data from PubMed Central without stressing about the details.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="scrapemed.paper.Paper">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scrapemed.paper.</span></span><span class="sig-name descname"><span class="pre">Paper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paper_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scrapemed/paper.html#Paper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paper.Paper" title="Link to this definition"></a></dt>
@@ -124,7 +125,8 @@ from PubMed Central without stressing about the details.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scrapemed.paper.Paper.abstract_as_str">
 <span class="sig-name descname"><span class="pre">abstract_as_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/scrapemed/paper.html#Paper.abstract_as_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paper.Paper.abstract_as_str" title="Link to this definition"></a></dt>
-<dd><p>Returns a string representation of the abstract of a paper. Uses text without MHTML datarefs.</p>
+<dd><p>Returns a string representation of the abstract of a paper.
+Uses text without MHTML datarefs.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -136,10 +138,19 @@ from PubMed Central without stressing about the details.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scrapemed.paper.Paper.expanded_query">
 <span class="sig-name descname"><span class="pre">expanded_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_before</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scrapemed/paper.html#Paper.expanded_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paper.Paper.expanded_query" title="Link to this definition"></a></dt>
-<dd><p>Query function that matches natural language query with vectorized Paper.
-[query] - str, natural language query for paper
-[n_before] - int, how many chunks before the match to include in combined output
-[n_after] - int, how many chunks after the match to include in combined output</p>
+<dd><dl class="simple">
+<dt>Query function that matches natural language query</dt><dd><p>with vectorized Paper.</p>
+</dd>
+</dl>
+<p>[query] - str, natural language query for paper
+[n_before] - int, how many chunks before the match to include</p>
+<blockquote>
+<div><p>in combined output</p>
+</div></blockquote>
+<dl class="simple">
+<dt>[n_after] - int, how many chunks after the match to include</dt><dd><p>in combined output</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -149,14 +160,23 @@ from PubMed Central without stressing about the details.</p>
 <p>[pmcid] - Unique PMCID for the article to parse.
 [email] - Provide your email address for authentication with PMC
 [download] - Whether or not to download the XML retreived from PMC
-[validate] - Whether or not to validate the XML from PMC against NLM articleset 2.0 DTD (HIGHLY RECOMMENDED)
-[verbose] - Whether or not to have verbose output for testing
+[validate] - Whether or not to validate the XML from PMC against NLM</p>
+<blockquote>
+<div><p>articleset 2.0 DTD (HIGHLY RECOMMENDED)</p>
+</div></blockquote>
+<p>[verbose] - Whether or not to have verbose output for testing
 [suppress_warnings] - Whether to suppress warnings while parsing XML.</p>
 <blockquote>
-<div><p>Note: Warnings are frequent, because of the variable nature of PMC XML data.
-Recommended to suppress when parsing many XMLs at once.</p>
+<div><dl class="simple">
+<dt>Note: Warnings are frequent, because of the variable nature</dt><dd><p>of PMC XML data.</p>
+</dd>
+</dl>
+<p>Recommended to suppress when parsing many XMLs at once.</p>
 </div></blockquote>
-<p>[suppress_errors] - Return None on failed XML parsing, instead of raising an error.</p>
+<dl class="simple">
+<dt>[suppress_errors] - Return None on failed XML parsing, instead of</dt><dd><p>raising an error.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -166,14 +186,19 @@ Recommended to suppress when parsing many XMLs at once.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pmcid</strong> (<em>int</em>) – PMCID for the XML. THis is required intentionally, to ensure trustworthy unique indexing of PMC XMLs.</p></li>
+<li><p><strong>pmcid</strong> (<em>int</em>) – PMCID for the XML. THis is required intentionally,
+to ensure trustworthy unique indexing of PMC XMLs.</p></li>
 <li><p><strong>root</strong> (<em>ET.Element</em>) – Root element of the PMC XML tree.</p></li>
 <li><p><strong>verbose</strong> (<em>bool</em>) – Report verbose output or not. Intended for testing.</p></li>
-<li><p><strong>suppress_warnings</strong> (<em>bool</em>) – Suppress warnings while parsing XML or not.
-Note: Warnings are frequent, because of the variable nature of PMC XML data.
+<li><p><strong>suppress_warnings</strong> (<em>bool</em>) – Suppress warnings while
+parsing XML or not.
+Note: Warnings are frequent, because of the variable nature of
+PMC XML data.
 Recommended to suppress when parsing many XMLs at once.</p></li>
-<li><p><strong>suppress_errors</strong> (<em>bool</em>) – Return None on failed XML parsing, instead of raising an error.
-Recommended to suppress when parsing many XMLs at once, unless failure is not an option.</p></li>
+<li><p><strong>suppress_errors</strong> (<em>bool</em>) – Return None on failed XML parsing,
+instead of raising an error.
+Recommended to suppress when parsing many XMLs at once, unless
+failure is not an option.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -188,7 +213,14 @@ Recommended to suppress when parsing many XMLs at once, unless failure is not an
 <dl class="py method">
 <dt class="sig sig-object py" id="scrapemed.paper.Paper.full_text">
 <span class="sig-name descname"><span class="pre">full_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scrapemed/paper.html#Paper.full_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paper.Paper.full_text" title="Link to this definition"></a></dt>
-<dd><p>Return the full abstract and/or body text string of this Paper. Optionally print.</p>
+<dd><p>Return the full abstract and/or body text string of this Paper.
+Optionally print.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scrapemed.paper.Paper.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/scrapemed/paper.html#Paper.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paper.Paper.info" title="Link to this definition"></a></dt>
+<dd><p>Return the data definition dictionary.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -200,7 +232,8 @@ Recommended to suppress when parsing many XMLs at once, unless failure is not an
 <dl class="py method">
 <dt class="sig sig-object py" id="scrapemed.paper.Paper.print_body">
 <span class="sig-name descname"><span class="pre">print_body</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/scrapemed/paper.html#Paper.print_body"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paper.Paper.print_body" title="Link to this definition"></a></dt>
-<dd><p>Returns a string representation of the body of a paper. Uses text without MHTML datarefs.</p>
+<dd><p>Returns a string representation of the body of a paper.
+Uses text without MHTML datarefs.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -209,12 +242,20 @@ Recommended to suppress when parsing many XMLs at once, unless failure is not an
 <dd><dl>
 <dt>Query the paper with natural language questions.</dt><dd><p>Input:
 [query] - string question
-[n_results] - number of most semantically similar paper sections to retrieve
-[n_before] - int, how many chunks before the match to include in combined output
-[n_after] - int, how many chunks after the match to include in combined output</p>
+[n_results] - number of most semantically similar paper sections</p>
+<blockquote>
+<div><p>to retrieve</p>
+</div></blockquote>
+<dl class="simple">
+<dt>[n_before] - int, how many chunks before the match to include</dt><dd><p>in combined output</p>
+</dd>
+<dt>[n_after] - int, how many chunks after the match to include</dt><dd><p>in combined output</p>
+</dd>
+</dl>
 <p>Output:
-Dict with key(s) = most semantically similar result chunk(s), and value(s) = Paper text(s)
-around  the most semantically similar result chunk(s). Text length determined by
+Dict with key(s) = most semantically similar result chunk(s),
+and value(s) = Paper text(s)    around  the most semantically
+similar result chunk(s). Text length determined by
 the chunk size used in self.vectorize() and n_before and n_after.</p>
 </dd>
 </dl>
@@ -223,8 +264,9 @@ the chunk size used in self.vectorize() and n_before and n_after.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scrapemed.paper.Paper.to_relational">
 <span class="sig-name descname"><span class="pre">to_relational</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/scrapemed/paper.html#Paper.to_relational"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paper.Paper.to_relational" title="Link to this definition"></a></dt>
-<dd><p>Generates a pandas Series representation of the paper. Some data will be lost,
-but most useful text data and metadata will be retained in the relational shape.</p>
+<dd><p>Generates a pandas Series representation of the paper. Some data
+will be lost, but most useful text data and metadata will be retained
+in the relational shape.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -235,7 +277,10 @@ stored in paper.vector_collection. (Abstract and body only)</p>
 <p>Input:
 [chunk_size] - approximate chunk size to split paper into (len)
 [chunk_overlap] - approximate desired chunk overlap (len)
-[refresh] - Whether or not to clear and re-vectorize the paper (ie. with new settings)</p>
+[refresh] - Whether or not to clear and re-vectorize the paper</p>
+<blockquote>
+<div><p>(ie. with new settings)</p>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -251,14 +296,16 @@ stored in paper.vector_collection. (Abstract and body only)</p>
 <dt class="sig sig-object py" id="scrapemed.paper.pubmedHTTPError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scrapemed.paper.</span></span><span class="sig-name descname"><span class="pre">pubmedHTTPError</span></span><a class="reference internal" href="_modules/scrapemed/paper.html#pubmedHTTPError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paper.pubmedHTTPError" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></p>
-<p>Warned when unable to retrieve a PMC XML repeatedly. Can occasionally happen on PMC due to traffic.</p>
+<p>Warned when unable to retrieve a PMC XML repeatedly. Can occasionally
+happen on PMC due to traffic.</p>
 </dd></dl>
 
 </section>
 <section id="module-scrapemed.paperSet">
 <span id="scrapemed-paperset-module"></span><h2>scrapemed.paperSet module<a class="headerlink" href="#module-scrapemed.paperSet" title="Link to this heading"></a></h2>
 <p>Module for building PMC paper datasets, known as paperSets.</p>
-<p>Functions for embeddings, natural language search, storage optimization, persistence.</p>
+<p>Functions for embeddings, natural language search, storage optimization,
+persistence.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="scrapemed.paperSet.paperSet">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scrapemed.paperSet.</span></span><span class="sig-name descname"><span class="pre">paperSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">papers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scrapemed.paper.Paper" title="scrapemed.paper.Paper"><span class="pre">Paper</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scrapemed/paperSet.html#paperSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paperSet.paperSet" title="Link to this definition"></a></dt>
@@ -266,8 +313,12 @@ stored in paper.vector_collection. (Abstract and body only)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scrapemed.paperSet.paperSet.add_paper">
 <span class="sig-name descname"><span class="pre">add_paper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paper</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scrapemed.paper.Paper" title="scrapemed.paper.Paper"><span class="pre">Paper</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scrapemed/paperSet.html#paperSet.add_paper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paperSet.paperSet.add_paper" title="Link to this definition"></a></dt>
-<dd><p>Add Paper to the paperSet directly. Returns True of paper added, False, if the paper was already found in the paperSet.
-Note that papers can easily end up duplicated in the paperSet if they were downloaded different dates or PMCIDs were corrupted.</p>
+<dd><dl class="simple">
+<dt>Add Paper to the paperSet directly. Returns True of paper added,</dt><dd><p>False, if the paper was already found in the paperSet.</p>
+</dd>
+<dt>Note that papers can easily end up duplicated in the paperSet if</dt><dd><p>they were downloaded different dates or PMCIDs were corrupted.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -279,35 +330,51 @@ Note that papers can easily end up duplicated in the paperSet if they were downl
 <dl class="py method">
 <dt class="sig sig-object py" id="scrapemed.paperSet.paperSet.add_pmcid">
 <span class="sig-name descname"><span class="pre">add_pmcid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pmcid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_text_styling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress_warnings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress_errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scrapemed/paperSet.html#paperSet.add_pmcid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paperSet.paperSet.add_pmcid" title="Link to this definition"></a></dt>
-<dd><p>Add a Paper to the paperSet via PMCID. Returns True if added, False if Paper already in paperSet.</p>
+<dd><dl class="simple">
+<dt>Add a Paper to the paperSet via PMCID. Returns True if added,</dt><dd><p>False if Paper already in paperSet.</p>
+</dd>
+</dl>
 <p>[pmcid] - PMCID to generate the Paper to add
 [email] - use your email to auth with PMC
 [download] - whether or not to download the XMLs corresponding to pmcid
-[validate] - whether or not to validate the XMLs corresponding to pmcid (HIGHLY RECOMMENDED)
-[strip_text_styling] - whether or not to clean common HTML and other text styling out of the XML (HIGHLY RECOMMENDED)
-[suppress_warnings] - Whether to suppress warnings while parsing XML.</p>
+[validate] - whether or not to validate the XMLs corresponding to pmcid</p>
 <blockquote>
-<div><p>Note: Warnings are frequent, because of the variable nature of PMC XML data.
-Recommended to suppress when parsing many XMLs at once.</p>
+<div><p>(HIGHLY RECOMMENDED)</p>
 </div></blockquote>
-<p>[suppress_errors] - Return None on failed XML parsing, instead of raising an error.</p>
+<dl class="simple">
+<dt>[strip_text_styling] - whether or not to clean common HTML and other</dt><dd><p>text styling out of the XML (HIGHLY RECOMMENDED)</p>
+</dd>
+<dt>[suppress_warnings] - Whether to suppress warnings while parsing XML.</dt><dd><p>Note: Warnings are frequent, because of the variable nature of PMC
+XML data.
+Recommended to suppress when parsing many XMLs at once.</p>
+</dd>
+<dt>[suppress_errors] - Return None on failed XML parsing, instead of</dt><dd><p>raising an error.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="scrapemed.paperSet.paperSet.add_pmcids">
 <span class="sig-name descname"><span class="pre">add_pmcids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pmcids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_text_styling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress_warnings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress_errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scrapemed/paperSet.html#paperSet.add_pmcids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paperSet.paperSet.add_pmcids" title="Link to this definition"></a></dt>
-<dd><p>Add Papers to the paperSet via a list of PMCIDs. Returns number of papers added.</p>
+<dd><p>Add Papers to the paperSet via a list of PMCIDs. Returns number of
+papers added.</p>
 <p>[pmcids] - list of PMCIDs to populate the paperSet
 [email] - use your email to auth with PMC
 [download] - whether or not to download the XMLs corresponding to pmcids
-[validate] - whether or not to validate the XMLs corresponding to pmcids (HIGHLY RECOMMENDED)
-[strip_text_styling] - whether or not to clean common HTML and other text styling out of the XMLs (HIGHLY RECOMMENDED)
-[suppress_warnings] - Whether to suppress warnings while parsing XML.</p>
+[validate] - whether or not to validate the XMLs corresponding to pmcids</p>
 <blockquote>
-<div><p>Note: Warnings are frequent, because of the variable nature of PMC XML data.
-Recommended to suppress when parsing many XMLs at once.</p>
+<div><p>(HIGHLY RECOMMENDED)</p>
 </div></blockquote>
-<p>[suppress_errors] - Return None on failed XML parsing, instead of raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)</p>
+<dl class="simple">
+<dt>[strip_text_styling] - whether or not to clean common HTML and other</dt><dd><p>text styling out of the XMLs (HIGHLY RECOMMENDED)</p>
+</dd>
+<dt>[suppress_warnings] - Whether to suppress warnings while parsing XML.</dt><dd><p>Note: Warnings are frequent, because of the variable nature of
+PMC XML data.
+Recommended to suppress when parsing many XMLs at once.</p>
+</dd>
+<dt>[suppress_errors] - Return None on failed XML parsing, instead of</dt><dd><p>raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -317,14 +384,20 @@ Recommended to suppress when parsing many XMLs at once.</p>
 <p>[pmcids] - list of PMCIDs to populate the paperSet
 [email] - use your email to auth with PMC
 [download] - whether or not to download the XMLs corresponding to pmcids
-[validate] - whether or not to validate the XMLs corresponding to pmcids (HIGHLY RECOMMENDED)
-[strip_text_styling] - whether or not to clean common HTML and other text styling out of the XMLs (HIGHLY RECOMMENDED)
-[suppress_warnings] - Whether to suppress warnings while parsing XML.</p>
+[validate] - whether or not to validate the XMLs corresponding to pmcids</p>
 <blockquote>
-<div><p>Note: Warnings are frequent, because of the variable nature of PMC XML data.
-Recommended to suppress when parsing many XMLs at once.</p>
+<div><p>(HIGHLY RECOMMENDED)</p>
 </div></blockquote>
-<p>[suppress_errors] - Return None on failed XML parsing, instead of raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)</p>
+<dl class="simple">
+<dt>[strip_text_styling] - whether or not to clean common HTML and other</dt><dd><p>text styling out of the XMLs (HIGHLY RECOMMENDED)</p>
+</dd>
+<dt>[suppress_warnings] - Whether to suppress warnings while parsing XML.</dt><dd><p>Note: Warnings are frequent, because of the variable nature of PMC
+XML data.
+Recommended to suppress when parsing many XMLs at once.</p>
+</dd>
+<dt>[suppress_errors] - Return None on failed XML parsing, instead of</dt><dd><p>raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -336,10 +409,14 @@ Recommended to suppress when parsing many XMLs at once.</p>
 [retmax] - max number of PMCIDs to return
 [suppress_warnings] - Whether to suppress warnings while parsing XML.</p>
 <blockquote>
-<div><p>Note: Warnings are frequent, because of the variable nature of PMC XML data.
+<div><p>Note: Warnings are frequent, because of the variable nature of PMC
+XML data.
 Recommended to suppress when parsing many XMLs at once.</p>
 </div></blockquote>
-<p>[suppress_errors] - Return None on failed XML parsing, instead of raising an error. (HIGHLY RECOMMENDED FOR LARGE SEARCHES)</p>
+<dl class="simple">
+<dt>[suppress_errors] - Return None on failed XML parsing, instead of</dt><dd><p>raising an error. (HIGHLY RECOMMENDED FOR LARGE SEARCHES)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -351,8 +428,8 @@ Recommended to suppress when parsing many XMLs at once.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="scrapemed.paperSet.paperSet.visualize">
 <span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scrapemed/paperSet.html#paperSet.visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.paperSet.paperSet.visualize" title="Link to this definition"></a></dt>
-<dd><p>Generates a general visualization of the paperSet, including unique value visualization
-and a wordcloud for all of the Paper titles.</p>
+<dd><p>Generates a general visualization of the paperSet, including unique
+value visualization and a wordcloud for all of the Paper titles.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -371,8 +448,10 @@ and a wordcloud for all of the Paper titles.</p>
 </section>
 <section id="module-scrapemed.scrape">
 <span id="scrapemed-scrape-module"></span><h2>scrapemed.scrape module<a class="headerlink" href="#module-scrapemed.scrape" title="Link to this heading"></a></h2>
-<p>ScrapeMed’s “scrape” module handles PubMed Central data searching and downloading.
-This module also handles conversion of raw XML data to lxml.etree.ElementTree objects.</p>
+<p>ScrapeMed’s “scrape” module handles PubMed Central data searching
+and downloading.
+This module also handles conversion of raw XML data to
+lxml.etree.ElementTree objects.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="scrapemed.scrape.get_xml">
 <span class="sig-prename descclassname"><span class="pre">scrapemed.scrape.</span></span><span class="sig-name descname"><span class="pre">get_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pmcid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_text_styling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ElementTree</span></span></span><a class="reference internal" href="_modules/scrapemed/scrape.html#get_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.scrape.get_xml" title="Link to this definition"></a></dt>
@@ -381,8 +460,14 @@ Also validates and cleans the XML by default.</p>
 <p>Input:
 [pmcid] = pmcid of article to retrieve.
 [email] = use your email to auth with PMC
-[validate] - whether or not to validate the XML retrieved (HIGHLY RECOMMENDED)
-[strip_text_styling] - whether or not to clean common HTML text styling from the text (HIGHLY RECOMMENDED)</p>
+[validate] - whether or not to validate the XML retrieved</p>
+<blockquote>
+<div><p>(HIGHLY RECOMMENDED)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>[strip_text_styling] - whether or not to clean common HTML</dt><dd><p>text styling from the text (HIGHLY RECOMMENDED)</p>
+</dd>
+</dl>
 <p>Output: ElementTree of the validated xml record.</p>
 </dd></dl>
 
@@ -394,9 +479,16 @@ Also validates and cleans the XMLs by default.</p>
 <p>Input:
 [pmcid] = pmcid of article to retrieve.
 [email] = use your email to auth with PMC
-[validate] - whether or not to validate the XML retrieved (HIGHLY RECOMMENDED)
-[strip_text_styling] - whether or not to clean common HTML text styling from the text (HIGHLY RECOMMENDED)</p>
-<p>Output: List of ElementTrees of the XMLs corresponding to the provided PMCIDs.</p>
+[validate] - whether or not to validate the XML retrieved</p>
+<blockquote>
+<div><p>(HIGHLY RECOMMENDED)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>[strip_text_styling] - whether or not to clean common HTML text</dt><dd><p>styling from the text (HIGHLY RECOMMENDED)</p>
+</dd>
+<dt>Output: List of ElementTrees of the XMLs corresponding to</dt><dd><p>the provided PMCIDs.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -423,7 +515,10 @@ get a list of xmls and other info, provided a PMC search term.</p>
 By default, strips html text styling.</p>
 <p>Input:
 [xml_string]: string/bytestream representing XML
-[strip_text_styling]: boolean, whether to remove HTML text styling tags or not</p>
+[strip_text_styling]: boolean, whether to remove HTML text styling tags</p>
+<blockquote>
+<div><p>or not</p>
+</div></blockquote>
 <p>Output: lxml.etree.ElementTree of the passed string.</p>
 </dd></dl>
 
@@ -451,12 +546,20 @@ None, all work is printed to stdout.</p>
 </section>
 <section id="module-scrapemed.utils">
 <span id="scrapemed-utils-module"></span><h2>scrapemed.utils module<a class="headerlink" href="#module-scrapemed.utils" title="Link to this heading"></a></h2>
-<p>Various utilities for markup language and text processing. Classes for text sections, paragraphs, figure/xref/table reference BiMaps.</p>
+<p>Various utilities for markup language and text processing. Classes for text
+sections, paragraphs, figure/xref/table reference BiMaps.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="scrapemed.utils.basicBiMap">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scrapemed.utils.</span></span><span class="sig-name descname"><span class="pre">basicBiMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scrapemed/utils.html#basicBiMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.utils.basicBiMap" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
-<p>BiMap class which extends python’s dict class to also store a reverse of itself for efficiency.</p>
+<p>BiMap class which extends python’s dict class to also store
+a reverse of itself for efficiency.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scrapemed.utils.cleanerdoc">
+<span class="sig-prename descclassname"><span class="pre">scrapemed.utils.</span></span><span class="sig-name descname"><span class="pre">cleanerdoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scrapemed/utils.html#cleanerdoc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scrapemed.utils.cleanerdoc" title="Link to this definition"></a></dt>
+<dd><p>Wrapper for inspect.cleandoc which also removes newlines.</p>
 </dd></dl>
 
 <dl class="py exception">

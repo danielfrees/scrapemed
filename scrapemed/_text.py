@@ -209,10 +209,10 @@ class TextSection(TextElement):
         if self.title is not None:
             s += f"SECTION: {self.title}:\n"
         for child in self.children:
-            if type(child) == TextSection:
+            if isinstance(child, TextSection):
                 s += "\n" + textwrap.indent(str(child), " " * 4)
                 s += "\n"
-            elif type(child) == TextParagraph:
+            elif isinstance(child, TextParagraph):
                 s += "\n" + str(child)
                 s += "\n"
         return s
@@ -233,10 +233,10 @@ class TextSection(TextElement):
         if self.title is not None:
             s += f"SECTION: {self.title}:\n"
         for child in self.children:
-            if type(child) == TextSection:
+            if isinstance(child, TextSection):
                 s += "\n" + textwrap.indent(child.get_section_text_with_refs(), " " * 4)
                 s += "\n"
-            elif type(child) == TextParagraph:
+            elif isinstance(child, TextParagraph):
                 s += "\n" + child.text_with_refs
                 s += "\n"
         return s
@@ -392,7 +392,6 @@ def stringify_children(node, encoding="utf-8"):
     ]
     # decode any bytestrings
     for i in range(len(subtree)):
-        if type(subtree[i]) == bytes:
+        if isinstance(subtree[i], bytes):
             subtree[i] = subtree[i].decode(encoding)
     return "".join(subtree).strip()
-

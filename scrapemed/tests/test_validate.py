@@ -8,7 +8,6 @@ import scrapemed._morehtml as mhtml
 import lxml.etree as ET
 import filecmp
 import os
-from scrapemed.utils import cleanerdoc
 
 
 def test_xml_validation():
@@ -148,4 +147,3 @@ def _generate_nms_html_unescaped_file(filename: str) -> None:
 
 
 # -------------------END HELPER FUNCTIONS-----------------------------
-
