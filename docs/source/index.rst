@@ -38,6 +38,11 @@ This is necessary for several of the test scripts and may be useful for your dev
 You will need to install clang++ for ``chromadb` and ``Paper`` vectorization to work. You also need to make sure you have ``python 3.10.2``
 or later installed and active in your dev environment.
 
+You'll also want to ``pip install pre-commit`` and ``pre-commit install`` so that
+the ``.pre-commit-config.yaml`` file can do its magic in making sure your commits
+follow PEP8 style guidelines (with line length increased to 88), and that your commits
+do not break the testing framework with pytest.
+
 **Now an overview of the package structure:**
 
 Under ``examples`` you can find some example work using the scrapemed modules, which may provide some insight into usage possibilities.
