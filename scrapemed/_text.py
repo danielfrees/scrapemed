@@ -1,8 +1,8 @@
 """
 ScrapeMed's "_text" module is aimed at organizing text found in markup language.
 
-In the context of the ScrapeMed package, this supports the organization of text 
-found within paragraph (<p>) and section (<sec>) tags in downloaded XML from 
+In the context of the ScrapeMed package, this supports the organization of text
+found within paragraph (<p>) and section (<sec>) tags in downloaded XML from
 PubMedCentral (PMC).
 """
 
@@ -10,7 +10,7 @@ PubMedCentral (PMC).
 import lxml.etree as ET
 import textwrap
 import scrapemed._clean as _clean
-from scrapemed.utils import basicBiMap    
+from scrapemed.utils import basicBiMap
 import scrapemed._morehtml as mhtml
 from itertools import chain
 import warnings
@@ -44,8 +44,8 @@ class readHTMLFailure(Warning):
 #-----------------------------------------TextElement---------------------------------------------------
 class TextElement():
     """
-    Base class for elements parsed from XML/HTML markup language. 
-    """        
+    Base class for elements parsed from XML/HTML markup language.
+    """
     def __init__(self, root:ET.Element, parent:'TextElement'=None, ref_map:basicBiMap=basicBiMap()):
         self.root = root
         self.parent = parent
@@ -62,7 +62,7 @@ class TextElement():
         else:
             ref_map = self.ref_map
         return ref_map
-    
+
     def set_ref_map(self, ref_map:basicBiMap):
         """
         Set the shared BiMap for reference data.
@@ -82,7 +82,7 @@ class TextParagraph(TextElement):
     """
     def __init__(self, p_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
         """
-        
+
         """
         super().__init__(root=p_root,parent=parent,ref_map=ref_map) #initialize TextElement
 
@@ -90,13 +90,13 @@ class TextParagraph(TextElement):
         p_subtree = stringify_children(self.root)
 
         #split text and HTML tag references
-        self.text_with_refs = _clean.split_text_and_refs(tree_text=p_subtree, 
+        self.text_with_refs = _clean.split_text_and_refs(tree_text=p_subtree,
                             ref_map=self.get_ref_map(), id=self.id, on_unknown='keep')
         self.text = mhtml.remove_mhtml_tags(self.text_with_refs) #clean text for str() and printing
 
     def __str__(self):
         return self.text
-    
+
     def __eq__(self, other):
         return self.text_with_refs == other.text_with_refs
 #------------------------------------------end TextParagraph---------------------------------------------------
@@ -108,7 +108,7 @@ class TextSection(TextElement):
     """
     def __init__(self, sec_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
         """
-        Initialize a text section from the root of a <sec> tree. 
+        Initialize a text section from the root of a <sec> tree.
 
         Optionally provide reference BiMap storing links to reference data.
         Reference BiMap used to link text to table & figure data.
@@ -137,28 +137,28 @@ class TextSection(TextElement):
                 self.children.append(TextFigure(child, parent=self, ref_map=self.get_ref_map()))
             else:
                 warnings.warn(f"Warning! Unexpected child with of type {child.tag} found under an XML <sec> tag.", unhandledTextTagWarning)
-        
+
         #after building the TextSection tree, get textual representations
         self.text = self.get_section_text()
         self.text_with_refs = self.get_section_text_with_refs()
 
     def __str__(self):
         """
-        String representation of a TextSection. 
+        String representation of a TextSection.
 
         Begins with title if the section has a title.
 
-        Subsections will be indented. 
+        Subsections will be indented.
 
         Body text will be printed without indent.
-        
+
         """
         s = ""
         if not self.title == None:
             s += f"SECTION: {self.title}:\n"
         for child in self.children:
             if type(child) == TextSection:
-                s += "\n" + textwrap.indent(str(child), " " * 4) 
+                s += "\n" + textwrap.indent(str(child), " " * 4)
                 s += "\n"
             elif type(child) == TextParagraph:
                 s += "\n" + str(child)
@@ -167,14 +167,14 @@ class TextSection(TextElement):
 
     def get_section_text(self):
         """
-        Gets a text representation of the entire text section, 
+        Gets a text representation of the entire text section,
         using paragraphs with refs removed.
         """
         return str(self)
-    
+
     def get_section_text_with_refs(self):
         """
-        Gets a text representation of the entire text section, 
+        Gets a text representation of the entire text section,
         using paragraphs with references retained.
         """
         s = ""
@@ -182,7 +182,7 @@ class TextSection(TextElement):
             s += f"SECTION: {self.title}:\n"
         for child in self.children:
             if type(child) == TextSection:
-                s += "\n" + textwrap.indent(child.get_section_text_with_refs(), " " * 4) 
+                s += "\n" + textwrap.indent(child.get_section_text_with_refs(), " " * 4)
                 s += "\n"
             elif type(child) == TextParagraph:
                 s += "\n" + child.text_with_refs
@@ -209,7 +209,7 @@ class TextTable(TextElement):
         """
         #initialize root, parent, and bimaps
         super().__init__(root=table_root,parent=parent,ref_map=ref_map)
-    
+
         #find label if any
         label_matches = table_root.xpath("label")
         label = None
@@ -294,14 +294,14 @@ class TextFigure(TextElement):
 #-----------------------------end TextFigure---------------------------------------------
 
 
-#-------------------------------End Classes----------------------------   
+#-------------------------------End Classes----------------------------
 
 
 #---------------------------------Helpers---------------------------------
 def stringify_children(node, encoding = "utf-8"):
     """
     Returns a string representation of a node and all its children (recursively),
-    including markup language tags. 
+    including markup language tags.
 
     Turns any bytestrings in the subtree representation to regular strings, following
     the provided encoding.

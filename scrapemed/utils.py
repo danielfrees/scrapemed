@@ -16,7 +16,7 @@ class basicBiMap(dict):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.reverse = {value: key for key, value in self.items()}
-        
+
     def __str__(self):
         return "BiMap: " + super().__str__()
 
@@ -40,7 +40,7 @@ class basicBiMap(dict):
         if not super().__eq__(other):
             if isinstance(other, basicBiMap) and other.reverse == dict(self):
                 warnings.warn("Warning: Comparing basicBiMaps which are not equal, but would be with keys and values swapped.",
-                                reversedBiMapComparisonWarning)   
+                                reversedBiMapComparisonWarning)
             return False
         return True
 

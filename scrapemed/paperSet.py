@@ -37,21 +37,21 @@ class paperSet:
     @classmethod
     def from_search(cls, email:str, term:str, retmax:int = 10, verbose:bool = False, suppress_warnings:bool = True, suppress_errors:bool = True):
         """Generate a paperSet via a PMC search.
-        
+
         [email] - use your email to auth with PMC
         [term] - search term
-        [retmax] - max number of PMCIDs to return  
-        [suppress_warnings] - Whether to suppress warnings while parsing XML. 
-            Note: Warnings are frequent, because of the variable nature of PMC XML data. 
+        [retmax] - max number of PMCIDs to return
+        [suppress_warnings] - Whether to suppress warnings while parsing XML.
+            Note: Warnings are frequent, because of the variable nature of PMC XML data.
             Recommended to suppress when parsing many XMLs at once.
         [suppress_errors] - Return None on failed XML parsing, instead of raising an error. (HIGHLY RECOMMENDED FOR LARGE SEARCHES)
         """
         print("Generating paperSet from search (This can take a while due to PMC HTTP Request Limitations!)...")
         pmcid_list = scrape.search_pmc(email=email, term=term, retmax=retmax, verbose=verbose)['IdList']
         paper_list = [Paper.from_pmc(pmcid, email=email, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors) for pmcid in pmcid_list]
-        
+
         return cls(papers=paper_list)
-    
+
     @classmethod
     def from_pmcid_list(cls, pmcids:List[int], email:str, download:bool = False, validate:bool = True, strip_text_styling:bool = True, verbose:bool = False, suppress_warnings:bool = True, suppress_errors:bool = True):
         """Generate a paperSet via a list of PMCIDs
@@ -61,8 +61,8 @@ class paperSet:
         [download] - whether or not to download the XMLs corresponding to pmcids
         [validate] - whether or not to validate the XMLs corresponding to pmcids (HIGHLY RECOMMENDED)
         [strip_text_styling] - whether or not to clean common HTML and other text styling out of the XMLs (HIGHLY RECOMMENDED)
-        [suppress_warnings] - Whether to suppress warnings while parsing XML. 
-            Note: Warnings are frequent, because of the variable nature of PMC XML data. 
+        [suppress_warnings] - Whether to suppress warnings while parsing XML.
+            Note: Warnings are frequent, because of the variable nature of PMC XML data.
             Recommended to suppress when parsing many XMLs at once.
         [suppress_errors] - Return None on failed XML parsing, instead of raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)
         """
@@ -91,13 +91,13 @@ class paperSet:
             return self.papers[index]
         else:
             raise IndexError("Index out of range")
-        
+
     def to_df(self):
         """
         Return a pandas DataFrame representation of the paperSet.
         """
         return self.df
-        
+
     def add_paper(self, paper:Paper):
         """
         Add Paper to the paperSet directly. Returns True of paper added, False, if the paper was already found in the paperSet.
@@ -110,7 +110,7 @@ class paperSet:
             return True
         print (f"Paper with pmcid={paper.pmcid} already in paperSet.papers.")
         return False
-        
+
     def add_papers(self, papers:List[Paper]):
         """
         Add Papers to the paperSet directly. Returns number of papers added.
@@ -120,7 +120,7 @@ class paperSet:
             if self.add_paper(paper):
                 count_added += 1
         return count_added
-        
+
     def add_pmcid(self, pmcid:Union[int, str], email:str, download:bool = False, validate:bool = True, strip_text_styling:bool = True, verbose:bool = False, suppress_warnings:bool = True, suppress_errors:bool = True):
         """
         Add a Paper to the paperSet via PMCID. Returns True if added, False if Paper already in paperSet.
@@ -130,10 +130,10 @@ class paperSet:
         [download] - whether or not to download the XMLs corresponding to pmcid
         [validate] - whether or not to validate the XMLs corresponding to pmcid (HIGHLY RECOMMENDED)
         [strip_text_styling] - whether or not to clean common HTML and other text styling out of the XML (HIGHLY RECOMMENDED)
-        [suppress_warnings] - Whether to suppress warnings while parsing XML. 
-            Note: Warnings are frequent, because of the variable nature of PMC XML data. 
+        [suppress_warnings] - Whether to suppress warnings while parsing XML.
+            Note: Warnings are frequent, because of the variable nature of PMC XML data.
             Recommended to suppress when parsing many XMLs at once.
-        [suppress_errors] - Return None on failed XML parsing, instead of raising an error. 
+        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.
         """
         paper = Paper.from_pmc(pmcid, email, download=download, validate=validate, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
         return self.add_paper(paper)
@@ -146,8 +146,8 @@ class paperSet:
         [download] - whether or not to download the XMLs corresponding to pmcids
         [validate] - whether or not to validate the XMLs corresponding to pmcids (HIGHLY RECOMMENDED)
         [strip_text_styling] - whether or not to clean common HTML and other text styling out of the XMLs (HIGHLY RECOMMENDED)
-        [suppress_warnings] - Whether to suppress warnings while parsing XML. 
-            Note: Warnings are frequent, because of the variable nature of PMC XML data. 
+        [suppress_warnings] - Whether to suppress warnings while parsing XML.
+            Note: Warnings are frequent, because of the variable nature of PMC XML data.
             Recommended to suppress when parsing many XMLs at once.
         [suppress_errors] - Return None on failed XML parsing, instead of raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)
         """
@@ -156,7 +156,7 @@ class paperSet:
             if self.add_pmcid(pmcid, email, download=download, validate=validate, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors):
                 count_added += 1
         return count_added
-    
+
     def visualize(self):
         """
         Generates a general visualization of the paperSet, including unique value visualization
@@ -213,6 +213,6 @@ class paperSet:
         plt.show()
 
         return None
-   
+
     #TODO: Add deletion methods if requested by ScrapeMed users.
 

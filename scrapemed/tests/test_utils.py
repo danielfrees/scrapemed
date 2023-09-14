@@ -15,7 +15,7 @@ def test_utils():
     bimap2 = smutils.basicBiMap(one='hello', three='daniel')
     assert bimap == bimap2
     bimap3 = smutils.basicBiMap(hello='one', daniel='three')
-    
+
     with pytest.warns(reversedBiMapComparisonWarning) as w:
         assert not bimap == bimap3, "Exactly reversed bimaps raise warning, and are not equal."
 

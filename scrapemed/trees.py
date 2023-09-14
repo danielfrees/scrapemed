@@ -11,7 +11,7 @@ def investigate_xml_tree(root: ET.Element)->None:
     """
     Print some basic statistics and info about your xml, provided its root)
 
-    Input: 
+    Input:
     [root] = Root of an ElementTree of your xml
 
     Output:
@@ -52,25 +52,25 @@ def _add_elements(dot: Digraph, element: ET.Element, parent=None):
 
 def _generate_tag_dictionary(root: ET.Element) -> dict:
     """
-    Generate a dictionary of all tags, each with a subdictionary of attributes, and lists of values seen for each attribute. 
+    Generate a dictionary of all tags, each with a subdictionary of attributes, and lists of values seen for each attribute.
 
-    Helps define the scope of tags for a given xml/html tree. 
+    Helps define the scope of tags for a given xml/html tree.
 
-    Input: 
+    Input:
     [root] = root of an ElementTree of xml, html, other tagged language, or combo thereof
 
     Output:
     A dictionary of tags: attr-val dictionaries.
     Attr-val dictionaries are a dict of attribute: value lists.
 
-    The structure of the overall dictionary is visualized below: 
+    The structure of the overall dictionary is visualized below:
        {
         tag_0
          |___attr_0
                |_____[value_0, ..., value_n]
          |___attr_1
                |_____[value_0, ...., value_n]
-       
+
         ....
         tag_n
        }
@@ -79,7 +79,7 @@ def _generate_tag_dictionary(root: ET.Element) -> dict:
 
     for element in root.iter():
         #ignore processing instructions
-        if type(element) == ET._ProcessingInstruction: 
+        if type(element) == ET._ProcessingInstruction:
             continue
         attr_values_dict = {}     #dictionary of key-value pairs such that we have {attr: list of values the attribute can take on}
         try:
@@ -102,6 +102,6 @@ def _generate_tag_dictionary(root: ET.Element) -> dict:
             attr_values_dict = data_dict[element.tag]
             for attr, val in attr_values_dict.items():
                 attr_values_dict[attr] = [attr_values_dict[attr]]
-    
+
     return data_dict
 #---------------------------END DESCRIBE / CONVERT DATA----------------------------------------

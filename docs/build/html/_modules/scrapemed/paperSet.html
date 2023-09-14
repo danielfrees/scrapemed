@@ -9,7 +9,7 @@
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../_static/documentation_options.js?v=e2a723ec"></script>
@@ -17,17 +17,17 @@
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../index.html" class="icon icon-home">
             scrapemed
           </a>
@@ -67,7 +67,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for scrapemed.paperSet</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Module for building PMC paper datasets, known as paperSets.</span>
@@ -112,12 +112,12 @@
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_search</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">term</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">retmax</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a paperSet via a PMC search.</span>
-<span class="sd">        </span>
+
 <span class="sd">        [email] - use your email to auth with PMC</span>
 <span class="sd">        [term] - search term</span>
-<span class="sd">        [retmax] - max number of PMCIDs to return  </span>
-<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML. </span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data. </span>
+<span class="sd">        [retmax] - max number of PMCIDs to return</span>
+<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML.</span>
+<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
 <span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
 <span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error. (HIGHLY RECOMMENDED FOR LARGE SEARCHES)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -139,8 +139,8 @@
 <span class="sd">        [download] - whether or not to download the XMLs corresponding to pmcids</span>
 <span class="sd">        [validate] - whether or not to validate the XMLs corresponding to pmcids (HIGHLY RECOMMENDED)</span>
 <span class="sd">        [strip_text_styling] - whether or not to clean common HTML and other text styling out of the XMLs (HIGHLY RECOMMENDED)</span>
-<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML. </span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data. </span>
+<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML.</span>
+<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
 <span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
 <span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -220,10 +220,10 @@
 <span class="sd">        [download] - whether or not to download the XMLs corresponding to pmcid</span>
 <span class="sd">        [validate] - whether or not to validate the XMLs corresponding to pmcid (HIGHLY RECOMMENDED)</span>
 <span class="sd">        [strip_text_styling] - whether or not to clean common HTML and other text styling out of the XML (HIGHLY RECOMMENDED)</span>
-<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML. </span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data. </span>
+<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML.</span>
+<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
 <span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
-<span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error. </span>
+<span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">paper</span> <span class="o">=</span> <span class="n">Paper</span><span class="o">.</span><span class="n">from_pmc</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="n">download</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_paper</span><span class="p">(</span><span class="n">paper</span><span class="p">)</span></div>
@@ -239,8 +239,8 @@
 <span class="sd">        [download] - whether or not to download the XMLs corresponding to pmcids</span>
 <span class="sd">        [validate] - whether or not to validate the XMLs corresponding to pmcids (HIGHLY RECOMMENDED)</span>
 <span class="sd">        [strip_text_styling] - whether or not to clean common HTML and other text styling out of the XMLs (HIGHLY RECOMMENDED)</span>
-<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML. </span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data. </span>
+<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML.</span>
+<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
 <span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
 <span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -335,7 +335,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -346,7 +346,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

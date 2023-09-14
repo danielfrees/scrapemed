@@ -26,5 +26,5 @@ def test_paperset():
     assert len(pset.papers) == 2
     assert len(pset.df) == 2
     assert len(pset.to_df()) == 2
-        
+
     return None

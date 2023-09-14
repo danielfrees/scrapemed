@@ -9,20 +9,20 @@ import html
 def unescape_except(s, **kwargs):
     """
     Convert all named and numeric character references (e.g. &gt;, &#62;,
-    &x3e;) in the provided stringto the corresponding unicode characters, 
+    &x3e;) in the provided stringto the corresponding unicode characters,
     excluding any provided encodings to be ignored.
 
     Input:
     [s] - string
-    [**kwargs] - keyword arguments of form: key = encoding. 
+    [**kwargs] - keyword arguments of form: key = encoding.
                 These encodings will be ignored when unescaping.
 
     Output: string with encodings unescaped other than those to be ignored
 
-    For keys with multiple encodings, pass as 
+    For keys with multiple encodings, pass as
     {keyname} = encoding1, {keyname}2 = encoding2.
     The keynames do not matter for functionality, but they must be unique.
-    Encodings must be single code strings. 
+    Encodings must be single code strings.
 
     This function uses the rules defined by the HTML 5 standard
     for both valid and invalid character references, and the list of
@@ -39,12 +39,12 @@ def unescape_except(s, **kwargs):
     for key, encoding in kwargs.items():
         placehold_str = generate_mhtml_tag(key)
         encoding_dict[placehold_str] = encoding
-    
-    #Convert encodings to MHTML placeholder codes 
+
+    #Convert encodings to MHTML placeholder codes
     for placehold_str, encoding in encoding_dict.items():
         code_to_save = re.compile(re.escape(encoding))
         s = code_to_save.sub(placehold_str, s)
-   
+
     #Unescape everything else
     s = html.unescape(s)
 
@@ -79,7 +79,7 @@ def generate_typed_mhtml_tag(tag_type:str, string:str)->str:
 
 def remove_mhtml_tags(text:str)->str:
     """
-    Removes all MHTML tags and typed MHTML tags found in the provided text. 
+    Removes all MHTML tags and typed MHTML tags found in the provided text.
     """
     #match MHTML tags
         #group1 = tag type for typed MHTML tags

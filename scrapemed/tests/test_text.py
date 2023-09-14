@@ -27,16 +27,16 @@ def test_text():
     assert text1_sec1.title == "Testing Subsection"
     assert text1_grandchild.text == "Grandchild test"
 
-    #test getters and setters for maps. 
+    #test getters and setters for maps.
     # #Getters and setters should work from anywhere in the tree
     test_ref_map = basicBiMap({'ref':'test'})
-    
+
     text1_ts.set_ref_map(test_ref_map)
     assert text1_ts.ref_map == test_ref_map
     assert text1_ts.get_ref_map() == test_ref_map
     for child in text1_ts.children:
         assert child.get_ref_map() == test_ref_map
-    
+
     test_ref_map2 = basicBiMap({'ref':'test2'})
     text1_p1.set_ref_map(test_ref_map2)
     assert text1_ts.get_ref_map() == test_ref_map2
@@ -78,19 +78,19 @@ def test_text():
         </tbody>
       </table>
     </table-wrap>
-    
+
     <figure id="fig1">
       <caption>Figure 1: Sample Figure</caption>
       <!-- Your figure content goes here -->
     </figure>
-    
+
     <xref rid="fig1" ref-type="figure">Figure 1</xref>
     <xref rid="tab1" ref-type="table">Table 1</xref>
   </body>
 </article>"""
 
     tables_and_figs_root = ET.fromstring(tables_and_figs_xml.encode('utf-8'))
-    
+
     table_root = tables_and_figs_root.xpath("//table-wrap")[0]
     print(TextTable(table_root))
     print(type(TextTable(table_root)))

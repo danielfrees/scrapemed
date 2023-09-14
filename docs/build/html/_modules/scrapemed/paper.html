@@ -9,7 +9,7 @@
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../_static/documentation_options.js?v=e2a723ec"></script>
@@ -17,17 +17,17 @@
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../index.html" class="icon icon-home">
             scrapemed
           </a>
@@ -67,10 +67,10 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for scrapemed.paper</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">The scrapemed &quot;paper&quot; module is intended as the primary point of contact for </span>
+<span class="sd">The scrapemed &quot;paper&quot; module is intended as the primary point of contact for</span>
 <span class="sd">scrapemed end users.</span>
 
 <span class="sd">Paper objects are defined here, as well end-user functionality for scraping data</span>
@@ -185,14 +185,14 @@
     <span class="k">def</span> <span class="nf">from_pmc</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pmcid</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">download</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">validate</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a Paper from a pmcid. Specify your email for auth.</span>
-<span class="sd">        </span>
+
 <span class="sd">        [pmcid] - Unique PMCID for the article to parse.</span>
 <span class="sd">        [email] - Provide your email address for authentication with PMC</span>
 <span class="sd">        [download] - Whether or not to download the XML retreived from PMC</span>
 <span class="sd">        [validate] - Whether or not to validate the XML from PMC against NLM articleset 2.0 DTD (HIGHLY RECOMMENDED)</span>
 <span class="sd">        [verbose] - Whether or not to have verbose output for testing</span>
-<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML. </span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data. </span>
+<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML.</span>
+<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
 <span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
 <span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -220,14 +220,14 @@
 <span class="sd">        :param int pmcid: PMCID for the XML. THis is required intentionally, to ensure trustworthy unique indexing of PMC XMLs.</span>
 <span class="sd">        :param ET.Element root: Root element of the PMC XML tree.</span>
 <span class="sd">        :param bool verbose: Report verbose output or not. Intended for testing.</span>
-<span class="sd">        :param bool suppress_warnings: Suppress warnings while parsing XML or not. </span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data. </span>
+<span class="sd">        :param bool suppress_warnings: Suppress warnings while parsing XML or not.</span>
+<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
 <span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
 <span class="sd">        :param bool suppress_errors: Return None on failed XML parsing, instead of raising an error.</span>
 <span class="sd">            Recommended to suppress when parsing many XMLs at once, unless failure is not an option.</span>
-<span class="sd">        </span>
+
 <span class="sd">        :returns: A Paper object initialized via the passed XML.</span>
-<span class="sd">        :rtype: Paper </span>
+<span class="sd">        :rtype: Paper</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">paper_dict</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">generate_paper_dict</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">paper_dict</span><span class="p">)</span></div>
@@ -324,7 +324,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For two Paper objects to be equal, they must share the same PMCID and have the same date of last update.</span>
 
-<span class="sd">        Two Papers may be exactly equal but be downlaoded or parsed on different dates. These will not evaluate to equal. </span>
+<span class="sd">        Two Papers may be exactly equal but be downlaoded or parsed on different dates. These will not evaluate to equal.</span>
 <span class="sd">        Simply compare Paper1.pmcid and Paper2.pmcid if that is your desired behavior.</span>
 
 <span class="sd">        Note also that articles which are not open access on PMC may not have a PMCID, and a unique comparison will need to be made for these.</span>
@@ -338,7 +338,7 @@
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.to_relational">[docs]</a>
     <span class="k">def</span> <span class="nf">to_relational</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generates a pandas Series representation of the paper. Some data will be lost, </span>
+<span class="sd">        Generates a pandas Series representation of the paper. Some data will be lost,</span>
 <span class="sd">        but most useful text data and metadata will be retained in the relational shape.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -387,7 +387,7 @@
 
     <span class="k">def</span> <span class="nf">_serialize_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span>
-    <span class="c1">#---------------End Helper functions for to_relational--------------------- </span>
+    <span class="c1">#---------------End Helper functions for to_relational---------------------</span>
 
 <div class="viewcode-block" id="Paper.vectorize">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.vectorize">[docs]</a>
@@ -451,7 +451,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate id for a PMC text chunk, using pmcid and index of the chunk.</span>
 <span class="sd">        The chunk indices should be unique. Recommended to use indexes from the result</span>
-<span class="sd">        of chunk model. </span>
+<span class="sd">        of chunk model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;pmcid-</span><span class="si">{</span><span class="n">pmcid</span><span class="si">}</span><span class="s2">-chunk-</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
 
@@ -484,7 +484,7 @@
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.query">[docs]</a>
     <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">n_results</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_before</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_after</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Query the paper with natural language questions. </span>
+<span class="sd">        Query the paper with natural language questions.</span>
 <span class="sd">            Input:</span>
 <span class="sd">            [query] - string question</span>
 <span class="sd">            [n_results] - number of most semantically similar paper sections to retrieve</span>
@@ -492,8 +492,8 @@
 <span class="sd">            [n_after] - int, how many chunks after the match to include in combined output</span>
 
 <span class="sd">            Output:</span>
-<span class="sd">            Dict with key(s) = most semantically similar result chunk(s), and value(s) = Paper text(s) </span>
-<span class="sd">            around  the most semantically similar result chunk(s). Text length determined by </span>
+<span class="sd">            Dict with key(s) = most semantically similar result chunk(s), and value(s) = Paper text(s)</span>
+<span class="sd">            around  the most semantically similar result chunk(s). Text length determined by</span>
 <span class="sd">            the chunk size used in self.vectorize() and n_before and n_after.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -595,7 +595,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -606,7 +606,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

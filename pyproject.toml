@@ -14,13 +14,13 @@ requires-python = ">=3.11"
 
 [build-system]
 requires = [
-    "setuptools>=66", 
-    "wheel>=0.38", 
-    "scikit-build>=0.17", 
-    "cmake>=3.26", 
+    "setuptools>=66",
+    "wheel>=0.38",
+    "scikit-build>=0.17",
+    "cmake>=3.26",
     "ninja"
     ]
-build-backend = "setuptools.build_meta"    
+build-backend = "setuptools.build_meta"
 
 [project.urls]
 "Homepage" = "https://github.com/danielfrees/scrapemed/"
@@ -28,5 +28,4 @@ build-backend = "setuptools.build_meta"
 
 
 
-    
-        
+

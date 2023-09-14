@@ -1,9 +1,9 @@
 
 """
-Parse module for grabbing metadata, text, tables, figures, etc. 
+Parse module for grabbing metadata, text, tables, figures, etc.
 from XML trees representing PMC articles.
 
-DTD for the XML should be NLM articleset 2.0. 
+DTD for the XML should be NLM articleset 2.0.
 Otherwise the behavior here may not be as expected.
 
 Middleman between the "scrape" module and the "paper" module for scrapemed.
@@ -55,20 +55,20 @@ class unmatchedFigureWarning(Warning):
     Warned when a figure reference is made but not matched to an actual <fig> tag.
     """
     pass
-        
+
 #-----------End Custom Warnings & Exceptions for Parsing------------
 
 #--------------------GENERATE PAPER DICTIONARY GIVEN PMCID-------------------------------
 def paper_dict_from_pmc(pmcid:int, email:str, download:bool = False, validate:bool = True, verbose:bool = False, suppress_warnings:bool = False, suppress_errors:bool = False)->dict:
     """
     Wrapper that scrapes a PMC article specified by PMCID from the web (through scrape module),
-    then parses the XML retrieved into a dictionary of useful values. 
+    then parses the XML retrieved into a dictionary of useful values.
 
     Middleman between scrape.py and Paper.from_pmc.
 
     Paper objects in paper.py handle actual dictionary -> object conversion.
     """
-    if verbose: 
+    if verbose:
         print(f"Generating Paper object for PMCID = {pmcid}...")
     #DOWNLOAD XML TREE AND GET ROOT
     paper_tree = scrape.get_xml(pmcid=pmcid, email=email, download=download, validate=validate, verbose=verbose)
@@ -90,7 +90,7 @@ def generate_paper_dict(pmcid:int, paper_root:ET.Element, verbose:bool = False, 
 
     if suppress_warnings:
         warnings.simplefilter("ignore")
-    
+
     if suppress_errors:
         try:
             paper_dict = _actually_generate_paper_dict(pmcid, paper_root, verbose)
@@ -151,7 +151,7 @@ def _actually_generate_paper_dict(pmcid:int, paper_root:ET.Element, verbose:bool
 
     if verbose:
         print(f"Finished generating Paper object for PMCID = {paper_dict['PMCID']}...")
-        
+
     return paper_dict
 
 def define_data_dict()->dict:
@@ -186,14 +186,14 @@ def define_data_dict()->dict:
         'Acknowledgements': "List of acknowledgement statements provided with the article.",
         'Notes': "List of notes included with the article.",
         'Custom Meta': "Dict of custom metadata key, value pairs provided with the article.",
-        'Ref Map': """Dict of Index, Reference value pairs. Use p.ref_map to decode data references 
-        within TextSection.text_with_refs text. ie. When working with the full text with 
-        references, you may come across something like [MHTML::dataref::0]. This means 
+        'Ref Map': """Dict of Index, Reference value pairs. Use p.ref_map to decode data references
+        within TextSection.text_with_refs text. ie. When working with the full text with
+        references, you may come across something like [MHTML::dataref::0]. This means
         that the reference under p.ref_map[0] was extracted from this location in the text.
-        This can be useful for linking text with tables, figures, and xrefs for more 
+        This can be useful for linking text with tables, figures, and xrefs for more
         detailed analysis."""
         }
-    
+
     return data_dict
 
 def gather_title(root: ET.Element)->str:
@@ -201,7 +201,7 @@ def gather_title(root: ET.Element)->str:
     Grab the title of a PMC paper from its XML root.
     """
     matches = root.xpath('//article-title/text()')
-    if len(matches) > 1: 
+    if len(matches) > 1:
         warnings.warn("Warning! Multiple titles matched. Setting Paper.title to the first match.", unexpectedMultipleMatchWarning)
     elif len(matches) == 0:
         warnings.warn("No article title found in the retrieved XML.", unexpectedZeroMatchWarning)
@@ -299,13 +299,13 @@ def gather_non_author_contributors(root: ET.Element) -> Union[str, pd.DataFrame]
 
 def gather_abstract(root: ET.Element, ref_map:basicBiMap)->List[Union[TextSection, TextParagraph]]:
     """
-    Extract all abstract text sections from an xml, output as a list of TextSections and/ord TextParagraphs. 
+    Extract all abstract text sections from an xml, output as a list of TextSections and/ord TextParagraphs.
     """
     abstract = []
 
     #get abstract subtree from XML
     matches = root.xpath('//abstract')
-    if len(matches) > 1: 
+    if len(matches) > 1:
         warnings.warn("Warning! Multiple abstracts matched. Filling in Paper.abstract with the first match.", unexpectedMultipleMatchWarning)
     elif len(matches) == 0:
         warnings.warn("No abstract found.", unexpectedZeroMatchWarning)
@@ -325,13 +325,13 @@ def gather_abstract(root: ET.Element, ref_map:basicBiMap)->List[Union[TextSectio
 
 def gather_body(root: ET.Element, ref_map:basicBiMap)->List[Union[TextSection, TextParagraph]]:
     """
-    Extract all body text sections from an xml, output as a list of TextSections. 
+    Extract all body text sections from an xml, output as a list of TextSections.
     """
     body = []
 
     #get abstract subtree from XML
     matches = root.xpath('//body')
-    if len(matches) > 1: 
+    if len(matches) > 1:
         warnings.warn("Warning! Multiple 'body's matched. Filling in Paper.body with the first match.", unexpectedMultipleMatchWarning)
     elif len(matches) == 0:
         warnings.warn("Warning! No <body> tag found. This paper may be abstract only, or the Open Access portion may be abstract only. This also may happen with author manuscripts and other non-final editions.")
@@ -416,17 +416,17 @@ def gather_article_id(root: ET.Element) -> Dict[str, str]:
     """
     article_ids = root.xpath("//article-meta/article-id")
     id_dict = {article_id.get("pub-id-type"): article_id.text for article_id in article_ids}
-    
+
     return id_dict
 
 def gather_article_types(root: ET.Element) -> List[str]:
     """
-    Gather Article Types from PMC XML. 
+    Gather Article Types from PMC XML.
 
     Article Type(s) are article-categories marked by the subj-group-type 'heading'.
     """
     matches = root.xpath("//article-meta/article-categories")
-    if len(matches) > 1: 
+    if len(matches) > 1:
         warnings.warn("Warning! Multiple 'article-categories' lists matched. Filling in Paper.article_categories with the first match.", unexpectedMultipleMatchWarning)
     elif len(matches) == 0:
         warnings.warn("No 'article-categories' list found.", unexpectedZeroMatchWarning)
@@ -445,7 +445,7 @@ def gather_article_categories(root: ET.Element) -> List[str]:
     Gather Other Article Categories from PMC XML.
     """
     matches = root.xpath("//article-meta/article-categories")
-    if len(matches) > 1: 
+    if len(matches) > 1:
         warnings.warn("Warning! Multiple 'article-categories' lists matched. Filling in Paper.article_categories with the first match.", unexpectedMultipleMatchWarning)
     elif len(matches) == 0:
         warnings.warn("No 'article-categories' list found.", unexpectedZeroMatchWarning)
@@ -453,7 +453,7 @@ def gather_article_categories(root: ET.Element) -> List[str]:
     article_categories = matches[0]
     other_categories = article_categories.xpath("subj-group[not(@subj-group-type='heading')]/subject")
     other_cats = [{other_cat.get("subj-group-type"): other_cat.text} for other_cat in other_categories]
-    
+
     if not other_cats:
         other_cats = "No extra article categories found. Check paper.article_types for header categories."
     return other_cats
@@ -477,7 +477,7 @@ def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
             year = int(year_matches[0])
         else:
             warnings.warn("No year found for one of the publishing dates. Defaulting to year = 1!", unexpectedZeroMatchWarning)
-        
+
         #if not month found, assume the 1st (standard practice - )
         month = 1
         month_matches = match.xpath("month/text()")
@@ -552,7 +552,7 @@ def gather_lpage(root: ET.Element) -> str:
     else:
         lpage = matches[0]
 
-    return lpage  
+    return lpage
 
 def gather_permissions(root: ET.Element) -> Dict[str, str]:
     """
@@ -660,11 +660,11 @@ def stringify_note(root: ET.Element) -> str:
         elif child.tag == 'p':
             note += child.text
         elif child.tag == 'notes':
-            note += "\n" + textwrap.indent(stringify_note(child), " " * 4) 
+            note += "\n" + textwrap.indent(stringify_note(child), " " * 4)
     note += "\n"
     return note
 
-#def _get_note(note_root: ET.Element) -> 
+#def _get_note(note_root: ET.Element) ->
 
 def gather_custom_metadata(root: ET.Element)->Dict[str, str]:
     """
@@ -684,7 +684,7 @@ def gather_custom_metadata(root: ET.Element)->Dict[str, str]:
             if meta_name is None:
                 meta_name = uuid.uuid4() #give random unique identifier if no meta key found
             custom[meta_name] = meta_data
-    
+
     if len(custom) == 0:
         custom = None
     return custom
@@ -720,7 +720,7 @@ def _parse_citation(citation_root: ET.Element) -> Union[Dict[str, Union[List[str
         'DOI': _try_get_xpath_text(root, './/pub-id[@pub-id-type="doi"]'),
         'PMID': _try_get_xpath_text(root, './/pub-id[@pub-id-type="pmid"]'),
     }
-        
+
     return citation_dict
 
 def _try_get_xpath_text(root: ET.Element, xpath:str, verbose = False)-> str:
@@ -728,7 +728,7 @@ def _try_get_xpath_text(root: ET.Element, xpath:str, verbose = False)-> str:
     Given an lxml Element and an xpath, attempts to retrieve the first matched path's text.
     Failure warnings suppressed by default.
 
-    Returns None on failure. 
+    Returns None on failure.
     """
     return_text = None
     try:
@@ -776,7 +776,7 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
                 if not ref_id:
                     warnings.warn(f"Citation without a reference id specified (Citation {root.text})!", unmatchedCitationWarning)
                     continue
-                
+
                 # XPath expression to find the <ref> element based on the reference ID
                 matching_citation_expr = f"//ref[@id='{ref_id}']"
                 matches = paper_root.xpath(matching_citation_expr)
@@ -785,7 +785,7 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
                     continue
                 elif len(matches) > 1:
                     warnings.warn("Multiple references found for a single citation. Filling in with the first match.")
-        
+
                 reference_xml = matches[0]
                 cleaned_reference = _parse_citation(reference_xml)
                 cleaned_ref_map[key] = cleaned_reference
@@ -795,7 +795,7 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
                 if not table_id:
                     warnings.warn(f"Table ref without reference ID, no table will be matched!", unmatchedTableWarning)
                     continue
-                
+
                 table_xpath = f"//table-wrap[@id='{table_id}']"
                 matches = paper_root.xpath(table_xpath)
                 if len(matches) == 0:
@@ -811,7 +811,7 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
                 if not fig_id:
                     warnings.warn(f"Figure ref unmatched. Figure ref without matching figure (Figure {root.text})!", unmatchedFigureWarning)
                     continue
-                
+
                 fig_xpath = f"//fig[@id='{fig_id}']"
                 matches = paper_root.xpath(fig_xpath)
                 if len(matches)==0:
@@ -836,8 +836,8 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
         else:
             warnings.warn(f"Unexpected tag of type {root.tag} found in ref map. Leaving as is instead of cleaning.")
             cleaned_ref_map[key] = ET.tostring(root)
-        
-    #Final pass to set up links now that everything should be filled in 
+
+    #Final pass to set up links now that everything should be filled in
     for key,item in cleaned_ref_map.items():
         if type(item) == int:
             link_index = item
@@ -847,7 +847,7 @@ def _clean_ref_map(paper_root: ET.Element, ref_map:basicBiMap)->basicBiMap:
 
 def _get_ref_type(value):
     """
-    Determine the type of reference of a ref_map value. Either table, citation, or fig (figure). 
+    Determine the type of reference of a ref_map value. Either table, citation, or fig (figure).
     Returns None if no known type is found.
     """
     ref_type = None
@@ -857,7 +857,7 @@ def _get_ref_type(value):
         elif 'Authors' in value:
             ref_type = 'citation'
     elif type(value) == str:   #if string, probably a citation scraped via the mixed citation element parsing
-        ref_type = 'citation'  
+        ref_type = 'citation'
     elif isinstance(value, TextFigure):
         ref_type = 'fig'
     elif isinstance(value, TextTable):

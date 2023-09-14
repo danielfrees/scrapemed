@@ -9,7 +9,7 @@
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../_static/documentation_options.js?v=e2a723ec"></script>
@@ -17,17 +17,17 @@
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../index.html" class="icon icon-home">
             scrapemed
           </a>
@@ -67,7 +67,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for scrapemed.scrape</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">ScrapeMed&#39;s &quot;scrape&quot; module handles PubMed Central data searching and downloading.</span>
@@ -94,12 +94,12 @@
 <div class="viewcode-block" id="search_pmc">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.scrape.search_pmc">[docs]</a>
 <span class="k">def</span> <span class="nf">search_pmc</span><span class="p">(</span><span class="n">email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">term</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">retmax</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for Bio.Entrez&#39;s esearch function, </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for Bio.Entrez&#39;s esearch function,</span>
 <span class="sd">    get a list of xmls and other info, provided a PMC search term.</span>
-<span class="sd">    </span>
+
 <span class="sd">    [email] - use your email to auth with PMC</span>
 <span class="sd">    [term] - search term</span>
-<span class="sd">    [retmax] - max number of PMCIDs to return    </span>
+<span class="sd">    [retmax] - max number of PMCIDs to return</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">DB</span> <span class="o">=</span> <span class="s1">&#39;pmc&#39;</span>
@@ -128,7 +128,7 @@
 <span class="sd">    [validate] - whether or not to validate the XML retrieved (HIGHLY RECOMMENDED)</span>
 <span class="sd">    [strip_text_styling] - whether or not to clean common HTML text styling from the text (HIGHLY RECOMMENDED)</span>
 
-<span class="sd">    Output: List of ElementTrees of the XMLs corresponding to the provided PMCIDs. </span>
+<span class="sd">    Output: List of ElementTrees of the XMLs corresponding to the provided PMCIDs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">get_xml</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">download</span><span class="p">,</span> <span class="n">validate</span><span class="p">,</span> <span class="n">strip_text_styling</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span> <span class="k">for</span> <span class="n">pmcid</span> <span class="ow">in</span> <span class="n">pmcids</span><span class="p">]</span></div>
 
@@ -146,7 +146,7 @@
 <span class="sd">    [validate] - whether or not to validate the XML retrieved (HIGHLY RECOMMENDED)</span>
 <span class="sd">    [strip_text_styling] - whether or not to clean common HTML text styling from the text (HIGHLY RECOMMENDED)</span>
 
-<span class="sd">    Output: ElementTree of the validated xml record. </span>
+<span class="sd">    Output: ElementTree of the validated xml record.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">xml_text</span> <span class="o">=</span> <span class="n">_get_xml_string</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">download</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
     <span class="n">tree</span> <span class="o">=</span> <span class="n">xml_tree_from_string</span><span class="p">(</span><span class="n">xml_string</span><span class="o">=</span><span class="n">xml_text</span><span class="p">,</span> <span class="n">strip_text_styling</span><span class="o">=</span><span class="n">strip_text_styling</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
@@ -201,13 +201,13 @@
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.scrape.xml_tree_from_string">[docs]</a>
 <span class="k">def</span> <span class="nf">xml_tree_from_string</span><span class="p">(</span><span class="n">xml_string</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">strip_text_styling</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">ET</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Converts string representing xml to an lxml ElementTree. </span>
+<span class="sd">    Converts string representing xml to an lxml ElementTree.</span>
 <span class="sd">    By default, strips html text styling.</span>
 
 <span class="sd">    Input:</span>
 <span class="sd">    [xml_string]: string/bytestream representing XML</span>
 <span class="sd">    [strip_text_styling]: boolean, whether to remove HTML text styling tags or not</span>
-<span class="sd">    </span>
+
 <span class="sd">    Output: lxml.etree.ElementTree of the passed string.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">xml_string</span> <span class="o">=</span> <span class="n">_clean</span><span class="o">.</span><span class="n">clean_xml_string</span><span class="p">(</span><span class="n">xml_string</span><span class="p">,</span> <span class="n">strip_text_styling</span><span class="p">)</span>
@@ -236,7 +236,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -247,7 +247,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

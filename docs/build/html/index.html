@@ -10,7 +10,7 @@
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=e2a723ec"></script>
@@ -19,17 +19,17 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="scrapemed" href="modules.html" />
+    <link rel="next" title="scrapemed" href="modules.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="#" class="icon icon-home">
             scrapemed
           </a>
@@ -69,7 +69,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <section id="welcome-to-scrapemed-s-documentation">
 <h1>Welcome to scrapemed’s documentation!<a class="headerlink" href="#welcome-to-scrapemed-s-documentation" title="Link to this heading"></a></h1>
 <p>ScrapeMed is a powerful, easy to use, data scraping tool for PubMed Central (PMC) data.
@@ -88,6 +88,27 @@ their PMC datasets, but a complete documentation of ScrapeMed’s modules and fu
 </li>
 </ul>
 </div>
+</section>
+<section id="developer-usage">
+<h1>Developer Usage<a class="headerlink" href="#developer-usage" title="Link to this heading"></a></h1>
+<p><em>License: MIT</em></p>
+<p>Feel free to fork and continue work on the ScrapeMed package, it is licensed under the MIT license to promote collaboration, extension, and inheritance.</p>
+<p>Make sure to create a conda environment and install the necessary requirements before developing this package.</p>
+<p>ie: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--name</span> <span class="pre">myenv</span> <span class="pre">--file</span> <span class="pre">requirements.txt</span></code></p>
+<p>Add a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file in your base scrapemed directory with a variable defined as follows: <code class="docutils literal notranslate"><span class="pre">PMC_EMAIL=youremail&#64;example.com</span></code>.
+This is necessary for several of the test scripts and may be useful for your development in general.</p>
+<p>You will need to install clang++ for <code class="docutils literal notranslate"><span class="pre">chromadb`</span> <span class="pre">and</span> <span class="pre">``Paper</span></code> vectorization to work. You also need to make sure you have <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">3.10.2</span></code>
+or later installed and active in your dev environment.</p>
+<p><strong>*Now an overview of the package structure:*</strong></p>
+<p>Under <code class="docutils literal notranslate"><span class="pre">examples</span></code> you can find some example work using the scrapemed modules, which may provide some insight into usage possibilities.</p>
+<p>Under <code class="docutils literal notranslate"><span class="pre">examples/data</span></code> you will find some example downloaded data (XML from Pubmed Central). It is recommended that any time you d
+ownload data while working out of the notebooks, it should go here. Downloads will also go here by default when passing <code class="docutils literal notranslate"><span class="pre">download=True</span></code>
+to the scrapemed module functions which allow you to do so.</p>
+<p>Under <code class="docutils literal notranslate"><span class="pre">scrapemed/tests</span></code> you will find several python scripts which can be run using pytest. If you also clone and update the
+<code class="docutils literal notranslate"><span class="pre">.github/workflows/test-scrapemed.yml</span></code> for your forked repo, these tests will be automatically run on <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code>. Under <code class="docutils literal notranslate"><span class="pre">scrapemed/test/testdata</span></code>
+are some XML data crafted for the purpose of testing scrapemed. This data is necessary to run some of the testing scripts.</p>
+<p>Each of the scrapemed python modules has a docstring at the top describing its general purpose and usage. All functions should also
+have descriptive docstrings and descriptions of input/output. Please contact me if any documentation is unclear.</p>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
@@ -114,7 +135,7 @@ their PMC datasets, but a complete documentation of ScrapeMed’s modules and fu
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -125,7 +146,7 @@ their PMC datasets, but a complete documentation of ScrapeMed’s modules and fu
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

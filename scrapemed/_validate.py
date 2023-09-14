@@ -6,7 +6,7 @@ supported by the scrapemed package.
 import re
 import lxml.etree as ET
 import os
-import json 
+import json
 import pandas as pd
 import warnings
 import scrapemed.trees as trees
@@ -30,7 +30,7 @@ def validate_xml(xml : ET.ElementTree) -> bool:
     [xml] = an xml ElementTree
 
     Output:
-    True or False, depending whether the file was validated. 
+    True or False, depending whether the file was validated.
 
     Current support is defined by the files in scrapemed/data/DTDs.
     """
@@ -42,15 +42,15 @@ def validate_xml(xml : ET.ElementTree) -> bool:
         assert url in SUPPORTED_DTD_URLS
     else:
         raise noDTDFoundError(f"A DTD must be specified for validation. Set validate=false if you want to proceeed without validation.")
-    
+
     match = END_OF_URL_PATTERN.search(url)
     dtd_filename = match.group(0)
     dtd_filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "DTDs", dtd_filename)
-    
+
     dtd_doc = None
     with open(dtd_filepath, 'r') as f:
         dtd_doc = f.read()
-    
+
     dtd = ET.DTD(StringIO(dtd_doc))
 
     return dtd.validate(xml)

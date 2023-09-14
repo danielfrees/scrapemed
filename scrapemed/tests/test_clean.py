@@ -16,7 +16,7 @@ def test_clean():
     "I also want to make sure that external links are parsed correctly, such as this link to "
     "the URI found at [External URI:]www.test.com.</paper>"
     )
-    assert _clean._remove_text_styling(STYLED_TEST_TEXT, verbose=True) == CORRECT_CLEAN_TEXT 
+    assert _clean._remove_text_styling(STYLED_TEST_TEXT, verbose=True) == CORRECT_CLEAN_TEXT
 
 
     #test tag parsing of paragraph text

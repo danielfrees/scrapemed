@@ -9,7 +9,7 @@
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../_static/documentation_options.js?v=e2a723ec"></script>
@@ -17,17 +17,17 @@
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../index.html" class="icon icon-home">
             scrapemed
           </a>
@@ -67,7 +67,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for scrapemed.trees</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Scrapemed&#39;s &quot;trees&quot; module handles PMC article tree visualizations,</span>
@@ -84,7 +84,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print some basic statistics and info about your xml, provided its root)</span>
 
-<span class="sd">    Input: </span>
+<span class="sd">    Input:</span>
 <span class="sd">    [root] = Root of an ElementTree of your xml</span>
 
 <span class="sd">    Output:</span>
@@ -129,25 +129,25 @@
 
 <span class="k">def</span> <span class="nf">_generate_tag_dictionary</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generate a dictionary of all tags, each with a subdictionary of attributes, and lists of values seen for each attribute. </span>
+<span class="sd">    Generate a dictionary of all tags, each with a subdictionary of attributes, and lists of values seen for each attribute.</span>
 
-<span class="sd">    Helps define the scope of tags for a given xml/html tree. </span>
+<span class="sd">    Helps define the scope of tags for a given xml/html tree.</span>
 
-<span class="sd">    Input: </span>
+<span class="sd">    Input:</span>
 <span class="sd">    [root] = root of an ElementTree of xml, html, other tagged language, or combo thereof</span>
 
 <span class="sd">    Output:</span>
 <span class="sd">    A dictionary of tags: attr-val dictionaries.</span>
 <span class="sd">    Attr-val dictionaries are a dict of attribute: value lists.</span>
 
-<span class="sd">    The structure of the overall dictionary is visualized below: </span>
+<span class="sd">    The structure of the overall dictionary is visualized below:</span>
 <span class="sd">       {</span>
 <span class="sd">        tag_0</span>
 <span class="sd">         |___attr_0</span>
 <span class="sd">               |_____[value_0, ..., value_n]</span>
 <span class="sd">         |___attr_1</span>
 <span class="sd">               |_____[value_0, ...., value_n]</span>
-<span class="sd">       </span>
+
 <span class="sd">        ....</span>
 <span class="sd">        tag_n</span>
 <span class="sd">       }</span>
@@ -197,7 +197,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -208,7 +208,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

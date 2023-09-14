@@ -101,5 +101,5 @@ def test_paper():
 
     p = paper.Paper.from_pmc(PMCID, email, download=False, suppress_warnings=True)
 
-                            
+
     return None

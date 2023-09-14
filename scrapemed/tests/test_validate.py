@@ -49,7 +49,7 @@ def test_xml_validation():
     styling_removed_tree = scrape.xml_tree_from_string(xml_test_text, strip_text_styling=True)
     assert _validate.validate_xml(styling_removed_tree)
 
-    #check that unrelated xml does not validate 
+    #check that unrelated xml does not validate
     XML_BOOKS = _get_xml_from_file((os.path.join(path_to_testdata, "book_doc.xml")))
     assert not _validate.validate_xml(XML_BOOKS)
 
@@ -58,7 +58,7 @@ def test_xml_validation():
     assert _validate.validate_xml(XML_7067710)
 
     return None  #output for a passing test in pytest
-    
+
 
 ###-----------HELPER FUNCTIONS-------------------
 def _get_xml_from_file(filename: str, encoding: str ='utf-8') -> ET.ElementTree:
@@ -70,10 +70,10 @@ def _get_xml_from_file(filename: str, encoding: str ='utf-8') -> ET.ElementTree:
 
 def _generate_nms_html_unescaped_file(filename: str) -> None:
     """
-    Unescapes html encodings of the provided file (other than markup-language 
+    Unescapes html encodings of the provided file (other than markup-language
     significant encodings), and places the result in a new file.
 
-    In: 
+    In:
     [filename]: file to be html unescaped.
 
     Out:
@@ -100,11 +100,11 @@ def _generate_nms_html_unescaped_file(filename: str) -> None:
         ampersand -----   "&amp;" | "&#38;"
         quote_mark -----   "&quot;" | "&#34;"
         """
-        text = mhtml.unescape_except(text, la = "&lt;", la2 = "&#60;", 
-            ra = "&gt;", ra2 = "&#62;", 
-            amp = "&amp;", amp2 = "&#38;", 
+        text = mhtml.unescape_except(text, la = "&lt;", la2 = "&#60;",
+            ra = "&gt;", ra2 = "&#62;",
+            amp = "&amp;", amp2 = "&#38;",
             qm = "&quot;", qm2 = "&#34;")
-        
+
 
     #save html unescaped version of file in filename_html_unescaped
     with open(f"{filename_only}_html_unescaped{file_extension}", 'w') as f:
