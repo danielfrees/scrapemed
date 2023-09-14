@@ -1,6 +1,8 @@
 """
-ScrapeMed's "scrape" module handles PubMed Central data searching and downloading.
-This module also handles conversion of raw XML data to lxml.etree.ElementTree objects.
+ScrapeMed's "scrape" module handles PubMed Central data searching
+and downloading.
+This module also handles conversion of raw XML data to
+lxml.etree.ElementTree objects.
 """
 
 import scrapemed._clean as _clean
@@ -10,14 +12,17 @@ from Bio import Entrez
 import warnings
 from typing import List
 
+
 class validationWarning(Warning):
     """
     Warned when downloading PMC XML without validating.
     """
+
     pass
 
-#---------------------Download Funcs for PubMed Central-------------------------------
-def search_pmc(email:str, term:str, retmax:int = 10, verbose:bool = False)->dict:
+
+# ---------------------Download Funcs for PubMed Central-----------------------
+def search_pmc(email: str, term: str, retmax: int = 10, verbose: bool = False) -> dict:
     """Wrapper for Bio.Entrez's esearch function,
     get a list of xmls and other info, provided a PMC search term.
 
@@ -26,9 +31,9 @@ def search_pmc(email:str, term:str, retmax:int = 10, verbose:bool = False)->dict
     [retmax] - max number of PMCIDs to return
     """
 
-    DB = 'pmc'
+    DB = "pmc"
     Entrez.email = email
-    handle = Entrez.esearch(db=DB, retmax=retmax, term=term, idtype='pmc')
+    handle = Entrez.esearch(db=DB, retmax=retmax, term=term, idtype="pmc")
     record = Entrez.read(handle)
     handle.close()
 
@@ -38,7 +43,15 @@ def search_pmc(email:str, term:str, retmax:int = 10, verbose:bool = False)->dict
 
     return record
 
-def get_xmls(pmcids: List[int], email: str, download = False, validate = True, strip_text_styling = True, verbose = False) -> List[ET.ElementTree]:
+
+def get_xmls(
+    pmcids: List[int],
+    email: str,
+    download=False,
+    validate=True,
+    strip_text_styling=True,
+    verbose=False,
+) -> List[ET.ElementTree]:
     """
     Retrieve XMLs of research papers from PMC, given a list of PMCIDs.
     Also validates and cleans the XMLs by default.
@@ -46,14 +59,28 @@ def get_xmls(pmcids: List[int], email: str, download = False, validate = True, s
     Input:
     [pmcid] = pmcid of article to retrieve.
     [email] = use your email to auth with PMC
-    [validate] - whether or not to validate the XML retrieved (HIGHLY RECOMMENDED)
-    [strip_text_styling] - whether or not to clean common HTML text styling from the text (HIGHLY RECOMMENDED)
+    [validate] - whether or not to validate the XML retrieved
+        (HIGHLY RECOMMENDED)
+    [strip_text_styling] - whether or not to clean common HTML text
+        styling from the text (HIGHLY RECOMMENDED)
 
-    Output: List of ElementTrees of the XMLs corresponding to the provided PMCIDs.
+    Output: List of ElementTrees of the XMLs corresponding to
+        the provided PMCIDs.
     """
-    return [get_xml(pmcid, email, download, validate, strip_text_styling, verbose) for pmcid in pmcids]
+    return [
+        get_xml(pmcid, email, download, validate, strip_text_styling, verbose)
+        for pmcid in pmcids
+    ]
 
-def get_xml(pmcid: int, email: str, download = False, validate = True, strip_text_styling = True, verbose = False) -> ET.ElementTree:
+
+def get_xml(
+    pmcid: int,
+    email: str,
+    download=False,
+    validate=True,
+    strip_text_styling=True,
+    verbose=False,
+) -> ET.ElementTree:
     """
     Retrieve XML of a research paper from PMC, given a PMCID.
     Also validates and cleans the XML by default.
@@ -61,23 +88,35 @@ def get_xml(pmcid: int, email: str, download = False, validate = True, strip_tex
     Input:
     [pmcid] = pmcid of article to retrieve.
     [email] = use your email to auth with PMC
-    [validate] - whether or not to validate the XML retrieved (HIGHLY RECOMMENDED)
-    [strip_text_styling] - whether or not to clean common HTML text styling from the text (HIGHLY RECOMMENDED)
+    [validate] - whether or not to validate the XML retrieved
+        (HIGHLY RECOMMENDED)
+    [strip_text_styling] - whether or not to clean common HTML
+        text styling from the text (HIGHLY RECOMMENDED)
 
     Output: ElementTree of the validated xml record.
     """
     xml_text = _get_xml_string(pmcid, email, download, verbose)
-    tree = xml_tree_from_string(xml_string=xml_text, strip_text_styling=strip_text_styling, verbose=verbose)
+    tree = xml_tree_from_string(
+        xml_string=xml_text, strip_text_styling=strip_text_styling, verbose=verbose
+    )
 
     if validate:
-        #Validate tags, attrs, values are supported for parsing by the scrapemed package.
+        # Validate tags, attrs, values are supported for
+        # parsing by the scrapemed package.
         _validate.validate_xml(tree)
     else:
-        warnings.warn(f"Warning! Scraping XML for PMCID {pmcid} from PMC without validating.", validationWarning)
+        warnings.warn(
+            (
+                f"Warning! Scraping XML for PMCID {pmcid} from "
+                "PMC without validating."
+            ),
+            validationWarning,
+        )
 
     return tree
 
-def _get_xml_string(pmcid: int, email: str, download = False, verbose = False) -> str:
+
+def _get_xml_string(pmcid: int, email: str, download=False, verbose=False) -> str:
     """'
     Retrieve XML text of a research paper from PMC.
 
@@ -89,15 +128,15 @@ def _get_xml_string(pmcid: int, email: str, download = False, verbose = False) -
 
     WARNING: THIS FUNCTION DOES NOT VALIDATE THE XML.
     """
-    DB = 'pmc'
-    RETTYPE = 'full'
-    RETMODE = 'xml'
+    DB = "pmc"
+    RETTYPE = "full"
+    RETMODE = "xml"
     Entrez.email = email
 
-    #Actually fetch from PMC
-    handle = Entrez.efetch(db = DB, id = pmcid, rettype = RETTYPE, retmode = RETMODE)
+    # Actually fetch from PMC
+    handle = Entrez.efetch(db=DB, id=pmcid, rettype=RETTYPE, retmode=RETMODE)
     xml_record = handle.read()
-    xml_text = xml_record.decode(encoding = "utf-8")
+    xml_text = xml_record.decode(encoding="utf-8")
     handle.close()
 
     if verbose:
@@ -110,28 +149,30 @@ def _get_xml_string(pmcid: int, email: str, download = False, verbose = False) -
             f.write(xml_text)
 
     return xml_text
-#---------------------End Download Funcs for PubMed Central-------------------------------
 
 
-#--------------------Convert XML strings -> Trees---------------------
-def xml_tree_from_string(xml_string:str, strip_text_styling, verbose=False)->ET.ElementTree:
+# ----------------End Download Funcs for PubMed Central---------------------
+
+
+# --------------------Convert XML strings -> Trees---------------------
+def xml_tree_from_string(
+    xml_string: str, strip_text_styling, verbose=False
+) -> ET.ElementTree:
     """
     Converts string representing xml to an lxml ElementTree.
     By default, strips html text styling.
 
     Input:
     [xml_string]: string/bytestream representing XML
-    [strip_text_styling]: boolean, whether to remove HTML text styling tags or not
+    [strip_text_styling]: boolean, whether to remove HTML text styling tags
+        or not
 
     Output: lxml.etree.ElementTree of the passed string.
     """
     xml_string = _clean.clean_xml_string(xml_string, strip_text_styling)
     tree = ET.ElementTree(ET.fromstring(xml_string))
     return tree
-#--------------------End Convert XML strings -> Trees---------------------
 
 
-
-
-
+# --------------------End Convert XML strings -> Trees---------------------
 

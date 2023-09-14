@@ -14,15 +14,17 @@ from scrapemed.utils import basicBiMap
 import scrapemed._morehtml as mhtml
 from itertools import chain
 import warnings
-import re
 import pandas as pd
 
-#-------------------------------Warnings----------------------------
+
+# -------------------------------Warnings----------------------------
 class multipleTitleWarning(Warning):
     """
     Warned when one title expected, but multiple found.
     """
+
     pass
+
 
 class unhandledTextTagWarning(Warning):
     """
@@ -35,24 +37,32 @@ class unhandledTextTagWarning(Warning):
     these types of tags.
     """
 
+
 class readHTMLFailure(Warning):
     """
-    Warned when pandas read_html function fails (rare). May happen with tables void of readable data (ie. tables that contain only graphics).
+    Warned when pandas read_html function fails (rare). May happen with
+    tables void of readable data (ie. tables that contain only graphics).
     """
 
 
-#-----------------------------------------TextElement---------------------------------------------------
-class TextElement():
+# ----------------------TextElement---------------------------------
+class TextElement:
     """
     Base class for elements parsed from XML/HTML markup language.
     """
-    def __init__(self, root:ET.Element, parent:'TextElement'=None, ref_map:basicBiMap=basicBiMap()):
+
+    def __init__(
+        self,
+        root: ET.Element,
+        parent: "TextElement" = None,
+        ref_map: basicBiMap = basicBiMap(),
+    ):
         self.root = root
         self.parent = parent
         self.ref_map = ref_map
 
-    #---------------------Getters and Setters for shared BiMap-------------------------------------
-    def get_ref_map(self)->basicBiMap:
+    # ------------------Getters and Setters for shared BiMap-------------------
+    def get_ref_map(self) -> basicBiMap:
         """
         Return the shared BiMap for reference data.
         """
@@ -63,7 +73,7 @@ class TextElement():
             ref_map = self.ref_map
         return ref_map
 
-    def set_ref_map(self, ref_map:basicBiMap):
+    def set_ref_map(self, ref_map: basicBiMap):
         """
         Set the shared BiMap for reference data.
         """
@@ -72,73 +82,115 @@ class TextElement():
         else:
             self.ref_map = ref_map
         return None
-     #---------------------End Getters and Setters for shared BiMap-------------------------------------
-#-------------------------end TextElement---------------------------------------------------
 
-#---------------------------------------------TextParagraph---------------------------------------------------
+    # --------------End Getters and Setters for shared BiMap-----------------
+
+
+# -------------------end TextElement-----------------------------------------
+
+
+# ---------------------------TextParagraph----------------------------
 class TextParagraph(TextElement):
     """
     Class representation of the data found in an XML <p> tag.
     """
-    def __init__(self, p_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
-        """
 
-        """
-        super().__init__(root=p_root,parent=parent,ref_map=ref_map) #initialize TextElement
+    def __init__(
+        self, p_root: ET.Element, parent=None, ref_map: basicBiMap = basicBiMap()
+    ):
+        """ """
+        super().__init__(
+            root=p_root, parent=parent, ref_map=ref_map
+        )  # initialize TextElement
 
-        self.id = p_root.get('id')
+        self.id = p_root.get("id")
         p_subtree = stringify_children(self.root)
 
-        #split text and HTML tag references
-        self.text_with_refs = _clean.split_text_and_refs(tree_text=p_subtree,
-                            ref_map=self.get_ref_map(), id=self.id, on_unknown='keep')
-        self.text = mhtml.remove_mhtml_tags(self.text_with_refs) #clean text for str() and printing
+        # split text and HTML tag references
+        self.text_with_refs = _clean.split_text_and_refs(
+            tree_text=p_subtree,
+            ref_map=self.get_ref_map(),
+            id=self.id,
+            on_unknown="keep",
+        )
+        self.text = mhtml.remove_mhtml_tags(
+            self.text_with_refs
+        )  # clean text for str() and printing
 
     def __str__(self):
         return self.text
 
     def __eq__(self, other):
         return self.text_with_refs == other.text_with_refs
-#------------------------------------------end TextParagraph---------------------------------------------------
 
-#---------------------------------------------TextSection---------------------------------------------------
+
+# ------------------------end TextParagraph----------------------
+
+
+# ----------------------------------TextSection------------------------------
 class TextSection(TextElement):
     """
     Class representation of the data found in an XML <sec> tag
     """
-    def __init__(self, sec_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
+
+    def __init__(
+        self, sec_root: ET.Element, parent=None, ref_map: basicBiMap = basicBiMap()
+    ):
         """
         Initialize a text section from the root of a <sec> tree.
 
         Optionally provide reference BiMap storing links to reference data.
         Reference BiMap used to link text to table & figure data.
 
-        Handles <title>, <p>, and <sec> children under the root <sec> tag. Anything else will be ignored and raise a warning.
+        Handles <title>, <p>, and <sec> children under the root <sec> tag.
+        Anything else will be ignored and raise a warning.
         """
-        #initialize root, parent, and bimaps
-        super().__init__(root=sec_root,parent=parent,ref_map=ref_map)
+        # initialize root, parent, and bimaps
+        super().__init__(root=sec_root, parent=parent, ref_map=ref_map)
 
         self.title = None
 
-        self.children = []  #section and paragraph children
+        self.children = []  # section and paragraph children
         for child in sec_root.iterchildren():
-            if child.tag == 'title':
+            if child.tag == "title":
                 if self.title:
-                    warnings.warn(multipleTitleWarning("Warning: Multiple Titles found for a single TextSection. Check markup file formatting. Using first title found."))
+                    warnings.warn(
+                        multipleTitleWarning(
+                            (
+                                "Warning: Multiple Titles found for a single "
+                                "TextSection. Check markup file formatting. "
+                                "Using first title found."
+                            )
+                        )
+                    )
                     continue
                 self.title = child.text
-            elif child.tag == 'sec':
-                self.children.append(TextSection(child, parent=self, ref_map=self.get_ref_map()))
-            elif child.tag == 'p':
-                self.children.append(TextParagraph(child, parent=self, ref_map=self.get_ref_map()))
-            elif child.tag == 'table-wrap':
-                self.children.append(TextTable(child, parent=self, ref_map=self.get_ref_map()))
-            elif child.tag == 'fig':
-                self.children.append(TextFigure(child, parent=self, ref_map=self.get_ref_map()))
+            elif child.tag == "sec":
+                self.children.append(
+                    TextSection(child, parent=self, ref_map=self.get_ref_map())
+                )
+            elif child.tag == "p":
+                self.children.append(
+                    TextParagraph(child, parent=self, ref_map=self.get_ref_map())
+                )
+            elif child.tag == "table-wrap":
+                self.children.append(
+                    TextTable(child, parent=self, ref_map=self.get_ref_map())
+                )
+            elif child.tag == "fig":
+                self.children.append(
+                    TextFigure(child, parent=self, ref_map=self.get_ref_map())
+                )
             else:
-                warnings.warn(f"Warning! Unexpected child with of type {child.tag} found under an XML <sec> tag.", unhandledTextTagWarning)
+                warnings.warn(
+                    (
+                        f"Warning! Unexpected child with of type {child.tag} "
+                        "found under an XML <sec> tag."
+                    ),
+                    unhandledTextTagWarning,
+                )
 
-        #after building the TextSection tree, get textual representations
+        # after building the TextSection tree, get textual representations
         self.text = self.get_section_text()
         self.text_with_refs = self.get_section_text_with_refs()
 
@@ -154,7 +206,7 @@ class TextSection(TextElement):
 
         """
         s = ""
-        if not self.title == None:
+        if self.title is not None:
             s += f"SECTION: {self.title}:\n"
         for child in self.children:
             if type(child) == TextSection:
@@ -178,7 +230,7 @@ class TextSection(TextElement):
         using paragraphs with references retained.
         """
         s = ""
-        if not self.title == None:
+        if self.title is not None:
             s += f"SECTION: {self.title}:\n"
         for child in self.children:
             if type(child) == TextSection:
@@ -193,29 +245,35 @@ class TextSection(TextElement):
         """
         TODO: Test if this actually works for comparing TextSections
         """
-        return self.title==other.title and self.children==other.children
-#-----------------------------------------end TextSection---------------------------------------------------
+        return self.title == other.title and self.children == other.children
 
-#-----------------------------TextTable----------------------------------------
+
+# ----------------------end TextSection----------------------------------
+
+
+# ---------------------------TextTable-------------------------------------
 class TextTable(TextElement):
-    def __init__(self, table_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
+    def __init__(
+        self, table_root: ET.Element, parent=None, ref_map: basicBiMap = basicBiMap()
+    ):
         """
         Initialize and process table-wrap found in a text element of PMC XML.
 
-        Use panda's read_html function (which relies on lxml and falls back to html5lib)
-        to process the HTML tables into dataframes.
+        Use panda's read_html function (which relies on lxml and falls
+        back to html5lib)to process the HTML tables into dataframes.
 
-        Adds labels and captions if notated in the xml under //table-wrap/label and //table-wrap/caption/p tags.
+        Adds labels and captions if notated in the xml under
+        //table-wrap/label and //table-wrap/caption/p tags.
         """
-        #initialize root, parent, and bimaps
-        super().__init__(root=table_root,parent=parent,ref_map=ref_map)
+        # initialize root, parent, and bimaps
+        super().__init__(root=table_root, parent=parent, ref_map=ref_map)
 
-        #find label if any
+        # find label if any
         label_matches = table_root.xpath("label")
         label = None
         if len(label_matches) > 0:
             label = label_matches[0].text
-        #find caption if any
+        # find caption if any
         caption_matches = table_root.xpath("caption/p")
         caption = None
         if len(caption_matches) > 0:
@@ -224,12 +282,18 @@ class TextTable(TextElement):
         table_xml_str = ET.tostring(table_root)
         try:
             table_df = pd.read_html(table_xml_str)[0]
-        except ValueError as e:
-            warnings.warn(f"Table with label {label} and caption {caption} could not be parsed with pd.read_html.", readHTMLFailure)
+        except ValueError:
+            warnings.warn(
+                (
+                    f"Table with label {label} and caption {caption} could not "
+                    "be parsed with pd.read_html."
+                ),
+                readHTMLFailure,
+            )
             self.df = None
             return None
 
-        #build title for styled df, if relevant
+        # build title for styled df, if relevant
         title = None
         if label and caption:
             title = f"{label}: {caption}"
@@ -250,37 +314,41 @@ class TextTable(TextElement):
 
     def __repr__(self):
         return repr(self.df)
-#-----------------------------end TextTable----------------------------------------
 
-#-----------------------------TextFigure---------------------------------------------
+
+# ---------------------end TextTable-------------------------------------
+
+
+# ---------------------------TextFigure-----------------------------------
 class TextFigure(TextElement):
-    def __init__(self, fig_root:ET.Element, parent=None, ref_map:basicBiMap=basicBiMap()):
+    def __init__(
+        self, fig_root: ET.Element, parent=None, ref_map: basicBiMap = basicBiMap()
+    ):
         """
         Initialize and parse figure found in a text element of a PMC XML.
 
-        Parses figures into a dictionary with their information (label, caption, and link).
-        Unforunately, the links are relative and cannot be reliably traced to a public URI.
-        This means I have not found a way to download the actual figures to store via Pillow etc.
+        Parses figures into a dictionary with their information
+            (label, caption, and link).
+        Unforunately, the links are relative and cannot be reliably
+            traced to a public URI.
+        This means I have not found a way to download the actual
+            figures to store via Pillow etc.
 
         TODO: Find a way to grab actual figures. May be impossible.
         """
-        #initialize root, parent, and bimaps
-        super().__init__(root=fig_root,parent=parent,ref_map=ref_map)
+        # initialize root, parent, and bimaps
+        super().__init__(root=fig_root, parent=parent, ref_map=ref_map)
 
         root = fig_root
-        label = root.find('.//label')
+        label = root.find(".//label")
         if label is not None:
             label = label.text
-        caption = root.find('.//caption')
+        caption = root.find(".//caption")
         if caption is not None:
-            caption = ''.join(caption.itertext())
-        graphic_href = root.find('.//graphic').get('{http://www.w3.org/1999/xlink}href')
+            caption = "".join(caption.itertext())
+        graphic_href = root.find(".//graphic").get("{http://www.w3.org/1999/xlink}href")
 
-        fig_dict = {
-            'Label': label,
-            'Caption': caption,
-            'Link': graphic_href
-        }
+        fig_dict = {"Label": label, "Caption": caption, "Link": graphic_href}
 
         self.fig_dict = fig_dict
 
@@ -291,27 +359,40 @@ class TextFigure(TextElement):
 
     def __repr__(self):
         return repr(self.fig_dict)
-#-----------------------------end TextFigure---------------------------------------------
 
 
-#-------------------------------End Classes----------------------------
+# --------------------------end TextFigure----------------------------------
 
 
-#---------------------------------Helpers---------------------------------
-def stringify_children(node, encoding = "utf-8"):
+# -------------------------------End Classes----------------------------
+
+
+# ---------------------------------Helpers---------------------------------
+def stringify_children(node, encoding="utf-8"):
     """
-    Returns a string representation of a node and all its children (recursively),
-    including markup language tags.
+    Returns a string representation of a node and all its
+    children (recursively), including markup language tags.
 
-    Turns any bytestrings in the subtree representation to regular strings, following
-    the provided encoding.
+    Turns any bytestrings in the subtree representation to regular strings,
+    following the provided encoding.
     """
-    subtree = [chunk for chunk in chain(
+    subtree = [
+        chunk
+        for chunk in chain(
             (node.text,),
-            chain(*((ET.tostring(child, with_tail=False), child.tail) for child in node.getchildren())),
-            (node.tail,)) if chunk]
-    #decode any bytestrings
+            chain(
+                *(
+                    (ET.tostring(child, with_tail=False), child.tail)
+                    for child in node.getchildren()
+                )
+            ),
+            (node.tail,),
+        )
+        if chunk
+    ]
+    # decode any bytestrings
     for i in range(len(subtree)):
         if type(subtree[i]) == bytes:
             subtree[i] = subtree[i].decode(encoding)
-    return ''.join(subtree).strip()
+    return "".join(subtree).strip()
+

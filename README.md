@@ -57,6 +57,3 @@ The [docs](https://scrapemed.readthedocs.io/en/latest/) are hosted on Read The D
 ***Package sponsored by Daceflow.ai!***
 
 If you'd like to sponsor a feature or donate to the project, reach out to me at danielfrees@g.ucla.edu.
-
-
-

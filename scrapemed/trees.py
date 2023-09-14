@@ -7,7 +7,8 @@ import copy
 from graphviz import Digraph
 import lxml.etree as ET
 
-def investigate_xml_tree(root: ET.Element)->None:
+
+def investigate_xml_tree(root: ET.Element) -> None:
     """
     Print some basic statistics and info about your xml, provided its root)
 
@@ -22,17 +23,20 @@ def investigate_xml_tree(root: ET.Element)->None:
     num_elements = len(elem_list)
     all_element_types = set(elem_list)
 
-    #PRINT UNIQUE ELEMENTS
+    # PRINT UNIQUE ELEMENTS
     print(f"Num Elements: {num_elements}")
     print(f"Unique Element Types: {all_element_types}")
     print("--------------------------------------------\n")
 
-    #PRINT OVERALL DATA DICTIONARY
+    # PRINT OVERALL DATA DICTIONARY
     print(f"Tag Dictionary:\n {_generate_tag_dictionary(root)}\n")
     print("--------------------------------------------\n")
     return
 
-def visualize_element_tree(root: ET.Element, title = 'data/element_tree.gv', test_mode=False)->None:
+
+def visualize_element_tree(
+    root: ET.Element, title="data/element_tree.gv", test_mode=False
+) -> None:
     """Visualize an XML element tree using Graphviz."""
     root = copy.copy(root)
     dot = Digraph()
@@ -40,6 +44,7 @@ def visualize_element_tree(root: ET.Element, title = 'data/element_tree.gv', tes
     if not test_mode:
         dot.render(title, view=True)
     return
+
 
 def _add_elements(dot: Digraph, element: ET.Element, parent=None):
     """Recursively add elements to a Graphviz dot graph."""
@@ -50,14 +55,17 @@ def _add_elements(dot: Digraph, element: ET.Element, parent=None):
         _add_elements(dot, child, element.tag)
     return
 
+
 def _generate_tag_dictionary(root: ET.Element) -> dict:
     """
-    Generate a dictionary of all tags, each with a subdictionary of attributes, and lists of values seen for each attribute.
+    Generate a dictionary of all tags, each with a subdictionary of attributes,
+    and lists of values seen for each attribute.
 
     Helps define the scope of tags for a given xml/html tree.
 
     Input:
-    [root] = root of an ElementTree of xml, html, other tagged language, or combo thereof
+    [root] = root of an ElementTree of xml, html, other tagged language,
+        or combo thereof
 
     Output:
     A dictionary of tags: attr-val dictionaries.
@@ -78,30 +86,42 @@ def _generate_tag_dictionary(root: ET.Element) -> dict:
     data_dict = {}
 
     for element in root.iter():
-        #ignore processing instructions
+        # ignore processing instructions
         if type(element) == ET._ProcessingInstruction:
             continue
-        attr_values_dict = {}     #dictionary of key-value pairs such that we have {attr: list of values the attribute can take on}
+
+        # dictionary of key-value pairs such that we have
+        # {attr: list of values the attribute can take on}
+        attr_values_dict = {}
+
         try:
-            #grab existing attr-val dict if we've seen this tag before
-            attr_values_dict = data_dict[element.tag] #grab reference to the existing attr-val dict, intentionally not copied
+            # grab existing attr-val dict if we've seen this tag before
+            # grab reference to the existing attr-val dict,
+            # intentionally not copied
+            attr_values_dict = data_dict[element.tag]
+
             for attr, val in element.attrib.items():
                 try:
-                    #if weve seen the attribute before, add the value if its new
-                    if not val in attr_values_dict[attr]:
+                    # if weve seen the attribute before,
+                    # add the value if its new
+                    if val not in attr_values_dict[attr]:
                         attr_values_dict[attr].append(val)
-                #we havent seen the attribute before at all
-                except KeyError as e:
+                # we havent seen the attribute before at all
+                except KeyError:
                     attr_values_dict[attr] = [val]
-        except KeyError as e:
-            #create new attr-val dict, we haven't seen this tag before
+        except KeyError:
+            # create new attr-val dict, we haven't seen this tag before
             data_dict[element.tag] = None
-            #add attributes if they exist
+            # add attributes if they exist
             data_dict[element.tag] = copy.copy(element.attrib)
-            #now put values into lists so they can be appended to later if needed
+            # now put values into lists so they can be
+            # appended to later if needed
             attr_values_dict = data_dict[element.tag]
             for attr, val in attr_values_dict.items():
                 attr_values_dict[attr] = [attr_values_dict[attr]]
 
     return data_dict
-#---------------------------END DESCRIBE / CONVERT DATA----------------------------------------
+
+
+# ----------------END DESCRIBE / CONVERT DATA-------------------
+

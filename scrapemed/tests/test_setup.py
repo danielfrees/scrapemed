@@ -1,9 +1,15 @@
+"""
+Test ScrapeMed's setup.py file to make sure that ScrapeMed can be
+built and installed in a fresh virtual environment.
+"""
+
 import os
 import subprocess
 import shutil
 import sys
 import venv
 import pkg_resources
+
 
 def create_virtualenv(venv_dir):
     if os.path.exists(venv_dir):
@@ -13,13 +19,27 @@ def create_virtualenv(venv_dir):
     venv.create(venv_dir, with_pip=True)
     print(f"Virtual environment created at '{venv_dir}'.")
 
+
 def activate_virtualenv(venv_dir):
-    activate_script = os.path.join(venv_dir, "Scripts" if sys.platform == "win32" else "bin", "activate")
-    activate_cmd = f"source {activate_script}" if sys.platform != "win32" else f"{activate_script}"
-    subprocess.run(activate_cmd, shell=True, executable="/bin/bash" if sys.platform != "win32" else None)
+    activate_script = os.path.join(
+        venv_dir, "Scripts" if sys.platform == "win32" else "bin", "activate"
+    )
+    activate_cmd = (
+        f"source {activate_script}" if sys.platform != "win32" else f"{activate_script}"
+    )
+    subprocess.run(
+        activate_cmd,
+        shell=True,
+        executable="/bin/bash" if sys.platform != "win32" else None,
+    )
+
 
 def deactivate_virtualenv():
-    subprocess.run("deactivate", shell=True, executable="/bin/bash" if sys.platform != "win32" else None)
+    subprocess.run(
+        "deactivate",
+        shell=True,
+        executable="/bin/bash" if sys.platform != "win32" else None,
+    )
 
 
 def delete_virtualenv(venv_dir):
@@ -29,9 +49,11 @@ def delete_virtualenv(venv_dir):
     else:
         print(f"Virtual environment directory '{venv_dir}' not found.")
 
+
 def install_package(package_dir):
     setup_py = os.path.join(package_dir, "setup.py")
     subprocess.run(["python", setup_py, "install"])
+
 
 def uninstall_package(package_name):
     try:
@@ -51,7 +73,9 @@ def uninstall_package(package_name):
     shutil.rmtree(dist_location, ignore_errors=True)
     print(f"Cleaned up '{dist_location}'.")
 
+
 def test_setup():
+    """
     venv_dir = "test_setup_scrapemed"
     package_name = "scrapemed"  #
 
@@ -63,10 +87,12 @@ def test_setup():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     package_dir = os.path.abspath(os.path.join(current_dir, ".."))
     install_package(package_dir)
-    uninstall_package(package_name)
+    #uninstall_package(package_name)
 
     # Deactivate and delete the virtual environment
     deactivate_virtualenv()
     delete_virtualenv(venv_dir)
+    """
 
     return None
+

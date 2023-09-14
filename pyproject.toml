@@ -1,6 +1,6 @@
 [project]
 name = "scrapemed"
-version = "1.0.6"
+version = "1.0.7"
 description = "Data Scraping for PubMed Central."
 authors = [
     {name = "Daniel Frees", email = "danielfrees@g.ucla.edu"}
@@ -25,7 +25,3 @@ build-backend = "setuptools.build_meta"
 [project.urls]
 "Homepage" = "https://github.com/danielfrees/scrapemed/"
 "Bug Tracker" = "https://github.com/danielfrees/scrapemed/issues"
-
-
-
-

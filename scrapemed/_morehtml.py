@@ -6,6 +6,7 @@ Added: Non-markup significant unescape
 import re
 import html
 
+
 def unescape_except(s, **kwargs):
     """
     Convert all named and numeric character references (e.g. &gt;, &#62;,
@@ -29,33 +30,34 @@ def unescape_except(s, **kwargs):
     HTML 5 named character references defined in html.entities.html5.
     """
 
-    #no need to do anything if there are no html encodings
+    # no need to do anything if there are no html encodings
     if "&" not in s:
         return s
 
     encoding_dict = {}
 
-    #Translate keys to MHTML placeholder codes
+    # Translate keys to MHTML placeholder codes
     for key, encoding in kwargs.items():
         placehold_str = generate_mhtml_tag(key)
         encoding_dict[placehold_str] = encoding
 
-    #Convert encodings to MHTML placeholder codes
+    # Convert encodings to MHTML placeholder codes
     for placehold_str, encoding in encoding_dict.items():
         code_to_save = re.compile(re.escape(encoding))
         s = code_to_save.sub(placehold_str, s)
 
-    #Unescape everything else
+    # Unescape everything else
     s = html.unescape(s)
 
-    #Convert placeheld items back to their original html encodings
+    # Convert placeheld items back to their original html encodings
     for placehold_str, encoding in encoding_dict.items():
         placehold_r = re.compile(re.escape(placehold_str))
         s = placehold_r.sub(encoding, s)
 
     return s
 
-def generate_mhtml_tag(string:str)->str:
+
+def generate_mhtml_tag(string: str) -> str:
     """
     Generates an MHTML tag from the provided string.
 
@@ -66,7 +68,8 @@ def generate_mhtml_tag(string:str)->str:
     """
     return f"[MHTML::{string}]"
 
-def generate_typed_mhtml_tag(tag_type:str, string:str)->str:
+
+def generate_typed_mhtml_tag(tag_type: str, string: str) -> str:
     """
     Generates a typed MHTML tag from the provided string.
 
@@ -77,15 +80,17 @@ def generate_typed_mhtml_tag(tag_type:str, string:str)->str:
     """
     return f"[MHTML::{tag_type}::{string}]"
 
-def remove_mhtml_tags(text:str)->str:
+
+def remove_mhtml_tags(text: str) -> str:
     """
     Removes all MHTML tags and typed MHTML tags found in the provided text.
     """
-    #match MHTML tags
-        #group1 = tag type for typed MHTML tags
-        #group2 = tag value for typed MHTML tags
-        #group3 = tag for non-typed MHTML tags
-    mhtml_pattern = r'\[MHTML::([^:\[\]]+)::([^:\[\]]+)\]|\[MHTML::([^:\[\]]+)\]'
+    # match MHTML tags
+    # group1 = tag type for typed MHTML tags
+    # group2 = tag value for typed MHTML tags
+    # group3 = tag for non-typed MHTML tags
+    mhtml_pattern = r"\[MHTML::([^:\[\]]+)::([^:\[\]]+)\]" r"|\[MHTML::([^:\[\]]+)\]"
     mhtml_r = re.compile(mhtml_pattern)
-    #remove MHTML tags and return result
-    return mhtml_r.sub('', text)
+    # remove MHTML tags and return result
+    return mhtml_r.sub("", text)
+
