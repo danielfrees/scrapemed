@@ -1,5 +1,5 @@
 """
-The scrapemed "paper" module is intended as the primary point of contact for 
+The scrapemed "paper" module is intended as the primary point of contact for
 scrapemed end users.
 
 Paper objects are defined here, as well end-user functionality for scraping data
@@ -45,9 +45,9 @@ class Paper():
         if not paper_dict:
             self.has_data = False
             return None
-        else: 
+        else:
             self.has_data = True
-        
+
         #capture current time as time of last update. Note that this date may not be synced with PMC paper updates if using
         #initialization via Paper.from_xml. Use Paper.from_pmc to update papers directly via PMC
         current_datetime = datetime.datetime.now()
@@ -78,7 +78,7 @@ class Paper():
         self.lpage = paper_dict['Last Page']
         self.permissions = paper_dict['Permissions']
         if self.permissions:
-            self.copyright = self.permissions["Copyright Statement"] 
+            self.copyright = self.permissions["Copyright Statement"]
             self.license = self.permissions["License Type"]
         else:
             self.copyright = None
@@ -100,18 +100,18 @@ class Paper():
 
         return None
 
-    @classmethod 
+    @classmethod
     def from_pmc(cls, pmcid:int, email:str, download:bool=False, validate:bool=True, verbose:bool=False, suppress_warnings:bool=False, suppress_errors:bool=False):
         """
         Generate a Paper from a pmcid. Specify your email for auth.
-        
+
         [pmcid] - Unique PMCID for the article to parse.
         [email] - Provide your email address for authentication with PMC
         [download] - Whether or not to download the XML retreived from PMC
         [validate] - Whether or not to validate the XML from PMC against NLM articleset 2.0 DTD (HIGHLY RECOMMENDED)
         [verbose] - Whether or not to have verbose output for testing
-        [suppress_warnings] - Whether to suppress warnings while parsing XML. 
-            Note: Warnings are frequent, because of the variable nature of PMC XML data. 
+        [suppress_warnings] - Whether to suppress warnings while parsing XML.
+            Note: Warnings are frequent, because of the variable nature of PMC XML data.
             Recommended to suppress when parsing many XMLs at once.
         [suppress_errors] - Return None on failed XML parsing, instead of raising an error.
         """
@@ -133,20 +133,21 @@ class Paper():
         """
         Generate a Paper straight from PMC XML.
 
-        [pmcid] - PMCID for the XML. 
-                This is not a mistake! 
-                Super important to have a trustworthy PMCID. 
-                Provide manually when uploading XML manually.
-        [root] - ET.Element of the root of the PMC XML
-        [verbose] - Whether or not to have verbose output for testing
-        [suppress_warnings] - Whether to suppress warnings while parsing XML. 
-            Note: Warnings are frequent, because of the variable nature of PMC XML data. 
+        :param int pmcid: PMCID for the XML. THis is required intentionally, to ensure trustworthy unique indexing of PMC XMLs.
+        :param ET.Element root: Root element of the PMC XML tree.
+        :param bool verbose: Report verbose output or not. Intended for testing.
+        :param bool suppress_warnings: Suppress warnings while parsing XML or not.
+            Note: Warnings are frequent, because of the variable nature of PMC XML data.
             Recommended to suppress when parsing many XMLs at once.
-        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.
+        :param bool suppress_errors: Return None on failed XML parsing, instead of raising an error.
+            Recommended to suppress when parsing many XMLs at once, unless failure is not an option.
+
+        :returns: A Paper object initialized via the passed XML.
+        :rtype: Paper
         """
         paper_dict = parse.generate_paper_dict(pmcid, root, verbose=verbose, suppress_warnings=suppress_warnings, suppress_errors=suppress_errors)
         return cls(paper_dict)
-    
+
     def print_abstract(self)->str:
         """
         Prints and returns a string of the abstract.
@@ -154,23 +155,22 @@ class Paper():
         s = self.abstract_as_str()
         print(s)
         return s
-    
+
     def abstract_as_str(self)->str:
+        """Returns a string representation of the abstract of a paper. Uses text without MHTML datarefs."""
         s = ""
         if self.abstract:
             for sec in self.abstract:
                 s += "\n"
                 s += str(sec)
         return s
-    
+
     def print_body(self)->str:
-        """
-        Prints and returns a string of the body.
-        """
+        """Returns a string representation of the body of a paper. Uses text without MHTML datarefs."""
         s = self.body_as_str()
         print(s)
         return s
-    
+
     def body_as_str(self)->str:
         """
         Returns a string of the body.
@@ -181,13 +181,13 @@ class Paper():
                 s += "\n"
                 s += str(sec)
         return s
-    
+
     def __bool__(self):
         """
         The truth value of a Paper object depends on whether it parsed succesfully during initialization.
         """
         return self.has_data
-    
+
     def full_text(self, print_text:bool = False):
         """
         Return the full abstract and/or body text string of this Paper. Optionally print.
@@ -219,12 +219,12 @@ class Paper():
             for sec in self.body:
                 s += str(sec)
         return s
-    
+
     def __eq__(self, other):
         """
         For two Paper objects to be equal, they must share the same PMCID and have the same date of last update.
 
-        Two Papers may be exactly equal but be downlaoded or parsed on different dates. These will not evaluate to equal. 
+        Two Papers may be exactly equal but be downlaoded or parsed on different dates. These will not evaluate to equal.
         Simply compare Paper1.pmcid and Paper2.pmcid if that is your desired behavior.
 
         Note also that articles which are not open access on PMC may not have a PMCID, and a unique comparison will need to be made for these.
@@ -236,7 +236,7 @@ class Paper():
 
     def to_relational(self)->pd.Series:
         """
-        Generates a pandas Series representation of the paper. Some data will be lost, 
+        Generates a pandas Series representation of the paper. Some data will be lost,
         but most useful text data and metadata will be retained in the relational shape.
         """
 
@@ -274,7 +274,7 @@ class Paper():
             'Figures': self.figures
         }
         return pd.Series(data)
-    
+
     #---------------Helper functions for to_relational---------------------
     def _extract_names(self, df):
         return df.apply(lambda row: f"{row['First_Name']} {row['Last_Name']}", axis=1).tolist()
@@ -284,7 +284,7 @@ class Paper():
 
     def _serialize_df(self, df):
         return df.to_html()
-    #---------------End Helper functions for to_relational--------------------- 
+    #---------------End Helper functions for to_relational---------------------
 
     def vectorize(self, chunk_size:int = 100, chunk_overlap:int = 20, refresh:bool=False):
         """
@@ -299,12 +299,12 @@ class Paper():
         if not refresh and self.vector_collection:
             print("Paper already vectorized! To re-vectorize with new settings, pass refresh=True.")
             return None
-        
+
         print("Vectorizing Paper (This may take a little while)...")
         if len(self.full_text()) == 0:
             warnings.warn("Attempted to vectorize a Paper with no text. Aborting.", emptyTextWarning)
             return None
-        
+
         #Set up an in-memory chromadb collection for this paper
         client = chromadb.Client()
         try:
@@ -314,13 +314,13 @@ class Paper():
 
         #setup chunk model
         chunk_model = CharacterTextSplitter(
-            separator="\\n\\n|\\n|\\.|\\s", 
-            is_separator_regex=True, 
+            separator="\\n\\n|\\n|\\.|\\s",
+            is_separator_regex=True,
             chunk_size = chunk_size,
             chunk_overlap = chunk_overlap,
             length_function = len,
             keep_separator = True)
-    
+
         #chunk the text, add metadata for the PMCID each chunk originates from, add unique chunk ids
         p_chunks = chunk_model.split_text(self.full_text())
         p_metadatas = [{"pmcid": self.pmcid}] * len(p_chunks)
@@ -339,13 +339,13 @@ class Paper():
 
         print("Done Vectorizing Paper! Natural language query with Paper.query() now available.")
         return None
-    
+
     #-----------------helper funcs for self.vectorize-----------------
     def _generate_chunk_id(self, pmcid:str, index:Union[int,str]):
         """
         Generate id for a PMC text chunk, using pmcid and index of the chunk.
         The chunk indices should be unique. Recommended to use indexes from the result
-        of chunk model. 
+        of chunk model.
         """
         return f"pmcid-{pmcid}-chunk-{str(index)}"
 
@@ -359,7 +359,7 @@ class Paper():
         index = None
         if match:
             index = match.group(1)
-        return index    
+        return index
 
     def _get_pmcid_from_chunk_id(self, chunk_id:str)->str:
         """
@@ -371,12 +371,12 @@ class Paper():
         pmcid = None
         if match:
             pmcid = match.group(1)
-        return pmcid    
+        return pmcid
     #-----------------end helper funcs for self.vectorize-----------------
 
     def query(self, query:str, n_results:int =1, n_before:int = 2, n_after:int = 2)->Dict[str,str]:
         """
-        Query the paper with natural language questions. 
+        Query the paper with natural language questions.
             Input:
             [query] - string question
             [n_results] - number of most semantically similar paper sections to retrieve
@@ -384,20 +384,20 @@ class Paper():
             [n_after] - int, how many chunks after the match to include in combined output
 
             Output:
-            Dict with key(s) = most semantically similar result chunk(s), and value(s) = Paper text(s) 
-            around  the most semantically similar result chunk(s). Text length determined by 
+            Dict with key(s) = most semantically similar result chunk(s), and value(s) = Paper text(s)
+            around  the most semantically similar result chunk(s). Text length determined by
             the chunk size used in self.vectorize() and n_before and n_after.
         """
 
         result = self.expanded_query(
             query=query,
             n_results = n_results,
-            n_before = n_before, 
+            n_before = n_before,
             n_after = n_after
             )
-        
+
         return result
-        
+
     #-----------------helper funcs for self.query----------------------
     def expanded_query(self, query:str, n_results:int=1, n_before:int = 2, n_after:int = 2)->Dict[str,str]:
         """
@@ -412,10 +412,10 @@ class Paper():
         #if vectorization fails, abort
         if not self.vector_collection:
             return None
-        
+
         result = self.vector_collection.query(
             query_texts=[query],
-            include=["documents"], 
+            include=["documents"],
             n_results=n_results)
 
         expanded_results = {}
@@ -462,8 +462,8 @@ class Paper():
                         docs = docs[1:]
                     else:
                         docs = []
-                    
+
                 cleaned_results[match] = "..." + combined_result + "..."
-        
+
         return cleaned_results
 #--------------------END PAPER OBJECT SCHEMA-------------------------------------------

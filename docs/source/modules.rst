@@ -5,4 +5,3 @@ scrapemed
    :maxdepth: 4
 
    scrapemed
-   setup

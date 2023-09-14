@@ -1,14 +1,6 @@
 scrapemed package
 =================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   scrapemed.tests
-
 Submodules
 ----------
 

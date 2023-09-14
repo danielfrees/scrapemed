@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scrapemed.paper &mdash; scrapemed 1.0.6 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=e2a723ec"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../index.html" class="icon icon-home">
+            scrapemed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">scrapemed</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">scrapemed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scrapemed.paper</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for scrapemed.paper</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The scrapemed &quot;paper&quot; module is intended as the primary point of contact for </span>
+<span class="sd">scrapemed end users.</span>
+
+<span class="sd">Paper objects are defined here, as well end-user functionality for scraping data</span>
+<span class="sd">from PubMed Central without stressing about the details.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">scrapemed._parse</span> <span class="k">as</span> <span class="nn">parse</span>
+<span class="kn">import</span> <span class="nn">scrapemed.scrape</span> <span class="k">as</span> <span class="nn">scrape</span>
+<span class="kn">from</span> <span class="nn">scrapemed._parse</span> <span class="kn">import</span> <span class="n">TextSection</span>
+<span class="kn">from</span> <span class="nn">scrapemed.utils</span> <span class="kn">import</span> <span class="n">basicBiMap</span>
+<span class="kn">import</span> <span class="nn">lxml.etree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">chromadb</span>
+<span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">CharacterTextSplitter</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">difflib</span> <span class="kn">import</span> <span class="n">SequenceMatcher</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">urllib.error</span> <span class="kn">import</span> <span class="n">HTTPError</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<div class="viewcode-block" id="emptyTextWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.emptyTextWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">emptyTextWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when trying to perform a text operation on a Paper which has no text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="pubmedHTTPError">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.pubmedHTTPError">[docs]</a>
+<span class="k">class</span> <span class="nc">pubmedHTTPError</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when unable to retrieve a PMC XML repeatedly. Can occasionally happen on PMC due to traffic.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="c1">#--------------------PAPER OBJECT SCHEMA-------------------------------------------</span>
+<div class="viewcode-block" id="Paper">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper">[docs]</a>
+<span class="k">class</span> <span class="nc">Paper</span><span class="p">():</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;Papers&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paper_dict</span><span class="p">:</span><span class="nb">dict</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a paper with a dictionary of paper information (ie. from parse.generate_paper_dict)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">paper_dict</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1">#capture current time as time of last update. Note that this date may not be synced with PMC paper updates if using</span>
+        <span class="c1">#initialization via Paper.from_xml. Use Paper.from_pmc to update papers directly via PMC</span>
+        <span class="n">current_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">current_year</span> <span class="o">=</span> <span class="n">current_datetime</span><span class="o">.</span><span class="n">year</span>
+        <span class="n">current_month</span> <span class="o">=</span> <span class="n">current_datetime</span><span class="o">.</span><span class="n">month</span>
+        <span class="n">current_day</span> <span class="o">=</span> <span class="n">current_datetime</span><span class="o">.</span><span class="n">day</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_updated</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_month</span><span class="p">,</span> <span class="n">current_day</span><span class="p">,</span> <span class="n">current_year</span><span class="p">)</span>
+
+        <span class="c1">#read in the Paper data from the parsed paper_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pmcid</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;PMCID&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">authors</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Authors&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">non_author_contributors</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Non-Author Contributors&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abstract</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Abstract&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">journal_id</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Journal ID&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">journal_title</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Journal Title&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">issn</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;ISSN&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publisher_name</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Publisher Name&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publisher_location</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Publisher Location&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">article_id</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Article ID&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">article_types</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Article Types&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">article_categories</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Article Categories&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">published_date</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Published Date&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">volume</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Volume&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">issue</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Issue&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fpage</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;First Page&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lpage</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Last Page&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">permissions</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Permissions&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">permissions</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copyright</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">permissions</span><span class="p">[</span><span class="s2">&quot;Copyright Statement&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">license</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">permissions</span><span class="p">[</span><span class="s2">&quot;License Type&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copyright</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">license</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">funding</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Funding&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">footnote</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Footnote&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acknowledgements</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Acknowledgements&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notes</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Notes&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">custom_meta</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Custom Meta&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_map</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Ref Map&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ref_map_with_tags</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Ref Map With Tags&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">citations</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Citations&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tables</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Tables&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figures</span> <span class="o">=</span> <span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;Figures&#39;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">define_data_dict</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">vector_collection</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Paper.from_pmc">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.from_pmc">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_pmc</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pmcid</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">download</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">validate</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a Paper from a pmcid. Specify your email for auth.</span>
+<span class="sd">        </span>
+<span class="sd">        [pmcid] - Unique PMCID for the article to parse.</span>
+<span class="sd">        [email] - Provide your email address for authentication with PMC</span>
+<span class="sd">        [download] - Whether or not to download the XML retreived from PMC</span>
+<span class="sd">        [validate] - Whether or not to validate the XML from PMC against NLM articleset 2.0 DTD (HIGHLY RECOMMENDED)</span>
+<span class="sd">        [verbose] - Whether or not to have verbose output for testing</span>
+<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML. </span>
+<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data. </span>
+<span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
+<span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">NUM_TRIES</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">paper_dict</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_TRIES</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">paper_dict</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">paper_dict_from_pmc</span><span class="p">(</span><span class="n">pmcid</span><span class="o">=</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="n">download</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">except</span> <span class="n">HTTPError</span><span class="p">:</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">paper_dict</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to retrieve PMCID </span><span class="si">{</span><span class="n">pmcid</span><span class="si">}</span><span class="s2"> from PMC. May be due to HTTP traffic or broken XML formatting, try again later if the former.&quot;</span><span class="p">,</span> <span class="n">pubmedHTTPError</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">paper_dict</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Paper.from_xml">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.from_xml">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_xml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pmcid</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span><span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a Paper straight from PMC XML.</span>
+
+<span class="sd">        :param int pmcid: PMCID for the XML. THis is required intentionally, to ensure trustworthy unique indexing of PMC XMLs.</span>
+<span class="sd">        :param ET.Element root: Root element of the PMC XML tree.</span>
+<span class="sd">        :param bool verbose: Report verbose output or not. Intended for testing.</span>
+<span class="sd">        :param bool suppress_warnings: Suppress warnings while parsing XML or not. </span>
+<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data. </span>
+<span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
+<span class="sd">        :param bool suppress_errors: Return None on failed XML parsing, instead of raising an error.</span>
+<span class="sd">            Recommended to suppress when parsing many XMLs at once, unless failure is not an option.</span>
+<span class="sd">        </span>
+<span class="sd">        :returns: A Paper object initialized via the passed XML.</span>
+<span class="sd">        :rtype: Paper </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">paper_dict</span> <span class="o">=</span> <span class="n">parse</span><span class="o">.</span><span class="n">generate_paper_dict</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">paper_dict</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Paper.print_abstract">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.print_abstract">[docs]</a>
+    <span class="k">def</span> <span class="nf">print_abstract</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints and returns a string of the abstract.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abstract_as_str</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="Paper.abstract_as_str">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.abstract_as_str">[docs]</a>
+    <span class="k">def</span> <span class="nf">abstract_as_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a string representation of the abstract of a paper. Uses text without MHTML datarefs.&quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abstract</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">abstract</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="Paper.print_body">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.print_body">[docs]</a>
+    <span class="k">def</span> <span class="nf">print_body</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a string representation of the body of a paper. Uses text without MHTML datarefs.&quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_as_str</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="Paper.body_as_str">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.body_as_str">[docs]</a>
+    <span class="k">def</span> <span class="nf">body_as_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a string of the body.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The truth value of a Paper object depends on whether it parsed succesfully during initialization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span>
+
+<div class="viewcode-block" id="Paper.full_text">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.full_text">[docs]</a>
+    <span class="k">def</span> <span class="nf">full_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_text</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the full abstract and/or body text string of this Paper. Optionally print.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abstract</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Abstract: </span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abstract_as_str</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Body: </span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_as_str</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">print_text</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">PMCID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pmcid</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Title: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="c1">#Append all text from abstract PaperSections</span>
+        <span class="n">s</span><span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Abstract:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abstract</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">abstract</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span>
+        <span class="c1">#Append all text from body PaperSections</span>
+        <span class="n">s</span><span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Body:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For two Paper objects to be equal, they must share the same PMCID and have the same date of last update.</span>
+
+<span class="sd">        Two Papers may be exactly equal but be downlaoded or parsed on different dates. These will not evaluate to equal. </span>
+<span class="sd">        Simply compare Paper1.pmcid and Paper2.pmcid if that is your desired behavior.</span>
+
+<span class="sd">        Note also that articles which are not open access on PMC may not have a PMCID, and a unique comparison will need to be made for these.</span>
+<span class="sd">        However, most papers downloaded via ScrapeMed should have a PMCID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pmcid</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">pmcid</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_updated</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">last_updated</span>
+
+<div class="viewcode-block" id="Paper.to_relational">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.to_relational">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_relational</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a pandas Series representation of the paper. Some data will be lost, </span>
+<span class="sd">        but most useful text data and metadata will be retained in the relational shape.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;PMCID&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pmcid</span><span class="p">,</span>
+            <span class="s1">&#39;Last_Updated&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_updated</span><span class="p">,</span>
+            <span class="s1">&#39;Title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="s1">&#39;Authors&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_names</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">authors</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">authors</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;Non_Author_Contributors&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_names</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">non_author_contributors</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">non_author_contributors</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;Abstract&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">abstract_as_str</span><span class="p">(),</span>
+            <span class="s1">&#39;Body&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_as_str</span><span class="p">(),</span>
+            <span class="s1">&#39;Journal_ID&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">journal_id</span><span class="p">,</span>
+            <span class="s1">&#39;Journal_Title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">journal_title</span><span class="p">,</span>
+            <span class="s1">&#39;ISSN&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">issn</span><span class="p">,</span>
+            <span class="s1">&#39;Publisher_Name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">publisher_name</span><span class="p">,</span>
+            <span class="s1">&#39;Publisher_Location&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">publisher_location</span><span class="p">,</span>
+            <span class="s1">&#39;Article_ID&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">article_id</span><span class="p">,</span>
+            <span class="s1">&#39;Article_Types&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">article_types</span><span class="p">,</span>
+            <span class="s1">&#39;Article_Categories&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">article_categories</span><span class="p">,</span>
+            <span class="s1">&#39;Published_Date&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serialize_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">published_date</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">published_date</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;Volume&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume</span><span class="p">,</span>
+            <span class="s1">&#39;Issue&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">issue</span><span class="p">,</span>
+            <span class="s1">&#39;First_Page&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpage</span><span class="p">,</span>
+            <span class="s1">&#39;Last_Page&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lpage</span><span class="p">,</span>
+            <span class="s1">&#39;Copyright&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">copyright</span><span class="p">,</span>
+            <span class="s1">&#39;License&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">license</span><span class="p">,</span>
+            <span class="s1">&#39;Funding&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">funding</span><span class="p">,</span>
+            <span class="s1">&#39;Footnote&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">footnote</span><span class="p">,</span>
+            <span class="s1">&#39;Acknowledgements&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">acknowledgements</span><span class="p">,</span>
+            <span class="s1">&#39;Notes&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">,</span>
+            <span class="s1">&#39;Custom_Meta&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_meta</span><span class="p">,</span>
+            <span class="s1">&#39;Ref_Map&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_map</span><span class="p">,</span>
+            <span class="s1">&#39;Citations&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_serialize_dict</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">citations</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)],</span>
+            <span class="s1">&#39;Tables&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_serialize_df</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">formats</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">Styler</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))],</span>
+            <span class="s1">&#39;Figures&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">figures</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+    <span class="c1">#---------------Helper functions for to_relational---------------------</span>
+    <span class="k">def</span> <span class="nf">_extract_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;First_Name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Last_Name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_serialize_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+
+    <span class="k">def</span> <span class="nf">_serialize_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">to_html</span><span class="p">()</span>
+    <span class="c1">#---------------End Helper functions for to_relational--------------------- </span>
+
+<div class="viewcode-block" id="Paper.vectorize">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.vectorize">[docs]</a>
+    <span class="k">def</span> <span class="nf">vectorize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">refresh</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates an in-memory vector database representation of the paper,</span>
+<span class="sd">        stored in paper.vector_collection. (Abstract and body only)</span>
+
+<span class="sd">        Input:</span>
+<span class="sd">        [chunk_size] - approximate chunk size to split paper into (len)</span>
+<span class="sd">        [chunk_overlap] - approximate desired chunk overlap (len)</span>
+<span class="sd">        [refresh] - Whether or not to clear and re-vectorize the paper (ie. with new settings)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">refresh</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_collection</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Paper already vectorized! To re-vectorize with new settings, pass refresh=True.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vectorizing Paper (This may take a little while)...&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_text</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Attempted to vectorize a Paper with no text. Aborting.&quot;</span><span class="p">,</span> <span class="n">emptyTextWarning</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1">#Set up an in-memory chromadb collection for this paper</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">chromadb</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vector_collection</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_or_create_collection</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Paper-PMCID-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pmcid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vector_collection</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_or_create_collection</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Paper-Random-UUID-</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1">#setup chunk model</span>
+        <span class="n">chunk_model</span> <span class="o">=</span> <span class="n">CharacterTextSplitter</span><span class="p">(</span>
+            <span class="n">separator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n</span><span class="se">\\</span><span class="s2">n|</span><span class="se">\\</span><span class="s2">n|</span><span class="se">\\</span><span class="s2">.|</span><span class="se">\\</span><span class="s2">s&quot;</span><span class="p">,</span>
+            <span class="n">is_separator_regex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">chunk_size</span> <span class="o">=</span> <span class="n">chunk_size</span><span class="p">,</span>
+            <span class="n">chunk_overlap</span> <span class="o">=</span> <span class="n">chunk_overlap</span><span class="p">,</span>
+            <span class="n">length_function</span> <span class="o">=</span> <span class="nb">len</span><span class="p">,</span>
+            <span class="n">keep_separator</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1">#chunk the text, add metadata for the PMCID each chunk originates from, add unique chunk ids</span>
+        <span class="n">p_chunks</span> <span class="o">=</span> <span class="n">chunk_model</span><span class="o">.</span><span class="n">split_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_text</span><span class="p">())</span>
+        <span class="n">p_metadatas</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;pmcid&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pmcid</span><span class="p">}]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_chunks</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pmcid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pmcid</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">pmcid</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
+        <span class="n">p_ids</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_generate_chunk_id</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p_chunks</span><span class="p">))]</span>
+
+        <span class="c1">#upload the chunked texts into the vector collection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vector_collection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">documents</span> <span class="o">=</span> <span class="n">p_chunks</span><span class="p">,</span>
+            <span class="n">metadatas</span> <span class="o">=</span> <span class="n">p_metadatas</span><span class="p">,</span>
+            <span class="n">ids</span> <span class="o">=</span> <span class="n">p_ids</span>
+        <span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done Vectorizing Paper! Natural language query with Paper.query() now available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+    <span class="c1">#-----------------helper funcs for self.vectorize-----------------</span>
+    <span class="k">def</span> <span class="nf">_generate_chunk_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pmcid</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span><span class="nb">str</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate id for a PMC text chunk, using pmcid and index of the chunk.</span>
+<span class="sd">        The chunk indices should be unique. Recommended to use indexes from the result</span>
+<span class="sd">        of chunk model. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;pmcid-</span><span class="si">{</span><span class="n">pmcid</span><span class="si">}</span><span class="s2">-chunk-</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_get_chunk_index_from_chunk_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk_id</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given a PMCID Chunk ID, in the format generated by _generate_pmcid_chunk_id,</span>
+<span class="sd">        gather the index of the chunk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;chunk-(\d+)&quot;</span><span class="p">)</span>  <span class="c1"># Compile the regex pattern</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">chunk_id</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">index</span>
+
+    <span class="k">def</span> <span class="nf">_get_pmcid_from_chunk_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk_id</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given a PMCID Chunk ID, in the format generated by _generate_pmcid_chunk_id,</span>
+<span class="sd">        gather the PMCID of the chunk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;pmcid-(\d+)&quot;</span><span class="p">)</span>  <span class="c1"># Compile the regex pattern</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">chunk_id</span><span class="p">)</span>
+        <span class="n">pmcid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">pmcid</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pmcid</span>
+    <span class="c1">#-----------------end helper funcs for self.vectorize-----------------</span>
+
+<div class="viewcode-block" id="Paper.query">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.query">[docs]</a>
+    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">n_results</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_before</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_after</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Query the paper with natural language questions. </span>
+<span class="sd">            Input:</span>
+<span class="sd">            [query] - string question</span>
+<span class="sd">            [n_results] - number of most semantically similar paper sections to retrieve</span>
+<span class="sd">            [n_before] - int, how many chunks before the match to include in combined output</span>
+<span class="sd">            [n_after] - int, how many chunks after the match to include in combined output</span>
+
+<span class="sd">            Output:</span>
+<span class="sd">            Dict with key(s) = most semantically similar result chunk(s), and value(s) = Paper text(s) </span>
+<span class="sd">            around  the most semantically similar result chunk(s). Text length determined by </span>
+<span class="sd">            the chunk size used in self.vectorize() and n_before and n_after.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expanded_query</span><span class="p">(</span>
+            <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+            <span class="n">n_results</span> <span class="o">=</span> <span class="n">n_results</span><span class="p">,</span>
+            <span class="n">n_before</span> <span class="o">=</span> <span class="n">n_before</span><span class="p">,</span>
+            <span class="n">n_after</span> <span class="o">=</span> <span class="n">n_after</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+    <span class="c1">#-----------------helper funcs for self.query----------------------</span>
+<div class="viewcode-block" id="Paper.expanded_query">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.paper.Paper.expanded_query">[docs]</a>
+    <span class="k">def</span> <span class="nf">expanded_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">n_results</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_before</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_after</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Query function that matches natural language query with vectorized Paper.</span>
+<span class="sd">        [query] - str, natural language query for paper</span>
+<span class="sd">        [n_before] - int, how many chunks before the match to include in combined output</span>
+<span class="sd">        [n_after] - int, how many chunks after the match to include in combined output</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#if the paper has not already been vectorized, vectorize</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_collection</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vectorize</span><span class="p">()</span>
+        <span class="c1">#if vectorization fails, abort</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_collection</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_collection</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+            <span class="n">query_texts</span><span class="o">=</span><span class="p">[</span><span class="n">query</span><span class="p">],</span>
+            <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;documents&quot;</span><span class="p">],</span>
+            <span class="n">n_results</span><span class="o">=</span><span class="n">n_results</span><span class="p">)</span>
+
+        <span class="n">expanded_results</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;ids&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">chunk_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_chunk_index_from_chunk_id</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+            <span class="n">pmcid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_pmcid_from_chunk_id</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+            <span class="c1">#get the texts before and after the result chunk</span>
+            <span class="n">expanded_ids</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_before</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">expanded_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generate_chunk_id</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">chunk_index</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span><span class="p">))</span>
+            <span class="n">expanded_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_after</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">expanded_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generate_chunk_id</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">chunk_index</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span><span class="p">))</span>
+
+            <span class="n">expanded_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Match on </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_collection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="n">ids</span><span class="o">=</span><span class="n">expanded_ids</span><span class="p">,</span>
+                <span class="p">)[</span><span class="s1">&#39;documents&#39;</span><span class="p">]</span>
+
+        <span class="n">cleaned_results</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1">#append docs together two at a time, removing overlap</span>
+        <span class="k">for</span> <span class="n">match</span><span class="p">,</span> <span class="n">docs</span> <span class="ow">in</span> <span class="n">expanded_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">combined_result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="c1">#combined docs together</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">combined_result</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">combined_result</span> <span class="o">=</span> <span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">#combine first two docs, removing overlap, to start the combined result</span>
+                <span class="n">substring_match</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">docs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">find_longest_match</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">combined_docs</span> <span class="o">=</span> <span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="n">substring_match</span><span class="o">.</span><span class="n">a</span><span class="p">]</span><span class="o">+</span><span class="n">docs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">substring_match</span><span class="o">.</span><span class="n">b</span><span class="p">:]</span>
+                <span class="n">combined_result</span> <span class="o">+=</span> <span class="n">combined_docs</span>
+                <span class="c1">#eat these first two docs</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">docs</span> <span class="o">=</span> <span class="n">docs</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">docs</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="c1">#continue eating the rest one by one</span>
+                <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">substring_match</span> <span class="o">=</span> <span class="n">SequenceMatcher</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">combined_result</span><span class="p">,</span> <span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">find_longest_match</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">combined_result</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                    <span class="n">combined_result</span> <span class="o">=</span> <span class="n">combined_result</span><span class="p">[:</span><span class="n">substring_match</span><span class="o">.</span><span class="n">a</span><span class="p">]</span><span class="o">+</span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">substring_match</span><span class="o">.</span><span class="n">b</span><span class="p">:]</span>
+                    <span class="c1">#eat the processed doc</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span> <span class="o">&gt;=</span><span class="mi">2</span><span class="p">:</span>
+                        <span class="n">docs</span> <span class="o">=</span> <span class="n">docs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">docs</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="n">cleaned_results</span><span class="p">[</span><span class="n">match</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;...&quot;</span> <span class="o">+</span> <span class="n">combined_result</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span>
+
+        <span class="k">return</span> <span class="n">cleaned_results</span></div>
+</div>
+
+<span class="c1">#--------------------END PAPER OBJECT SCHEMA-------------------------------------------</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Daniel Frees.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>
