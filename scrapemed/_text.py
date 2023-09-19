@@ -1,9 +1,26 @@
 """
-ScrapeMed's "_text" module is aimed at organizing text found in markup language.
+ScrapeMed's ``_text`` Module
+==============================
 
-In the context of the ScrapeMed package, this supports the organization of text
-found within paragraph (<p>) and section (<sec>) tags in downloaded XML from
-PubMedCentral (PMC).
+The ``_text`` module of ScrapeMed is designed for organizing text found in
+markup languages.
+
+In the context of the ScrapeMed package, this module is used to facilitate the
+organization of text found within paragraph (``<p>``) and section (``<sec>``)
+tags in downloaded XML from PubMedCentral (PMC).
+
+.. warnings::
+
+   - :class:`multipleTitleWarning`: Warned when one title is expected but
+        multiple are found.
+   - :class:`unhandledTextTagWarning`: Warned when a tag is encountered in a
+        text section of the XML but is not explicitly handled by ScrapeMed.
+        The tag contents will be ignored if not handled manually. Feel free
+        to submit a PR if you add a non-breaking code addition to handle these
+        types of tags.
+   - :class:`readHTMLFailure`: Warned when the pandas `read_html` function
+        fails (rare). This may happen with tables void of readable data,
+        such as tables that contain only graphics.
 """
 
 
@@ -37,6 +54,8 @@ class unhandledTextTagWarning(Warning):
     these types of tags.
     """
 
+    pass
+
 
 class readHTMLFailure(Warning):
     """
@@ -44,11 +63,34 @@ class readHTMLFailure(Warning):
     tables void of readable data (ie. tables that contain only graphics).
     """
 
+    pass
+
 
 # ----------------------TextElement---------------------------------
 class TextElement:
     """
     Base class for elements parsed from XML/HTML markup language.
+
+    This class is initialized with a root element of the XML text element,
+    as well as a reference map to populate with references found in the text,
+    (and used to generate the replacement MHTML tags).
+
+    :param ET.Element root: The root element of the XML text element.
+    :param TextElement parent: The parent TextElement if applicable.
+    :param basicBiMap ref_map: The reference map for storing references
+        found in the text.
+
+    Attributes:
+        - root (ET.Element): The root element of the XML text element.
+        - parent (TextElement, optional): The parent TextElement if applicable.
+        - ref_map (basicBiMap): The reference map for storing references
+            found in the text.
+
+    Methods:
+        - get_ref_map(): Return the shared BiMap for reference data.
+        - set_ref_map(ref_map: basicBiMap): Set the shared BiMap for reference data.
+
+    This class serves as the base class for more complex text classes.
     """
 
     def __init__(
@@ -57,6 +99,14 @@ class TextElement:
         parent: "TextElement" = None,
         ref_map: basicBiMap = basicBiMap(),
     ):
+        """
+        Initialize a TextElement object.
+
+        :param ET.Element root: The root element of the XML text element.
+        :param TextElement parent: The parent TextElement if applicable.
+        :param basicBiMap ref_map: The reference map for storing references
+            found in the text
+        """
         self.root = root
         self.parent = parent
         self.ref_map = ref_map
@@ -65,6 +115,9 @@ class TextElement:
     def get_ref_map(self) -> basicBiMap:
         """
         Return the shared BiMap for reference data.
+
+        :returns: The shared BiMap containing reference data.
+        :rtype: basicBiMap
         """
         ref_map = None
         if self.parent:
@@ -76,6 +129,8 @@ class TextElement:
     def set_ref_map(self, ref_map: basicBiMap):
         """
         Set the shared BiMap for reference data.
+
+        :param basicBiMap ref_map: The BiMap containing reference data to be set.
         """
         if self.parent:
             self.parent.set_ref_map(ref_map)
@@ -93,12 +148,34 @@ class TextElement:
 class TextParagraph(TextElement):
     """
     Class representation of the data found in an XML <p> tag.
+
+    :param ET.Element p_root: The root element of the XML <p> tag.
+    :param TextElement parent: The parent TextElement if applicable.
+    :param basicBiMap ref_map: The reference map for storing references
+        found in the text.
+
+    Attributes:
+        - id (str): The identifier for the <p> tag.
+        - text_with_refs (str): The text content of the <p> tag with references.
+        - text (str): The clean text content of the <p> tag without references.
+
+    Methods:
+        - __str__(): Return the clean text content as a string.
+        - __eq__(other): Check if two TextParagraph objects are equal based
+            on their text content.
     """
 
     def __init__(
         self, p_root: ET.Element, parent=None, ref_map: basicBiMap = basicBiMap()
     ):
-        """ """
+        """
+        Initialize a TextParagraph object.
+
+        :param ET.Element p_root: The root element of the XML <p> tag.
+        :param TextElement parent: The parent TextElement if applicable.
+        :param basicBiMap ref_map: The reference map for storing references
+            found in the text.
+        """
         super().__init__(
             root=p_root, parent=parent, ref_map=ref_map
         )  # initialize TextElement
@@ -118,9 +195,24 @@ class TextParagraph(TextElement):
         )  # clean text for str() and printing
 
     def __str__(self):
+        """
+        Return the clean text content of the TextParagraph object as a string.
+
+        :returns: The clean text content.
+        :rtype: str
+        """
         return self.text
 
     def __eq__(self, other):
+        """
+        Check if two TextParagraph objects are equal based on their text
+        content (including refs).
+
+        :param TextParagraph other: The other TextParagraph object to compare with.
+
+        :returns: True if the text content is equal, False otherwise.
+        :rtype: bool
+        """
         return self.text_with_refs == other.text_with_refs
 
 
@@ -130,7 +222,30 @@ class TextParagraph(TextElement):
 # ----------------------------------TextSection------------------------------
 class TextSection(TextElement):
     """
-    Class representation of the data found in an XML <sec> tag
+    Class representation of the data found in an XML <sec> tag.
+
+    :param ET.Element sec_root: The root element of the XML <sec> tag.
+    :param TextElement parent: The parent TextElement if applicable.
+    :param basicBiMap ref_map: The reference map for storing references found
+        in the text.
+
+    Attributes:
+        - title (str): The title of the section if available.
+        - children (list): A list of TextSection, TextParagraph, TextTable, or
+            TextFigure objects representing subsections, paragraphs, tables,
+            or figures within the section.
+        - text (str): The clean text content of the section without references.
+        - text_with_refs (str): The text content of the section with references.
+
+    Methods:
+        - __str__(): Return a string representation of the section with proper
+            indentation.
+        - get_section_text(): Get a text representation of the entire section
+            without references.
+        - get_section_text_with_refs(): Get a text representation of the entire
+            section with references.
+        - __eq__(other): Check if two TextSection objects are equal based on
+            their title and children.
     """
 
     def __init__(
@@ -144,6 +259,11 @@ class TextSection(TextElement):
 
         Handles <title>, <p>, and <sec> children under the root <sec> tag.
         Anything else will be ignored and raise a warning.
+
+        :param ET.Element sec_root: The root element of the XML <sec> tag.
+        :param TextElement parent: The parent TextElement if applicable.
+        :param basicBiMap ref_map: The reference map for storing references
+            found in the text.
         """
         # initialize root, parent, and bimaps
         super().__init__(root=sec_root, parent=parent, ref_map=ref_map)
@@ -196,14 +316,13 @@ class TextSection(TextElement):
 
     def __str__(self):
         """
-        String representation of a TextSection.
+        Return a string representation of the TextSection.
 
-        Begins with title if the section has a title.
+        The representation begins with the title if the section has one.
+        Subsections will be indented, and body text will be printed without indentation.
 
-        Subsections will be indented.
-
-        Body text will be printed without indent.
-
+        :returns: The string representation of the section.
+        :rtype: str
         """
         s = ""
         if self.title is not None:
@@ -219,15 +338,19 @@ class TextSection(TextElement):
 
     def get_section_text(self):
         """
-        Gets a text representation of the entire text section,
-        using paragraphs with refs removed.
+        Get a text representation of the entire text section, without references.
+
+        :returns: The text content of the section.
+        :rtype: str
         """
         return str(self)
 
     def get_section_text_with_refs(self):
         """
-        Gets a text representation of the entire text section,
-        using paragraphs with references retained.
+        Get a text representation of the entire text section, with references.
+
+        :returns: The text content of the section with references.
+        :rtype: str
         """
         s = ""
         if self.title is not None:
@@ -243,8 +366,14 @@ class TextSection(TextElement):
 
     def __eq__(self, other):
         """
-        TODO: Test if this actually works for comparing TextSections
+        Check if two TextSection objects are equal based on their title and children.
+
+        :param TextSection other: The other TextSection object to compare with.
+        :returns: True if the titles and children are equal, False otherwise.
+        :rtype: bool
         """
+
+        # TODO: Test if this actually works for comparing TextSections.
         return self.title == other.title and self.children == other.children
 
 
@@ -253,17 +382,41 @@ class TextSection(TextElement):
 
 # ---------------------------TextTable-------------------------------------
 class TextTable(TextElement):
+    """
+    Initialize and process a table-wrap found in a text element of PMC XML.
+
+    Uses pandas' `read_html` function (which relies on lxml and falls
+    back to html5lib) to process the HTML tables into dataframes.
+
+    Adds labels and captions if notated in the XML under
+    //table-wrap/label and //table-wrap/caption/p tags.
+
+    :param ET.Element table_root: The root element of the table-wrap found in PMC XML.
+    :param TextElement parent: The parent TextElement if applicable.
+    :param basicBiMap ref_map: The reference map for storing references found
+        in the text.
+
+    Attributes:
+        - df (pandas.DataFrame): The dataframe representation of the table.
+    """
+
     def __init__(
         self, table_root: ET.Element, parent=None, ref_map: basicBiMap = basicBiMap()
     ):
         """
         Initialize and process table-wrap found in a text element of PMC XML.
 
-        Use panda's read_html function (which relies on lxml and falls
-        back to html5lib)to process the HTML tables into dataframes.
+        Use pandas' read_html function (which relies on lxml and falls
+        back to html5lib) to process the HTML tables into dataframes.
 
-        Adds labels and captions if notated in the xml under
+        Adds labels and captions if notated in the XML under
         //table-wrap/label and //table-wrap/caption/p tags.
+
+        :param ET.Element table_root: The root element of the table-wrap found
+            in PMC XML.
+        :param TextElement parent: The parent TextElement if applicable.
+        :param basicBiMap ref_map: The reference map for storing references
+            found in the text.
         """
         # initialize root, parent, and bimaps
         super().__init__(root=table_root, parent=parent, ref_map=ref_map)
@@ -310,9 +463,21 @@ class TextTable(TextElement):
         return None
 
     def __str__(self):
+        """
+        Return a string representation of the table using member `.df`.
+
+        :returns: The string representation of the table.
+        :rtype: str
+        """
         return str(self.df)
 
     def __repr__(self):
+        """
+        Return a string representation of the table using member `.df`.
+
+        :returns: The string representation of the table.
+        :rtype: str
+        """
         return repr(self.df)
 
 
@@ -321,21 +486,51 @@ class TextTable(TextElement):
 
 # ---------------------------TextFigure-----------------------------------
 class TextFigure(TextElement):
+    """
+    Initialize and parse a figure found in a text element of a PMC XML.
+
+    Parses figures into a dictionary with their information
+    (label, caption, and link).
+    Unfortunately, the links are relative and cannot be reliably
+    traced to a public URI.
+    This means I have not found a way to download the actual
+    figures to store via Pillow, etc.
+
+    :param ET.Element fig_root: The root element of the figure found in PMC XML.
+    :param TextElement parent: The parent TextElement if applicable.
+    :param basicBiMap ref_map: The reference map for storing references found
+        in the text.
+
+    Attributes:
+        - fig_dict (dict): A dictionary containing figure information with keys:
+            - 'Label': The label of the figure.
+            - 'Caption': The caption of the figure.
+            - 'Link': The link (relative) to the figure.
+    """
+
     def __init__(
         self, fig_root: ET.Element, parent=None, ref_map: basicBiMap = basicBiMap()
     ):
         """
-        Initialize and parse figure found in a text element of a PMC XML.
+        Initialize and parse a figure found in a text element of a PMC XML.
 
         Parses figures into a dictionary with their information
-            (label, caption, and link).
-        Unforunately, the links are relative and cannot be reliably
-            traced to a public URI.
+        (label, caption, and link).
+        Unfortunately, the links are relative and cannot be reliably
+        traced to a public URI.
         This means I have not found a way to download the actual
-            figures to store via Pillow etc.
+        figures to store via Pillow, etc.
 
-        TODO: Find a way to grab actual figures. May be impossible.
+        :param ET.Element fig_root: The root element of the figure found in
+            PMC XML.
+        :param TextElement parent: The parent TextElement if applicable.
+        :param basicBiMap ref_map: The reference map for storing references
+            found in the text.
         """
+
+        # TODO: Find a way to grab actual figures. May be impossible with PMC
+        # based on the research I've done so far.
+
         # initialize root, parent, and bimaps
         super().__init__(root=fig_root, parent=parent, ref_map=ref_map)
 
@@ -355,9 +550,21 @@ class TextFigure(TextElement):
         return None
 
     def __str__(self):
+        """
+        Return a string representation of the figure based on dict info in `.fig_dict`.
+
+        :returns: The string representation of the figure.
+        :rtype: str
+        """
         return str(self.fig_dict)
 
     def __repr__(self):
+        """
+        Return a string representation of the figure  based on dict info in `.fig_dict`.
+
+        :returns: The string representation of the figure.
+        :rtype: str
+        """
         return repr(self.fig_dict)
 
 
@@ -370,11 +577,20 @@ class TextFigure(TextElement):
 # ---------------------------------Helpers---------------------------------
 def stringify_children(node, encoding="utf-8"):
     """
-    Returns a string representation of a node and all its
-    children (recursively), including markup language tags.
+    Returns a string representation of a node and all its children
+    (recursively), including markup language tags.
 
-    Turns any bytestrings in the subtree representation to regular strings,
+    Turns any byte strings in the subtree representation to regular strings,
     following the provided encoding.
+
+    :param node: The XML node to stringify.
+    :type node: ET.Element
+    :param str encoding: The encoding to use for decoding byte strings
+        (default is 'utf-8').
+
+    :returns: A string representation of the node and its children,
+        including markup language tags.
+    :rtype: str
     """
     subtree = [
         chunk

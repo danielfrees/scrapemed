@@ -1,6 +1,13 @@
 """
+ScrapeMed's ``_validate`` Module
+=================================
+
 Validation module for determining whether XML conforms to a format
-supported by the scrapemed package.
+supported by the scrapemed package (NLM Articleset 2.0 DTD).
+
+**Custom Exception**:
+    - ``noDTDFoundError``: Raised when no DTD specification can be found in the
+        downloaded XML.
 """
 
 import re
@@ -19,7 +26,8 @@ END_OF_URL_PATTERN = re.compile(r"[^/]+$")
 
 class noDTDFoundError(Exception):
     """
-    Raised when no DTD can be found in a downloaded XML, preventing validation.
+    Raised when no DTD specification can be found in a downloaded XML,
+    preventing validation.
     """
 
     pass
@@ -28,13 +36,22 @@ class noDTDFoundError(Exception):
 # ---------------------------DATA VALIDATION-------------------------------
 def validate_xml(xml: ET.ElementTree) -> bool:
     """
-    Input:
-    [xml] = an xml ElementTree
+    Validate an XML ElementTree against a supported Document Type Definition
+    (DTD).
 
-    Output:
-    True or False, depending whether the file was validated.
+    This function validates the provided XML ElementTree against a supported
+    DTD (Document Type Definition). The supported DTDs are defined by the files
+    in the 'scrapemed/data/DTDs' directory. Currently only NLM Articleset 2.0
+    (The DTD used by PubMed Central) is supported.
 
-    Current support is defined by the files in scrapemed/data/DTDs.
+    :param ET.ElementTree xml: An XML ElementTree to be validated.
+
+    :return: True if the XML is validated successfully against a supported DTD,
+        False otherwise.
+    :rtype: bool
+
+    :raises noDTDFoundError: If no DTD is specified for validation in the
+        XML doctype.
     """
     # Find DTD and confirm its supported
     match = DTD_URL_PATTERN.search(xml.docinfo.doctype)

@@ -1,17 +1,21 @@
 repos:
+
   - repo: https://github.com/psf/black
     rev: 23.9.1
     hooks:
     - id: black
       language_version: python3.11
+      args: ['--line-length', '88']
+
   - repo: local
     hooks:
-      - id: pytest
-        name: pytest
+      - id: pytest-check
+        name: pytest-check
         entry: pytest
         language: system
         pass_filenames: false
         always_run: true
+
   - repo: https://github.com/pycqa/flake8
     rev: 6.1.0
     hooks:
@@ -20,6 +24,7 @@ repos:
           --extend-ignore=E203,
           --max-line-length=88
           ]
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:

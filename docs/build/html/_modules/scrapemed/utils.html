@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>scrapemed.utils &mdash; scrapemed 1.0.6 documentation</title>
+  <title>scrapemed.utils &mdash; scrapemed 1.0.8 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -12,7 +12,7 @@
 
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=e2a723ec"></script>
+        <script src="../../_static/documentation_options.js?v=aec50437"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -70,56 +70,151 @@
 
   <h1>Source code for scrapemed.utils</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Various utilities for markup language and text processing. Classes for text sections, paragraphs, figure/xref/table reference BiMaps.</span>
+<span class="sd">ScrapeMed&#39;s Utility Module</span>
+<span class="sd">============================</span>
+
+<span class="sd">The `utils` module contains various utilities necessary for PMC data parsing and</span>
+<span class="sd">cleaning, where the utilities are not directly related to text cleaning (`_clean`),</span>
+<span class="sd">recursive text processing (`_text`), or parsing (`_parse`).</span>
+
+<span class="sd">At the moment, the module contains a helper function for cleaning up docstrings,</span>
+<span class="sd">and a class, basicBiMap, which is a two-way map similar to python&#39;s dict class,</span>
+<span class="sd">used for efficient storage of data reference maps used throughout ScrapeMed.</span>
+
+<span class="sd">Note: Data reference maps are used to pull citations, tables, and figures out of</span>
+<span class="sd">text for parsing elsewhere while retaining placeholders in the original text.</span>
+
+<span class="sd">.warnings::</span>
+<span class="sd">    - :class:`reversedBiMapComparisonWarning` - Warned when comparing</span>
+<span class="sd">        basicBiMaps which are exactly the same but reversed.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">cleandoc</span>
+
 
 <div class="viewcode-block" id="reversedBiMapComparisonWarning">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.utils.reversedBiMapComparisonWarning">[docs]</a>
 <span class="k">class</span> <span class="nc">reversedBiMapComparisonWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Raised when comparing basicBiMaps which are exactly the same but reversed.</span>
+<span class="sd">    Warned when comparing basicBiMaps which are exactly the same but reversed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">pass</span></div>
+
+
+
+<span class="c1"># --------- general helper funcs ---------------</span>
+<div class="viewcode-block" id="cleanerdoc">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed.utils.cleanerdoc">[docs]</a>
+<span class="k">def</span> <span class="nf">cleanerdoc</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper for inspect.cleandoc which also removes newlines.</span>
+
+<span class="sd">    :param str s: The string to clean and remove newlines from.</span>
+
+<span class="sd">    :return: The cleaned and newline-removed string.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cleandoc</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># --------- end general helper funcs</span>
 
 
 <div class="viewcode-block" id="basicBiMap">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.utils.basicBiMap">[docs]</a>
 <span class="k">class</span> <span class="nc">basicBiMap</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    BiMap class which extends python&#39;s dict class to also store a reverse of itself for efficiency.</span>
+<span class="sd">    BiMap class which extends Python&#39;s dict class to also store</span>
+<span class="sd">    a reverse of itself for efficiency.</span>
+
+<span class="sd">    This class allows for bidirectional mapping between keys and values.</span>
+<span class="sd">    When a key-value pair is added, it can be accessed both by key and by value.</span>
+
+<span class="sd">    Methods are inherited from the dict class, and additional methods</span>
+<span class="sd">    specific to bidirectional mapping are provided.</span>
+
+<span class="sd">    :param *args: Positional arguments passed to the dict constructor.</span>
+<span class="sd">    :param **kwargs: Keyword arguments passed to the dict constructor.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">    ```</span>
+<span class="sd">    bi_map = basicBiMap({&#39;apple&#39;: &#39;red&#39;, &#39;banana&#39;: &#39;yellow&#39;})</span>
+<span class="sd">    print(bi_map[&#39;apple&#39;])  # Output: &#39;red&#39;</span>
+<span class="sd">    print(bi_map.reverse[&#39;red&#39;])  # Output: &#39;apple&#39;</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    :ivar reverse: A reverse mapping from values to keys.</span>
+<span class="sd">    :vartype reverse: dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the BiMap.</span>
+
+<span class="sd">        :param *args: Positional arguments passed to the dict constructor.</span>
+<span class="sd">        :param **kwargs: Keyword arguments passed to the dict constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reverse</span> <span class="o">=</span> <span class="p">{</span><span class="n">value</span><span class="p">:</span> <span class="n">key</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of the BiMap.</span>
+
+<span class="sd">        :return: A string representation of the BiMap.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;BiMap: &quot;</span> <span class="o">+</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set a key-value pair in the BiMap.</span>
+
+<span class="sd">        :param key: The key to set.</span>
+<span class="sd">        :param value: The value to set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>  <span class="c1"># call the original __setitem__ method</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reverse</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>  <span class="c1"># update the reverse dict</span>
 
-    <span class="c1">#Pass to super for methods necessary to be considered a Mapping class</span>
+    <span class="c1"># Pass to super for methods necessary to be considered a Mapping class</span>
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+
     <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__next__</span><span class="p">()</span>
+
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compare the BiMap to another object for equality.</span>
+
+<span class="sd">        :param other: The object to compare to.</span>
+<span class="sd">        :type other: dict or basicBiMap</span>
+
+<span class="sd">        :return: True if the BiMap is equal to the other object, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">basicBiMap</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">basicBiMap</span><span class="p">)</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">reverse</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Warning: Comparing basicBiMaps which are not equal, but would be with keys and values swapped.&quot;</span><span class="p">,</span>
-                                <span class="n">reversedBiMapComparisonWarning</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="s2">&quot;Warning: Comparing basicBiMaps which are not equal, &quot;</span>
+                        <span class="s2">&quot;but would be with keys and values swapped.&quot;</span>
+                    <span class="p">),</span>
+                    <span class="n">reversedBiMapComparisonWarning</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span></div>
-
 
 </pre></div>
 

@@ -1,6 +1,6 @@
 [project]
 name = "scrapemed"
-version = "1.0.7"
+version = "1.0.8"
 description = "Data Scraping for PubMed Central."
 authors = [
     {name = "Daniel Frees", email = "danielfrees@g.ucla.edu"}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scrapemed._validate &mdash; scrapemed 1.0.8 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=aec50437"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../index.html" class="icon icon-home">
+            scrapemed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">scrapemed</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">scrapemed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scrapemed._validate</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for scrapemed._validate</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ScrapeMed&#39;s ``_validate`` Module</span>
+<span class="sd">=================================</span>
+
+<span class="sd">Validation module for determining whether XML conforms to a format</span>
+<span class="sd">supported by the scrapemed package (NLM Articleset 2.0 DTD).</span>
+
+<span class="sd">**Custom Exception**:</span>
+<span class="sd">    - ``noDTDFoundError``: Raised when no DTD specification can be found in the</span>
+<span class="sd">        downloaded XML.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">lxml.etree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">scrapemed.utils</span> <span class="kn">import</span> <span class="n">cleanerdoc</span>
+
+<span class="n">SUPPORTED_DTD_URLS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;https://dtd.nlm.nih.gov/ncbi/pmc/articleset/nlm-articleset-2.0.dtd&quot;</span>
+<span class="p">]</span>
+<span class="c1"># Regex DTD URL Patterns</span>
+<span class="n">DTD_URL_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&quot;(https?://\S+)&quot;&#39;</span><span class="p">)</span>
+<span class="n">END_OF_URL_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^/]+$&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="noDTDFoundError">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._validate.noDTDFoundError">[docs]</a>
+<span class="k">class</span> <span class="nc">noDTDFoundError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised when no DTD specification can be found in a downloaded XML,</span>
+<span class="sd">    preventing validation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<span class="c1"># ---------------------------DATA VALIDATION-------------------------------</span>
+<div class="viewcode-block" id="validate_xml">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._validate.validate_xml">[docs]</a>
+<span class="k">def</span> <span class="nf">validate_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate an XML ElementTree against a supported Document Type Definition</span>
+<span class="sd">    (DTD).</span>
+
+<span class="sd">    This function validates the provided XML ElementTree against a supported</span>
+<span class="sd">    DTD (Document Type Definition). The supported DTDs are defined by the files</span>
+<span class="sd">    in the &#39;scrapemed/data/DTDs&#39; directory. Currently only NLM Articleset 2.0</span>
+<span class="sd">    (The DTD used by PubMed Central) is supported.</span>
+
+<span class="sd">    :param ET.ElementTree xml: An XML ElementTree to be validated.</span>
+
+<span class="sd">    :return: True if the XML is validated successfully against a supported DTD,</span>
+<span class="sd">        False otherwise.</span>
+<span class="sd">    :rtype: bool</span>
+
+<span class="sd">    :raises noDTDFoundError: If no DTD is specified for validation in the</span>
+<span class="sd">        XML doctype.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Find DTD and confirm its supported</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">DTD_URL_PATTERN</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">xml</span><span class="o">.</span><span class="n">docinfo</span><span class="o">.</span><span class="n">doctype</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">SUPPORTED_DTD_URLS</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">noDTDFoundError</span><span class="p">(</span>
+            <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;A DTD must be specified for validation. Set</span>
+<span class="sd">                       validate=false if you want to proceeed without</span>
+<span class="sd">                       validation.&quot;&quot;&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">match</span> <span class="o">=</span> <span class="n">END_OF_URL_PATTERN</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">dtd_filename</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">dtd_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;DTDs&quot;</span><span class="p">,</span> <span class="n">dtd_filename</span>
+    <span class="p">)</span>
+
+    <span class="n">dtd_doc</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dtd_filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">dtd_doc</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="n">dtd</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">DTD</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">dtd_doc</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">dtd</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># -------------------------END DATA VALIDATION-------------------------------</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Daniel Frees.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

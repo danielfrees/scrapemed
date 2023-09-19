@@ -1,13 +1,30 @@
 """
+ScrapeMed's ``_parse`` Module
+=============================================
+
 Parse module for grabbing metadata, text, tables, figures, etc.
 from XML trees representing PMC articles.
 
 DTD for the XML should be NLM articleset 2.0.
 Otherwise the behavior here may not be as expected.
 
-Middleman between the "scrape" module and the "paper" module for scrapemed.
+Middleman between the `scrape` module and the `paper` module for ScrapeMed.
 
+..warnings::
+    - :class:`unexpectedMultipleMatchWarning` - Warned when one match is
+        expected, but multiple are found.
+    - :class:`unexpectedZeroMatchWarning` - Warned when one or more matches are
+        expected, and none are found.
+    - :class:`badTextFormattingWarning` - Warned when there are issues with text
+        formatting.
+    - :class:`unmatchedCitationWarning` - Warned when a citation reference is
+        made but not matched to an actual <ref> tag.
+    - :class:`unmatchedTableWarning` - Warned when a table reference is made
+        but not matched to an actual <table-wrap> tag.
+    - :class:`unmatchedFigureWarning` - Warned when a figure reference is made
+        but not matched to an actual <fig> tag.
 """
+
 import copy
 from typing import List, Dict, Tuple, Set
 from typing import Union
@@ -84,14 +101,29 @@ def paper_dict_from_pmc(
     suppress_errors: bool = False,
 ) -> dict:
     """
-    Wrapper that scrapes a PMC article specified by PMCID from the web
-    (through scrape module),then parses the XML retrieved into a dictionary
-    of useful values.
+    Wrapper that scrapes a PMC article specified by PMCID from the web,
+    then parses the retrieved XML into a dictionary of useful values.
 
-    Middleman between scrape.py and Paper.from_pmc.
+    This function serves as a middleman between the `scrape.py` module and
+    `Paper.from_pmc` method in `paper.py`, facilitating the conversion of
+    PMC XML data to a dictionary.
 
-    Paper objects in paper.py handle actual dictionary -> object conversion.
+    :param int pmcid: Unique PMCID for the article to scrape and parse.
+    :param str email: Provide your email address for authentication with PMC.
+    :param bool download: Whether or not to download the XML retrieved from PMC.
+    :param bool validate: Whether or not to validate the XML from PMC against
+        NLM articleset 2.0 DTD (HIGHLY RECOMMENDED).
+    :param bool verbose: Whether or not to have verbose output for debugging.
+    :param bool suppress_warnings: Whether to suppress warnings while parsing XML.
+        Note: Warnings are frequent, given the variable nature of PMC XML data.
+        Recommended to suppress when parsing many XMLs at once.
+    :param bool suppress_errors: Return None on failed XML parsing, instead of
+        raising an error.
+
+    :return: A dictionary containing useful values parsed from the PMC article.
+    :rtype: dict
     """
+
     if verbose:
         print(f"Generating Paper object for PMCID = {pmcid}...")
     # DOWNLOAD XML TREE AND GET ROOT
@@ -120,11 +152,24 @@ def generate_paper_dict(
     Given the root of an XML tree, parse through it and generate
     a flattened dictionary of relevant PMC paper XML information.
 
-    Expects the XML to be in NLM articleset 2.0 DTD format.
+    This function expects the XML to be in NLM articleset 2.0 DTD format.
 
-    Optionally suppress warnings and/or errors.
-    If errors are suppressed, None will be returned upon failed parsing.
+    Optionally, you can suppress warnings and/or errors. If errors are suppressed,
+    None will be returned upon failed parsing.
+
+    :param int pmcid: Unique PMCID for the article being parsed.
+    :param ET.Element paper_root: The root element of the PMC paper XML tree.
+    :param bool verbose: Whether or not to have verbose output for debugging.
+    :param bool suppress_warnings: Whether to suppress warnings while parsing XML.
+        Note: Warnings are frequent due to the variable nature of PMC XML data.
+        Recommended to suppress when parsing many XMLs at once.
+    :param bool suppress_errors: Whether to suppress errors during parsing.
+        If suppressed, None will be returned upon a failed parsing attempt.
+
+    :return: A flattened dictionary containing relevant PMC paper XML information.
+    :rtype: dict or None if errors are suppressed and parsing fails.
     """
+
     paper_dict = None
 
     if suppress_warnings:
@@ -148,8 +193,18 @@ def _actually_generate_paper_dict(
     pmcid: int, paper_root: ET.Element, verbose: bool = False
 ) -> dict:
     """
-    Actual paper dict generation function.
-    Called by wrapper generate_paper_dict().
+    Actual paper dictionary generation function.
+
+    This function is called by the wrapper function `generate_paper_dict()`.
+    Unlike the wrapper function, this function does not have error or warning
+        suppression.
+
+    :param int pmcid: Unique PMCID for the article being parsed.
+    :param ET.Element paper_root: The root element of the PMC paper XML tree.
+    :param bool verbose: Whether or not to have verbose output for debugging.
+
+    :return: A dictionary containing relevant PMC paper XML information.
+    :rtype: dict
     """
     root = paper_root
     # KEEP TRACK OF XREFS, TABLES, FIGURES IN BIMAP
@@ -207,7 +262,11 @@ def _actually_generate_paper_dict(
 def define_data_dict() -> dict:
     """
     Returns a static definition of each of the elements
-    returned in a Paper dict.
+    returned in a Paper dictionary.
+
+    :return: A dictionary where keys are the elements in the Paper dictionary,
+        and values are descriptions of those elements.
+    :rtype: dict
     """
     data_dict = {
         "PMCID": "PMCID of the PMC article. Unique.",
@@ -303,7 +362,12 @@ def define_data_dict() -> dict:
 
 def gather_title(root: ET.Element) -> str:
     """
-    Grab the title of a PMC paper from its XML root.
+    Extract the title of a PMC paper from its XML root.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: The title of the PMC paper.
+    :rtype: str
     """
     matches = root.xpath("//article-title/text()")
     if len(matches) > 1:
@@ -328,15 +392,15 @@ def _get_contributor_tuples(
     root: ET.Element, contributors: List[ET.Element]
 ) -> List[Tuple]:
     """
-    Helper function to grab tuples of contributor information.
+    Helper function to retrieve tuples of contributor information.
 
-    Input:
-    [root]: root of the XML tree to search
-    [contributors]: list of lxml Element objects to grab information from
+    :param ET.Element root: The root of the XML tree to search.
+    :param List[ET.Element] contributors: A list of lxml Element objects
+        containing contributor information.
 
-    Output:
-    A list of tuples of contributor info in the form
+    :return: A list of tuples representing contributor information in the form
         (contrib_type, first_name, last_name, address, affiliations).
+    :rtype: List[Tuple]
     """
     contributor_tuples = []
     for contributor in contributors:
@@ -394,9 +458,17 @@ def _get_contributor_tuples(
 
 def gather_authors(root: ET.Element) -> pd.DataFrame:
     """
-    Gather authors and their emails and affiliations from a PMC XML.
+    Extract authors, their emails, and affiliations from a PMC XML.
 
-    Returns a DataFrame of author info.
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A DataFrame containing author information with columns:
+             - Contributor_Type: Type of contributor (e.g., 'author').
+             - First_Name: First name of the author.
+             - Last_Name: Last name of the author.
+             - Email_Address: Email address of the author.
+             - Affiliations: Affiliations of the author.
+    :rtype: pd.DataFrame
     """
     authors = root.xpath(".//contrib[@contrib-type='author']")
     if len(authors) == 0:
@@ -422,10 +494,18 @@ def gather_authors(root: ET.Element) -> pd.DataFrame:
 
 def gather_non_author_contributors(root: ET.Element) -> Union[str, pd.DataFrame]:
     """
-    Gather non-author contributors from PMC XML.
+    Extract non-author contributors from a PMC XML.
 
-    Returns either a string indicating none found,
-    or a DataFrame of contributor info.
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: Either a string indicating that no non-author contributors were found,
+             or a DataFrame containing contributor information with columns:
+             - Contributor_Type: Type of contributor.
+             - First_Name: First name of the contributor.
+             - Last_Name: Last name of the contributor.
+             - Email_Address: Email address of the contributor.
+             - Affiliations: Affiliations of the contributor.
+    :rtype: Union[str, pd.DataFrame]
     """
 
     return_val = "No non-author contributors were found after parsing this paper."
@@ -452,8 +532,16 @@ def gather_abstract(
     root: ET.Element, ref_map: basicBiMap
 ) -> List[Union[TextSection, TextParagraph]]:
     """
-    Extract all abstract text sections from an xml, output as a
-    list of TextSections and/ord TextParagraphs.
+    Extract all abstract text sections from an XML document and return them as
+    a list of TextSections and/or TextParagraphs.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+    :param basicBiMap ref_map: A reference map used for decoding data references
+        within the text.
+
+    :return: A list of TextSections and/or TextParagraphs representing the abstract
+             text sections in the XML.
+    :rtype: List[Union[TextSection, TextParagraph]]
     """
     abstract = []
 
@@ -494,8 +582,16 @@ def gather_body(
     root: ET.Element, ref_map: basicBiMap
 ) -> List[Union[TextSection, TextParagraph]]:
     """
-    Extract all body text sections from an xml,
-    output as a list of TextSections.
+    Extract all body text sections from an XML document and return them as
+    a list of TextSections and/or TextParagraphs.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+    :param basicBiMap ref_map: A reference map used for decoding data references
+        within the text.
+
+    :return: A list of TextSections and/or TextParagraphs representing the body
+             text sections in the XML.
+    :rtype: List[Union[TextSection, TextParagraph]]
     """
     body = []
 
@@ -540,7 +636,13 @@ def gather_body(
 
 def gather_journal_id(root: ET.Element) -> dict:
     """
-    Gather Journal ID from PMC XML.
+    Extract Journal IDs from a PMC XML document.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A dictionary containing Journal IDs with the ID type as keys and
+             corresponding values as the ID values.
+    :rtype: dict
     """
     journal_ids = root.xpath("//journal-meta/journal-id")
     id_dict = {
@@ -552,7 +654,14 @@ def gather_journal_id(root: ET.Element) -> dict:
 
 def gather_journal_title(root: ET.Element) -> Union[List[str], str]:
     """
-    Gather Journal Title from PMC XML.
+    Extract Journal Title(s) from a PMC XML document.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: Either a string representing the Journal Title if there's only one,
+             a list of strings representing multiple Journal Titles if there are
+             multiple, or None if no journal title is found.
+    :rtype: Union[List[str], str, None]
     """
     return_val = None
     titles = []
@@ -572,7 +681,13 @@ def gather_journal_title(root: ET.Element) -> Union[List[str], str]:
 
 def gather_issn(root: ET.Element) -> dict:
     """
-    Gather ISSN from PMC XML.
+    Extract ISSN values from a PMC XML document.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A dictionary containing ISSN values with the publication type
+             as keys and corresponding values as the ISSN numbers.
+    :rtype: dict
     """
     issns = root.xpath("//journal-meta/issn")
     issn_dict = {issn.get("pub-type"): issn.text for issn in issns}
@@ -582,7 +697,14 @@ def gather_issn(root: ET.Element) -> dict:
 
 def gather_publisher_name(root: ET.Element) -> Union[str, List[str]]:
     """
-    Gather Publisher Name/s from PMC XML.
+    Extract Publisher Name(s) from a PMC XML document.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: Either a string representing the Publisher Name if there's only one,
+             or a list of strings representing multiple Publisher Names if there are
+             multiple.
+    :rtype: Union[str, List[str]]
     """
     publisher_name_or_names = None
     publishers = root.xpath("//journal-meta/publisher/publisher-name")
@@ -595,7 +717,14 @@ def gather_publisher_name(root: ET.Element) -> Union[str, List[str]]:
 
 def gather_publisher_location(root: ET.Element) -> Union[str, List[str]]:
     """
-    Gather Publisher Location/s from PMC XML.
+    Extract Publisher Location(s) from a PMC XML document.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: Either a string representing the Publisher Location if there's
+            only one, or a list of strings representing multiple Publisher
+            Locations if there are multiple.
+    :rtype: Union[str, List[str]]
     """
     publisher_loc_or_locs = None
     publisher_locs = root.xpath("//journal-meta/publisher/publisher-loc")
@@ -620,10 +749,14 @@ def gather_article_id(root: ET.Element) -> Dict[str, str]:
 
 def gather_article_types(root: ET.Element) -> List[str]:
     """
-    Gather Article Types from PMC XML.
+    Extract Article Types from a PMC XML document.
 
-    Article Type(s) are article-categories marked
-    by the subj-group-type 'heading'.
+    Article Types are article-categories marked by the subj-group-type 'heading'.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A list of strings representing the Article Types found in the XML.
+    :rtype: List[str]
     """
     matches = root.xpath("//article-meta/article-categories")
     if len(matches) > 1:
@@ -655,7 +788,17 @@ def gather_article_types(root: ET.Element) -> List[str]:
 
 def gather_article_categories(root: ET.Element) -> List[str]:
     """
-    Gather Other Article Categories from PMC XML.
+    Extract Other Article Categories from a PMC XML document.
+
+    This function retrieves article categories that are not marked as 'heading'
+    in the subj-group-type attribute.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A list of dictionaries containing other article categories with
+             the subj-group-type as keys and corresponding category values as
+             values.
+    :rtype: List[Dict[str, str]]
     """
     matches = root.xpath("//article-meta/article-categories")
     if len(matches) > 1:
@@ -688,9 +831,16 @@ def gather_article_categories(root: ET.Element) -> List[str]:
 
 def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
     """
-    Gather Publishing Dates from PMC XML.
+    Extract Publishing Dates from a PMC XML document.
 
-    Gathers electronic publishing, print publishing, etc. dates.
+    This function gathers electronic publishing, print publishing, and other
+    dates from the article metadata.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A dictionary containing publishing dates with the publication type
+             as keys and corresponding datetime values as values.
+    :rtype: Dict[str, datetime]
     """
     # TODO: update for multi-publishing (need to find an example first)
 
@@ -731,7 +881,13 @@ def gather_published_date(root: ET.Element) -> Dict[str, datetime]:
 
 def gather_volume(root: ET.Element) -> str:
     """
-    Gather Volume # of Parent Publication from PMC XML.
+    Extract the Volume # of the Parent Publication from a PMC XML document.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A string representing the Volume # of the parent publication,
+             or None if no Volume # is found.
+    :rtype: str or None
     """
     # TODO: update for multi-publishing (need to find an example first)
 
@@ -747,7 +903,13 @@ def gather_volume(root: ET.Element) -> str:
 
 def gather_issue(root: ET.Element) -> str:
     """
-    Gather Issue # of Parent Publication from PMC XML.
+    Extract the Issue # of the Parent Publication from a PMC XML document.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A string representing the Issue # of the parent publication,
+             or None if no Issue # is found.
+    :rtype: str or None
     """
     # TODO: update for multi-publishing (need to find an example first)
 
@@ -763,7 +925,14 @@ def gather_issue(root: ET.Element) -> str:
 
 def gather_fpage(root: ET.Element) -> str:
     """
-    Gather First Page Number of this article in its parent publication.
+    Extract the First Page Number of this article in its parent publication
+    from a PMC XML document.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A string representing the First Page Number of the article
+             in its parent publication, or None if no First Page # is found.
+    :rtype: str or None
     """
     # TODO: update for multi-publishing (need to find an example first)
 
@@ -781,7 +950,14 @@ def gather_fpage(root: ET.Element) -> str:
 
 def gather_lpage(root: ET.Element) -> str:
     """
-    Gather Last Page Number of this article in its parent publication.
+    Extract the Last Page Number of this article in its parent publication
+    from a PMC XML document.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A string representing the Last Page Number of the article
+             in its parent publication, or None if no Last Page # is found.
+    :rtype: str or None
     """
     # TODO: update for multi-publishing (need to find an example first)
 
@@ -799,9 +975,18 @@ def gather_lpage(root: ET.Element) -> str:
 
 def gather_permissions(root: ET.Element) -> Dict[str, str]:
     """
-    Gather Permissions from PMC XML.
+    Extract permissions information from a PMC XML document.
 
-    Copyright statement, license type, and license paragraph.
+    This function retrieves the copyright statement, license type, and license
+    text from the article metadata.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A dictionary containing the following keys:
+             - "Copyright Statement": A string representing the copyright statement.
+             - "License Type": A string representing the license type.
+             - "License Text": A string containing the license text.
+    :rtype: Dict[str, str]
     """
     copyright_statement_matches = root.xpath(
         "//article-meta/permissions/copyright-statement/text()"
@@ -853,7 +1038,16 @@ def gather_permissions(root: ET.Element) -> Dict[str, str]:
 
 def gather_funding(root: ET.Element) -> List[str]:
     """
-    Gather Funding Data from PMC XML.
+    Extract funding information from a PMC XML document.
+
+    This function retrieves a list of funding institutions mentioned in the
+    article metadata.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A list of strings representing funding institutions, or None if
+             no funding information is found.
+    :rtype: List[str] or None
     """
     matches = root.xpath("//article-meta/funding-group")
     funding_institutions = []
@@ -868,7 +1062,16 @@ def gather_funding(root: ET.Element) -> List[str]:
 
 def gather_footnote(root: ET.Element) -> str:
     """
-    Gather Footnote from PMC XML.
+    Extract footnote information from a PMC XML document.
+
+    This function retrieves and concatenates footnotes found in the article's
+    back matter.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A string containing the concatenated footnotes, or None if no
+             footnotes are found.
+    :rtype: str or None
     """
     matches = root.xpath("//back/fn-group/fn")
     footnote = ""
@@ -895,7 +1098,16 @@ def gather_footnote(root: ET.Element) -> str:
 
 def gather_acknowledgements(root: ET.Element) -> Union[List[str], str]:
     """
-    Gather Acknowledgements from PMC XML.
+    Extract acknowledgements information from a PMC XML document.
+
+    This function retrieves a list of acknowledgements found in the article's
+    XML tree.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A list of strings representing acknowledgements, or a string
+             indicating that no acknowledgements were found.
+    :rtype: Union[List[str], str]
     """
     matches = root.xpath("//ack")
     acknowledgements = [" ".join(match.itertext()).strip() for match in matches]
@@ -905,7 +1117,15 @@ def gather_acknowledgements(root: ET.Element) -> Union[List[str], str]:
 
 def gather_notes(root: ET.Element) -> str:
     """
-    Gather Notes from PMC XML.
+    Extract notes information from a PMC XML document.
+
+    This function retrieves a list of notes found in the article's XML tree.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A list of strings representing notes, or an empty list if no notes
+             are found.
+    :rtype: List[str]
     """
     notes = []
     matches = root.xpath("//notes")
@@ -918,8 +1138,17 @@ def gather_notes(root: ET.Element) -> str:
 
 def stringify_note(root: ET.Element) -> str:
     """
-    Recursively stringify notes using their <title>, <p>,
-    and child <notes> content.
+    Recursively convert a notes section into a string.
+
+    This function traverses the XML tree of a notes section and recursively
+    converts it into a string. It includes the <title>, <p>, and child <notes>
+    content.
+
+    :param ET.Element root: The root element of the notes section in the PMC
+                            paper XML tree.
+
+    :return: A string representation of the notes section.
+    :rtype: str
     """
     note = ""
     for child in root.iterchildren():
@@ -938,7 +1167,16 @@ def stringify_note(root: ET.Element) -> str:
 
 def gather_custom_metadata(root: ET.Element) -> Dict[str, str]:
     """
-    Gather any custom metadata key-value pairs from the PMC XML.
+    Extract custom metadata key-value pairs from a PMC XML document.
+
+    This function retrieves custom metadata key-value pairs found in the
+    article's XML tree. Custom metadata consists of user-defined key-value pairs.
+
+    :param ET.Element root: The root element of the PMC paper XML tree.
+
+    :return: A dictionary containing custom metadata key-value pairs, or None if
+             no custom metadata is found.
+    :rtype: Dict[str, str] or None
     """
     custom = {}
     matches = root.xpath("//custom-meta")
@@ -965,6 +1203,33 @@ def gather_custom_metadata(root: ET.Element) -> Dict[str, str]:
 def _parse_citation(
     citation_root: ET.Element,
 ) -> Union[Dict[str, Union[List[str], str]], str]:
+    """
+    Parse citation information from a citation XML element.
+
+    This function parses citation information from a given XML element
+    representing a citation. It attempts to extract the following information:
+
+    - Authors: List of author names.
+    - Title: Title of the cited work.
+    - Source: Source of the cited work (e.g., journal name).
+    - Year: Year of publication.
+    - Volume: Volume number (if applicable).
+    - FirstPage: First page number (if applicable).
+    - LastPage: Last page number (if applicable).
+    - DOI: DOI (Digital Object Identifier) of the cited work (if available).
+    - PMID: PubMed Identifier of the cited work (if available).
+
+    If the function successfully extracts information, it returns a dictionary
+    containing the parsed data. If no information can be extracted, it returns
+    either an empty dictionary or the raw citation text (if available).
+
+    :param ET.Element citation_root: The root element of the citation in the XML.
+
+    :return: A dictionary containing parsed citation information or the raw
+        citation text.
+    :rtype: Union[Dict[str, Union[List[str], str]], str]
+    """
+
     root = citation_root
 
     # Find authors in common element-citation format
@@ -1010,11 +1275,18 @@ def _parse_citation(
 
 def _try_get_xpath_text(root: ET.Element, xpath: str, verbose=False) -> str:
     """
-    Given an lxml Element and an xpath, attempts to retrieve the first
-    matched path's text.
-    Failure warnings suppressed by default.
+    Attempt to retrieve the text content of an XML element using an XPath expression.
 
-    Returns None on failure.
+    This function tries to find the first element matching the given XPath expression
+    within the specified XML element and retrieves its text content. If successful, it
+    returns the text content; otherwise, it returns None.
+
+    :param ET.Element root: The XML element from which to retrieve the text.
+    :param str xpath: The XPath expression used to locate the target element.
+    :param bool verbose: If True, warnings will be issued for failed retrieval attempts.
+
+    :return: The text content of the matching XML element or None if not found.
+    :rtype: str
     """
     return_text = None
     try:
@@ -1033,9 +1305,22 @@ def _try_get_xpath_text(root: ET.Element, xpath: str, verbose=False) -> str:
 
 def _find_key_of_xpath(ref_map: basicBiMap, xpath_query: str) -> int:
     """
-    Searches through the ref_map and returns the first key where the xpath
-    matches the value.
+    Search for the first key in the reference map (ref_map) where the value
+    matches the provided XPath query.
+
+    This function iterates through the reference map, which associates keys with
+    XPath expressions (values), and checks if the specified XPath query matches the
+    value associated with each key. The first matching key found is returned.
+
+    :param basicBiMap ref_map: A bidirectional map containing XPath expressions as
+        values and associated keys.
+    :param str xpath_query: The XPath query to match against the values in the ref_map.
+
+    :return: The first key in the ref_map where the XPath query matches the value,
+        or None if no match is found.
+    :rtype: int or None
     """
+
     ref_map = copy.deepcopy(ref_map)
     # Iterate through the dictionary and find the key with matching value
     matching_key = None
@@ -1049,13 +1334,22 @@ def _find_key_of_xpath(ref_map: basicBiMap, xpath_query: str) -> int:
 
 def _clean_ref_map(paper_root: ET.Element, ref_map: basicBiMap) -> basicBiMap:
     """
-    Takes in a reference map and replaces each reference tag with:
-        -bibr (bibliography) references replaced by actual bibliography
-            citation
-        -table-wrap tags replaced by actual tables
-        -figure tags replaced by figure information
-        -references to tables linked to actual table df in the ref_map
-        -references to figs linked to actual figure info in the ref_map
+    Process a reference map (ref_map) by replacing various types of references with
+    their corresponding information, such as citations, tables, and figures.
+
+    This function iterates through the reference map and processes different types of
+    references found in the map. It replaces bibliography (bibr) references with actual
+    citation information, table references with table data, and figure references with
+    figure information. The resulting cleaned reference map contains the processed
+    references.
+
+    :param ET.Element paper_root: The root element of the paper's XML.
+    :param basicBiMap ref_map: A bidirectional map containing keys and associated
+        values that represent different types of references.
+
+    :return: A cleaned reference map with references replaced by their respective
+        information.
+    :rtype: basicBiMap
     """
     cleaned_ref_map = {}
 
@@ -1201,9 +1495,19 @@ def _clean_ref_map(paper_root: ET.Element, ref_map: basicBiMap) -> basicBiMap:
 
 def _get_ref_type(value):
     """
-    Determine the type of reference of a ref_map value. Either table,
-    citation, or fig (figure).
-    Returns None if no known type is found.
+    Determine the type of reference (table, citation, or figure) based on the value
+    in the reference map.
+
+    This function examines the value to identify the type of reference it represents.
+    It checks if the value is a dictionary with a "Caption" key (indicating a figure),
+    a dictionary with "Authors" key (indicating a citation), an instance of TextFigure
+    (indicating a figure), or an instance of TextTable (indicating a table).
+
+    :param value: The value representing a reference in the reference map.
+
+    :return: A string indicating the type of reference (table, citation, or figure),
+        or None if the type cannot be determined.
+    :rtype: str or None
     """
     ref_type = None
     if isinstance(value, dict):
@@ -1254,7 +1558,21 @@ def _split_citations_tables_figs(
     Set[Dict[str, str]],
 ]:
     """
-    Split ref map into a citation set, table set, and figure set.
+    Split the reference map into three separate sets: citations, tables, and figures.
+
+    This function iterates through the reference map and categorizes each reference
+    based on its type (citation, table, or figure). It returns three sets containing
+    citations (as dictionaries or strings), tables (as pandas DataFrames),
+    and figures (as dictionaries).
+
+    :param ref_map: The reference map to be split into citations, tables, and figures.
+    :type ref_map: basicBiMap
+
+    :return: A tuple containing three sets:
+        - The first set contains citations, each represented as a dictionary or string.
+        - The second set contains tables, each as a pandas DataFrame.
+        - The third set contains figures, each represented as a dictionary.
+    :rtype: tuple
     """
     citations = []
     tables = []

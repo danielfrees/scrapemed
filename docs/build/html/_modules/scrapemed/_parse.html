@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scrapemed._parse &mdash; scrapemed 1.0.8 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=aec50437"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../index.html" class="icon icon-home">
+            scrapemed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">scrapemed</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">scrapemed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scrapemed._parse</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for scrapemed._parse</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ScrapeMed&#39;s ``_parse`` Module</span>
+<span class="sd">=============================================</span>
+
+<span class="sd">Parse module for grabbing metadata, text, tables, figures, etc.</span>
+<span class="sd">from XML trees representing PMC articles.</span>
+
+<span class="sd">DTD for the XML should be NLM articleset 2.0.</span>
+<span class="sd">Otherwise the behavior here may not be as expected.</span>
+
+<span class="sd">Middleman between the `scrape` module and the `paper` module for ScrapeMed.</span>
+
+<span class="sd">..warnings::</span>
+<span class="sd">    - :class:`unexpectedMultipleMatchWarning` - Warned when one match is</span>
+<span class="sd">        expected, but multiple are found.</span>
+<span class="sd">    - :class:`unexpectedZeroMatchWarning` - Warned when one or more matches are</span>
+<span class="sd">        expected, and none are found.</span>
+<span class="sd">    - :class:`badTextFormattingWarning` - Warned when there are issues with text</span>
+<span class="sd">        formatting.</span>
+<span class="sd">    - :class:`unmatchedCitationWarning` - Warned when a citation reference is</span>
+<span class="sd">        made but not matched to an actual &lt;ref&gt; tag.</span>
+<span class="sd">    - :class:`unmatchedTableWarning` - Warned when a table reference is made</span>
+<span class="sd">        but not matched to an actual &lt;table-wrap&gt; tag.</span>
+<span class="sd">    - :class:`unmatchedFigureWarning` - Warned when a figure reference is made</span>
+<span class="sd">        but not matched to an actual &lt;fig&gt; tag.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">import</span> <span class="nn">scrapemed.scrape</span> <span class="k">as</span> <span class="nn">scrape</span>
+<span class="kn">import</span> <span class="nn">lxml.etree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="kn">from</span> <span class="nn">scrapemed.utils</span> <span class="kn">import</span> <span class="n">basicBiMap</span><span class="p">,</span> <span class="n">cleanerdoc</span>
+<span class="kn">from</span> <span class="nn">scrapemed._text</span> <span class="kn">import</span> <span class="n">TextParagraph</span><span class="p">,</span> <span class="n">TextSection</span><span class="p">,</span> <span class="n">TextTable</span><span class="p">,</span> <span class="n">TextFigure</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+
+<span class="c1"># -----------Custom Warnings &amp; Exceptions for Parsing------------</span>
+<div class="viewcode-block" id="unexpectedMultipleMatchWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.unexpectedMultipleMatchWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">unexpectedMultipleMatchWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when one match expected, but multiple found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="unexpectedZeroMatchWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.unexpectedZeroMatchWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">unexpectedZeroMatchWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when one or more matches expected, and none are found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="badTextFormattingWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.badTextFormattingWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">badTextFormattingWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="unmatchedCitationWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.unmatchedCitationWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">unmatchedCitationWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when a citation reference is made but not matched to an</span>
+<span class="sd">    actual &lt;ref&gt; tag.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="unmatchedTableWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.unmatchedTableWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">unmatchedTableWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when a table reference is made but not matched to an</span>
+<span class="sd">    actual &lt;table-wrap&gt; tag.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="unmatchedFigureWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.unmatchedFigureWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">unmatchedFigureWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when a figure reference is made but not matched</span>
+<span class="sd">    to an actual &lt;fig&gt; tag.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<span class="c1"># -----------End Custom Warnings &amp; Exceptions for Parsing------------</span>
+
+
+<span class="c1"># ------------------GENERATE PAPER DICTIONARY GIVEN PMCID--------------------</span>
+<div class="viewcode-block" id="paper_dict_from_pmc">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.paper_dict_from_pmc">[docs]</a>
+<span class="k">def</span> <span class="nf">paper_dict_from_pmc</span><span class="p">(</span>
+    <span class="n">pmcid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">download</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">suppress_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">suppress_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper that scrapes a PMC article specified by PMCID from the web,</span>
+<span class="sd">    then parses the retrieved XML into a dictionary of useful values.</span>
+
+<span class="sd">    This function serves as a middleman between the `scrape.py` module and</span>
+<span class="sd">    `Paper.from_pmc` method in `paper.py`, facilitating the conversion of</span>
+<span class="sd">    PMC XML data to a dictionary.</span>
+
+<span class="sd">    :param int pmcid: Unique PMCID for the article to scrape and parse.</span>
+<span class="sd">    :param str email: Provide your email address for authentication with PMC.</span>
+<span class="sd">    :param bool download: Whether or not to download the XML retrieved from PMC.</span>
+<span class="sd">    :param bool validate: Whether or not to validate the XML from PMC against</span>
+<span class="sd">        NLM articleset 2.0 DTD (HIGHLY RECOMMENDED).</span>
+<span class="sd">    :param bool verbose: Whether or not to have verbose output for debugging.</span>
+<span class="sd">    :param bool suppress_warnings: Whether to suppress warnings while parsing XML.</span>
+<span class="sd">        Note: Warnings are frequent, given the variable nature of PMC XML data.</span>
+<span class="sd">        Recommended to suppress when parsing many XMLs at once.</span>
+<span class="sd">    :param bool suppress_errors: Return None on failed XML parsing, instead of</span>
+<span class="sd">        raising an error.</span>
+
+<span class="sd">    :return: A dictionary containing useful values parsed from the PMC article.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generating Paper object for PMCID = </span><span class="si">{</span><span class="n">pmcid</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+    <span class="c1"># DOWNLOAD XML TREE AND GET ROOT</span>
+    <span class="n">paper_tree</span> <span class="o">=</span> <span class="n">scrape</span><span class="o">.</span><span class="n">get_xml</span><span class="p">(</span>
+        <span class="n">pmcid</span><span class="o">=</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="n">download</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+    <span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">paper_tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">generate_paper_dict</span><span class="p">(</span>
+        <span class="n">pmcid</span><span class="o">=</span><span class="n">pmcid</span><span class="p">,</span>
+        <span class="n">paper_root</span><span class="o">=</span><span class="n">root</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span>
+        <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="generate_paper_dict">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.generate_paper_dict">[docs]</a>
+<span class="k">def</span> <span class="nf">generate_paper_dict</span><span class="p">(</span>
+    <span class="n">pmcid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">paper_root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">suppress_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">suppress_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given the root of an XML tree, parse through it and generate</span>
+<span class="sd">    a flattened dictionary of relevant PMC paper XML information.</span>
+
+<span class="sd">    This function expects the XML to be in NLM articleset 2.0 DTD format.</span>
+
+<span class="sd">    Optionally, you can suppress warnings and/or errors. If errors are suppressed,</span>
+<span class="sd">    None will be returned upon failed parsing.</span>
+
+<span class="sd">    :param int pmcid: Unique PMCID for the article being parsed.</span>
+<span class="sd">    :param ET.Element paper_root: The root element of the PMC paper XML tree.</span>
+<span class="sd">    :param bool verbose: Whether or not to have verbose output for debugging.</span>
+<span class="sd">    :param bool suppress_warnings: Whether to suppress warnings while parsing XML.</span>
+<span class="sd">        Note: Warnings are frequent due to the variable nature of PMC XML data.</span>
+<span class="sd">        Recommended to suppress when parsing many XMLs at once.</span>
+<span class="sd">    :param bool suppress_errors: Whether to suppress errors during parsing.</span>
+<span class="sd">        If suppressed, None will be returned upon a failed parsing attempt.</span>
+
+<span class="sd">    :return: A flattened dictionary containing relevant PMC paper XML information.</span>
+<span class="sd">    :rtype: dict or None if errors are suppressed and parsing fails.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">paper_dict</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">suppress_warnings</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">suppress_errors</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">paper_dict</span> <span class="o">=</span> <span class="n">_actually_generate_paper_dict</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">paper_root</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An exception occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">paper_dict</span> <span class="o">=</span> <span class="n">_actually_generate_paper_dict</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">paper_root</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">suppress_warnings</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">paper_dict</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_actually_generate_paper_dict</span><span class="p">(</span>
+    <span class="n">pmcid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">paper_root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Actual paper dictionary generation function.</span>
+
+<span class="sd">    This function is called by the wrapper function `generate_paper_dict()`.</span>
+<span class="sd">    Unlike the wrapper function, this function does not have error or warning</span>
+<span class="sd">        suppression.</span>
+
+<span class="sd">    :param int pmcid: Unique PMCID for the article being parsed.</span>
+<span class="sd">    :param ET.Element paper_root: The root element of the PMC paper XML tree.</span>
+<span class="sd">    :param bool verbose: Whether or not to have verbose output for debugging.</span>
+
+<span class="sd">    :return: A dictionary containing relevant PMC paper XML information.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">paper_root</span>
+    <span class="c1"># KEEP TRACK OF XREFS, TABLES, FIGURES IN BIMAP</span>
+    <span class="c1"># (THIS WILL BE UPDATED DURING TEXT RETRIEVAL</span>
+    <span class="c1"># WHEN HTML REF TAGS ARE SPLIT OUT)</span>
+    <span class="n">ref_map</span> <span class="o">=</span> <span class="n">basicBiMap</span><span class="p">()</span>
+
+    <span class="c1"># STORE EXTRACTED INFO IN PAPER DICT</span>
+    <span class="n">paper_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;PMCID&quot;</span><span class="p">:</span> <span class="n">pmcid</span><span class="p">,</span>
+        <span class="s2">&quot;Title&quot;</span><span class="p">:</span> <span class="n">gather_title</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Authors&quot;</span><span class="p">:</span> <span class="n">gather_authors</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Non-Author Contributors&quot;</span><span class="p">:</span> <span class="n">gather_non_author_contributors</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Abstract&quot;</span><span class="p">:</span> <span class="n">gather_abstract</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">),</span>
+        <span class="s2">&quot;Body&quot;</span><span class="p">:</span> <span class="n">gather_body</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">),</span>
+        <span class="s2">&quot;Journal ID&quot;</span><span class="p">:</span> <span class="n">gather_journal_id</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Journal Title&quot;</span><span class="p">:</span> <span class="n">gather_journal_title</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;ISSN&quot;</span><span class="p">:</span> <span class="n">gather_issn</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Publisher Name&quot;</span><span class="p">:</span> <span class="n">gather_publisher_name</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Publisher Location&quot;</span><span class="p">:</span> <span class="n">gather_publisher_location</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Article ID&quot;</span><span class="p">:</span> <span class="n">gather_article_id</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Article Types&quot;</span><span class="p">:</span> <span class="n">gather_article_types</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Article Categories&quot;</span><span class="p">:</span> <span class="n">gather_article_categories</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Published Date&quot;</span><span class="p">:</span> <span class="n">gather_published_date</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Volume&quot;</span><span class="p">:</span> <span class="n">gather_volume</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Issue&quot;</span><span class="p">:</span> <span class="n">gather_issue</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;First Page&quot;</span><span class="p">:</span> <span class="n">gather_fpage</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Last Page&quot;</span><span class="p">:</span> <span class="n">gather_lpage</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Permissions&quot;</span><span class="p">:</span> <span class="n">gather_permissions</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Funding&quot;</span><span class="p">:</span> <span class="n">gather_funding</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Footnote&quot;</span><span class="p">:</span> <span class="n">gather_footnote</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Acknowledgements&quot;</span><span class="p">:</span> <span class="n">gather_acknowledgements</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Notes&quot;</span><span class="p">:</span> <span class="n">gather_notes</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Custom Meta&quot;</span><span class="p">:</span> <span class="n">gather_custom_metadata</span><span class="p">(</span><span class="n">root</span><span class="p">),</span>
+        <span class="s2">&quot;Ref Map With Tags&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">ref_map</span><span class="p">),</span>
+        <span class="s2">&quot;Ref Map&quot;</span><span class="p">:</span> <span class="n">_clean_ref_map</span><span class="p">(</span><span class="n">paper_root</span><span class="o">=</span><span class="n">root</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="n">ref_map</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">citations</span><span class="p">,</span> <span class="n">tables</span><span class="p">,</span> <span class="n">figures</span> <span class="o">=</span> <span class="n">_split_citations_tables_figs</span><span class="p">(</span><span class="n">paper_dict</span><span class="p">[</span><span class="s2">&quot;Ref Map&quot;</span><span class="p">])</span>
+    <span class="n">paper_dict</span><span class="p">[</span><span class="s2">&quot;Citations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">citations</span>
+    <span class="n">paper_dict</span><span class="p">[</span><span class="s2">&quot;Tables&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tables</span>
+    <span class="n">paper_dict</span><span class="p">[</span><span class="s2">&quot;Figures&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">figures</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="s2">&quot;Finished generating Paper object for &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;PMCID = </span><span class="si">{</span><span class="n">paper_dict</span><span class="p">[</span><span class="s1">&#39;PMCID&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">paper_dict</span>
+
+
+<div class="viewcode-block" id="define_data_dict">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.define_data_dict">[docs]</a>
+<span class="k">def</span> <span class="nf">define_data_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a static definition of each of the elements</span>
+<span class="sd">    returned in a Paper dictionary.</span>
+
+<span class="sd">    :return: A dictionary where keys are the elements in the Paper dictionary,</span>
+<span class="sd">        and values are descriptions of those elements.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;PMCID&quot;</span><span class="p">:</span> <span class="s2">&quot;PMCID of the PMC article. Unique.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Title&quot;</span><span class="p">:</span> <span class="s2">&quot;Title of the PMC article.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Authors&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Dataframe of the PMC Authors, including first</span>
+<span class="sd">            names, last names, email addresses, and affiliations</span>
+<span class="sd">            if provided.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Non-Author Contributors&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Dataframe of the non-author contributors,</span>
+<span class="sd">            including first names, last names, email addresses,</span>
+<span class="sd">            and affiliations if provided.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Abstract&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;List of TextSections parsed from the abstract</span>
+<span class="sd">            portion of the XML. Use Paper.print_abstract() or</span>
+<span class="sd">            Paper.abstract_as_str() for a simple view of the text.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Body&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;List of TextSections parsed from the body portion of the XML.</span>
+<span class="sd">            Use Paper.print_body() or Paper.body_as_str() for a simple view</span>
+<span class="sd">            of the text.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Journal ID&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Dict of ID Type, ID pairs for the Journal in which the article</span>
+<span class="sd">            was published. ie. NLM-TA and ISO-ABBREV IDs.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Journal Title&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;Name of the journal in text.&quot;&quot;&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;ISSN&quot;</span><span class="p">:</span> <span class="s2">&quot;Dict of ISSN type, ISSN number values for the article.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Publisher Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Name of the publisher in text.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Publisher Location&quot;</span><span class="p">:</span> <span class="s2">&quot;Location of the publisher in text.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Article ID&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Dict of ID Type, ID Value pairs. ie. p.article_id[&#39;pmc&#39;] gives</span>
+<span class="sd">            the PMCID for the article.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Article Types&quot;</span><span class="p">:</span> <span class="s2">&quot;List of &#39;header&#39; article types for the article.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Article Categories&quot;</span><span class="p">:</span> <span class="s2">&quot;List of &#39;non-header&#39; article types for the article.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Published Date&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Dict of various publishing dates of the paper</span>
+<span class="sd">            (ie: electronic pub, print pub).&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Volume&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;The Volume # in which this paper was</span>
+<span class="sd">            published in its journal(s).&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Issue&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;The Issue # in which this paper was grouped within the</span>
+<span class="sd">            volume of the journal(s) in which it is published.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;FPage&quot;</span><span class="p">:</span> <span class="s2">&quot;First page on which this paper was published in its journal.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LPage&quot;</span><span class="p">:</span> <span class="s2">&quot;Last page on which this paper was published in its journal.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Permissions&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Summary of copyright statement, license type,</span>
+<span class="sd">            and full license text for the paper.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Copyright Statement&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Returns the Copyright statement. Usually a short phrase</span>
+<span class="sd">            identifying the individuals who have copyrighted this research,</span>
+<span class="sd">            under a copyright license type found via paper.license.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;License&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Returns the License Type the research is licensed</span>
+<span class="sd">             under (ie: Open Access).&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Funding&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Returns a list of groups which funded the research.</span>
+<span class="sd">              Important for bias detection.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Footnote&quot;</span><span class="p">:</span> <span class="s2">&quot;Text of any footnote statement provided with the article.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Acknowledgements&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;List of acknowledgement statements provided with</span>
+<span class="sd">            the article.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Notes&quot;</span><span class="p">:</span> <span class="s2">&quot;List of notes included with the article.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Custom Meta&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Dict of custom metadata key, value pairs</span>
+<span class="sd">            provided with the article.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;Ref Map&quot;</span><span class="p">:</span> <span class="n">cleanerdoc</span><span class="p">(</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Dict of Index, Reference value pairs. Use p.ref_map to decode</span>
+<span class="sd">            data references within TextSection.text_with_refs text. ie. When</span>
+<span class="sd">            working with the full text with references, you may come across</span>
+<span class="sd">            something like [MHTML::dataref::0]. This means that the reference</span>
+<span class="sd">            under p.ref_map[0] was extracted from this location in the text.</span>
+<span class="sd">            This can be useful for linking text with tables, figures, and</span>
+<span class="sd">            xrefs for more detailed analysis.&quot;&quot;&quot;</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">data_dict</span></div>
+
+
+
+<div class="viewcode-block" id="gather_title">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_title">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_title</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract the title of a PMC paper from its XML root.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: The title of the PMC paper.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-title/text()&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="s2">&quot;Warning! Multiple titles matched. Setting &quot;</span>
+                <span class="s2">&quot;Paper.title to the first match.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">unexpectedMultipleMatchWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;No article title found in the retrieved XML.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">title</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_get_contributor_tuples</span><span class="p">(</span>
+    <span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">contributors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to retrieve tuples of contributor information.</span>
+
+<span class="sd">    :param ET.Element root: The root of the XML tree to search.</span>
+<span class="sd">    :param List[ET.Element] contributors: A list of lxml Element objects</span>
+<span class="sd">        containing contributor information.</span>
+
+<span class="sd">    :return: A list of tuples representing contributor information in the form</span>
+<span class="sd">        (contrib_type, first_name, last_name, address, affiliations).</span>
+<span class="sd">    :rtype: List[Tuple]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">contributor_tuples</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">contributor</span> <span class="ow">in</span> <span class="n">contributors</span><span class="p">:</span>
+        <span class="n">contrib_type</span> <span class="o">=</span> <span class="n">contributor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;contrib-type&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">contrib_type</span><span class="p">:</span>
+            <span class="n">contrib_type</span> <span class="o">=</span> <span class="n">contrib_type</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">first_name</span> <span class="o">=</span> <span class="n">contributor</span><span class="o">.</span><span class="n">findtext</span><span class="p">(</span><span class="s2">&quot;.//given-names&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">first_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">first_name</span> <span class="o">=</span> <span class="n">first_name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">last_name</span> <span class="o">=</span> <span class="n">contributor</span><span class="o">.</span><span class="n">findtext</span><span class="p">(</span><span class="s2">&quot;.//surname&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">last_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">last_name</span> <span class="o">=</span> <span class="n">last_name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="n">contributor</span><span class="o">.</span><span class="n">findtext</span><span class="p">(</span><span class="s2">&quot;.//address/email&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">affiliations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">aff_paths</span> <span class="o">=</span> <span class="n">contributor</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;.//xref[@ref-type=&#39;aff&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">aff</span> <span class="ow">in</span> <span class="n">aff_paths</span><span class="p">:</span>
+            <span class="n">aff_id</span> <span class="o">=</span> <span class="n">aff</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rid&quot;</span><span class="p">)</span>
+            <span class="n">aff_texts</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span>
+                <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;//contrib-group/aff[@id=&#39;</span><span class="si">{</span><span class="n">aff_id</span><span class="si">}</span><span class="s2">&#39;]&quot;</span> <span class="s2">&quot;/text()[not(parent::label)]&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">aff_texts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="s2">&quot;Multiple affiliations with the same ID found. &quot;</span>
+                        <span class="s2">&quot;Check XML Formatting.&quot;</span>
+                    <span class="p">),</span>
+                    <span class="n">unexpectedMultipleMatchWarning</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">aff_texts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">aff_texts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Affiliation data not found.&quot;</span><span class="p">]</span>
+
+            <span class="n">institutions</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;//contrib-group/aff[@id=&#39;</span><span class="si">{</span><span class="n">aff_id</span><span class="si">}</span><span class="s2">&#39;]&quot;</span>
+                    <span class="s2">&quot;/institution-wrap/institution/text()&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">institutions</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span> <span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">institutions</span><span class="p">])</span>
+
+            <span class="c1"># Generate affiliation text</span>
+            <span class="n">affiliation</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">institutions</span><span class="p">:</span>
+                <span class="n">affiliation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">aff_id</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">institutions</span><span class="si">}{</span><span class="n">aff_texts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">affiliation</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">aff_id</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">aff_texts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">affiliations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">affiliation</span><span class="p">)</span>
+
+        <span class="n">contributor_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">contrib_type</span><span class="p">,</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">affiliations</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">contributor_tuples</span>
+
+
+<div class="viewcode-block" id="gather_authors">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_authors">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_authors</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract authors, their emails, and affiliations from a PMC XML.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A DataFrame containing author information with columns:</span>
+<span class="sd">             - Contributor_Type: Type of contributor (e.g., &#39;author&#39;).</span>
+<span class="sd">             - First_Name: First name of the author.</span>
+<span class="sd">             - Last_Name: Last name of the author.</span>
+<span class="sd">             - Email_Address: Email address of the author.</span>
+<span class="sd">             - Affiliations: Affiliations of the author.</span>
+<span class="sd">    :rtype: pd.DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">authors</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;.//contrib[@contrib-type=&#39;author&#39;]&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">authors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Warning! Authors could not be matched&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># Extract the first and last names of the authors and store them in a list</span>
+    <span class="n">author_tuples</span> <span class="o">=</span> <span class="n">_get_contributor_tuples</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">,</span> <span class="n">contributors</span><span class="o">=</span><span class="n">authors</span><span class="p">)</span>
+
+    <span class="n">authors_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">author_tuples</span><span class="p">)</span>
+    <span class="n">authors_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;Contributor_Type&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;First_Name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Last_Name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Email_Address&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Affiliations&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">authors_df</span></div>
+
+
+
+<div class="viewcode-block" id="gather_non_author_contributors">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_non_author_contributors">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_non_author_contributors</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract non-author contributors from a PMC XML.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: Either a string indicating that no non-author contributors were found,</span>
+<span class="sd">             or a DataFrame containing contributor information with columns:</span>
+<span class="sd">             - Contributor_Type: Type of contributor.</span>
+<span class="sd">             - First_Name: First name of the contributor.</span>
+<span class="sd">             - Last_Name: Last name of the contributor.</span>
+<span class="sd">             - Email_Address: Email address of the contributor.</span>
+<span class="sd">             - Affiliations: Affiliations of the contributor.</span>
+<span class="sd">    :rtype: Union[str, pd.DataFrame]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">return_val</span> <span class="o">=</span> <span class="s2">&quot;No non-author contributors were found after parsing this paper.&quot;</span>
+
+    <span class="n">non_author_contributors</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;.//contrib[not(@contrib-type=&#39;author&#39;)]&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">non_author_contributors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">non_author_tuples</span> <span class="o">=</span> <span class="n">_get_contributor_tuples</span><span class="p">(</span>
+            <span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">,</span> <span class="n">contributors</span><span class="o">=</span><span class="n">non_author_contributors</span>
+        <span class="p">)</span>
+        <span class="n">non_authors_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">non_author_tuples</span><span class="p">)</span>
+        <span class="n">non_authors_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;Contributor_Type&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;First_Name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Last_Name&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Email_Address&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Affiliations&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">return_val</span> <span class="o">=</span> <span class="n">non_authors_df</span>
+
+    <span class="k">return</span> <span class="n">return_val</span></div>
+
+
+
+<div class="viewcode-block" id="gather_abstract">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_abstract">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_abstract</span><span class="p">(</span>
+    <span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">TextSection</span><span class="p">,</span> <span class="n">TextParagraph</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract all abstract text sections from an XML document and return them as</span>
+<span class="sd">    a list of TextSections and/or TextParagraphs.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+<span class="sd">    :param basicBiMap ref_map: A reference map used for decoding data references</span>
+<span class="sd">        within the text.</span>
+
+<span class="sd">    :return: A list of TextSections and/or TextParagraphs representing the abstract</span>
+<span class="sd">             text sections in the XML.</span>
+<span class="sd">    :rtype: List[Union[TextSection, TextParagraph]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">abstract</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># get abstract subtree from XML</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//abstract&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="s2">&quot;Warning! Multiple abstracts matched. Filling in Paper.abstract &quot;</span>
+                <span class="s2">&quot;with the first match.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">unexpectedMultipleMatchWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No abstract found.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">abstract_root</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># iterate through abstract subtree and add in text sections (recursive)</span>
+    <span class="c1"># and text paragraphs (flat)</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">abstract_root</span><span class="o">.</span><span class="n">iterchildren</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;sec&quot;</span><span class="p">:</span>
+            <span class="n">abstract</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TextSection</span><span class="p">(</span><span class="n">sec_root</span><span class="o">=</span><span class="n">child</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="n">ref_map</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span>
+            <span class="n">abstract</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TextParagraph</span><span class="p">(</span><span class="n">p_root</span><span class="o">=</span><span class="n">child</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="n">ref_map</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Warning! Unexpected child with of type </span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2"> found &quot;</span>
+                    <span class="s2">&quot;under an XML &lt;abstract&gt; tag.&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">abstract</span></div>
+
+
+
+<div class="viewcode-block" id="gather_body">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_body">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_body</span><span class="p">(</span>
+    <span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">TextSection</span><span class="p">,</span> <span class="n">TextParagraph</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract all body text sections from an XML document and return them as</span>
+<span class="sd">    a list of TextSections and/or TextParagraphs.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+<span class="sd">    :param basicBiMap ref_map: A reference map used for decoding data references</span>
+<span class="sd">        within the text.</span>
+
+<span class="sd">    :return: A list of TextSections and/or TextParagraphs representing the body</span>
+<span class="sd">             text sections in the XML.</span>
+<span class="sd">    :rtype: List[Union[TextSection, TextParagraph]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># get abstract subtree from XML</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//body&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="s2">&quot;Warning! Multiple &#39;body&#39;s matched. &quot;</span>
+                <span class="s2">&quot;Filling in Paper.body with the first match.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">unexpectedMultipleMatchWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="s2">&quot;Warning! No &lt;body&gt; tag found. This paper may be abstract only, &quot;</span>
+                <span class="s2">&quot;or the Open Access portion may be abstract only. This also may &quot;</span>
+                <span class="s2">&quot;happen with author manuscripts and other non-final editions.&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">body_root</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># iterate through body subtree and add in text sections (recursive)</span>
+    <span class="c1"># and text paragraphs (flat)</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">body_root</span><span class="o">.</span><span class="n">iterchildren</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;sec&quot;</span><span class="p">:</span>
+            <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TextSection</span><span class="p">(</span><span class="n">sec_root</span><span class="o">=</span><span class="n">child</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="n">ref_map</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span>
+            <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TextParagraph</span><span class="p">(</span><span class="n">p_root</span><span class="o">=</span><span class="n">child</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="n">ref_map</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Warning! Unexpected child with of type </span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2"> found &quot;</span>
+                    <span class="s2">&quot;under an XML &lt;body&gt; tag.&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">body</span></div>
+
+
+
+<div class="viewcode-block" id="gather_journal_id">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_journal_id">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_journal_id</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract Journal IDs from a PMC XML document.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A dictionary containing Journal IDs with the ID type as keys and</span>
+<span class="sd">             corresponding values as the ID values.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">journal_ids</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//journal-meta/journal-id&quot;</span><span class="p">)</span>
+    <span class="n">id_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">journal_id</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;journal-id-type&quot;</span><span class="p">):</span> <span class="n">journal_id</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">journal_id</span> <span class="ow">in</span> <span class="n">journal_ids</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">id_dict</span></div>
+
+
+
+<div class="viewcode-block" id="gather_journal_title">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_journal_title">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_journal_title</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract Journal Title(s) from a PMC XML document.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: Either a string representing the Journal Title if there&#39;s only one,</span>
+<span class="sd">             a list of strings representing multiple Journal Titles if there are</span>
+<span class="sd">             multiple, or None if no journal title is found.</span>
+<span class="sd">    :rtype: Union[List[str], str, None]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">return_val</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">titles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">title_matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//journal-title&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">title_matches</span><span class="p">:</span>
+        <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="c1"># might have multiple journals &amp; journal titles</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">titles</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">return_val</span> <span class="o">=</span> <span class="n">titles</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">titles</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No journal title found.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span><span class="p">)</span>
+        <span class="n">return_val</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">return_val</span> <span class="o">=</span> <span class="n">titles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">return_val</span></div>
+
+
+
+<div class="viewcode-block" id="gather_issn">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_issn">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_issn</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract ISSN values from a PMC XML document.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A dictionary containing ISSN values with the publication type</span>
+<span class="sd">             as keys and corresponding values as the ISSN numbers.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">issns</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//journal-meta/issn&quot;</span><span class="p">)</span>
+    <span class="n">issn_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">issn</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pub-type&quot;</span><span class="p">):</span> <span class="n">issn</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">issn</span> <span class="ow">in</span> <span class="n">issns</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">issn_dict</span></div>
+
+
+
+<div class="viewcode-block" id="gather_publisher_name">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_publisher_name">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_publisher_name</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract Publisher Name(s) from a PMC XML document.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: Either a string representing the Publisher Name if there&#39;s only one,</span>
+<span class="sd">             or a list of strings representing multiple Publisher Names if there are</span>
+<span class="sd">             multiple.</span>
+<span class="sd">    :rtype: Union[str, List[str]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">publisher_name_or_names</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">publishers</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//journal-meta/publisher/publisher-name&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">publishers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">publisher_name_or_names</span> <span class="o">=</span> <span class="n">publishers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">publisher_name_or_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">publisher</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">publisher</span> <span class="ow">in</span> <span class="n">publishers</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">publisher_name_or_names</span></div>
+
+
+
+<div class="viewcode-block" id="gather_publisher_location">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_publisher_location">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_publisher_location</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract Publisher Location(s) from a PMC XML document.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: Either a string representing the Publisher Location if there&#39;s</span>
+<span class="sd">            only one, or a list of strings representing multiple Publisher</span>
+<span class="sd">            Locations if there are multiple.</span>
+<span class="sd">    :rtype: Union[str, List[str]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">publisher_loc_or_locs</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">publisher_locs</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//journal-meta/publisher/publisher-loc&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">publisher_locs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">publisher_loc_or_locs</span> <span class="o">=</span> <span class="n">publisher_locs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">publisher_loc_or_locs</span> <span class="o">=</span> <span class="p">[</span><span class="n">publisher_loc</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">publisher_loc</span> <span class="ow">in</span> <span class="n">publisher_locs</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">publisher_loc_or_locs</span></div>
+
+
+
+<div class="viewcode-block" id="gather_article_id">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_article_id">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_article_id</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gather Article IDs from PMC XML.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">article_ids</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/article-id&quot;</span><span class="p">)</span>
+    <span class="n">id_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">article_id</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pub-id-type&quot;</span><span class="p">):</span> <span class="n">article_id</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">article_id</span> <span class="ow">in</span> <span class="n">article_ids</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">id_dict</span></div>
+
+
+
+<div class="viewcode-block" id="gather_article_types">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_article_types">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_article_types</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract Article Types from a PMC XML document.</span>
+
+<span class="sd">    Article Types are article-categories marked by the subj-group-type &#39;heading&#39;.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A list of strings representing the Article Types found in the XML.</span>
+<span class="sd">    :rtype: List[str]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/article-categories&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="s2">&quot;Warning! Multiple &#39;article-categories&#39; lists matched. &quot;</span>
+                <span class="s2">&quot;Filling in Paper.article_categories with the first match.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">unexpectedMultipleMatchWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No &#39;article-categories&#39; list found.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">article_categories</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">heading_categories</span> <span class="o">=</span> <span class="n">article_categories</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span>
+        <span class="s2">&quot;subj-group[@subj-group-type=&#39;heading&#39;]/subject&quot;</span>
+    <span class="p">)</span>
+    <span class="n">heading_cats</span> <span class="o">=</span> <span class="p">[</span><span class="n">heading_cat</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">heading_cat</span> <span class="ow">in</span> <span class="n">heading_categories</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">heading_cats</span><span class="p">:</span>
+        <span class="n">heading_cats</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;No article type found (No article category with &quot;</span>
+            <span class="s2">&quot;subject type &#39;heading&#39;). Check &quot;</span>
+            <span class="s2">&quot;Paper.article_categories for other categories.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">heading_cats</span></div>
+
+
+
+<div class="viewcode-block" id="gather_article_categories">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_article_categories">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_article_categories</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract Other Article Categories from a PMC XML document.</span>
+
+<span class="sd">    This function retrieves article categories that are not marked as &#39;heading&#39;</span>
+<span class="sd">    in the subj-group-type attribute.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A list of dictionaries containing other article categories with</span>
+<span class="sd">             the subj-group-type as keys and corresponding category values as</span>
+<span class="sd">             values.</span>
+<span class="sd">    :rtype: List[Dict[str, str]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/article-categories&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="s2">&quot;Warning! Multiple &#39;article-categories&#39; lists matched. Filling &quot;</span>
+                <span class="s2">&quot;in Paper.article_categories with the first match.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">unexpectedMultipleMatchWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No &#39;article-categories&#39; list found.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">article_categories</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">other_categories</span> <span class="o">=</span> <span class="n">article_categories</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span>
+        <span class="s2">&quot;subj-group[not(@subj-group-type=&#39;heading&#39;)]/subject&quot;</span>
+    <span class="p">)</span>
+    <span class="n">other_cats</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="n">other_cat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;subj-group-type&quot;</span><span class="p">):</span> <span class="n">other_cat</span><span class="o">.</span><span class="n">text</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">other_cat</span> <span class="ow">in</span> <span class="n">other_categories</span>
+    <span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">other_cats</span><span class="p">:</span>
+        <span class="n">other_cats</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;No extra article categories found. &quot;</span>
+            <span class="s2">&quot;Check paper.article_types for header categories.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">other_cats</span></div>
+
+
+
+<div class="viewcode-block" id="gather_published_date">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_published_date">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_published_date</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">datetime</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract Publishing Dates from a PMC XML document.</span>
+
+<span class="sd">    This function gathers electronic publishing, print publishing, and other</span>
+<span class="sd">    dates from the article metadata.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A dictionary containing publishing dates with the publication type</span>
+<span class="sd">             as keys and corresponding datetime values as values.</span>
+<span class="sd">    :rtype: Dict[str, datetime]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: update for multi-publishing (need to find an example first)</span>
+
+    <span class="n">pdate_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/pub-date&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">pub_type</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pub-type&quot;</span><span class="p">)</span>
+
+        <span class="n">year</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># default</span>
+        <span class="n">year_matches</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;year/text()&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">year_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">year_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="s2">&quot;No year found for one of the publishing dates. &quot;</span>
+                    <span class="s2">&quot;Defaulting to year = 1!&quot;</span>
+                <span class="p">),</span>
+                <span class="n">unexpectedZeroMatchWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># if not month found, assume the 1st (standard practice - )</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">month_matches</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;month/text()&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">month_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">month_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># if no day found, assume the 1st (standard practice)</span>
+        <span class="n">day</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">day_matches</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;day/text()&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">day_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">day_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">full_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">)</span>
+        <span class="n">pdate_dict</span><span class="p">[</span><span class="n">pub_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_date</span>
+    <span class="k">return</span> <span class="n">pdate_dict</span></div>
+
+
+
+<div class="viewcode-block" id="gather_volume">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_volume">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_volume</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract the Volume # of the Parent Publication from a PMC XML document.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A string representing the Volume # of the parent publication,</span>
+<span class="sd">             or None if no Volume # is found.</span>
+<span class="sd">    :rtype: str or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: update for multi-publishing (need to find an example first)</span>
+
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/volume/text()&quot;</span><span class="p">)</span>
+    <span class="n">volume</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No Volume # found for Publication.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">volume</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">volume</span></div>
+
+
+
+<div class="viewcode-block" id="gather_issue">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_issue">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_issue</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract the Issue # of the Parent Publication from a PMC XML document.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A string representing the Issue # of the parent publication,</span>
+<span class="sd">             or None if no Issue # is found.</span>
+<span class="sd">    :rtype: str or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: update for multi-publishing (need to find an example first)</span>
+
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/issue/text()&quot;</span><span class="p">)</span>
+    <span class="n">issue</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No Issue # found for Publication.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">issue</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">issue</span></div>
+
+
+
+<div class="viewcode-block" id="gather_fpage">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_fpage">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_fpage</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract the First Page Number of this article in its parent publication</span>
+<span class="sd">    from a PMC XML document.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A string representing the First Page Number of the article</span>
+<span class="sd">             in its parent publication, or None if no First Page # is found.</span>
+<span class="sd">    :rtype: str or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: update for multi-publishing (need to find an example first)</span>
+
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/fpage/text()&quot;</span><span class="p">)</span>
+    <span class="n">fpage</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;No First Page # found for Publication.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fpage</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">fpage</span></div>
+
+
+
+<div class="viewcode-block" id="gather_lpage">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_lpage">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_lpage</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract the Last Page Number of this article in its parent publication</span>
+<span class="sd">    from a PMC XML document.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A string representing the Last Page Number of the article</span>
+<span class="sd">             in its parent publication, or None if no Last Page # is found.</span>
+<span class="sd">    :rtype: str or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: update for multi-publishing (need to find an example first)</span>
+
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/lpage/text()&quot;</span><span class="p">)</span>
+    <span class="n">lpage</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;No Last Page # found for Publication.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lpage</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">lpage</span></div>
+
+
+
+<div class="viewcode-block" id="gather_permissions">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_permissions">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_permissions</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract permissions information from a PMC XML document.</span>
+
+<span class="sd">    This function retrieves the copyright statement, license type, and license</span>
+<span class="sd">    text from the article metadata.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A dictionary containing the following keys:</span>
+<span class="sd">             - &quot;Copyright Statement&quot;: A string representing the copyright statement.</span>
+<span class="sd">             - &quot;License Type&quot;: A string representing the license type.</span>
+<span class="sd">             - &quot;License Text&quot;: A string containing the license text.</span>
+<span class="sd">    :rtype: Dict[str, str]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">copyright_statement_matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span>
+        <span class="s2">&quot;//article-meta/permissions/copyright-statement/text()&quot;</span>
+    <span class="p">)</span>
+    <span class="n">copyright_statement</span> <span class="o">=</span> <span class="s2">&quot;No copyright statement found.&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">copyright_statement_matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No copyright statement found.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">copyright_statement_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="p">(</span><span class="s2">&quot;Multiple copyright statements found. &quot;</span> <span class="s2">&quot;Retrieving the first statement.&quot;</span><span class="p">),</span>
+            <span class="n">unexpectedMultipleMatchWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">copyright_statement</span> <span class="o">=</span> <span class="n">copyright_statement_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">license_matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/permissions/license&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">license_matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No license found.&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">license_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Multiple licenses found. Retrieving the first statement.&quot;</span><span class="p">,</span>
+            <span class="n">unexpectedMultipleMatchWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">license</span> <span class="o">=</span> <span class="n">license_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">license_type</span> <span class="o">=</span> <span class="n">license</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;license-type&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">license_type</span><span class="p">:</span>
+        <span class="n">license_type</span> <span class="o">=</span> <span class="s2">&quot;Not Specified&quot;</span>
+    <span class="n">license_text</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">license</span><span class="o">.</span><span class="n">iterchildren</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;license-p&quot;</span><span class="p">:</span>
+            <span class="n">license_text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TextParagraph</span><span class="p">(</span><span class="n">p_root</span><span class="o">=</span><span class="n">child</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Warning! Unexpected child with of type </span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2"> found &quot;</span>
+                    <span class="s2">&quot;under an XML &lt;license&gt; tag.&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+    <span class="n">license_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">par</span><span class="p">)</span> <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">license_text</span><span class="p">])</span>
+
+    <span class="n">permissions_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Copyright Statement&quot;</span><span class="p">:</span> <span class="n">copyright_statement</span><span class="p">,</span>
+        <span class="s2">&quot;License Type&quot;</span><span class="p">:</span> <span class="n">license_type</span><span class="p">,</span>
+        <span class="s2">&quot;License Text&quot;</span><span class="p">:</span> <span class="n">license_text</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">permissions_dict</span></div>
+
+
+
+<div class="viewcode-block" id="gather_funding">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_funding">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_funding</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract funding information from a PMC XML document.</span>
+
+<span class="sd">    This function retrieves a list of funding institutions mentioned in the</span>
+<span class="sd">    article metadata.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A list of strings representing funding institutions, or None if</span>
+<span class="sd">             no funding information is found.</span>
+<span class="sd">    :rtype: List[str] or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//article-meta/funding-group&quot;</span><span class="p">)</span>
+    <span class="n">funding_institutions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">institutions</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;award-group/funding-source/institution/text()&quot;</span><span class="p">)</span>
+        <span class="n">funding_institutions</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">inst</span> <span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">institutions</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">funding_institutions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">funding_institutions</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">funding_institutions</span></div>
+
+
+
+<div class="viewcode-block" id="gather_footnote">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_footnote">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_footnote</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract footnote information from a PMC XML document.</span>
+
+<span class="sd">    This function retrieves and concatenates footnotes found in the article&#39;s</span>
+<span class="sd">    back matter.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A string containing the concatenated footnotes, or None if no</span>
+<span class="sd">             footnotes are found.</span>
+<span class="sd">    :rtype: str or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//back/fn-group/fn&quot;</span><span class="p">)</span>
+    <span class="n">footnote</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">fn</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">footnote</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">footnote</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">TextParagraph</span><span class="p">(</span><span class="n">p_root</span><span class="o">=</span><span class="n">child</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">footnote</span> <span class="o">+=</span> <span class="s2">&quot; - &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">TextParagraph</span><span class="p">(</span><span class="n">p_root</span><span class="o">=</span><span class="n">child</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Unexpected child of type </span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2"> under a footnote &quot;</span>
+                        <span class="s2">&quot;(&lt;fn&gt;) tag. Ignoring.&quot;</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">footnote</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">footnote</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">footnote</span></div>
+
+
+
+<div class="viewcode-block" id="gather_acknowledgements">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_acknowledgements">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_acknowledgements</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract acknowledgements information from a PMC XML document.</span>
+
+<span class="sd">    This function retrieves a list of acknowledgements found in the article&#39;s</span>
+<span class="sd">    XML tree.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A list of strings representing acknowledgements, or a string</span>
+<span class="sd">             indicating that no acknowledgements were found.</span>
+<span class="sd">    :rtype: Union[List[str], str]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ack&quot;</span><span class="p">)</span>
+    <span class="n">acknowledgements</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">itertext</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">acknowledgements</span></div>
+
+
+
+<div class="viewcode-block" id="gather_notes">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_notes">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_notes</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract notes information from a PMC XML document.</span>
+
+<span class="sd">    This function retrieves a list of notes found in the article&#39;s XML tree.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A list of strings representing notes, or an empty list if no notes</span>
+<span class="sd">             are found.</span>
+<span class="sd">    :rtype: List[str]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">notes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//notes&quot;</span><span class="p">)</span>
+    <span class="n">notes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">stringify_note</span><span class="p">(</span><span class="n">note</span><span class="p">)</span> <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">matches</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">note</span><span class="o">.</span><span class="n">getparent</span><span class="p">()</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;notes&quot;</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">notes</span></div>
+
+
+
+<div class="viewcode-block" id="stringify_note">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.stringify_note">[docs]</a>
+<span class="k">def</span> <span class="nf">stringify_note</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Recursively convert a notes section into a string.</span>
+
+<span class="sd">    This function traverses the XML tree of a notes section and recursively</span>
+<span class="sd">    converts it into a string. It includes the &lt;title&gt;, &lt;p&gt;, and child &lt;notes&gt;</span>
+<span class="sd">    content.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the notes section in the PMC</span>
+<span class="sd">                            paper XML tree.</span>
+
+<span class="sd">    :return: A string representation of the notes section.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">note</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iterchildren</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span>
+            <span class="n">note</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Title: </span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">elif</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span>
+            <span class="n">note</span> <span class="o">+=</span> <span class="n">child</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">elif</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;notes&quot;</span><span class="p">:</span>
+            <span class="n">note</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">stringify_note</span><span class="p">(</span><span class="n">child</span><span class="p">),</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">note</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">note</span></div>
+
+
+
+<span class="c1"># def _get_note(note_root: ET.Element) -&gt;</span>
+
+
+<div class="viewcode-block" id="gather_custom_metadata">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._parse.gather_custom_metadata">[docs]</a>
+<span class="k">def</span> <span class="nf">gather_custom_metadata</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract custom metadata key-value pairs from a PMC XML document.</span>
+
+<span class="sd">    This function retrieves custom metadata key-value pairs found in the</span>
+<span class="sd">    article&#39;s XML tree. Custom metadata consists of user-defined key-value pairs.</span>
+
+<span class="sd">    :param ET.Element root: The root element of the PMC paper XML tree.</span>
+
+<span class="sd">    :return: A dictionary containing custom metadata key-value pairs, or None if</span>
+<span class="sd">             no custom metadata is found.</span>
+<span class="sd">    :rtype: Dict[str, str] or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">custom</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//custom-meta&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">custom_meta</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">meta_name</span> <span class="o">=</span> <span class="n">custom_meta</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;meta-name&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">meta_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">meta_name</span> <span class="o">=</span> <span class="n">meta_name</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">meta_value</span> <span class="o">=</span> <span class="n">custom_meta</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;meta-value&quot;</span><span class="p">)</span>
+        <span class="n">meta_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">meta_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">meta_data</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meta_value</span><span class="o">.</span><span class="n">itertext</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">meta_data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">meta_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">meta_name</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span>
+                <span class="p">)</span>  <span class="c1"># give random unique identifier if no meta key found</span>
+            <span class="n">custom</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">meta_data</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">custom</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">custom</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">custom</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_parse_citation</span><span class="p">(</span>
+    <span class="n">citation_root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]],</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse citation information from a citation XML element.</span>
+
+<span class="sd">    This function parses citation information from a given XML element</span>
+<span class="sd">    representing a citation. It attempts to extract the following information:</span>
+
+<span class="sd">    - Authors: List of author names.</span>
+<span class="sd">    - Title: Title of the cited work.</span>
+<span class="sd">    - Source: Source of the cited work (e.g., journal name).</span>
+<span class="sd">    - Year: Year of publication.</span>
+<span class="sd">    - Volume: Volume number (if applicable).</span>
+<span class="sd">    - FirstPage: First page number (if applicable).</span>
+<span class="sd">    - LastPage: Last page number (if applicable).</span>
+<span class="sd">    - DOI: DOI (Digital Object Identifier) of the cited work (if available).</span>
+<span class="sd">    - PMID: PubMed Identifier of the cited work (if available).</span>
+
+<span class="sd">    If the function successfully extracts information, it returns a dictionary</span>
+<span class="sd">    containing the parsed data. If no information can be extracted, it returns</span>
+<span class="sd">    either an empty dictionary or the raw citation text (if available).</span>
+
+<span class="sd">    :param ET.Element citation_root: The root element of the citation in the XML.</span>
+
+<span class="sd">    :return: A dictionary containing parsed citation information or the raw</span>
+<span class="sd">        citation text.</span>
+<span class="sd">    :rtype: Union[Dict[str, Union[List[str], str]], str]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="n">citation_root</span>
+
+    <span class="c1"># Find authors in common element-citation format</span>
+    <span class="n">author_matches</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//person-group[@person-group-type=&quot;author&quot;]/name&#39;</span><span class="p">)</span>
+
+    <span class="c1"># If failed, try to find full citation in mixed-citation format-----------</span>
+    <span class="n">mixed_citation</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">author_matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">mixed_citation</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//mixed-citation/text()&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mixed_citation</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">mixed_citation</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># ------------------------------------------------------------------------</span>
+
+    <span class="c1"># If still failed, raise a warning.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">author_matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;No authors found in citation </span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">unexpectedZeroMatchWarning</span>
+        <span class="p">)</span>
+
+    <span class="c1"># tries to retrieve all of the following info, fails silently</span>
+    <span class="c1"># if none found since many refs incomplete</span>
+    <span class="n">citation_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Authors&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;given-names&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;surname&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">author_matches</span>
+            <span class="k">if</span> <span class="n">author_matches</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;Title&quot;</span><span class="p">:</span> <span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;.//article-title&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Source&quot;</span><span class="p">:</span> <span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;.//source&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Year&quot;</span><span class="p">:</span> <span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;.//year&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;Volume&quot;</span><span class="p">:</span> <span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;.//volume&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;FirstPage&quot;</span><span class="p">:</span> <span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;.//fpage&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;LastPage&quot;</span><span class="p">:</span> <span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;.//lpage&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;DOI&quot;</span><span class="p">:</span> <span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;.//pub-id[@pub-id-type=&quot;doi&quot;]&#39;</span><span class="p">),</span>
+        <span class="s2">&quot;PMID&quot;</span><span class="p">:</span> <span class="n">_try_get_xpath_text</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;.//pub-id[@pub-id-type=&quot;pmid&quot;]&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">citation_dict</span>
+
+
+<span class="k">def</span> <span class="nf">_try_get_xpath_text</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">xpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Attempt to retrieve the text content of an XML element using an XPath expression.</span>
+
+<span class="sd">    This function tries to find the first element matching the given XPath expression</span>
+<span class="sd">    within the specified XML element and retrieves its text content. If successful, it</span>
+<span class="sd">    returns the text content; otherwise, it returns None.</span>
+
+<span class="sd">    :param ET.Element root: The XML element from which to retrieve the text.</span>
+<span class="sd">    :param str xpath: The XPath expression used to locate the target element.</span>
+<span class="sd">    :param bool verbose: If True, warnings will be issued for failed retrieval attempts.</span>
+
+<span class="sd">    :return: The text content of the matching XML element or None if not found.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">return_text</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">return_text</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">xpath</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="s2">&quot;Failed xpath text retrieval while trying to find &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">xpath</span><span class="si">}</span><span class="s2">.text(). Root ID: </span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">return_text</span>
+
+
+<span class="k">def</span> <span class="nf">_find_key_of_xpath</span><span class="p">(</span><span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span><span class="p">,</span> <span class="n">xpath_query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Search for the first key in the reference map (ref_map) where the value</span>
+<span class="sd">    matches the provided XPath query.</span>
+
+<span class="sd">    This function iterates through the reference map, which associates keys with</span>
+<span class="sd">    XPath expressions (values), and checks if the specified XPath query matches the</span>
+<span class="sd">    value associated with each key. The first matching key found is returned.</span>
+
+<span class="sd">    :param basicBiMap ref_map: A bidirectional map containing XPath expressions as</span>
+<span class="sd">        values and associated keys.</span>
+<span class="sd">    :param str xpath_query: The XPath query to match against the values in the ref_map.</span>
+
+<span class="sd">    :return: The first key in the ref_map where the XPath query matches the value,</span>
+<span class="sd">        or None if no match is found.</span>
+<span class="sd">    :rtype: int or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ref_map</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">ref_map</span><span class="p">)</span>
+    <span class="c1"># Iterate through the dictionary and find the key with matching value</span>
+    <span class="n">matching_key</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">ref_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">xpath_query</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">matching_key</span> <span class="o">=</span> <span class="n">key</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">matching_key</span>
+
+
+<span class="k">def</span> <span class="nf">_clean_ref_map</span><span class="p">(</span><span class="n">paper_root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">basicBiMap</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Process a reference map (ref_map) by replacing various types of references with</span>
+<span class="sd">    their corresponding information, such as citations, tables, and figures.</span>
+
+<span class="sd">    This function iterates through the reference map and processes different types of</span>
+<span class="sd">    references found in the map. It replaces bibliography (bibr) references with actual</span>
+<span class="sd">    citation information, table references with table data, and figure references with</span>
+<span class="sd">    figure information. The resulting cleaned reference map contains the processed</span>
+<span class="sd">    references.</span>
+
+<span class="sd">    :param ET.Element paper_root: The root element of the paper&#39;s XML.</span>
+<span class="sd">    :param basicBiMap ref_map: A bidirectional map containing keys and associated</span>
+<span class="sd">        values that represent different types of references.</span>
+
+<span class="sd">    :return: A cleaned reference map with references replaced by their respective</span>
+<span class="sd">        information.</span>
+<span class="sd">    :rtype: basicBiMap</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cleaned_ref_map</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ref_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="c1"># -------XREFS LINK TO ACTUAL ITEMS OR FILL WITH BIBR--------------</span>
+        <span class="c1"># process xrefs to citations, tables, and figures</span>
+        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;xref&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ref-type&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;bibr&quot;</span><span class="p">:</span>
+                <span class="n">ref_id</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rid&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">ref_id</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="s2">&quot;Citation without a reference id specified &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;(Citation </span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">)!&quot;</span>
+                        <span class="p">),</span>
+                        <span class="n">unmatchedCitationWarning</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># XPath expression to find the &lt;ref&gt;</span>
+                <span class="c1"># element based on the reference ID</span>
+                <span class="n">matching_citation_expr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;//ref[@id=&#39;</span><span class="si">{</span><span class="n">ref_id</span><span class="si">}</span><span class="s2">&#39;]&quot;</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="n">paper_root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">matching_citation_expr</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="s2">&quot;Citation without matching reference &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;(Citation </span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">)!&quot;</span>
+                        <span class="p">),</span>
+                        <span class="n">unmatchedCitationWarning</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="s2">&quot;Multiple references found for a single citation. &quot;</span>
+                            <span class="s2">&quot;Filling in with the first match.&quot;</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="n">reference_xml</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cleaned_reference</span> <span class="o">=</span> <span class="n">_parse_citation</span><span class="p">(</span><span class="n">reference_xml</span><span class="p">)</span>
+                <span class="n">cleaned_ref_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cleaned_reference</span>
+
+            <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ref-type&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
+                <span class="n">table_id</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rid&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">table_id</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+<span class="w">                        </span><span class="sd">&quot;&quot;&quot;Table ref without reference ID, no table will</span>
+<span class="sd">                        be matched!&quot;&quot;&quot;</span><span class="p">,</span>
+                        <span class="n">unmatchedTableWarning</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="n">table_xpath</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;//table-wrap[@id=&#39;</span><span class="si">{</span><span class="n">table_id</span><span class="si">}</span><span class="s2">&#39;]&quot;</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="n">paper_root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">table_xpath</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Table xref with rid=</span><span class="si">{</span><span class="n">table_id</span><span class="si">}</span><span class="s2"> not &quot;</span> <span class="s2">&quot;matched in the XML!&quot;</span><span class="p">),</span>
+                        <span class="n">unmatchedTableWarning</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="s2">&quot;Multiple references found for a single table. &quot;</span>
+                            <span class="s2">&quot;Filling in with the first match.&quot;</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="n">table_root</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cleaned_ref_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">TextTable</span><span class="p">(</span><span class="n">table_root</span><span class="o">=</span><span class="n">table_root</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ref-type&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;fig&quot;</span><span class="p">:</span>
+                <span class="n">fig_id</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rid&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">fig_id</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="s2">&quot;Figure ref unmatched. Figure ref without matching &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;figure (Figure </span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">)!&quot;</span>
+                        <span class="p">),</span>
+                        <span class="n">unmatchedFigureWarning</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="n">fig_xpath</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;//fig[@id=&#39;</span><span class="si">{</span><span class="n">fig_id</span><span class="si">}</span><span class="s2">&#39;]&quot;</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="n">paper_root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">fig_xpath</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Figure xref with rid=</span><span class="si">{</span><span class="n">fig_id</span><span class="si">}</span><span class="s2"> not matched &quot;</span> <span class="s2">&quot;in the XML!&quot;</span><span class="p">),</span>
+                        <span class="n">unmatchedFigureWarning</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="s2">&quot;Multiple references found for a single figure. &quot;</span>
+                            <span class="s2">&quot;Filling in with the first match.&quot;</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="n">fig_root</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cleaned_ref_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">TextFigure</span><span class="p">(</span><span class="n">fig_root</span><span class="o">=</span><span class="n">fig_root</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ref-type&quot;</span><span class="p">):</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Unknown reference type: </span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ref_type&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="s2">&quot;found in ref_map.&quot;</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="s2">&quot;&lt;xref&gt; in ref_map with no ref-type specified. &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;Ignoring. (</span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="c1"># process tables that are directly in the ref map</span>
+        <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;table-wrap&quot;</span><span class="p">:</span>
+            <span class="n">cleaned_ref_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">TextTable</span><span class="p">(</span><span class="n">table_root</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+        <span class="c1"># process figures that are directly in the ref map</span>
+        <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;fig&quot;</span><span class="p">:</span>
+            <span class="n">cleaned_ref_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">TextFigure</span><span class="p">(</span><span class="n">fig_root</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Unexpected tag of type </span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2"> found in ref map. &quot;</span>
+                    <span class="s2">&quot;Leaving as is instead of cleaning.&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">cleaned_ref_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="c1"># Final pass to set up links now that everything should be filled in</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cleaned_ref_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">link_index</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="n">cleaned_ref_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cleaned_ref_map</span><span class="p">[</span><span class="n">link_index</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">cleaned_ref_map</span>
+
+
+<span class="k">def</span> <span class="nf">_get_ref_type</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determine the type of reference (table, citation, or figure) based on the value</span>
+<span class="sd">    in the reference map.</span>
+
+<span class="sd">    This function examines the value to identify the type of reference it represents.</span>
+<span class="sd">    It checks if the value is a dictionary with a &quot;Caption&quot; key (indicating a figure),</span>
+<span class="sd">    a dictionary with &quot;Authors&quot; key (indicating a citation), an instance of TextFigure</span>
+<span class="sd">    (indicating a figure), or an instance of TextTable (indicating a table).</span>
+
+<span class="sd">    :param value: The value representing a reference in the reference map.</span>
+
+<span class="sd">    :return: A string indicating the type of reference (table, citation, or figure),</span>
+<span class="sd">        or None if the type cannot be determined.</span>
+<span class="sd">    :rtype: str or None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ref_type</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;Caption&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">ref_type</span> <span class="o">=</span> <span class="s2">&quot;fig&quot;</span>
+        <span class="k">elif</span> <span class="s2">&quot;Authors&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">ref_type</span> <span class="o">=</span> <span class="s2">&quot;citation&quot;</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># if string, probably a citation scraped via</span>
+        <span class="c1"># the mixed citation element parsing</span>
+        <span class="n">ref_type</span> <span class="o">=</span> <span class="s2">&quot;citation&quot;</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">TextFigure</span><span class="p">):</span>
+        <span class="n">ref_type</span> <span class="o">=</span> <span class="s2">&quot;fig&quot;</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">TextTable</span><span class="p">):</span>
+        <span class="n">ref_type</span> <span class="o">=</span> <span class="s2">&quot;table&quot;</span>
+
+    <span class="k">return</span> <span class="n">ref_type</span>
+
+
+<span class="k">def</span> <span class="nf">_get_unique_tables</span><span class="p">(</span><span class="n">table_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Given a set of tables (pd.DataFrame or Stylers), return a unique set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">table_list</span>
+
+
+<span class="k">def</span> <span class="nf">_get_unique_citations</span><span class="p">(</span><span class="n">citation_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Given a set of citations, return a unique set</span>
+<span class="sd">    based on citation[&#39;PMID&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">citation_list</span>
+
+
+<span class="k">def</span> <span class="nf">_get_unique_figures</span><span class="p">(</span><span class="n">fig_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: Given a set of figures, return a unique set of figures</span>
+<span class="sd">    based on fig[&#39;Label&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">fig_list</span>
+
+
+<span class="k">def</span> <span class="nf">_split_citations_tables_figs</span><span class="p">(</span>
+    <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+    <span class="n">Set</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]],</span> <span class="nb">str</span><span class="p">]],</span>
+    <span class="n">Set</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+    <span class="n">Set</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+<span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split the reference map into three separate sets: citations, tables, and figures.</span>
+
+<span class="sd">    This function iterates through the reference map and categorizes each reference</span>
+<span class="sd">    based on its type (citation, table, or figure). It returns three sets containing</span>
+<span class="sd">    citations (as dictionaries or strings), tables (as pandas DataFrames),</span>
+<span class="sd">    and figures (as dictionaries).</span>
+
+<span class="sd">    :param ref_map: The reference map to be split into citations, tables, and figures.</span>
+<span class="sd">    :type ref_map: basicBiMap</span>
+
+<span class="sd">    :return: A tuple containing three sets:</span>
+<span class="sd">        - The first set contains citations, each represented as a dictionary or string.</span>
+<span class="sd">        - The second set contains tables, each as a pandas DataFrame.</span>
+<span class="sd">        - The third set contains figures, each represented as a dictionary.</span>
+<span class="sd">    :rtype: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">citations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tables</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">figures</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">ref_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">_get_ref_type</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;citation&quot;</span><span class="p">:</span>
+            <span class="n">citations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_get_ref_type</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
+            <span class="n">tables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_get_ref_type</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;fig&quot;</span><span class="p">:</span>
+            <span class="n">figures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref</span><span class="o">.</span><span class="n">fig_dict</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Issue finding Reference type for index </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> in reference map.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">_get_unique_citations</span><span class="p">(</span><span class="n">citations</span><span class="p">),</span>
+        <span class="n">_get_unique_tables</span><span class="p">(</span><span class="n">tables</span><span class="p">),</span>
+        <span class="n">_get_unique_figures</span><span class="p">(</span><span class="n">figures</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># ----------------END GENERATE PAPER DICTIONARY GIVEN PMCID----------------</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Daniel Frees.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

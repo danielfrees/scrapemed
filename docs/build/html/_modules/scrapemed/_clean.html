@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scrapemed._clean &mdash; scrapemed 1.0.8 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=aec50437"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../index.html" class="icon icon-home">
+            scrapemed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">scrapemed</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">scrapemed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scrapemed._clean</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for scrapemed._clean</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ScrapeMed&#39;s Markup Language Cleaning Utilities</span>
+<span class="sd">===============================================</span>
+
+<span class="sd">Scrapemed module for markup language cleaning utilities.</span>
+
+<span class="sd">.. warns::</span>
+
+<span class="sd">   unexpectedTagWarning</span>
+<span class="sd">       Warned when an unexpected tag enclosed in angle brackets is found.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">scrapemed.utils</span> <span class="kn">import</span> <span class="n">basicBiMap</span>
+<span class="kn">import</span> <span class="nn">scrapemed._morehtml</span> <span class="k">as</span> <span class="nn">mhtml</span>
+
+<span class="c1"># monkeypatch warnings.formatwarning for cleaner warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">formatwarning</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">category</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="unexpectedTagWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._clean.unexpectedTagWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">unexpectedTagWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when an unexpected tag enclosed in angle brackets is found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="clean_xml_string">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._clean.clean_xml_string">[docs]</a>
+<span class="k">def</span> <span class="nf">clean_xml_string</span><span class="p">(</span><span class="n">xml_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">strip_text_styling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clean an XML string.</span>
+
+<span class="sd">    :param str xml_string: The XML string to be cleaned.</span>
+<span class="sd">    :param bool strip_text_styling: Whether to remove or replace HTML text styling tags.</span>
+<span class="sd">    :param bool verbose: Whether to print verbose output.</span>
+
+<span class="sd">    :return: The cleaned XML string.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Strip html styling if requested</span>
+    <span class="k">if</span> <span class="n">strip_text_styling</span><span class="p">:</span>
+        <span class="n">xml_string</span> <span class="o">=</span> <span class="n">_remove_text_styling</span><span class="p">(</span><span class="n">xml_string</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xml_string</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_remove_text_styling</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove specified HTML stylings from the provided text.</span>
+
+<span class="sd">    This function removes specified HTML stylings from the input text. It can</span>
+<span class="sd">    remove opening tags and their corresponding closing tags and replace</span>
+<span class="sd">    specific opening tags with desired values.</span>
+
+<span class="sd">    **Specifically:**</span>
+<span class="sd">    This overloaded wrapper function removes italic, bold, underline HTML text</span>
+<span class="sd">    styling tags from the input text. Additionally, it replaces &lt;sub&gt; with &quot;_&quot;</span>
+<span class="sd">    and &lt;sup&gt; with &quot;^&quot;. &lt;ext-link&gt; is replaced with &quot;[External URI:]&quot;.</span>
+
+<span class="sd">    :param str text: The text containing HTML stylings to be removed or replaced.</span>
+<span class="sd">    :param list[str] removals: A list of opening tags to be removed. Their</span>
+<span class="sd">        corresponding closing tags will also be removed. Tags will be removed</span>
+<span class="sd">        regardless of attributes.</span>
+<span class="sd">    :param dict replaces: A dictionary of find, replace values. The find values</span>
+<span class="sd">        should be HTML opening tags. They will be matched regardless of attributes.</span>
+<span class="sd">    :param bool verbose: Whether to print verbose output.</span>
+
+<span class="sd">    :return: The XML string with default HTML text styling tags (`REMOVALS`, `REPLACES`)</span>
+<span class="sd">        removed or replaced.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># remove italic, bold, underline styling</span>
+    <span class="n">REMOVALS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&lt;italic&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;i&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;bold&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;b&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;underline&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;u&gt;&quot;</span><span class="p">]</span>
+    <span class="n">REPLACES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;&lt;sub&gt;&quot;</span><span class="p">:</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;sup&gt;&quot;</span><span class="p">:</span> <span class="s2">&quot;^&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;ext-link&gt;&quot;</span><span class="p">:</span> <span class="s2">&quot;[External URI:]&quot;</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">_remove_html_styling</span><span class="p">(</span>
+        <span class="n">text</span><span class="p">,</span> <span class="n">removals</span><span class="o">=</span><span class="n">REMOVALS</span><span class="p">,</span> <span class="n">replaces</span><span class="o">=</span><span class="n">REPLACES</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_remove_html_styling</span><span class="p">(</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">removals</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">replaces</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove specified HTML stylings from the provided text.</span>
+
+<span class="sd">    :param str text: The text containing HTML stylings to be removed.</span>
+<span class="sd">    :param list[str] removals: A list of opening tags to be removed. Their</span>
+<span class="sd">        corresponding closing tags will also be removed. Tags will be removed</span>
+<span class="sd">        regardless of attributes.</span>
+<span class="sd">    :param dict replaces: A dictionary of find, replace values. The find values</span>
+<span class="sd">        should be HTML opening tags. They will be matched regardless of attributes.</span>
+<span class="sd">    :param bool verbose: Whether to print verbose output.</span>
+
+<span class="sd">    :return: The XML string with specified HTML text styling tags removed.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ADD IN CLOSING TAGS FOR REMOVAL TAGS</span>
+    <span class="n">to_remove</span> <span class="o">=</span> <span class="n">removals</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">more_to_remove</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">to_remove</span><span class="p">:</span>
+        <span class="n">more_to_remove</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">tag</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">to_remove</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">more_to_remove</span><span class="p">)</span>
+    <span class="c1"># ADD IN CLOSING TAGS FOR REPLACEMENT TAGS</span>
+    <span class="n">to_replace_basic</span> <span class="o">=</span> <span class="n">replaces</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">to_replace_basic</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">to_remove</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">tag</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+    <span class="c1"># MATCH REGARDLESS OF HTML ATTRIBUTES</span>
+    <span class="c1"># Sample of what removals should look like for tag matching</span>
+    <span class="c1"># regardless of attributes</span>
+    <span class="c1"># /&lt;head\b[^&gt;]*&gt;/i</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">to_remove</span><span class="p">)):</span>
+        <span class="n">to_remove</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_remove</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">b[^&gt;]*&quot;</span> <span class="o">+</span> <span class="n">to_remove</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">to_replace</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">find</span><span class="p">,</span> <span class="n">replace</span> <span class="ow">in</span> <span class="n">to_replace_basic</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">new_find</span> <span class="o">=</span> <span class="n">find</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">b[^&gt;]*&quot;</span> <span class="o">+</span> <span class="n">find</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">to_replace</span><span class="p">[</span><span class="n">new_find</span><span class="p">]</span> <span class="o">=</span> <span class="n">replace</span>
+
+    <span class="c1"># REPORT REQUESTED BEHAVIOR AT RUNTIME</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removing the following tags:</span><span class="se">\n</span><span class="si">{</span><span class="n">to_remove</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Making the following replacements:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">find</span><span class="p">,</span> <span class="n">replace</span> <span class="ow">in</span> <span class="n">to_replace</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">find</span><span class="si">}</span><span class="s2"> replaced with </span><span class="si">{</span><span class="n">replace</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># REMOVALS</span>
+    <span class="n">removal_pattern</span> <span class="o">=</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">to_remove</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">removal_pattern</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="c1"># REPLACEMENTS</span>
+    <span class="k">for</span> <span class="n">find</span><span class="p">,</span> <span class="n">replace</span> <span class="ow">in</span> <span class="n">to_replace</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">find</span><span class="p">,</span> <span class="n">replace</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="c1"># RETURN THE CLEANED TEXT</span>
+    <span class="k">return</span> <span class="n">text</span>
+
+
+<div class="viewcode-block" id="split_text_and_refs">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._clean.split_text_and_refs">[docs]</a>
+<span class="k">def</span> <span class="nf">split_text_and_refs</span><span class="p">(</span>
+    <span class="n">tree_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_unknown</span><span class="o">=</span><span class="s2">&quot;keep&quot;</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split HTML tags out of text.</span>
+
+<span class="sd">    - HTML text styling tags will be removed if they aren&#39;t already.</span>
+<span class="sd">    - &lt;xref&gt;, &lt;table-wrap&gt;, and &lt;fig&gt; tags will be converted to MHTML tags containing</span>
+<span class="sd">      the key to use when searching for these references, tables, and figures.</span>
+
+<span class="sd">    Returns the cleaned text and updates the passed BiMap for any new key-tag</span>
+<span class="sd">    pairs found.</span>
+
+<span class="sd">    :param str tree_text: A string representing a markup language tree containing</span>
+<span class="sd">        HTML tags.</span>
+<span class="sd">    :param ref_map: A BiMap containing keys connected to reference tag values. BiMap</span>
+<span class="sd">        forward keys should be reference keys to place into the text in lieu of the</span>
+<span class="sd">        tag for later BiMap table lookup. BiMap forward values should be the</span>
+<span class="sd">        actual tags. The provided BiMap will be modified to reflect any new tag</span>
+<span class="sd">        values found, and keys will be appended as necessary.</span>
+<span class="sd">    :type ref_map: basicBiMap</span>
+<span class="sd">    :param id: Optionally provide an id for traceback of any issues.</span>
+<span class="sd">    :type id: Any, optional</span>
+<span class="sd">    :param str on_unknown: Behavior when encountering an unknown tag. Determines</span>
+<span class="sd">        what happens to the tag contents.</span>
+<span class="sd">        Default is &#39;keep&#39;. Options: [&#39;drop&#39;, &#39;keep&#39;]</span>
+
+<span class="sd">    :return: A tuple containing the cleaned text and the updated BiMap.</span>
+<span class="sd">    :rtype: Tuple[str, basicBiMap]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">XREF_TAG_NAME</span> <span class="o">=</span> <span class="s2">&quot;xref&quot;</span>
+    <span class="n">FIGURE_TAG_NAME</span> <span class="o">=</span> <span class="s2">&quot;fig&quot;</span>
+    <span class="n">TABLEWRAP_TAG_NAME</span> <span class="o">=</span> <span class="s2">&quot;table-wrap&quot;</span>
+    <span class="n">ALLOWED_TAG_NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="n">XREF_TAG_NAME</span><span class="p">,</span> <span class="n">FIGURE_TAG_NAME</span><span class="p">,</span> <span class="n">TABLEWRAP_TAG_NAME</span><span class="p">]</span>
+
+    <span class="c1"># regex pattern string to match tags through to closing tag or self closing</span>
+    <span class="c1"># should match any HTML or XML tag</span>
+    <span class="n">XML_HTML_TAG_PATTERN</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">r</span><span class="s2">&quot;&lt;([a-zA-Z][\w-]*)\b[^&gt;]*&gt;(.*?)&lt;/\1&gt;|&lt;([a-zA-Z][\w-]*)\b[^/&gt;]*/?&gt;&quot;</span>
+    <span class="p">)</span>
+    <span class="n">tag_r</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+        <span class="n">XML_HTML_TAG_PATTERN</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span>
+    <span class="p">)</span>  <span class="c1"># DOTALL used in case of multiline tag spans</span>
+
+    <span class="n">text</span> <span class="o">=</span> <span class="n">tree_text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">_remove_text_styling</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">cleaned_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">tag_r</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="c1"># found a tag, append the text prior to the tag</span>
+            <span class="c1"># and deal w tag</span>
+            <span class="c1"># EAT NEXT TAG AND MATCH PARTS</span>
+            <span class="n">tag_name</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">tag_contents</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">full_tag</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+
+            <span class="c1"># ADD CONTENTS PRIOR TO TAG</span>
+            <span class="n">tag_start_index</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="n">cleaned_text</span> <span class="o">+=</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">tag_start_index</span><span class="p">]</span>
+
+            <span class="c1"># UNKNOWN TAG PROCESSING, WARN AND PERFORM SPECIFIED BEHAVIOR</span>
+            <span class="k">if</span> <span class="n">tag_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ALLOWED_TAG_NAMES</span><span class="p">:</span>
+                <span class="n">warning_msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Tag of type </span><span class="si">{</span><span class="n">tag_name</span><span class="si">}</span><span class="s2"> found in a text portion of &quot;</span>
+                    <span class="s2">&quot;the provided markup language. &quot;</span>
+                    <span class="s2">&quot;Expected only HTML styling tags, or tags from the &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;following list: </span><span class="si">{</span><span class="n">ALLOWED_TAG_NAMES</span><span class="si">}</span><span class="s2">.&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; Specified unknown tag behavior: </span><span class="si">{</span><span class="n">on_unknown</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="nb">id</span><span class="p">:</span>
+                    <span class="n">warning_msg</span> <span class="o">+=</span> <span class="p">(</span>
+                        <span class="s2">&quot; Warning occured in a text section &quot;</span> <span class="sa">f</span><span class="s2">&quot;with id: </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">.&quot;</span>
+                    <span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">warning_msg</span><span class="p">,</span> <span class="n">unexpectedTagWarning</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">on_unknown</span> <span class="o">==</span> <span class="s2">&quot;keep&quot;</span><span class="p">:</span>
+                    <span class="n">cleaned_text</span> <span class="o">+=</span> <span class="n">tag_contents</span>
+                <span class="c1"># eat through the text that was just processed</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">end</span><span class="p">()</span> <span class="p">:]</span>
+
+            <span class="c1"># KNOWN TAG PROCESSING, UPDATE DATA REF</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># add tag contents if it is an xref.</span>
+                <span class="k">if</span> <span class="n">tag_name</span> <span class="o">==</span> <span class="s2">&quot;xref&quot;</span><span class="p">:</span>
+                    <span class="n">cleaned_text</span> <span class="o">+=</span> <span class="n">tag_contents</span>
+                <span class="c1"># Get reference number for data reference</span>
+                <span class="n">ref_num</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="n">full_tag</span> <span class="ow">in</span> <span class="n">ref_map</span><span class="o">.</span><span class="n">reverse</span><span class="p">:</span>
+                    <span class="c1"># have we generated a map for this tag before?</span>
+                    <span class="n">ref_num</span> <span class="o">=</span> <span class="n">ref_map</span><span class="o">.</span><span class="n">reverse</span><span class="p">[</span><span class="n">full_tag</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ref_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref_map</span><span class="p">)</span>  <span class="c1"># new tag, append a new key</span>
+                    <span class="n">ref_map</span><span class="p">[</span><span class="n">ref_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_tag</span>  <span class="c1"># and fill in the tag value</span>
+
+                <span class="n">data_ref_tag</span> <span class="o">=</span> <span class="n">mhtml</span><span class="o">.</span><span class="n">generate_typed_mhtml_tag</span><span class="p">(</span>
+                    <span class="n">tag_type</span><span class="o">=</span><span class="s2">&quot;dataref&quot;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">ref_num</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">cleaned_text</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_ref_tag</span><span class="si">}</span><span class="s2">&quot;</span>
+
+                <span class="c1"># eat through the text that was just processed</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">end</span><span class="p">()</span> <span class="p">:]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># no more tags to deal with, add the last bits to our output text</span>
+            <span class="n">cleaned_text</span> <span class="o">+=</span> <span class="n">text</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">cleaned_text</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Daniel Frees.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

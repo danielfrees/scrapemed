@@ -23,7 +23,7 @@ copyright = "2023, Daniel Frees"
 author = "Daniel Frees"
 
 # The full version, including alpha/beta/rc tags
-release = "1.0.6"
+release = "1.0.8"
 
 
 # -- General configuration ---------------------------------------------------

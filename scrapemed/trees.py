@@ -1,5 +1,8 @@
 """
-Scrapemed's "trees" module handles PMC article tree visualizations,
+ScrapeMed's Trees Module
+============================
+
+Scrapemed's `trees` module handles PMC article tree visualizations,
 statistics, and descriptions.
 """
 
@@ -10,13 +13,14 @@ import lxml.etree as ET
 
 def investigate_xml_tree(root: ET.Element) -> None:
     """
-    Print some basic statistics and info about your xml, provided its root)
+    Print basic statistics and information about an XML tree provided its root.
 
-    Input:
-    [root] = Root of an ElementTree of your xml
+    :param ET.Element root: The root of an ElementTree of your XML.
 
-    Output:
-    None, all work is printed to stdout.
+    This function prints the following information to stdout:
+    - Number of elements in the XML tree.
+    - Unique element types in the XML tree.
+    - A dictionary with tag frequencies in the XML tree.
     """
 
     elem_list = [elem.tag for elem in root.iter()]
@@ -37,7 +41,17 @@ def investigate_xml_tree(root: ET.Element) -> None:
 def visualize_element_tree(
     root: ET.Element, title="data/element_tree.gv", test_mode=False
 ) -> None:
-    """Visualize an XML element tree using Graphviz."""
+    """
+    Visualize an XML element tree using Graphviz.
+
+    :param ET.Element root: The root of the XML element tree to visualize.
+    :param str title: The title or filename for the output visualization.
+        Default is "data/element_tree.gv".
+    :param bool test_mode: Whether to render the visualization in test mode or not.
+
+    This function creates a visualization of the XML element tree using Graphviz
+    and optionally renders it.
+    """
     root = copy.copy(root)
     dot = Digraph()
     _add_elements(dot, root)
@@ -47,7 +61,16 @@ def visualize_element_tree(
 
 
 def _add_elements(dot: Digraph, element: ET.Element, parent=None):
-    """Recursively add elements to a Graphviz dot graph."""
+    """
+    Recursively add elements to a Graphviz dot graph.
+
+    :param Digraph dot: The Graphviz dot graph.
+    :param ET.Element element: The XML element to add to the graph.
+    :param str parent: The parent element's tag. Default is None.
+
+    This function is used internally to recursively add XML elements and their
+    relationships to the Graphviz dot graph.
+    """
     if parent is not None:
         dot.edge(parent, element.tag)
     dot.node(element.tag, element.tag)
@@ -61,27 +84,32 @@ def _generate_tag_dictionary(root: ET.Element) -> dict:
     Generate a dictionary of all tags, each with a subdictionary of attributes,
     and lists of values seen for each attribute.
 
-    Helps define the scope of tags for a given xml/html tree.
+    This function helps define the scope of tags for a given XML, HTML, or
+    other tagged language tree.
 
-    Input:
-    [root] = root of an ElementTree of xml, html, other tagged language,
-        or combo thereof
+    :param ET.Element root: The root of an ElementTree of XML, HTML, or other
+    tagged language.
 
-    Output:
-    A dictionary of tags: attr-val dictionaries.
-    Attr-val dictionaries are a dict of attribute: value lists.
+    :return: A dictionary of tags, each with a subdictionary of attributes and
+    lists of values for each attribute.
+    :rtype: dict
 
-    The structure of the overall dictionary is visualized below:
-       {
-        tag_0
-         |___attr_0
-               |_____[value_0, ..., value_n]
-         |___attr_1
-               |_____[value_0, ...., value_n]
-
-        ....
-        tag_n
-       }
+    The structure of the overall dictionary is as follows:
+    {
+        tag_0:
+        {
+            attr_0: [value_0, ..., value_n],
+            attr_1: [value_0, ..., value_n],
+            ...
+        },
+        tag_1:
+        {
+            attr_0: [value_0, ..., value_n],
+            attr_1: [value_0, ..., value_n],
+            ...
+        },
+        ...
+    }
     """
     data_dict = {}
 

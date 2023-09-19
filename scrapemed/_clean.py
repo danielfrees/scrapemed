@@ -1,6 +1,16 @@
 """
+ScrapeMed's Markup Language Cleaning Utilities
+===============================================
+
 Scrapemed module for markup language cleaning utilities.
+
+.. warns::
+
+   unexpectedTagWarning
+       Warned when an unexpected tag enclosed in angle brackets is found.
+
 """
+
 import warnings
 import re
 from scrapemed.utils import basicBiMap
@@ -14,7 +24,7 @@ warnings.formatwarning = (
 
 class unexpectedTagWarning(Warning):
     """
-    Raised when an unexpected tag enclosed in angle brackets is found.
+    Warned when an unexpected tag enclosed in angle brackets is found.
     """
 
     pass
@@ -22,13 +32,14 @@ class unexpectedTagWarning(Warning):
 
 def clean_xml_string(xml_string: str, strip_text_styling=True, verbose=False):
     """
-    Wrapper function to clean xml string.
+    Clean an XML string.
 
-    Input:
-    [xml_string]: string representing xml to be cleaned
-    [strip_text_styling]: whether to remove/replace HTML text styling tags
+    :param str xml_string: The XML string to be cleaned.
+    :param bool strip_text_styling: Whether to remove or replace HTML text styling tags.
+    :param bool verbose: Whether to print verbose output.
 
-    Output: Cleaned xml string
+    :return: The cleaned XML string.
+    :rtype: str
     """
     # Strip html styling if requested
     if strip_text_styling:
@@ -38,23 +49,30 @@ def clean_xml_string(xml_string: str, strip_text_styling=True, verbose=False):
 
 def _remove_text_styling(text: str, verbose=False) -> str:
     """
-    Removes italic, bold, underline html text styling tags from provided text.
-    Replaces sub and sup tags with _ and ^, respectively.
+    Remove specified HTML stylings from the provided text.
 
-    Input:
-    [text] string from which to remove html text stylings
+    This function removes specified HTML stylings from the input text. It can
+    remove opening tags and their corresponding closing tags and replace
+    specific opening tags with desired values.
 
-    Output: text with html text stylings removed/ replaced
+    **Specifically:**
+    This overloaded wrapper function removes italic, bold, underline HTML text
+    styling tags from the input text. Additionally, it replaces <sub> with "_"
+    and <sup> with "^". <ext-link> is replaced with "[External URI:]".
 
-    DEFAULT BEHAVIOR:
-    Removals:
-        <italic>,<i>,<bold>,<b>,<underline>,<u> opening and closing tags.
-    Replacements (Note: all corresponding closing tags removed
-    unless otherwise specified):
-        <sub> replaced with "_"
-        <sup> replaced with "^"
-        <ext-link> replaced with [External URI:]
+    :param str text: The text containing HTML stylings to be removed or replaced.
+    :param list[str] removals: A list of opening tags to be removed. Their
+        corresponding closing tags will also be removed. Tags will be removed
+        regardless of attributes.
+    :param dict replaces: A dictionary of find, replace values. The find values
+        should be HTML opening tags. They will be matched regardless of attributes.
+    :param bool verbose: Whether to print verbose output.
+
+    :return: The XML string with default HTML text styling tags (`REMOVALS`, `REPLACES`)
+        removed or replaced.
+    :rtype: str
     """
+
     # remove italic, bold, underline styling
     REMOVALS = ["<italic>", "<i>", "<bold>", "<b>", "<underline>", "<u>"]
     REPLACES = {"<sub>": "_", "<sup>": "^", "<ext-link>": "[External URI:]"}
@@ -68,17 +86,18 @@ def _remove_html_styling(
     text: str, removals: list[str], replaces: dict, verbose=False
 ) -> str:
     """
-    Removes specified html stylings. Helpful for cleaning up xml.
+    Remove specified HTML stylings from the provided text.
 
-    Input:
-    [text]: str of the xml
-    [removals]: list of opening tags to be removed.
-                Their closing tag equivalents will also be removed.
-                Tags will be removed regardless of attributes.
-    [replaces]: dict of find, replace values.
-                Finds should be html opening tags.
-                They will be matched regardless of attributes.
-    Output: XML string with HTML text styling tags removed
+    :param str text: The text containing HTML stylings to be removed.
+    :param list[str] removals: A list of opening tags to be removed. Their
+        corresponding closing tags will also be removed. Tags will be removed
+        regardless of attributes.
+    :param dict replaces: A dictionary of find, replace values. The find values
+        should be HTML opening tags. They will be matched regardless of attributes.
+    :param bool verbose: Whether to print verbose output.
+
+    :return: The XML string with specified HTML text styling tags removed.
+    :rtype: str
     """
 
     # ADD IN CLOSING TAGS FOR REMOVAL TAGS
@@ -128,34 +147,30 @@ def split_text_and_refs(
 ):
     """
     Split HTML tags out of text.
-    • HTML text styling tags will be removed if they aren't already.
-    • <xref>, <table-wrap>, and <fig> tags will be converted to MHTML
-    tags containing the key to use when searching for these references,
-    tables, and figures.
 
-    Returns the cleaned text. Modifies the passed BiMap for any new
-    key-tag pairs found.
+    - HTML text styling tags will be removed if they aren't already.
+    - <xref>, <table-wrap>, and <fig> tags will be converted to MHTML tags containing
+      the key to use when searching for these references, tables, and figures.
 
-    Input:
-    [tree_text]: string representing a markup language tree,
-        containing html tags
-    [ref_map]: basicBiMap containing keys connected
-        to reference tag values
+    Returns the cleaned text and updates the passed BiMap for any new key-tag
+    pairs found.
 
-            BiMap forward keys should be reference keys to
-            place into the text in lieu of the tag for later
-            BiMap table lookup.
+    :param str tree_text: A string representing a markup language tree containing
+        HTML tags.
+    :param ref_map: A BiMap containing keys connected to reference tag values. BiMap
+        forward keys should be reference keys to place into the text in lieu of the
+        tag for later BiMap table lookup. BiMap forward values should be the
+        actual tags. The provided BiMap will be modified to reflect any new tag
+        values found, and keys will be appended as necessary.
+    :type ref_map: basicBiMap
+    :param id: Optionally provide an id for traceback of any issues.
+    :type id: Any, optional
+    :param str on_unknown: Behavior when encountering an unknown tag. Determines
+        what happens to the tag contents.
+        Default is 'keep'. Options: ['drop', 'keep']
 
-            BiMap forward values should be the actual tags.
-
-            The provided BiMap will be modified to reflect any
-            new tag values found, and keys will be appended as necessary.
-    [id]: Optionally provide an id for traceback of any issues.
-    [on_unknown]: Behavior when encountering an unknown tag. Determines
-        what happens to the tag contents. Default = 'keep'.
-        Options: ['drop', 'keep']
-
-    Output: The cleaned text, and updated BiMap.
+    :return: A tuple containing the cleaned text and the updated BiMap.
+    :rtype: Tuple[str, basicBiMap]
     """
     XREF_TAG_NAME = "xref"
     FIGURE_TAG_NAME = "fig"

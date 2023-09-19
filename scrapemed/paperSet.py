@@ -1,9 +1,15 @@
 """
-Module for building PMC paper datasets, known as paperSets.
+ScrapeMed's PaperSet Module
+============================
 
-Functions for embeddings, natural language search, storage optimization,
-persistence.
+Module for building PMC paper datasets, known as paperSets.
+This is the main endpoint for ScrapeMed users like data scientists and data engineers.
+
+Functions for structured data generation, scraping PMC via both PMCID lists and
+advanced PMC term searches.
+
 """
+
 import scrapemed.scrape as scrape
 from scrapemed.paper import Paper
 import pandas as pd
@@ -13,10 +19,46 @@ from wordcloud import WordCloud
 
 
 class paperSet:
+    """
+    A collection of Paper objects with various operations for managing and
+    analyzing them.
+
+    :param List[Paper] papers: A list of Paper objects to initialize the paperSet.
+
+    This class represents a collection of Paper objects and provides methods
+    for creating, adding, and visualizing papers.
+
+    Methods:
+    - `from_search(email, term, retmax=10, verbose=False,
+        suppress_warnings=True, suppress_errors=True)`: Generate a paperSet
+        via a PMC search.
+    - `from_pmcid_list(pmcids, email, download=False, validate=True,
+        strip_text_styling=True, verbose=False, suppress_warnings=True,
+        suppress_errors=True)`: Generate a paperSet via a list of PMCIDs.
+    - `__iter__()`: Implement iteration for the paperSet.
+    - `__next__()`: Get the next paper when iterating over the paperSet.
+    - `__len__()`: Get the number of papers in the paperSet.
+    - `__getitem__(index)`: Get a paper from the paperSet by index.
+    - `to_df()`: Return a pandas DataFrame representation of the paperSet.
+    - `add_paper(paper)`: Add a Paper to the paperSet.
+    - `add_papers(papers)`: Add multiple Papers to the paperSet.
+    - `add_pmcid(pmcid, email, download=False, validate=True,
+        strip_text_styling=True, verbose=False, suppress_warnings=True,
+        suppress_errors=True)`: Add a Paper to the paperSet via a PMCID.
+    - `add_pmcids(pmcids, email, download=False, validate=True,
+        strip_text_styling=True, verbose=False, suppress_warnings=True,
+        suppress_errors=True)`: Add Papers to the paperSet via a list of PMCIDs.
+    - `visualize()`: Generate a general visualization of the paperSet.
+    - `visualize_unique_values(columns_to_visualize=["Last_Updated",
+        "Journal_Title"])`: Visualize unique values in specified columns.
+    - `visualize_title_wordcloud()`: Visualize a word cloud of all the
+        Paper titles in the paperSet.
+    """
+
     def __init__(self, papers: List[Paper]):
         """
-        Initalize a paperSet. Usually called via paperSet.from_search() or
-        paperSet.from_pmcid_list().
+        Initalize a paperSet. Usually called via `paperSet.from_search()` or
+        `paperSet.from_pmcid_list()`.
         """
         self.papers = []
         for paper in papers:
@@ -43,17 +85,20 @@ class paperSet:
         suppress_warnings: bool = True,
         suppress_errors: bool = True,
     ):
-        """Generate a paperSet via a PMC search.
+        """
+        Generate a paperSet via a PMC search.
 
-        [email] - use your email to auth with PMC
-        [term] - search term
-        [retmax] - max number of PMCIDs to return
-        [suppress_warnings] - Whether to suppress warnings while parsing XML.
-            Note: Warnings are frequent, because of the variable nature of PMC
-            XML data.
-            Recommended to suppress when parsing many XMLs at once.
-        [suppress_errors] - Return None on failed XML parsing, instead of
-            raising an error. (HIGHLY RECOMMENDED FOR LARGE SEARCHES)
+        :param str email: Use your email to authenticate with PMC.
+        :param str term: Search term.
+        :param int retmax: Maximum number of PMCIDs to return (default is 10).
+        :param bool verbose: Whether to display verbose output (default is False).
+        :param bool suppress_warnings: Whether to suppress warnings while
+            parsing XML (default is True).
+        :param bool suppress_errors: Whether to return None on failed XML
+            parsing, instead of raising an error (default is True).
+
+        :returns: A paperSet generated from the PMC search results.
+        :rtype: paperSet
         """
         print(
             (
@@ -89,21 +134,25 @@ class paperSet:
         suppress_warnings: bool = True,
         suppress_errors: bool = True,
     ):
-        """Generate a paperSet via a list of PMCIDs
+        """
+        Generate a paperSet via a list of PMCIDs.
 
-        [pmcids] - list of PMCIDs to populate the paperSet
-        [email] - use your email to auth with PMC
-        [download] - whether or not to download the XMLs corresponding to pmcids
-        [validate] - whether or not to validate the XMLs corresponding to pmcids
-            (HIGHLY RECOMMENDED)
-        [strip_text_styling] - whether or not to clean common HTML and other
-            text styling out of the XMLs (HIGHLY RECOMMENDED)
-        [suppress_warnings] - Whether to suppress warnings while parsing XML.
-            Note: Warnings are frequent, because of the variable nature of PMC
-            XML data.
-            Recommended to suppress when parsing many XMLs at once.
-        [suppress_errors] - Return None on failed XML parsing, instead of
-            raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)
+        :param List[int] pmcids: List of PMCIDs to populate the paperSet.
+        :param str email: Use your email to authenticate with PMC.
+        :param bool download: Whether or not to download the XMLs corresponding
+            to PMCIDs (default is False).
+        :param bool validate: Whether or not to validate the XMLs corresponding
+            to PMCIDs (default is True).
+        :param bool strip_text_styling: Whether or not to clean common HTML and
+            other text styling out of the XMLs (default is True).
+        :param bool verbose: Whether to display verbose output (default is False).
+        :param bool suppress_warnings: Whether to suppress warnings while
+            parsing XML (default is True).
+        :param bool suppress_errors: Whether to return None on failed XML
+            parsing, instead of raising an error (default is True).
+
+        :returns: A paperSet generated from the list of PMCIDs.
+        :rtype: paperSet
         """
         print(
             (
@@ -133,9 +182,15 @@ class paperSet:
         return cls(papers=paper_list)
 
     def __iter__(self):
+        """
+        Implement iteration for the paperSet.
+        """
         return self
 
     def __next__(self):
+        """
+        Get the next paper when iterating over the paperSet.
+        """
         if self.index < len(self.papers):
             result = self.papers[self.index]
             self.index += 1
@@ -144,9 +199,15 @@ class paperSet:
             raise StopIteration
 
     def __len__(self):
+        """
+        Get the number of papers in the paperSet.
+        """
         return len(self.papers)
 
     def __getitem__(self, index):
+        """
+        Get a paper from the paperSet by index.
+        """
         if 0 <= index < len(self.papers):
             return self.papers[index]
         else:
@@ -155,15 +216,21 @@ class paperSet:
     def to_df(self):
         """
         Return a pandas DataFrame representation of the paperSet.
+
+        :returns: DataFrame of the paperSet.
+        :rtype: pd.DataFrame
         """
         return self.df
 
     def add_paper(self, paper: Paper):
         """
-        Add Paper to the paperSet directly. Returns True of paper added,
-            False, if the paper was already found in the paperSet.
-        Note that papers can easily end up duplicated in the paperSet if
-            they were downloaded different dates or PMCIDs were corrupted.
+        Add a Paper to the paperSet directly. Returns True if the paper was
+        added, False if the paper was already in the paperSet.
+
+        :param Paper paper: The Paper to add to the paperSet.
+        :returns: True if the paper was added, False if it was already in
+            the paperSet.
+        :rtype: bool
         """
         if paper not in self.papers:
             # caution: comparison of papers is sketchy! Be careful to not
@@ -177,7 +244,11 @@ class paperSet:
 
     def add_papers(self, papers: List[Paper]):
         """
-        Add Papers to the paperSet directly. Returns number of papers added.
+        Add Papers to the paperSet directly. Returns the number of papers added.
+
+        :param List[Paper] papers: List of Papers to add to the paperSet.
+        :returns: The number of papers added.
+        :rtype: int
         """
         count_added = 0
         for paper in papers:
@@ -197,22 +268,25 @@ class paperSet:
         suppress_errors: bool = True,
     ):
         """
-        Add a Paper to the paperSet via PMCID. Returns True if added,
-            False if Paper already in paperSet.
+        Add a Paper to the paperSet via PMCID. Returns True if the paper was
+        added, False if it was already in the paperSet.
 
-        [pmcid] - PMCID to generate the Paper to add
-        [email] - use your email to auth with PMC
-        [download] - whether or not to download the XMLs corresponding to pmcid
-        [validate] - whether or not to validate the XMLs corresponding to pmcid
-            (HIGHLY RECOMMENDED)
-        [strip_text_styling] - whether or not to clean common HTML and other
-            text styling out of the XML (HIGHLY RECOMMENDED)
-        [suppress_warnings] - Whether to suppress warnings while parsing XML.
-            Note: Warnings are frequent, because of the variable nature of PMC
-            XML data.
-            Recommended to suppress when parsing many XMLs at once.
-        [suppress_errors] - Return None on failed XML parsing, instead of
-            raising an error.
+        :param Union[int, str] pmcid: The PMCID to generate the Paper to add.
+        :param str email: Use your email to authenticate with PMC.
+        :param bool download: Whether or not to download the XMLs corresponding
+            to pmcid (default is False).
+        :param bool validate: Whether or not to validate the XMLs corresponding
+            to pmcid (default is True).
+        :param bool strip_text_styling: Whether or not to clean common HTML
+            and other text styling out of the XML (default is True).
+        :param bool verbose: Whether to display verbose output (default is False).
+        :param bool suppress_warnings: Whether to suppress warnings while
+            parsing XML (default is True).
+        :param bool suppress_errors: Whether to return None on failed XML
+            parsing, instead of raising an error (default is True).
+        :returns: True if the paper was added, False if it was already in
+            the paperSet.
+        :rtype: bool
         """
         paper = Paper.from_pmc(
             pmcid,
@@ -236,22 +310,26 @@ class paperSet:
         suppress_warnings: bool = True,
         suppress_errors: bool = True,
     ):
-        """Add Papers to the paperSet via a list of PMCIDs. Returns number of
-        papers added.
+        """
+        Add Papers to the paperSet via a list of PMCIDs. Returns the number
+        of papers added.
 
-        [pmcids] - list of PMCIDs to populate the paperSet
-        [email] - use your email to auth with PMC
-        [download] - whether or not to download the XMLs corresponding to pmcids
-        [validate] - whether or not to validate the XMLs corresponding to pmcids
-            (HIGHLY RECOMMENDED)
-        [strip_text_styling] - whether or not to clean common HTML and other
-            text styling out of the XMLs (HIGHLY RECOMMENDED)
-        [suppress_warnings] - Whether to suppress warnings while parsing XML.
-            Note: Warnings are frequent, because of the variable nature of
-            PMC XML data.
-            Recommended to suppress when parsing many XMLs at once.
-        [suppress_errors] - Return None on failed XML parsing, instead of
-            raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)
+        :param List[Union[int, str]] pmcids: List of PMCIDs to populate
+            the paperSet.
+        :param str email: Use your email to authenticate with PMC.
+        :param bool download: Whether or not to download the XMLs
+            corresponding to pmcids (default is False).
+        :param bool validate: Whether or not to validate the XMLs
+            corresponding to pmcids (default is True).
+        :param bool strip_text_styling: Whether or not to clean common HTML
+            and other text styling out of the XMLs (default is True).
+        :param bool verbose: Whether to display verbose output (default is False).
+        :param bool suppress_warnings: Whether to suppress warnings while
+            parsing XML (default is True).
+        :param bool suppress_errors: Whether to return None on failed XML
+            parsing, instead of raising an error (default is True).
+        :returns: The number of papers added.
+        :rtype: int
         """
         count_added = 0
         for pmcid in pmcids:
@@ -280,6 +358,12 @@ class paperSet:
     def visualize_unique_values(
         self, columns_to_visualize=["Last_Updated", "Journal_Title"]
     ) -> None:
+        """
+        Visualize unique values in specified columns of the paperSet DataFrame.
+
+        :param List[str] columns_to_visualize: A list of column names to
+            visualize (default is ["Last_Updated", "Journal_Title"]).
+        """
         for column in columns_to_visualize:
             if column not in self.df.columns:
                 print(f"Column '{column}' not found in paperSet.df.")

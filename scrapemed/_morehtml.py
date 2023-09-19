@@ -1,6 +1,11 @@
 """
+ScrapeMed's Custom Markup Language - MoreHTML (MHTML)
+======================================================
+
 Wrapper on basic functions for HTML manipulation.
-Added: Non-markup significant unescape
+
+**Added on top of core html functionality:**
+Non-markup significant unescape function, custom MHTML tag encoding and removal.
 """
 
 import re
@@ -9,25 +14,23 @@ import html
 
 def unescape_except(s, **kwargs):
     """
-    Convert all named and numeric character references (e.g. &gt;, &#62;,
-    &x3e;) in the provided stringto the corresponding unicode characters,
-    excluding any provided encodings to be ignored.
+    Convert all named and numeric character references in the provided string to
+    the corresponding Unicode characters, excluding any provided encodings to be
+    ignored.
 
-    Input:
-    [s] - string
-    [**kwargs] - keyword arguments of form: key = encoding.
-                These encodings will be ignored when unescaping.
+    :param str s: The input string containing character references.
+    :param kwargs: Keyword arguments of the form key=encoding. These encodings
+            will be ignored when unescaping.
+                    For keys with multiple encodings, use unique keynames.
+                   Encodings must be single code strings.
+    :type kwargs: dict
+    :return: A string with character references unescaped, except for the
+        specified encodings to be ignored.
+    :rtype: str
 
-    Output: string with encodings unescaped other than those to be ignored
-
-    For keys with multiple encodings, pass as
-    {keyname} = encoding1, {keyname}2 = encoding2.
-    The keynames do not matter for functionality, but they must be unique.
-    Encodings must be single code strings.
-
-    This function uses the rules defined by the HTML 5 standard
-    for both valid and invalid character references, and the list of
-    HTML 5 named character references defined in html.entities.html5.
+    This function uses the rules defined by the HTML 5 standard for both valid
+    and invalid character references, and the list of HTML 5 named character
+    references defined in html.entities.html5.
     """
 
     # no need to do anything if there are no html encodings
@@ -61,10 +64,10 @@ def generate_mhtml_tag(string: str) -> str:
     """
     Generates an MHTML tag from the provided string.
 
-    Input:
-    [string]: text to be tagged in MHTML format: "[MHTML::string]"
-
-    Output: MTHML tag of string
+    :param str string: The text to be tagged in MHTML format.
+    :return: An MHTML tag containing the input string, in format
+        `f"[MHTML::{string}]"`
+    :rtype: str
     """
     return f"[MHTML::{string}]"
 
@@ -73,10 +76,11 @@ def generate_typed_mhtml_tag(tag_type: str, string: str) -> str:
     """
     Generates a typed MHTML tag from the provided string.
 
-    Input:
-    [string]: text to be tagged in MHTML format: "[MHTML::type::string]"
-
-    Output: MTHML tag of string
+    :param str tag_type: The type of the MHTML tag.
+    :param str string: The text to be tagged in MHTML format.
+    :return: A typed MHTML tag containing the input string, in format
+        `[MHTML::type::string]`.
+    :rtype: str
     """
     return f"[MHTML::{tag_type}::{string}]"
 
@@ -84,6 +88,10 @@ def generate_typed_mhtml_tag(tag_type: str, string: str) -> str:
 def remove_mhtml_tags(text: str) -> str:
     """
     Removes all MHTML tags and typed MHTML tags found in the provided text.
+
+    :param str text: The text from which to remove MHTML tags.
+    :return: The text with MHTML tags removed.
+    :rtype: str
     """
     # match MHTML tags
     # group1 = tag type for typed MHTML tags

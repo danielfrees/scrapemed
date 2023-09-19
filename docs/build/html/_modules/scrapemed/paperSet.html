@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>scrapemed.paperSet &mdash; scrapemed 1.0.6 documentation</title>
+  <title>scrapemed.paperSet &mdash; scrapemed 1.0.8 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -12,7 +12,7 @@
 
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=e2a723ec"></script>
+        <script src="../../_static/documentation_options.js?v=aec50437"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -70,27 +70,68 @@
 
   <h1>Source code for scrapemed.paperSet</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Module for building PMC paper datasets, known as paperSets.</span>
+<span class="sd">ScrapeMed&#39;s PaperSet Module</span>
+<span class="sd">============================</span>
 
-<span class="sd">Functions for embeddings, natural language search, storage optimization, persistence.</span>
+<span class="sd">Module for building PMC paper datasets, known as paperSets.</span>
+<span class="sd">This is the main endpoint for ScrapeMed users like data scientists and data engineers.</span>
+
+<span class="sd">Functions for structured data generation, scraping PMC via both PMCID lists and</span>
+<span class="sd">advanced PMC term searches.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">scrapemed._parse</span> <span class="k">as</span> <span class="nn">parse</span>
+
 <span class="kn">import</span> <span class="nn">scrapemed.scrape</span> <span class="k">as</span> <span class="nn">scrape</span>
 <span class="kn">from</span> <span class="nn">scrapemed.paper</span> <span class="kn">import</span> <span class="n">Paper</span>
-<span class="kn">import</span> <span class="nn">lxml.etree</span> <span class="k">as</span> <span class="nn">ET</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span>
+
 
 <div class="viewcode-block" id="paperSet">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet">[docs]</a>
 <span class="k">class</span> <span class="nc">paperSet</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">papers</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A collection of Paper objects with various operations for managing and</span>
+<span class="sd">    analyzing them.</span>
+
+<span class="sd">    :param List[Paper] papers: A list of Paper objects to initialize the paperSet.</span>
+
+<span class="sd">    This class represents a collection of Paper objects and provides methods</span>
+<span class="sd">    for creating, adding, and visualizing papers.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">    - `from_search(email, term, retmax=10, verbose=False,</span>
+<span class="sd">        suppress_warnings=True, suppress_errors=True)`: Generate a paperSet</span>
+<span class="sd">        via a PMC search.</span>
+<span class="sd">    - `from_pmcid_list(pmcids, email, download=False, validate=True,</span>
+<span class="sd">        strip_text_styling=True, verbose=False, suppress_warnings=True,</span>
+<span class="sd">        suppress_errors=True)`: Generate a paperSet via a list of PMCIDs.</span>
+<span class="sd">    - `__iter__()`: Implement iteration for the paperSet.</span>
+<span class="sd">    - `__next__()`: Get the next paper when iterating over the paperSet.</span>
+<span class="sd">    - `__len__()`: Get the number of papers in the paperSet.</span>
+<span class="sd">    - `__getitem__(index)`: Get a paper from the paperSet by index.</span>
+<span class="sd">    - `to_df()`: Return a pandas DataFrame representation of the paperSet.</span>
+<span class="sd">    - `add_paper(paper)`: Add a Paper to the paperSet.</span>
+<span class="sd">    - `add_papers(papers)`: Add multiple Papers to the paperSet.</span>
+<span class="sd">    - `add_pmcid(pmcid, email, download=False, validate=True,</span>
+<span class="sd">        strip_text_styling=True, verbose=False, suppress_warnings=True,</span>
+<span class="sd">        suppress_errors=True)`: Add a Paper to the paperSet via a PMCID.</span>
+<span class="sd">    - `add_pmcids(pmcids, email, download=False, validate=True,</span>
+<span class="sd">        strip_text_styling=True, verbose=False, suppress_warnings=True,</span>
+<span class="sd">        suppress_errors=True)`: Add Papers to the paperSet via a list of PMCIDs.</span>
+<span class="sd">    - `visualize()`: Generate a general visualization of the paperSet.</span>
+<span class="sd">    - `visualize_unique_values(columns_to_visualize=[&quot;Last_Updated&quot;,</span>
+<span class="sd">        &quot;Journal_Title&quot;])`: Visualize unique values in specified columns.</span>
+<span class="sd">    - `visualize_title_wordcloud()`: Visualize a word cloud of all the</span>
+<span class="sd">        Paper titles in the paperSet.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">papers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initalize a paperSet. Usually called via paperSet.from_search() or paperSet.from_pmcid_list().</span>
+<span class="sd">        Initalize a paperSet. Usually called via `paperSet.from_search()` or</span>
+<span class="sd">        `paperSet.from_pmcid_list()`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">papers</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">paper</span> <span class="ow">in</span> <span class="n">papers</span><span class="p">:</span>
@@ -110,20 +151,49 @@
 <div class="viewcode-block" id="paperSet.from_search">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet.from_search">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_search</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">term</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">retmax</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a paperSet via a PMC search.</span>
+    <span class="k">def</span> <span class="nf">from_search</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">retmax</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">suppress_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">suppress_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a paperSet via a PMC search.</span>
 
-<span class="sd">        [email] - use your email to auth with PMC</span>
-<span class="sd">        [term] - search term</span>
-<span class="sd">        [retmax] - max number of PMCIDs to return</span>
-<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML.</span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
-<span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
-<span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error. (HIGHLY RECOMMENDED FOR LARGE SEARCHES)</span>
+<span class="sd">        :param str email: Use your email to authenticate with PMC.</span>
+<span class="sd">        :param str term: Search term.</span>
+<span class="sd">        :param int retmax: Maximum number of PMCIDs to return (default is 10).</span>
+<span class="sd">        :param bool verbose: Whether to display verbose output (default is False).</span>
+<span class="sd">        :param bool suppress_warnings: Whether to suppress warnings while</span>
+<span class="sd">            parsing XML (default is True).</span>
+<span class="sd">        :param bool suppress_errors: Whether to return None on failed XML</span>
+<span class="sd">            parsing, instead of raising an error (default is True).</span>
+
+<span class="sd">        :returns: A paperSet generated from the PMC search results.</span>
+<span class="sd">        :rtype: paperSet</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generating paperSet from search (This can take a while due to PMC HTTP Request Limitations!)...&quot;</span><span class="p">)</span>
-        <span class="n">pmcid_list</span> <span class="o">=</span> <span class="n">scrape</span><span class="o">.</span><span class="n">search_pmc</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="n">term</span><span class="p">,</span> <span class="n">retmax</span><span class="o">=</span><span class="n">retmax</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)[</span><span class="s1">&#39;IdList&#39;</span><span class="p">]</span>
-        <span class="n">paper_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">Paper</span><span class="o">.</span><span class="n">from_pmc</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">)</span> <span class="k">for</span> <span class="n">pmcid</span> <span class="ow">in</span> <span class="n">pmcid_list</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="s2">&quot;Generating paperSet from search (This can take a while due to &quot;</span>
+                <span class="s2">&quot;PMC HTTP Request Limitations!)...&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">pmcid_list</span> <span class="o">=</span> <span class="n">scrape</span><span class="o">.</span><span class="n">search_pmc</span><span class="p">(</span>
+            <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span> <span class="n">term</span><span class="o">=</span><span class="n">term</span><span class="p">,</span> <span class="n">retmax</span><span class="o">=</span><span class="n">retmax</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+        <span class="p">)[</span><span class="s2">&quot;IdList&quot;</span><span class="p">]</span>
+        <span class="n">paper_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Paper</span><span class="o">.</span><span class="n">from_pmc</span><span class="p">(</span>
+                <span class="n">pmcid</span><span class="p">,</span>
+                <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+                <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span>
+                <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">pmcid</span> <span class="ow">in</span> <span class="n">pmcid_list</span>
+        <span class="p">]</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">papers</span><span class="o">=</span><span class="n">paper_list</span><span class="p">)</span></div>
 
@@ -131,30 +201,75 @@
 <div class="viewcode-block" id="paperSet.from_pmcid_list">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet.from_pmcid_list">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_pmcid_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pmcids</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">download</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">validate</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">strip_text_styling</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a paperSet via a list of PMCIDs</span>
+    <span class="k">def</span> <span class="nf">from_pmcid_list</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">pmcids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">download</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">strip_text_styling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">suppress_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">suppress_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a paperSet via a list of PMCIDs.</span>
 
-<span class="sd">        [pmcids] - list of PMCIDs to populate the paperSet</span>
-<span class="sd">        [email] - use your email to auth with PMC</span>
-<span class="sd">        [download] - whether or not to download the XMLs corresponding to pmcids</span>
-<span class="sd">        [validate] - whether or not to validate the XMLs corresponding to pmcids (HIGHLY RECOMMENDED)</span>
-<span class="sd">        [strip_text_styling] - whether or not to clean common HTML and other text styling out of the XMLs (HIGHLY RECOMMENDED)</span>
-<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML.</span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
-<span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
-<span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)</span>
+<span class="sd">        :param List[int] pmcids: List of PMCIDs to populate the paperSet.</span>
+<span class="sd">        :param str email: Use your email to authenticate with PMC.</span>
+<span class="sd">        :param bool download: Whether or not to download the XMLs corresponding</span>
+<span class="sd">            to PMCIDs (default is False).</span>
+<span class="sd">        :param bool validate: Whether or not to validate the XMLs corresponding</span>
+<span class="sd">            to PMCIDs (default is True).</span>
+<span class="sd">        :param bool strip_text_styling: Whether or not to clean common HTML and</span>
+<span class="sd">            other text styling out of the XMLs (default is True).</span>
+<span class="sd">        :param bool verbose: Whether to display verbose output (default is False).</span>
+<span class="sd">        :param bool suppress_warnings: Whether to suppress warnings while</span>
+<span class="sd">            parsing XML (default is True).</span>
+<span class="sd">        :param bool suppress_errors: Whether to return None on failed XML</span>
+<span class="sd">            parsing, instead of raising an error (default is True).</span>
+
+<span class="sd">        :returns: A paperSet generated from the list of PMCIDs.</span>
+<span class="sd">        :rtype: paperSet</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generating paperSet from PMCID list (This can take a while due to PMC HTTP Request Limitations!)...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="s2">&quot;Generating paperSet from PMCID list (This can take a while due &quot;</span>
+                <span class="s2">&quot;to PMC HTTP Request Limitations!)...&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
-        <span class="n">xml_list</span> <span class="o">=</span> <span class="n">scrape</span><span class="o">.</span><span class="n">get_xmls</span><span class="p">(</span><span class="n">pmcids</span><span class="o">=</span><span class="n">pmcids</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="n">download</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span> <span class="n">strip_text_styling</span><span class="o">=</span><span class="n">strip_text_styling</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
-        <span class="n">paper_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">Paper</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">xml_root</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">)</span> <span class="k">for</span> <span class="n">pmcid</span><span class="p">,</span> <span class="n">xml_root</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pmcids</span><span class="p">,</span> <span class="n">xml_list</span><span class="p">)]</span>
+        <span class="n">xml_list</span> <span class="o">=</span> <span class="n">scrape</span><span class="o">.</span><span class="n">get_xmls</span><span class="p">(</span>
+            <span class="n">pmcids</span><span class="o">=</span><span class="n">pmcids</span><span class="p">,</span>
+            <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span>
+            <span class="n">download</span><span class="o">=</span><span class="n">download</span><span class="p">,</span>
+            <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span>
+            <span class="n">strip_text_styling</span><span class="o">=</span><span class="n">strip_text_styling</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">paper_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Paper</span><span class="o">.</span><span class="n">from_xml</span><span class="p">(</span>
+                <span class="n">pmcid</span><span class="p">,</span>
+                <span class="n">xml_root</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+                <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span>
+                <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">pmcid</span><span class="p">,</span> <span class="n">xml_root</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pmcids</span><span class="p">,</span> <span class="n">xml_list</span><span class="p">)</span>
+        <span class="p">]</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">papers</span><span class="o">=</span><span class="n">paper_list</span><span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Implement iteration for the paperSet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the next paper when iterating over the paperSet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">papers</span><span class="p">):</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">papers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -163,9 +278,15 @@
             <span class="k">raise</span> <span class="ne">StopIteration</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the number of papers in the paperSet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">papers</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a paper from the paperSet by index.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">papers</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">papers</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -176,31 +297,45 @@
     <span class="k">def</span> <span class="nf">to_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a pandas DataFrame representation of the paperSet.</span>
+
+<span class="sd">        :returns: DataFrame of the paperSet.</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span></div>
 
 
 <div class="viewcode-block" id="paperSet.add_paper">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet.add_paper">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_paper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paper</span><span class="p">:</span><span class="n">Paper</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_paper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paper</span><span class="p">:</span> <span class="n">Paper</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add Paper to the paperSet directly. Returns True of paper added, False, if the paper was already found in the paperSet.</span>
-<span class="sd">        Note that papers can easily end up duplicated in the paperSet if they were downloaded different dates or PMCIDs were corrupted.</span>
+<span class="sd">        Add a Paper to the paperSet directly. Returns True if the paper was</span>
+<span class="sd">        added, False if the paper was already in the paperSet.</span>
+
+<span class="sd">        :param Paper paper: The Paper to add to the paperSet.</span>
+<span class="sd">        :returns: True if the paper was added, False if it was already in</span>
+<span class="sd">            the paperSet.</span>
+<span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">paper</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">papers</span><span class="p">:</span>  <span class="c1">#caution: comparison of papers is sketchy! Be careful to not duplicate papers in your paperSet</span>
+        <span class="k">if</span> <span class="n">paper</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">papers</span><span class="p">:</span>
+            <span class="c1"># caution: comparison of papers is sketchy! Be careful to not</span>
+            <span class="c1"># duplicate papers in your paperSet</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">papers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">paper</span><span class="p">)</span>
             <span class="n">new_row</span> <span class="o">=</span> <span class="n">paper</span><span class="o">.</span><span class="n">to_relational</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">new_row</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="nb">print</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Paper with pmcid=</span><span class="si">{</span><span class="n">paper</span><span class="o">.</span><span class="n">pmcid</span><span class="si">}</span><span class="s2"> already in paperSet.papers.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Paper with pmcid=</span><span class="si">{</span><span class="n">paper</span><span class="o">.</span><span class="n">pmcid</span><span class="si">}</span><span class="s2"> already in paperSet.papers.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
 <div class="viewcode-block" id="paperSet.add_papers">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet.add_papers">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_papers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">papers</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">add_papers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">papers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Paper</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add Papers to the paperSet directly. Returns number of papers added.</span>
+<span class="sd">        Add Papers to the paperSet directly. Returns the number of papers added.</span>
+
+<span class="sd">        :param List[Paper] papers: List of Papers to add to the paperSet.</span>
+<span class="sd">        :returns: The number of papers added.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">count_added</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">paper</span> <span class="ow">in</span> <span class="n">papers</span><span class="p">:</span>
@@ -211,42 +346,95 @@
 
 <div class="viewcode-block" id="paperSet.add_pmcid">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet.add_pmcid">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_pmcid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pmcid</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">download</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">validate</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">strip_text_styling</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_pmcid</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">pmcid</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">download</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">strip_text_styling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">suppress_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">suppress_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add a Paper to the paperSet via PMCID. Returns True if added, False if Paper already in paperSet.</span>
+<span class="sd">        Add a Paper to the paperSet via PMCID. Returns True if the paper was</span>
+<span class="sd">        added, False if it was already in the paperSet.</span>
 
-<span class="sd">        [pmcid] - PMCID to generate the Paper to add</span>
-<span class="sd">        [email] - use your email to auth with PMC</span>
-<span class="sd">        [download] - whether or not to download the XMLs corresponding to pmcid</span>
-<span class="sd">        [validate] - whether or not to validate the XMLs corresponding to pmcid (HIGHLY RECOMMENDED)</span>
-<span class="sd">        [strip_text_styling] - whether or not to clean common HTML and other text styling out of the XML (HIGHLY RECOMMENDED)</span>
-<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML.</span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
-<span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
-<span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.</span>
+<span class="sd">        :param Union[int, str] pmcid: The PMCID to generate the Paper to add.</span>
+<span class="sd">        :param str email: Use your email to authenticate with PMC.</span>
+<span class="sd">        :param bool download: Whether or not to download the XMLs corresponding</span>
+<span class="sd">            to pmcid (default is False).</span>
+<span class="sd">        :param bool validate: Whether or not to validate the XMLs corresponding</span>
+<span class="sd">            to pmcid (default is True).</span>
+<span class="sd">        :param bool strip_text_styling: Whether or not to clean common HTML</span>
+<span class="sd">            and other text styling out of the XML (default is True).</span>
+<span class="sd">        :param bool verbose: Whether to display verbose output (default is False).</span>
+<span class="sd">        :param bool suppress_warnings: Whether to suppress warnings while</span>
+<span class="sd">            parsing XML (default is True).</span>
+<span class="sd">        :param bool suppress_errors: Whether to return None on failed XML</span>
+<span class="sd">            parsing, instead of raising an error (default is True).</span>
+<span class="sd">        :returns: True if the paper was added, False if it was already in</span>
+<span class="sd">            the paperSet.</span>
+<span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">paper</span> <span class="o">=</span> <span class="n">Paper</span><span class="o">.</span><span class="n">from_pmc</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="n">download</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">)</span>
+        <span class="n">paper</span> <span class="o">=</span> <span class="n">Paper</span><span class="o">.</span><span class="n">from_pmc</span><span class="p">(</span>
+            <span class="n">pmcid</span><span class="p">,</span>
+            <span class="n">email</span><span class="p">,</span>
+            <span class="n">download</span><span class="o">=</span><span class="n">download</span><span class="p">,</span>
+            <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span>
+            <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_paper</span><span class="p">(</span><span class="n">paper</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="paperSet.add_pmcids">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet.add_pmcids">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_pmcids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pmcids</span><span class="p">:</span><span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span><span class="nb">str</span><span class="p">]],</span> <span class="n">email</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">download</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">validate</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">strip_text_styling</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add Papers to the paperSet via a list of PMCIDs. Returns number of papers added.</span>
+    <span class="k">def</span> <span class="nf">add_pmcids</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">pmcids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+        <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">download</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">strip_text_styling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">suppress_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">suppress_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add Papers to the paperSet via a list of PMCIDs. Returns the number</span>
+<span class="sd">        of papers added.</span>
 
-<span class="sd">        [pmcids] - list of PMCIDs to populate the paperSet</span>
-<span class="sd">        [email] - use your email to auth with PMC</span>
-<span class="sd">        [download] - whether or not to download the XMLs corresponding to pmcids</span>
-<span class="sd">        [validate] - whether or not to validate the XMLs corresponding to pmcids (HIGHLY RECOMMENDED)</span>
-<span class="sd">        [strip_text_styling] - whether or not to clean common HTML and other text styling out of the XMLs (HIGHLY RECOMMENDED)</span>
-<span class="sd">        [suppress_warnings] - Whether to suppress warnings while parsing XML.</span>
-<span class="sd">            Note: Warnings are frequent, because of the variable nature of PMC XML data.</span>
-<span class="sd">            Recommended to suppress when parsing many XMLs at once.</span>
-<span class="sd">        [suppress_errors] - Return None on failed XML parsing, instead of raising an error.  (HIGHLY RECOMMENDED FOR LARGE PMCID LISTS)</span>
+<span class="sd">        :param List[Union[int, str]] pmcids: List of PMCIDs to populate</span>
+<span class="sd">            the paperSet.</span>
+<span class="sd">        :param str email: Use your email to authenticate with PMC.</span>
+<span class="sd">        :param bool download: Whether or not to download the XMLs</span>
+<span class="sd">            corresponding to pmcids (default is False).</span>
+<span class="sd">        :param bool validate: Whether or not to validate the XMLs</span>
+<span class="sd">            corresponding to pmcids (default is True).</span>
+<span class="sd">        :param bool strip_text_styling: Whether or not to clean common HTML</span>
+<span class="sd">            and other text styling out of the XMLs (default is True).</span>
+<span class="sd">        :param bool verbose: Whether to display verbose output (default is False).</span>
+<span class="sd">        :param bool suppress_warnings: Whether to suppress warnings while</span>
+<span class="sd">            parsing XML (default is True).</span>
+<span class="sd">        :param bool suppress_errors: Whether to return None on failed XML</span>
+<span class="sd">            parsing, instead of raising an error (default is True).</span>
+<span class="sd">        :returns: The number of papers added.</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">count_added</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">pmcid</span> <span class="ow">in</span> <span class="n">pmcids</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_pmcid</span><span class="p">(</span><span class="n">pmcid</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="n">download</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span> <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_pmcid</span><span class="p">(</span>
+                <span class="n">pmcid</span><span class="p">,</span>
+                <span class="n">email</span><span class="p">,</span>
+                <span class="n">download</span><span class="o">=</span><span class="n">download</span><span class="p">,</span>
+                <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+                <span class="n">suppress_warnings</span><span class="o">=</span><span class="n">suppress_warnings</span><span class="p">,</span>
+                <span class="n">suppress_errors</span><span class="o">=</span><span class="n">suppress_errors</span><span class="p">,</span>
+            <span class="p">):</span>
                 <span class="n">count_added</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">count_added</span></div>
 
@@ -255,8 +443,8 @@
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet.visualize">[docs]</a>
     <span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generates a general visualization of the paperSet, including unique value visualization</span>
-<span class="sd">        and a wordcloud for all of the Paper titles.</span>
+<span class="sd">        Generates a general visualization of the paperSet, including unique</span>
+<span class="sd">        value visualization and a wordcloud for all of the Paper titles.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">visualize_unique_values</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">visualize_title_wordcloud</span><span class="p">()</span>
@@ -266,7 +454,15 @@
 
 <div class="viewcode-block" id="paperSet.visualize_unique_values">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet.visualize_unique_values">[docs]</a>
-    <span class="k">def</span> <span class="nf">visualize_unique_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns_to_visualize</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Last_Updated&#39;</span><span class="p">,</span> <span class="s1">&#39;Journal_Title&#39;</span><span class="p">])</span><span class="o">-&gt;</span><span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">visualize_unique_values</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">columns_to_visualize</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Last_Updated&quot;</span><span class="p">,</span> <span class="s2">&quot;Journal_Title&quot;</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Visualize unique values in specified columns of the paperSet DataFrame.</span>
+
+<span class="sd">        :param List[str] columns_to_visualize: A list of column names to</span>
+<span class="sd">            visualize (default is [&quot;Last_Updated&quot;, &quot;Journal_Title&quot;]).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns_to_visualize</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column &#39;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&#39; not found in paperSet.df.&quot;</span><span class="p">)</span>
@@ -276,19 +472,20 @@
             <span class="n">value_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_values</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
-                <span class="c1"># Create a pie chart for columns with a small number of unique values</span>
+                <span class="c1"># Create a pie chart for columns with a small number</span>
+                <span class="c1"># of unique values</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">value_counts</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">value_counts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">)</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Pie Chart for </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">value_counts</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">value_counts</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%1.1f%%</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pie Chart for </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Create a histogram for columns with many unique values</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histogram for </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                <span class="c1">#can add labels, but is very messy</span>
-                <span class="c1">#plt.xlabel(column)</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Histogram for </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="c1"># can add labels, but is very messy</span>
+                <span class="c1"># plt.xlabel(column)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="kc">None</span></div>
@@ -296,7 +493,7 @@
 
 <div class="viewcode-block" id="paperSet.visualize_title_wordcloud">
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.paperSet.paperSet.visualize_title_wordcloud">[docs]</a>
-    <span class="k">def</span> <span class="nf">visualize_title_wordcloud</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">visualize_title_wordcloud</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Visualize a wordcloud of all the Paper titles in the paperSet</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -305,7 +502,9 @@
         <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">titles</span><span class="p">)</span>
 
         <span class="c1"># Create a WordCloud object</span>
-        <span class="n">wordcloud</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">wordcloud</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+            <span class="n">text</span>
+        <span class="p">)</span>
 
         <span class="c1"># Display the word cloud using matplotlib</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -318,8 +517,7 @@
 </div>
 
 
-    <span class="c1">#TODO: Add deletion methods if requested by ScrapeMed users.</span>
-
+    <span class="c1"># TODO: Add deletion methods if requested by ScrapeMed users.</span>
 </pre></div>
 
            </div>

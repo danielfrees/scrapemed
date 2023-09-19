@@ -13,7 +13,7 @@ their PMC datasets, but a complete documentation of ScrapeMed's modules and func
 Quick Start
 ===========
 
-Quick start placeholder.
+Quick start placeholder. Will be replaced when Medium article is released.
 
 .. toctree::
    :maxdepth: 2

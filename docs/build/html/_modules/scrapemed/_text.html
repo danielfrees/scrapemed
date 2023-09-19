@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scrapemed._text &mdash; scrapemed 1.0.8 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=aec50437"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../index.html" class="icon icon-home">
+            scrapemed
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">scrapemed</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">scrapemed</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scrapemed._text</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for scrapemed._text</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ScrapeMed&#39;s ``_text`` Module</span>
+<span class="sd">==============================</span>
+
+<span class="sd">The ``_text`` module of ScrapeMed is designed for organizing text found in</span>
+<span class="sd">markup languages.</span>
+
+<span class="sd">In the context of the ScrapeMed package, this module is used to facilitate the</span>
+<span class="sd">organization of text found within paragraph (``&lt;p&gt;``) and section (``&lt;sec&gt;``)</span>
+<span class="sd">tags in downloaded XML from PubMedCentral (PMC).</span>
+
+<span class="sd">.. warnings::</span>
+
+<span class="sd">   - :class:`multipleTitleWarning`: Warned when one title is expected but</span>
+<span class="sd">        multiple are found.</span>
+<span class="sd">   - :class:`unhandledTextTagWarning`: Warned when a tag is encountered in a</span>
+<span class="sd">        text section of the XML but is not explicitly handled by ScrapeMed.</span>
+<span class="sd">        The tag contents will be ignored if not handled manually. Feel free</span>
+<span class="sd">        to submit a PR if you add a non-breaking code addition to handle these</span>
+<span class="sd">        types of tags.</span>
+<span class="sd">   - :class:`readHTMLFailure`: Warned when the pandas `read_html` function</span>
+<span class="sd">        fails (rare). This may happen with tables void of readable data,</span>
+<span class="sd">        such as tables that contain only graphics.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">lxml.etree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">import</span> <span class="nn">scrapemed._clean</span> <span class="k">as</span> <span class="nn">_clean</span>
+<span class="kn">from</span> <span class="nn">scrapemed.utils</span> <span class="kn">import</span> <span class="n">basicBiMap</span>
+<span class="kn">import</span> <span class="nn">scrapemed._morehtml</span> <span class="k">as</span> <span class="nn">mhtml</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="c1"># -------------------------------Warnings----------------------------</span>
+<div class="viewcode-block" id="multipleTitleWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.multipleTitleWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">multipleTitleWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when one title expected, but multiple found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="unhandledTextTagWarning">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.unhandledTextTagWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">unhandledTextTagWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when a tag is encountered in a text section of the XML,</span>
+<span class="sd">    but is not explicitly handled by ScrapeMed.</span>
+
+<span class="sd">    The tag contents will be ignored if not handled manually.</span>
+
+<span class="sd">    Feel free to submit a PR if you add a non-breaking code addition to handle</span>
+<span class="sd">    these types of tags.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="readHTMLFailure">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.readHTMLFailure">[docs]</a>
+<span class="k">class</span> <span class="nc">readHTMLFailure</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Warned when pandas read_html function fails (rare). May happen with</span>
+<span class="sd">    tables void of readable data (ie. tables that contain only graphics).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+
+<span class="c1"># ----------------------TextElement---------------------------------</span>
+<div class="viewcode-block" id="TextElement">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.TextElement">[docs]</a>
+<span class="k">class</span> <span class="nc">TextElement</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for elements parsed from XML/HTML markup language.</span>
+
+<span class="sd">    This class is initialized with a root element of the XML text element,</span>
+<span class="sd">    as well as a reference map to populate with references found in the text,</span>
+<span class="sd">    (and used to generate the replacement MHTML tags).</span>
+
+<span class="sd">    :param ET.Element root: The root element of the XML text element.</span>
+<span class="sd">    :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">    :param basicBiMap ref_map: The reference map for storing references</span>
+<span class="sd">        found in the text.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        - root (ET.Element): The root element of the XML text element.</span>
+<span class="sd">        - parent (TextElement, optional): The parent TextElement if applicable.</span>
+<span class="sd">        - ref_map (basicBiMap): The reference map for storing references</span>
+<span class="sd">            found in the text.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        - get_ref_map(): Return the shared BiMap for reference data.</span>
+<span class="sd">        - set_ref_map(ref_map: basicBiMap): Set the shared BiMap for reference data.</span>
+
+<span class="sd">    This class serves as the base class for more complex text classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span>
+        <span class="n">parent</span><span class="p">:</span> <span class="s2">&quot;TextElement&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span> <span class="o">=</span> <span class="n">basicBiMap</span><span class="p">(),</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a TextElement object.</span>
+
+<span class="sd">        :param ET.Element root: The root element of the XML text element.</span>
+<span class="sd">        :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">        :param basicBiMap ref_map: The reference map for storing references</span>
+<span class="sd">            found in the text</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_map</span> <span class="o">=</span> <span class="n">ref_map</span>
+
+    <span class="c1"># ------------------Getters and Setters for shared BiMap-------------------</span>
+<div class="viewcode-block" id="TextElement.get_ref_map">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.TextElement.get_ref_map">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_ref_map</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">basicBiMap</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the shared BiMap for reference data.</span>
+
+<span class="sd">        :returns: The shared BiMap containing reference data.</span>
+<span class="sd">        :rtype: basicBiMap</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ref_map</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+            <span class="n">ref_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">get_ref_map</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ref_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_map</span>
+        <span class="k">return</span> <span class="n">ref_map</span></div>
+
+
+<div class="viewcode-block" id="TextElement.set_ref_map">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.TextElement.set_ref_map">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_ref_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the shared BiMap for reference data.</span>
+
+<span class="sd">        :param basicBiMap ref_map: The BiMap containing reference data to be set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">set_ref_map</span><span class="p">(</span><span class="n">ref_map</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ref_map</span> <span class="o">=</span> <span class="n">ref_map</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+</div>
+
+
+    <span class="c1"># --------------End Getters and Setters for shared BiMap-----------------</span>
+
+
+<span class="c1"># -------------------end TextElement-----------------------------------------</span>
+
+
+<span class="c1"># ---------------------------TextParagraph----------------------------</span>
+<div class="viewcode-block" id="TextParagraph">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.TextParagraph">[docs]</a>
+<span class="k">class</span> <span class="nc">TextParagraph</span><span class="p">(</span><span class="n">TextElement</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class representation of the data found in an XML &lt;p&gt; tag.</span>
+
+<span class="sd">    :param ET.Element p_root: The root element of the XML &lt;p&gt; tag.</span>
+<span class="sd">    :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">    :param basicBiMap ref_map: The reference map for storing references</span>
+<span class="sd">        found in the text.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        - id (str): The identifier for the &lt;p&gt; tag.</span>
+<span class="sd">        - text_with_refs (str): The text content of the &lt;p&gt; tag with references.</span>
+<span class="sd">        - text (str): The clean text content of the &lt;p&gt; tag without references.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        - __str__(): Return the clean text content as a string.</span>
+<span class="sd">        - __eq__(other): Check if two TextParagraph objects are equal based</span>
+<span class="sd">            on their text content.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">p_root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span> <span class="o">=</span> <span class="n">basicBiMap</span><span class="p">()</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a TextParagraph object.</span>
+
+<span class="sd">        :param ET.Element p_root: The root element of the XML &lt;p&gt; tag.</span>
+<span class="sd">        :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">        :param basicBiMap ref_map: The reference map for storing references</span>
+<span class="sd">            found in the text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">root</span><span class="o">=</span><span class="n">p_root</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="n">ref_map</span>
+        <span class="p">)</span>  <span class="c1"># initialize TextElement</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">p_root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+        <span class="n">p_subtree</span> <span class="o">=</span> <span class="n">stringify_children</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+
+        <span class="c1"># split text and HTML tag references</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_with_refs</span> <span class="o">=</span> <span class="n">_clean</span><span class="o">.</span><span class="n">split_text_and_refs</span><span class="p">(</span>
+            <span class="n">tree_text</span><span class="o">=</span><span class="n">p_subtree</span><span class="p">,</span>
+            <span class="n">ref_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_ref_map</span><span class="p">(),</span>
+            <span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="n">on_unknown</span><span class="o">=</span><span class="s2">&quot;keep&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">mhtml</span><span class="o">.</span><span class="n">remove_mhtml_tags</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">text_with_refs</span>
+        <span class="p">)</span>  <span class="c1"># clean text for str() and printing</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the clean text content of the TextParagraph object as a string.</span>
+
+<span class="sd">        :returns: The clean text content.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if two TextParagraph objects are equal based on their text</span>
+<span class="sd">        content (including refs).</span>
+
+<span class="sd">        :param TextParagraph other: The other TextParagraph object to compare with.</span>
+
+<span class="sd">        :returns: True if the text content is equal, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_with_refs</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">text_with_refs</span></div>
+
+
+
+<span class="c1"># ------------------------end TextParagraph----------------------</span>
+
+
+<span class="c1"># ----------------------------------TextSection------------------------------</span>
+<div class="viewcode-block" id="TextSection">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.TextSection">[docs]</a>
+<span class="k">class</span> <span class="nc">TextSection</span><span class="p">(</span><span class="n">TextElement</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class representation of the data found in an XML &lt;sec&gt; tag.</span>
+
+<span class="sd">    :param ET.Element sec_root: The root element of the XML &lt;sec&gt; tag.</span>
+<span class="sd">    :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">    :param basicBiMap ref_map: The reference map for storing references found</span>
+<span class="sd">        in the text.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        - title (str): The title of the section if available.</span>
+<span class="sd">        - children (list): A list of TextSection, TextParagraph, TextTable, or</span>
+<span class="sd">            TextFigure objects representing subsections, paragraphs, tables,</span>
+<span class="sd">            or figures within the section.</span>
+<span class="sd">        - text (str): The clean text content of the section without references.</span>
+<span class="sd">        - text_with_refs (str): The text content of the section with references.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        - __str__(): Return a string representation of the section with proper</span>
+<span class="sd">            indentation.</span>
+<span class="sd">        - get_section_text(): Get a text representation of the entire section</span>
+<span class="sd">            without references.</span>
+<span class="sd">        - get_section_text_with_refs(): Get a text representation of the entire</span>
+<span class="sd">            section with references.</span>
+<span class="sd">        - __eq__(other): Check if two TextSection objects are equal based on</span>
+<span class="sd">            their title and children.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">sec_root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span> <span class="o">=</span> <span class="n">basicBiMap</span><span class="p">()</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a text section from the root of a &lt;sec&gt; tree.</span>
+
+<span class="sd">        Optionally provide reference BiMap storing links to reference data.</span>
+<span class="sd">        Reference BiMap used to link text to table &amp; figure data.</span>
+
+<span class="sd">        Handles &lt;title&gt;, &lt;p&gt;, and &lt;sec&gt; children under the root &lt;sec&gt; tag.</span>
+<span class="sd">        Anything else will be ignored and raise a warning.</span>
+
+<span class="sd">        :param ET.Element sec_root: The root element of the XML &lt;sec&gt; tag.</span>
+<span class="sd">        :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">        :param basicBiMap ref_map: The reference map for storing references</span>
+<span class="sd">            found in the text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># initialize root, parent, and bimaps</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">sec_root</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="n">ref_map</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># section and paragraph children</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">sec_root</span><span class="o">.</span><span class="n">iterchildren</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="n">multipleTitleWarning</span><span class="p">(</span>
+                            <span class="p">(</span>
+                                <span class="s2">&quot;Warning: Multiple Titles found for a single &quot;</span>
+                                <span class="s2">&quot;TextSection. Check markup file formatting. &quot;</span>
+                                <span class="s2">&quot;Using first title found.&quot;</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">text</span>
+            <span class="k">elif</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;sec&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">TextSection</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_ref_map</span><span class="p">())</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">TextParagraph</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_ref_map</span><span class="p">())</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;table-wrap&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">TextTable</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_ref_map</span><span class="p">())</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;fig&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">TextFigure</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_ref_map</span><span class="p">())</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Warning! Unexpected child with of type </span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2"> &quot;</span>
+                        <span class="s2">&quot;found under an XML &lt;sec&gt; tag.&quot;</span>
+                    <span class="p">),</span>
+                    <span class="n">unhandledTextTagWarning</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="c1"># after building the TextSection tree, get textual representations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_section_text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_with_refs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_section_text_with_refs</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of the TextSection.</span>
+
+<span class="sd">        The representation begins with the title if the section has one.</span>
+<span class="sd">        Subsections will be indented, and body text will be printed without indentation.</span>
+
+<span class="sd">        :returns: The string representation of the section.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;SECTION: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">TextSection</span><span class="p">):</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">child</span><span class="p">),</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">TextParagraph</span><span class="p">):</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+<div class="viewcode-block" id="TextSection.get_section_text">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.TextSection.get_section_text">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_section_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a text representation of the entire text section, without references.</span>
+
+<span class="sd">        :returns: The text content of the section.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextSection.get_section_text_with_refs">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.TextSection.get_section_text_with_refs">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_section_text_with_refs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a text representation of the entire text section, with references.</span>
+
+<span class="sd">        :returns: The text content of the section with references.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;SECTION: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">TextSection</span><span class="p">):</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">get_section_text_with_refs</span><span class="p">(),</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">TextParagraph</span><span class="p">):</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">child</span><span class="o">.</span><span class="n">text_with_refs</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if two TextSection objects are equal based on their title and children.</span>
+
+<span class="sd">        :param TextSection other: The other TextSection object to compare with.</span>
+<span class="sd">        :returns: True if the titles and children are equal, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># TODO: Test if this actually works for comparing TextSections.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">title</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">children</span></div>
+
+
+
+<span class="c1"># ----------------------end TextSection----------------------------------</span>
+
+
+<span class="c1"># ---------------------------TextTable-------------------------------------</span>
+<div class="viewcode-block" id="TextTable">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.TextTable">[docs]</a>
+<span class="k">class</span> <span class="nc">TextTable</span><span class="p">(</span><span class="n">TextElement</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize and process a table-wrap found in a text element of PMC XML.</span>
+
+<span class="sd">    Uses pandas&#39; `read_html` function (which relies on lxml and falls</span>
+<span class="sd">    back to html5lib) to process the HTML tables into dataframes.</span>
+
+<span class="sd">    Adds labels and captions if notated in the XML under</span>
+<span class="sd">    //table-wrap/label and //table-wrap/caption/p tags.</span>
+
+<span class="sd">    :param ET.Element table_root: The root element of the table-wrap found in PMC XML.</span>
+<span class="sd">    :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">    :param basicBiMap ref_map: The reference map for storing references found</span>
+<span class="sd">        in the text.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        - df (pandas.DataFrame): The dataframe representation of the table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">table_root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span> <span class="o">=</span> <span class="n">basicBiMap</span><span class="p">()</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize and process table-wrap found in a text element of PMC XML.</span>
+
+<span class="sd">        Use pandas&#39; read_html function (which relies on lxml and falls</span>
+<span class="sd">        back to html5lib) to process the HTML tables into dataframes.</span>
+
+<span class="sd">        Adds labels and captions if notated in the XML under</span>
+<span class="sd">        //table-wrap/label and //table-wrap/caption/p tags.</span>
+
+<span class="sd">        :param ET.Element table_root: The root element of the table-wrap found</span>
+<span class="sd">            in PMC XML.</span>
+<span class="sd">        :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">        :param basicBiMap ref_map: The reference map for storing references</span>
+<span class="sd">            found in the text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># initialize root, parent, and bimaps</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">table_root</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="n">ref_map</span><span class="p">)</span>
+
+        <span class="c1"># find label if any</span>
+        <span class="n">label_matches</span> <span class="o">=</span> <span class="n">table_root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">label_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">label_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+        <span class="c1"># find caption if any</span>
+        <span class="n">caption_matches</span> <span class="o">=</span> <span class="n">table_root</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;caption/p&quot;</span><span class="p">)</span>
+        <span class="n">caption</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">caption_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">caption</span> <span class="o">=</span> <span class="n">caption_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+
+        <span class="n">table_xml_str</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">table_root</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">table_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">table_xml_str</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Table with label </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> and caption </span><span class="si">{</span><span class="n">caption</span><span class="si">}</span><span class="s2"> could not &quot;</span>
+                    <span class="s2">&quot;be parsed with pd.read_html.&quot;</span>
+                <span class="p">),</span>
+                <span class="n">readHTMLFailure</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># build title for styled df, if relevant</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">and</span> <span class="n">caption</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">caption</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">elif</span> <span class="n">label</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="k">elif</span> <span class="n">caption</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">caption</span>
+
+        <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+            <span class="n">table_df</span> <span class="o">=</span> <span class="n">table_df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">table_df</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of the table using member `.df`.</span>
+
+<span class="sd">        :returns: The string representation of the table.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of the table using member `.df`.</span>
+
+<span class="sd">        :returns: The string representation of the table.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># ---------------------end TextTable-------------------------------------</span>
+
+
+<span class="c1"># ---------------------------TextFigure-----------------------------------</span>
+<div class="viewcode-block" id="TextFigure">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.TextFigure">[docs]</a>
+<span class="k">class</span> <span class="nc">TextFigure</span><span class="p">(</span><span class="n">TextElement</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize and parse a figure found in a text element of a PMC XML.</span>
+
+<span class="sd">    Parses figures into a dictionary with their information</span>
+<span class="sd">    (label, caption, and link).</span>
+<span class="sd">    Unfortunately, the links are relative and cannot be reliably</span>
+<span class="sd">    traced to a public URI.</span>
+<span class="sd">    This means I have not found a way to download the actual</span>
+<span class="sd">    figures to store via Pillow, etc.</span>
+
+<span class="sd">    :param ET.Element fig_root: The root element of the figure found in PMC XML.</span>
+<span class="sd">    :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">    :param basicBiMap ref_map: The reference map for storing references found</span>
+<span class="sd">        in the text.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        - fig_dict (dict): A dictionary containing figure information with keys:</span>
+<span class="sd">            - &#39;Label&#39;: The label of the figure.</span>
+<span class="sd">            - &#39;Caption&#39;: The caption of the figure.</span>
+<span class="sd">            - &#39;Link&#39;: The link (relative) to the figure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">fig_root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_map</span><span class="p">:</span> <span class="n">basicBiMap</span> <span class="o">=</span> <span class="n">basicBiMap</span><span class="p">()</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize and parse a figure found in a text element of a PMC XML.</span>
+
+<span class="sd">        Parses figures into a dictionary with their information</span>
+<span class="sd">        (label, caption, and link).</span>
+<span class="sd">        Unfortunately, the links are relative and cannot be reliably</span>
+<span class="sd">        traced to a public URI.</span>
+<span class="sd">        This means I have not found a way to download the actual</span>
+<span class="sd">        figures to store via Pillow, etc.</span>
+
+<span class="sd">        :param ET.Element fig_root: The root element of the figure found in</span>
+<span class="sd">            PMC XML.</span>
+<span class="sd">        :param TextElement parent: The parent TextElement if applicable.</span>
+<span class="sd">        :param basicBiMap ref_map: The reference map for storing references</span>
+<span class="sd">            found in the text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># TODO: Find a way to grab actual figures. May be impossible with PMC</span>
+        <span class="c1"># based on the research I&#39;ve done so far.</span>
+
+        <span class="c1"># initialize root, parent, and bimaps</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">fig_root</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">ref_map</span><span class="o">=</span><span class="n">ref_map</span><span class="p">)</span>
+
+        <span class="n">root</span> <span class="o">=</span> <span class="n">fig_root</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//label&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">caption</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//caption&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">caption</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">caption</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">caption</span><span class="o">.</span><span class="n">itertext</span><span class="p">())</span>
+        <span class="n">graphic_href</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//graphic&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;{http://www.w3.org/1999/xlink}href&quot;</span><span class="p">)</span>
+
+        <span class="n">fig_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="s2">&quot;Caption&quot;</span><span class="p">:</span> <span class="n">caption</span><span class="p">,</span> <span class="s2">&quot;Link&quot;</span><span class="p">:</span> <span class="n">graphic_href</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig_dict</span> <span class="o">=</span> <span class="n">fig_dict</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of the figure based on dict info in `.fig_dict`.</span>
+
+<span class="sd">        :returns: The string representation of the figure.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig_dict</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of the figure  based on dict info in `.fig_dict`.</span>
+
+<span class="sd">        :returns: The string representation of the figure.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig_dict</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># --------------------------end TextFigure----------------------------------</span>
+
+
+<span class="c1"># -------------------------------End Classes----------------------------</span>
+
+
+<span class="c1"># ---------------------------------Helpers---------------------------------</span>
+<div class="viewcode-block" id="stringify_children">
+<a class="viewcode-back" href="../../scrapemed.html#scrapemed._text.stringify_children">[docs]</a>
+<span class="k">def</span> <span class="nf">stringify_children</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a string representation of a node and all its children</span>
+<span class="sd">    (recursively), including markup language tags.</span>
+
+<span class="sd">    Turns any byte strings in the subtree representation to regular strings,</span>
+<span class="sd">    following the provided encoding.</span>
+
+<span class="sd">    :param node: The XML node to stringify.</span>
+<span class="sd">    :type node: ET.Element</span>
+<span class="sd">    :param str encoding: The encoding to use for decoding byte strings</span>
+<span class="sd">        (default is &#39;utf-8&#39;).</span>
+
+<span class="sd">    :returns: A string representation of the node and its children,</span>
+<span class="sd">        including markup language tags.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">subtree</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">chunk</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">text</span><span class="p">,),</span>
+            <span class="n">chain</span><span class="p">(</span>
+                <span class="o">*</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">with_tail</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">child</span><span class="o">.</span><span class="n">tail</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+            <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">tail</span><span class="p">,),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">chunk</span>
+    <span class="p">]</span>
+    <span class="c1"># decode any bytestrings</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">subtree</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subtree</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">subtree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">subtree</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subtree</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Daniel Frees.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

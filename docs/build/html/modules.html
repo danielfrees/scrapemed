@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>scrapemed &mdash; scrapemed 1.0.6 documentation</title>
+  <title>scrapemed &mdash; scrapemed 1.0.8 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -13,7 +13,7 @@
 
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=e2a723ec"></script>
+        <script src="_static/documentation_options.js?v=aec50437"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -81,6 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="scrapemed.html">scrapemed package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="scrapemed.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed.paper">scrapemed.paper module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-paper-module">ScrapeMed’s Paper Module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.paper.Paper"><code class="docutils literal notranslate"><span class="pre">Paper</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="scrapemed.html#scrapemed.paper.Paper.abstract_as_str"><code class="docutils literal notranslate"><span class="pre">Paper.abstract_as_str()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="scrapemed.html#scrapemed.paper.Paper.body_as_str"><code class="docutils literal notranslate"><span class="pre">Paper.body_as_str()</span></code></a></li>
@@ -101,6 +102,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed.paperSet">scrapemed.paperSet module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-paperset-module">ScrapeMed’s PaperSet Module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.paperSet.paperSet"><code class="docutils literal notranslate"><span class="pre">paperSet</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="scrapemed.html#scrapemed.paperSet.paperSet.add_paper"><code class="docutils literal notranslate"><span class="pre">paperSet.add_paper()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="scrapemed.html#scrapemed.paperSet.paperSet.add_papers"><code class="docutils literal notranslate"><span class="pre">paperSet.add_papers()</span></code></a></li>
@@ -116,7 +118,46 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed._parse">scrapemed._parse module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-parse-module">ScrapeMed’s <code class="docutils literal notranslate"><span class="pre">_parse</span></code> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.badTextFormattingWarning"><code class="docutils literal notranslate"><span class="pre">badTextFormattingWarning</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.define_data_dict"><code class="docutils literal notranslate"><span class="pre">define_data_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_abstract"><code class="docutils literal notranslate"><span class="pre">gather_abstract()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_acknowledgements"><code class="docutils literal notranslate"><span class="pre">gather_acknowledgements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_article_categories"><code class="docutils literal notranslate"><span class="pre">gather_article_categories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_article_id"><code class="docutils literal notranslate"><span class="pre">gather_article_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_article_types"><code class="docutils literal notranslate"><span class="pre">gather_article_types()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_authors"><code class="docutils literal notranslate"><span class="pre">gather_authors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_body"><code class="docutils literal notranslate"><span class="pre">gather_body()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_custom_metadata"><code class="docutils literal notranslate"><span class="pre">gather_custom_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_footnote"><code class="docutils literal notranslate"><span class="pre">gather_footnote()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_fpage"><code class="docutils literal notranslate"><span class="pre">gather_fpage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_funding"><code class="docutils literal notranslate"><span class="pre">gather_funding()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_issn"><code class="docutils literal notranslate"><span class="pre">gather_issn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_issue"><code class="docutils literal notranslate"><span class="pre">gather_issue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_journal_id"><code class="docutils literal notranslate"><span class="pre">gather_journal_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_journal_title"><code class="docutils literal notranslate"><span class="pre">gather_journal_title()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_lpage"><code class="docutils literal notranslate"><span class="pre">gather_lpage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_non_author_contributors"><code class="docutils literal notranslate"><span class="pre">gather_non_author_contributors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_notes"><code class="docutils literal notranslate"><span class="pre">gather_notes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_permissions"><code class="docutils literal notranslate"><span class="pre">gather_permissions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_published_date"><code class="docutils literal notranslate"><span class="pre">gather_published_date()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_publisher_location"><code class="docutils literal notranslate"><span class="pre">gather_publisher_location()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_publisher_name"><code class="docutils literal notranslate"><span class="pre">gather_publisher_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_title"><code class="docutils literal notranslate"><span class="pre">gather_title()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.gather_volume"><code class="docutils literal notranslate"><span class="pre">gather_volume()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.generate_paper_dict"><code class="docutils literal notranslate"><span class="pre">generate_paper_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.paper_dict_from_pmc"><code class="docutils literal notranslate"><span class="pre">paper_dict_from_pmc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.stringify_note"><code class="docutils literal notranslate"><span class="pre">stringify_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.unexpectedMultipleMatchWarning"><code class="docutils literal notranslate"><span class="pre">unexpectedMultipleMatchWarning</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.unexpectedZeroMatchWarning"><code class="docutils literal notranslate"><span class="pre">unexpectedZeroMatchWarning</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.unmatchedCitationWarning"><code class="docutils literal notranslate"><span class="pre">unmatchedCitationWarning</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.unmatchedFigureWarning"><code class="docutils literal notranslate"><span class="pre">unmatchedFigureWarning</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._parse.unmatchedTableWarning"><code class="docutils literal notranslate"><span class="pre">unmatchedTableWarning</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed.scrape">scrapemed.scrape module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-scrape-module">ScrapeMed’s Scrape Module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.scrape.get_xml"><code class="docutils literal notranslate"><span class="pre">get_xml()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.scrape.get_xmls"><code class="docutils literal notranslate"><span class="pre">get_xmls()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.scrape.search_pmc"><code class="docutils literal notranslate"><span class="pre">search_pmc()</span></code></a></li>
@@ -124,15 +165,59 @@
 <li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.scrape.xml_tree_from_string"><code class="docutils literal notranslate"><span class="pre">xml_tree_from_string()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed.trees">scrapemed.trees module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.trees.investigate_xml_tree"><code class="docutils literal notranslate"><span class="pre">investigate_xml_tree()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.trees.visualize_element_tree"><code class="docutils literal notranslate"><span class="pre">visualize_element_tree()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed._clean">scrapemed._clean module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-markup-language-cleaning-utilities">ScrapeMed’s Markup Language Cleaning Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._clean.clean_xml_string"><code class="docutils literal notranslate"><span class="pre">clean_xml_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._clean.split_text_and_refs"><code class="docutils literal notranslate"><span class="pre">split_text_and_refs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._clean.unexpectedTagWarning"><code class="docutils literal notranslate"><span class="pre">unexpectedTagWarning</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scrapemed.html#scrapemed-validate-module">scrapemed._validate module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-validate-module">ScrapeMed’s <code class="docutils literal notranslate"><span class="pre">_validate</span></code> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._validate.noDTDFoundError"><code class="docutils literal notranslate"><span class="pre">noDTDFoundError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._validate.validate_xml"><code class="docutils literal notranslate"><span class="pre">validate_xml()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed._text">scrapemed._text module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-text-module">ScrapeMed’s <code class="docutils literal notranslate"><span class="pre">_text</span></code> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._text.TextElement"><code class="docutils literal notranslate"><span class="pre">TextElement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scrapemed.html#scrapemed._text.TextElement.get_ref_map"><code class="docutils literal notranslate"><span class="pre">TextElement.get_ref_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scrapemed.html#scrapemed._text.TextElement.set_ref_map"><code class="docutils literal notranslate"><span class="pre">TextElement.set_ref_map()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._text.TextFigure"><code class="docutils literal notranslate"><span class="pre">TextFigure</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._text.TextParagraph"><code class="docutils literal notranslate"><span class="pre">TextParagraph</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._text.TextSection"><code class="docutils literal notranslate"><span class="pre">TextSection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scrapemed.html#scrapemed._text.TextSection.get_section_text"><code class="docutils literal notranslate"><span class="pre">TextSection.get_section_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scrapemed.html#scrapemed._text.TextSection.get_section_text_with_refs"><code class="docutils literal notranslate"><span class="pre">TextSection.get_section_text_with_refs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._text.TextTable"><code class="docutils literal notranslate"><span class="pre">TextTable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._text.multipleTitleWarning"><code class="docutils literal notranslate"><span class="pre">multipleTitleWarning</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._text.readHTMLFailure"><code class="docutils literal notranslate"><span class="pre">readHTMLFailure</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._text.stringify_children"><code class="docutils literal notranslate"><span class="pre">stringify_children()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._text.unhandledTextTagWarning"><code class="docutils literal notranslate"><span class="pre">unhandledTextTagWarning</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scrapemed.html#scrapemed-morehtml-module">scrapemed._morehtml module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-custom-markup-language-morehtml-mhtml">ScrapeMed’s Custom Markup Language - MoreHTML (MHTML)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._morehtml.generate_mhtml_tag"><code class="docutils literal notranslate"><span class="pre">generate_mhtml_tag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._morehtml.generate_typed_mhtml_tag"><code class="docutils literal notranslate"><span class="pre">generate_typed_mhtml_tag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._morehtml.remove_mhtml_tags"><code class="docutils literal notranslate"><span class="pre">remove_mhtml_tags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed._morehtml.unescape_except"><code class="docutils literal notranslate"><span class="pre">unescape_except()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed.utils">scrapemed.utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-utility-module">ScrapeMed’s Utility Module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.utils.basicBiMap"><code class="docutils literal notranslate"><span class="pre">basicBiMap</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.utils.cleanerdoc"><code class="docutils literal notranslate"><span class="pre">cleanerdoc()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.utils.reversedBiMapComparisonWarning"><code class="docutils literal notranslate"><span class="pre">reversedBiMapComparisonWarning</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed.trees">scrapemed.trees module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed-s-trees-module">ScrapeMed’s Trees Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.trees.investigate_xml_tree"><code class="docutils literal notranslate"><span class="pre">investigate_xml_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrapemed.html#scrapemed.trees.visualize_element_tree"><code class="docutils literal notranslate"><span class="pre">visualize_element_tree()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="scrapemed.html#module-scrapemed">Module contents</a></li>

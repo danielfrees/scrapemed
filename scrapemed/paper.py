@@ -1,9 +1,19 @@
 """
-The scrapemed "paper" module is intended as the primary point of contact for
+ScrapeMed's Paper Module
+============================
+
+The scrapemed `paper` module is intended as the primary point of contact for
 scrapemed end users.
 
 Paper objects are defined here, as well end-user functionality for scraping
 data from PubMed Central without stressing about the details.
+
+..warnings::
+    - :class:`emptyTextWarning` - Warned when trying to perform a text
+        operation on a Paper which has no text.
+    - :class:`pubmedHTTPError` - Warned when unable to retrieve a PMC XML
+        repeatedly. Can occasionally happen with PMC due to high traffic.
+        Also may be caused by broken XML formatting.
 """
 
 import scrapemed._parse as parse
@@ -32,18 +42,97 @@ class emptyTextWarning(Warning):
 class pubmedHTTPError(Warning):
     """
     Warned when unable to retrieve a PMC XML repeatedly. Can occasionally
-    happen on PMC due to traffic.
+    happen with PMC due to high traffic. Also may be caused by broken XML
+    formatting.
     """
+
+    pass
 
 
 # --------------------PAPER OBJECT SCHEMA-------------------------------------
 class Paper:
+    """
+    Class for storing paper data downloaded from PMC.
+
+    This class provides methods for initializing papers via PMCID and directly
+    from XML, paper chunking and vectorization, conversion to relational format
+    (pandas Series), printing methods, and equality checking.
+
+    Class data members include all of the data defined via the method
+    :meth:`~Paper.info`.
+
+    :ivar str __tablename__: The table name for database storage (set to "Papers").
+
+    :param dict paper_dict: A dictionary containing paper information, typically
+        obtained from the :meth:`~parse.generate_paper_dict` method.
+
+    :ivar bool has_data: Indicates whether the Paper object was successfully
+        initialized with data.
+
+    :ivar tuple last_updated: A tuple representing the date of the last update
+        in the format (month, day, year).
+
+    :ivar str pmcid: The PMC identifier of the paper.
+    :ivar str title: The title of the paper.
+    :ivar pd.DataFrame authors: A DataFrame containing author information.
+    :ivar pd.DataFrame non_author_contributors: A DataFrame containing
+        information about non-author contributors.
+    :ivar str abstract: The abstract of the paper.
+    :ivar list body: A list of sections containing the body text of the paper.
+    :ivar str journal_id: The journal identifier.
+    :ivar str journal_title: The title of the journal.
+    :ivar str issn: The International Standard Serial Number (ISSN) of the journal.
+    :ivar str publisher_name: The name of the publisher.
+    :ivar str publisher_location: The location of the publisher.
+    :ivar str article_id: The article identifier.
+    :ivar list article_types: A list of article types.
+    :ivar list article_categories: A list of article categories.
+    :ivar dict published_date: A dictionary representing the published date.
+    :ivar str volume: The volume of the journal.
+    :ivar str issue: The issue of the journal.
+    :ivar str fpage: The first page of the article.
+    :ivar str lpage: The last page of the article.
+    :ivar dict permissions: A dictionary containing copyright and license information.
+    :ivar str copyright: The copyright statement.
+    :ivar str license: The license type.
+    :ivar list funding: A list of funding information.
+    :ivar list footnote: A list of footnotes.
+    :ivar list acknowledgements: A list of acknowledgements.
+    :ivar list notes: A list of notes.
+    :ivar list custom_meta: A list of custom metadata.
+    :ivar list ref_map: A list of reference map entries.
+    :ivar list _ref_map_with_tags: A list of reference map entries with tags.
+    :ivar list citations: A list of citations.
+    :ivar list tables: A list of tables.
+    :ivar list figures: A list of figures.
+
+    :ivar dict data_dict: A dictionary containing paper information.
+
+    :ivar NoneType vector_collection: An in-memory vector database
+        representation of the paper's text.
+
+    :cvar int NUM_TRIES: The number of retries when downloading from PMC.
+
+    :raises pubmedHTTPError: Raised if there are HTTP errors when
+        retrieving data from PMC.
+    :raises emptyTextWarning: Raised if an attempt is made to vectorize a paper
+        with no text.
+
+    :Example:
+
+    To initialize a Paper object with paper_dict:
+
+    >>> paper = Paper(paper_dict)
+    """
+
     __tablename__ = "Papers"
 
     def __init__(self, paper_dict: dict) -> None:
         """
-        Initialize a paper with a dictionary of paper information
-        (ie. from parse.generate_paper_dict)
+        Initialize a Paper object with paper information parsed from a PMC download.
+
+        :param dict paper_dict: A dictionary containing paper information, typically
+            obtained from the parse.generate_paper_dict method.
         """
         if not paper_dict:
             self.has_data = False
@@ -117,20 +206,23 @@ class Paper:
         suppress_errors: bool = False,
     ):
         """
-        Generate a Paper from a pmcid. Specify your email for auth.
+        Generate a Paper from a PMCID with optional parameters.
 
-        [pmcid] - Unique PMCID for the article to parse.
-        [email] - Provide your email address for authentication with PMC
-        [download] - Whether or not to download the XML retreived from PMC
-        [validate] - Whether or not to validate the XML from PMC against NLM
-            articleset 2.0 DTD (HIGHLY RECOMMENDED)
-        [verbose] - Whether or not to have verbose output for testing
-        [suppress_warnings] - Whether to suppress warnings while parsing XML.
-            Note: Warnings are frequent, because of the variable nature
-                of PMC XML data.
-            Recommended to suppress when parsing many XMLs at once.
-        [suppress_errors] - Return None on failed XML parsing, instead of
+        :param int pmcid: Unique PMCID for the article to parse.
+        :param str email: Provide your email address for authentication with PMC.
+        :param bool download: Whether or not to download the XML retrieved from PMC.
+        :param bool validate: Whether or not to validate the XML from PMC against NLM
+            articleset 2.0 DTD (HIGHLY RECOMMENDED).
+        :param bool verbose: Whether or not to have verbose output for testing.
+        :param bool suppress_warnings: Whether to suppress warnings while parsing XML.
+            Note: Warnings are frequent, because of the variable nature of PMC
+            XML data. Recommended to suppress when parsing many XMLs at once.
+        :param bool suppress_errors: Return None on failed XML parsing, instead of
             raising an error.
+
+        :return: A Paper object initialized via the passed PMCID and
+            optional parameters.
+        :rtype: Paper
         """
         NUM_TRIES = 3
         paper_dict = None
@@ -199,12 +291,20 @@ class Paper:
         return cls(paper_dict)
 
     def info(self) -> Dict[str, str]:
-        """Return the data definition dictionary."""
+        """
+        Return the data definition dictionary.
+
+        :return: A dictionary containing paper information.
+        :rtype: dict[str, str]
+        """
         return self.data_dict
 
     def print_abstract(self) -> str:
         """
-        Prints and returns a string of the abstract.
+        Print and return a string representation of the abstract.
+
+        :return: A string containing the abstract text.
+        :rtype: str
         """
         s = self.abstract_as_str()
         print(s)
@@ -212,8 +312,13 @@ class Paper:
 
     def abstract_as_str(self) -> str:
         """
-        Returns a string representation of the abstract of a paper.
-        Uses text without MHTML datarefs."""
+        Return a string representation of the abstract of a paper.
+
+        This method retrieves the abstract text without MHTML data references.
+
+        :return: A string containing the abstract text.
+        :rtype: str
+        """
         s = ""
         if self.abstract:
             for sec in self.abstract:
@@ -223,15 +328,23 @@ class Paper:
 
     def print_body(self) -> str:
         """
-        Returns a string representation of the body of a paper.
-        Uses text without MHTML datarefs."""
+        Print and return a string representation of the body of a paper.
+
+        This method retrieves the body text without MHTML data references.
+
+        :return: A string containing the body text.
+        :rtype: str
+        """
         s = self.body_as_str()
         print(s)
         return s
 
     def body_as_str(self) -> str:
         """
-        Returns a string of the body.
+        Return a string representation of the body of a paper.
+
+        :return: A string containing the body text.
+        :rtype: str
         """
         s = ""
         if self.body:
@@ -242,15 +355,26 @@ class Paper:
 
     def __bool__(self):
         """
-        The truth value of a Paper object depends on whether it parsed
-        succesfully during initialization.
+        Determine the truth value of a Paper object based on successful
+        initialization.
+
+        :return: True if the Paper object was successfully initialized with
+            data, False otherwise.
+        :rtype: bool
         """
         return self.has_data
 
     def full_text(self, print_text: bool = False):
         """
-        Return the full abstract and/or body text string of this Paper.
-        Optionally print.
+        Return the full abstract and/or body text of this Paper as a string.
+
+        Optionally, you can choose to print the text.
+
+        :param bool print_text: If True, print the text; if False, return it
+            as a string.
+
+        :return: A string containing the full text of the abstract and/or body.
+        :rtype: str
         """
         s = ""
         if self.abstract:
@@ -265,6 +389,13 @@ class Paper:
         return s
 
     def __str__(self):
+        """
+        Return a string representation of the Paper object.
+
+        :return: A string containing the PMCID, title, abstract, and body text
+            of the paper.
+        :rtype: str
+        """
         s = ""
         s += f"\nPMCID: {self.pmcid}\n"
         s += f"Title: {self.title}\n"
@@ -282,17 +413,23 @@ class Paper:
 
     def __eq__(self, other):
         """
-        For two Paper objects to be equal, they must share the same PMCID
-        and have the same date of last update.
+        Check if two Paper objects are equal.
 
-        Two Papers may be exactly equal but be downlaoded or parsed on
-        different dates. These will not evaluate to equal.
-        Simply compare Paper1.pmcid and Paper2.pmcid if that is your
-        desired behavior.
+        Two Paper objects are considered equal if they share the same PMCID and have
+        the same date of last update. Papers with the same content but downloaded or
+        parsed on different dates are not considered equal.
 
-        Note also that articles which are not open access on PMC may not
-        have a PMCID, and a unique comparison will need to be made for these.
-        However, most papers downloaded via ScrapeMed should have a PMCID.
+        To compare Paper objects based solely on their PMCID, use
+        `Paper1.pmcid == Paper2.pmcid`.
+
+        Note that articles that are not open access on PMC may not have a PMCID, and a
+        unique comparison method will be needed for these cases. However, most papers
+        downloaded via ScrapeMed should have a PMCID.
+
+        :param other: The other Paper object to compare.
+        :type other: Paper
+        :return: True if the two Paper objects are equal, False otherwise.
+        :rtype: bool
         """
         if not self:
             return False
@@ -300,9 +437,14 @@ class Paper:
 
     def to_relational(self) -> pd.Series:
         """
-        Generates a pandas Series representation of the paper. Some data
-        will be lost, but most useful text data and metadata will be retained
-        in the relational shape.
+        Generate a pandas Series representation of the paper.
+
+        This method creates a pandas Series containing a relational representation of
+        the paper's data. Some data may be lost in this process, but most useful text
+        data and metadata will be retained in a structured form.
+
+        :return: A pandas Series representing the paper's data.
+        :rtype: pd.Series
         """
 
         data = {
@@ -354,14 +496,39 @@ class Paper:
 
     # ---------------Helper functions for to_relational---------------------
     def _extract_names(self, df):
+        """
+        Extract and format names from a DataFrame.
+
+        :param df: The DataFrame containing name data.
+        :type df: pd.DataFrame
+        :return: A list of formatted names.
+        :rtype: List[str]
+        """
         return df.apply(
             lambda row: f"{row['First_Name']} {row['Last_Name']}", axis=1
         ).tolist()
 
     def _serialize_dict(self, data_dict):
+        """
+        Serialize a dictionary into a string.
+
+        :param data_dict: The dictionary to serialize.
+        :type data_dict: dict
+        :return: A string representation of the serialized dictionary.
+        :rtype: str
+        """
         return "; ".join([f"{key}: {value}" for key, value in data_dict.items()])
 
     def _serialize_df(self, df):
+        """
+        Serialize a DataFrame into an HTML string.
+
+        :param df: The DataFrame to serialize.
+        :type df: pd.DataFrame
+        :return: An HTML representation of the serialized DataFrame.
+        :rtype: str
+        """
+
         return df.to_html()
 
     # ---------------End Helper functions for to_relational--------------------
@@ -370,14 +537,20 @@ class Paper:
         self, chunk_size: int = 100, chunk_overlap: int = 20, refresh: bool = False
     ):
         """
-        Generates an in-memory vector database representation of the paper,
-        stored in paper.vector_collection. (Abstract and body only)
+        Generate an in-memory vector database representation of the paper.
 
-        Input:
-        [chunk_size] - approximate chunk size to split paper into (len)
-        [chunk_overlap] - approximate desired chunk overlap (len)
-        [refresh] - Whether or not to clear and re-vectorize the paper
-            (ie. with new settings)
+        This method generates an in-memory vector database representation of the
+        paper, stored in `paper.vector_collection`. It focuses on vectorizing the
+        abstract and body text.
+
+        :param int chunk_size: An approximate chunk size to split the paper into
+            (measured in characters).
+        :param int chunk_overlap: An approximate desired chunk overlap
+            (measured in characters).
+        :param bool refresh: Whether or not to clear and re-vectorize the paper
+            with new settings.
+
+        :return: None
         """
         if not refresh and self.vector_collection:
             print(
@@ -441,16 +614,26 @@ class Paper:
     # -----------------helper funcs for self.vectorize-----------------
     def _generate_chunk_id(self, pmcid: str, index: Union[int, str]):
         """
-        Generate id for a PMC text chunk, using pmcid and index of the chunk.
-        The chunk indices should be unique. Recommended to use indexes from
-        the result of chunk model.
+        Generate an ID for a PMC text chunk using the PMCID and the chunk's index.
+
+        The chunk indices should be unique. It is recommended to use indexes from
+        the result of the chunk model.
+
+        :param str pmcid: The PMCID of the paper.
+        :param Union[int, str] index: The index of the chunk.
+        :return: A unique chunk ID.
+        :rtype: str
         """
         return f"pmcid-{pmcid}-chunk-{str(index)}"
 
     def _get_chunk_index_from_chunk_id(self, chunk_id: str) -> str:
         """
-        Given a PMCID Chunk ID, in the format generated by
-        _generate_pmcid_chunk_id, gather the index of the chunk.
+        Given a PMCID Chunk ID in the format generated by `_generate_chunk_id`,
+        extract the index of the chunk.
+
+        :param str chunk_id: The chunk ID.
+        :return: The index of the chunk.
+        :rtype: str
         """
         pattern = re.compile(r"chunk-(\d+)")  # Compile the regex pattern
         match = pattern.search(chunk_id)
@@ -461,8 +644,12 @@ class Paper:
 
     def _get_pmcid_from_chunk_id(self, chunk_id: str) -> str:
         """
-        Given a PMCID Chunk ID, in the format generated by
-        _generate_pmcid_chunk_id, gather the PMCID of the chunk.
+        Given a PMCID Chunk ID in the format generated by `_generate_chunk_id`,
+        extract the PMCID of the chunk.
+
+        :param str chunk_id: The chunk ID.
+        :return: The PMCID of the chunk.
+        :rtype: str
         """
         pattern = re.compile(r"pmcid-(\d+)")  # Compile the regex pattern
         match = pattern.search(chunk_id)
@@ -478,20 +665,21 @@ class Paper:
     ) -> Dict[str, str]:
         """
         Query the paper with natural language questions.
-            Input:
-            [query] - string question
-            [n_results] - number of most semantically similar paper sections
-                to retrieve
-            [n_before] - int, how many chunks before the match to include
-                in combined output
-            [n_after] - int, how many chunks after the match to include
-                in combined output
 
-            Output:
-            Dict with key(s) = most semantically similar result chunk(s),
-            and value(s) = Paper text(s)    around  the most semantically
-            similar result chunk(s). Text length determined by
-            the chunk size used in self.vectorize() and n_before and n_after.
+        :param str query: The natural language question/query.
+        :param int n_results: The number of most semantically similar paper
+            sections to retrieve.
+        :param int n_before: The number of chunks before the match to include
+            in the combined output.
+        :param int n_after: The number of chunks after the match to include in
+            the combined output.
+
+        :return: A dictionary with keys representing the most semantically
+            similar result chunk(s) and values representing the paper text(s)
+            around the most semantically similar result chunk(s).
+            The text length is determined by the chunk size used in
+            `self.vectorize()` and the params `n_before` and `n_after`.
+        :rtype: dict[str, str]
         """
 
         result = self.expanded_query(
@@ -505,13 +693,24 @@ class Paper:
         self, query: str, n_results: int = 1, n_before: int = 2, n_after: int = 2
     ) -> Dict[str, str]:
         """
-        Query function that matches natural language query
-            with vectorized Paper.
-        [query] - str, natural language query for paper
-        [n_before] - int, how many chunks before the match to include
-            in combined output
-        [n_after] - int, how many chunks after the match to include
-            in combined output
+        Query the paper with an expanded natural language question/query.
+
+        This method matches a natural language query with the vectorized Paper.
+        It retrieves and expands the text sections around the most semantically
+        similar result chunk(s).
+
+        :param str query: The natural language query.
+        :param int n_results: The number of most semantically similar paper
+            sections to retrieve.
+        :param int n_before: The number of chunks before the match to include
+            in the combined output.
+        :param int n_after: The number of chunks after the match to include
+            in the combined output.
+
+        :return: A dictionary with keys representing the most semantically
+            similar result chunk(s) and values representing the expanded paper
+            text(s) around the result chunk(s).
+        :rtype: dict[str, str]
         """
         # if the paper has not already been vectorized, vectorize
         if not self.vector_collection:

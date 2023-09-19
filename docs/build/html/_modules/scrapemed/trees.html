@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>scrapemed.trees &mdash; scrapemed 1.0.6 documentation</title>
+  <title>scrapemed.trees &mdash; scrapemed 1.0.8 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -12,7 +12,7 @@
 
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=e2a723ec"></script>
+        <script src="../../_static/documentation_options.js?v=aec50437"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -70,7 +70,10 @@
 
   <h1>Source code for scrapemed.trees</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Scrapemed&#39;s &quot;trees&quot; module handles PMC article tree visualizations,</span>
+<span class="sd">ScrapeMed&#39;s Trees Module</span>
+<span class="sd">============================</span>
+
+<span class="sd">Scrapemed&#39;s `trees` module handles PMC article tree visualizations,</span>
 <span class="sd">statistics, and descriptions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -83,13 +86,14 @@
 <a class="viewcode-back" href="../../scrapemed.html#scrapemed.trees.investigate_xml_tree">[docs]</a>
 <span class="k">def</span> <span class="nf">investigate_xml_tree</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print some basic statistics and info about your xml, provided its root)</span>
+<span class="sd">    Print basic statistics and information about an XML tree provided its root.</span>
 
-<span class="sd">    Input:</span>
-<span class="sd">    [root] = Root of an ElementTree of your xml</span>
+<span class="sd">    :param ET.Element root: The root of an ElementTree of your XML.</span>
 
-<span class="sd">    Output:</span>
-<span class="sd">    None, all work is printed to stdout.</span>
+<span class="sd">    This function prints the following information to stdout:</span>
+<span class="sd">    - Number of elements in the XML tree.</span>
+<span class="sd">    - Unique element types in the XML tree.</span>
+<span class="sd">    - A dictionary with tag frequencies in the XML tree.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">elem_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iter</span><span class="p">()]</span>
@@ -113,7 +117,17 @@
 <span class="k">def</span> <span class="nf">visualize_element_tree</span><span class="p">(</span>
     <span class="n">root</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;data/element_tree.gv&quot;</span><span class="p">,</span> <span class="n">test_mode</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize an XML element tree using Graphviz.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Visualize an XML element tree using Graphviz.</span>
+
+<span class="sd">    :param ET.Element root: The root of the XML element tree to visualize.</span>
+<span class="sd">    :param str title: The title or filename for the output visualization.</span>
+<span class="sd">        Default is &quot;data/element_tree.gv&quot;.</span>
+<span class="sd">    :param bool test_mode: Whether to render the visualization in test mode or not.</span>
+
+<span class="sd">    This function creates a visualization of the XML element tree using Graphviz</span>
+<span class="sd">    and optionally renders it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">root</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
     <span class="n">dot</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">()</span>
     <span class="n">_add_elements</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
@@ -124,7 +138,16 @@
 
 
 <span class="k">def</span> <span class="nf">_add_elements</span><span class="p">(</span><span class="n">dot</span><span class="p">:</span> <span class="n">Digraph</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recursively add elements to a Graphviz dot graph.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Recursively add elements to a Graphviz dot graph.</span>
+
+<span class="sd">    :param Digraph dot: The Graphviz dot graph.</span>
+<span class="sd">    :param ET.Element element: The XML element to add to the graph.</span>
+<span class="sd">    :param str parent: The parent element&#39;s tag. Default is None.</span>
+
+<span class="sd">    This function is used internally to recursively add XML elements and their</span>
+<span class="sd">    relationships to the Graphviz dot graph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">dot</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
     <span class="n">dot</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
@@ -138,27 +161,32 @@
 <span class="sd">    Generate a dictionary of all tags, each with a subdictionary of attributes,</span>
 <span class="sd">    and lists of values seen for each attribute.</span>
 
-<span class="sd">    Helps define the scope of tags for a given xml/html tree.</span>
+<span class="sd">    This function helps define the scope of tags for a given XML, HTML, or</span>
+<span class="sd">    other tagged language tree.</span>
 
-<span class="sd">    Input:</span>
-<span class="sd">    [root] = root of an ElementTree of xml, html, other tagged language,</span>
-<span class="sd">        or combo thereof</span>
+<span class="sd">    :param ET.Element root: The root of an ElementTree of XML, HTML, or other</span>
+<span class="sd">    tagged language.</span>
 
-<span class="sd">    Output:</span>
-<span class="sd">    A dictionary of tags: attr-val dictionaries.</span>
-<span class="sd">    Attr-val dictionaries are a dict of attribute: value lists.</span>
+<span class="sd">    :return: A dictionary of tags, each with a subdictionary of attributes and</span>
+<span class="sd">    lists of values for each attribute.</span>
+<span class="sd">    :rtype: dict</span>
 
-<span class="sd">    The structure of the overall dictionary is visualized below:</span>
-<span class="sd">       {</span>
-<span class="sd">        tag_0</span>
-<span class="sd">         |___attr_0</span>
-<span class="sd">               |_____[value_0, ..., value_n]</span>
-<span class="sd">         |___attr_1</span>
-<span class="sd">               |_____[value_0, ...., value_n]</span>
-
-<span class="sd">        ....</span>
-<span class="sd">        tag_n</span>
-<span class="sd">       }</span>
+<span class="sd">    The structure of the overall dictionary is as follows:</span>
+<span class="sd">    {</span>
+<span class="sd">        tag_0:</span>
+<span class="sd">        {</span>
+<span class="sd">            attr_0: [value_0, ..., value_n],</span>
+<span class="sd">            attr_1: [value_0, ..., value_n],</span>
+<span class="sd">            ...</span>
+<span class="sd">        },</span>
+<span class="sd">        tag_1:</span>
+<span class="sd">        {</span>
+<span class="sd">            attr_0: [value_0, ..., value_n],</span>
+<span class="sd">            attr_1: [value_0, ..., value_n],</span>
+<span class="sd">            ...</span>
+<span class="sd">        },</span>
+<span class="sd">        ...</span>
+<span class="sd">    }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{}</span>
 

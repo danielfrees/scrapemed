@@ -20,6 +20,14 @@ scrapemed.paperSet module
    :undoc-members:
    :show-inheritance:
 
+scrapemed._parse module
+-------------------------
+
+.. automodule:: scrapemed._parse
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 scrapemed.scrape module
 -----------------------
 
@@ -28,10 +36,34 @@ scrapemed.scrape module
    :undoc-members:
    :show-inheritance:
 
-scrapemed.trees module
+scrapemed._clean module
+-------------------------
+
+.. automodule:: scrapemed._clean
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scrapemed._validate module
+-------------------------
+
+.. automodule:: scrapemed._validate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scrapemed._text module
 ----------------------
 
-.. automodule:: scrapemed.trees
+.. automodule:: scrapemed._text
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scrapemed._morehtml module
+----------------------
+
+.. automodule:: scrapemed._morehtml
    :members:
    :undoc-members:
    :show-inheritance:
@@ -40,6 +72,14 @@ scrapemed.utils module
 ----------------------
 
 .. automodule:: scrapemed.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scrapemed.trees module
+----------------------
+
+.. automodule:: scrapemed.trees
    :members:
    :undoc-members:
    :show-inheritance:
