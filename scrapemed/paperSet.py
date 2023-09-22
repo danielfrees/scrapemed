@@ -29,29 +29,25 @@ class paperSet:
     for creating, adding, and visualizing papers.
 
     Methods:
-    - `from_search(email, term, retmax=10, verbose=False,
-        suppress_warnings=True, suppress_errors=True)`: Generate a paperSet
+    - from_search(email, term, retmax=10, verbose=False,
+        suppress_warnings=True, suppress_errors=True): Generate a paperSet
         via a PMC search.
-    - `from_pmcid_list(pmcids, email, download=False, validate=True,
+    - from_pmcid_list(pmcids, email, download=False, validate=True,
         strip_text_styling=True, verbose=False, suppress_warnings=True,
-        suppress_errors=True)`: Generate a paperSet via a list of PMCIDs.
-    - `__iter__()`: Implement iteration for the paperSet.
-    - `__next__()`: Get the next paper when iterating over the paperSet.
-    - `__len__()`: Get the number of papers in the paperSet.
-    - `__getitem__(index)`: Get a paper from the paperSet by index.
-    - `to_df()`: Return a pandas DataFrame representation of the paperSet.
-    - `add_paper(paper)`: Add a Paper to the paperSet.
-    - `add_papers(papers)`: Add multiple Papers to the paperSet.
-    - `add_pmcid(pmcid, email, download=False, validate=True,
+        suppress_errors=True): Generate a paperSet via a list of PMCIDs.
+    - to_df(): Return a pandas DataFrame representation of the paperSet.
+    - add_paper(paper): Add a Paper to the paperSet.
+    - add_papers(papers): Add multiple Papers to the paperSet.
+    - add_pmcid(pmcid, email, download=False, validate=True,
         strip_text_styling=True, verbose=False, suppress_warnings=True,
-        suppress_errors=True)`: Add a Paper to the paperSet via a PMCID.
-    - `add_pmcids(pmcids, email, download=False, validate=True,
+        suppress_errors=True): Add a Paper to the paperSet via a PMCID.
+    - add_pmcids(pmcids, email, download=False, validate=True,
         strip_text_styling=True, verbose=False, suppress_warnings=True,
-        suppress_errors=True)`: Add Papers to the paperSet via a list of PMCIDs.
-    - `visualize()`: Generate a general visualization of the paperSet.
-    - `visualize_unique_values(columns_to_visualize=["Last_Updated",
-        "Journal_Title"])`: Visualize unique values in specified columns.
-    - `visualize_title_wordcloud()`: Visualize a word cloud of all the
+        suppress_errors=True): Add Papers to the paperSet via a list of PMCIDs.
+    - visualize(): Generate a general visualization of the paperSet.
+    - visualize_unique_values(columns_to_visualize=["Last_Updated",
+        "Journal_Title"]): Visualize unique values in specified columns.
+    - visualize_title_wordcloud(): Visualize a word cloud of all the
         Paper titles in the paperSet.
     """
 

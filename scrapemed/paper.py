@@ -61,58 +61,6 @@ class Paper:
     Class data members include all of the data defined via the method
     :meth:`~Paper.info`.
 
-    :ivar str __tablename__: The table name for database storage (set to "Papers").
-
-    :param dict paper_dict: A dictionary containing paper information, typically
-        obtained from the :meth:`~parse.generate_paper_dict` method.
-
-    :ivar bool has_data: Indicates whether the Paper object was successfully
-        initialized with data.
-
-    :ivar tuple last_updated: A tuple representing the date of the last update
-        in the format (month, day, year).
-
-    :ivar str pmcid: The PMC identifier of the paper.
-    :ivar str title: The title of the paper.
-    :ivar pd.DataFrame authors: A DataFrame containing author information.
-    :ivar pd.DataFrame non_author_contributors: A DataFrame containing
-        information about non-author contributors.
-    :ivar str abstract: The abstract of the paper.
-    :ivar list body: A list of sections containing the body text of the paper.
-    :ivar str journal_id: The journal identifier.
-    :ivar str journal_title: The title of the journal.
-    :ivar str issn: The International Standard Serial Number (ISSN) of the journal.
-    :ivar str publisher_name: The name of the publisher.
-    :ivar str publisher_location: The location of the publisher.
-    :ivar str article_id: The article identifier.
-    :ivar list article_types: A list of article types.
-    :ivar list article_categories: A list of article categories.
-    :ivar dict published_date: A dictionary representing the published date.
-    :ivar str volume: The volume of the journal.
-    :ivar str issue: The issue of the journal.
-    :ivar str fpage: The first page of the article.
-    :ivar str lpage: The last page of the article.
-    :ivar dict permissions: A dictionary containing copyright and license information.
-    :ivar str copyright: The copyright statement.
-    :ivar str license: The license type.
-    :ivar list funding: A list of funding information.
-    :ivar list footnote: A list of footnotes.
-    :ivar list acknowledgements: A list of acknowledgements.
-    :ivar list notes: A list of notes.
-    :ivar list custom_meta: A list of custom metadata.
-    :ivar list ref_map: A list of reference map entries.
-    :ivar list _ref_map_with_tags: A list of reference map entries with tags.
-    :ivar list citations: A list of citations.
-    :ivar list tables: A list of tables.
-    :ivar list figures: A list of figures.
-
-    :ivar dict data_dict: A dictionary containing paper information.
-
-    :ivar NoneType vector_collection: An in-memory vector database
-        representation of the paper's text.
-
-    :cvar int NUM_TRIES: The number of retries when downloading from PMC.
-
     :raises pubmedHTTPError: Raised if there are HTTP errors when
         retrieving data from PMC.
     :raises emptyTextWarning: Raised if an attempt is made to vectorize a paper
