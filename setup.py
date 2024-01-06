@@ -4,7 +4,9 @@ import os
 _SCRAPEMED_REQS = [
     "biopython>=1.78",
     "graphviz>=0.20.1",
-    "lxml>=4.9.2",
+    "lxml>=4.9.2,<5.0.0",  # 5.0.0 has stricter rules against
+    # max entity amplification,
+    # which breaks nlm articleset 2.0 DTD
     "pandas>=1.5.2",
     "requests-html>=0.10.0",
     "sqlalchemy>=1.4.39",
@@ -24,11 +26,11 @@ _TEST_REQS = _SCRAPEMED_REQS
 
 setup(
     name="scrapemed",
-    version="1.0.8",
+    version="1.0.9",
     description="ScrapeMed: Data Scraping for PubMed Central.",
     author="Daniel Frees",
     author_email="danielfrees@g.ucla.edu",
-    url="https://github.com/mediboard/nlp/scrapemed",
+    url="https://github.com/danielfrees/scrapemed",
     packages=[
         "scrapemed",
     ],

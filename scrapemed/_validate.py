@@ -77,6 +77,13 @@ def validate_xml(xml: ET.ElementTree) -> bool:
     dtd_doc = None
     with open(dtd_filepath, "r") as f:
         dtd_doc = f.read()
+    if dtd_doc is None:
+        raise noDTDFoundError(
+            cleanerdoc(
+                """DTD not found in scrapemed package. Ensure you are using the
+                latest package version."""
+            )
+        )
 
     dtd = ET.DTD(StringIO(dtd_doc))
 
