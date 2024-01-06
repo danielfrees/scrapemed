@@ -1,7 +1,7 @@
 #==Critical reqs for scrapemed package
 biopython>=1.78
 graphviz>=0.16
-lxml>=4.9.2,<5.0.0
+lxml>=4.8,<5.0.0
 pandas>=1.5.2
 requests-html>=0.10.0
 sqlalchemy>=1.4.39
